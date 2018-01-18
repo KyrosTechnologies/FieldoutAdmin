@@ -1,0 +1,74 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+    <TableRow
+        android:layout_width="match_parent"
+        android:background="@color/button"
+        android:layout_gravity="center"
+        android:id="@+id/table_row_default"
+        android:minHeight="100px"
+        android:layout_height="wrap_content">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="left|center"
+            android:layout_weight="50"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/sub_header_size"
+            android:text="@string/name"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="left|center"
+            android:layout_weight="50"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/sub_header_size"
+            android:text="@string/duration"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_marginLeft="10dp"
+            android:layout_weight="50"
+            android:layout_gravity="left|center"
+            android:textSize="@dimen/sub_header_size"
+            android:text="@string/job_report"/>
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_weight="50"
+            android:layout_gravity="left|center"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/sub_header_size"
+            android:text="@string/priorities"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="left|center"
+            android:layout_weight="50"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/sub_header_size"
+            android:text="@string/skilled_trades"/>
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:textColor="@color/white"
+            android:layout_gravity="left|center"
+            android:layout_weight="50"
+            android:layout_marginRight="10dp"
+            android:layout_marginLeft="10dp"
+            android:textSize="@dimen/sub_header_size"
+            android:text="@string/default_text"/>
+
+
+    </TableRow>
+
+</LinearLayout>

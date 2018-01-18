@@ -1,0 +1,253 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.rohin.fieldoutadmin.activity.MainActivity"
+    android:orientation="vertical"
+    android:background="@color/white">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="120dp"
+        android:layout_marginTop="100dp"
+        android:src="@drawable/text"
+        android:layout_gravity="center"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="50dp"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginBottom="130dp">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_weight="1">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Connect to Fieldout"
+            android:textSize="36sp"
+            android:textColor="@color/black"
+            android:layout_marginLeft="10dp"/>
+
+        <LinearLayout
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal">
+
+            <View
+                android:layout_width="0.2dp"
+                android:layout_height="5dp"
+                android:background="@color/text_light"
+                android:layout_gravity="bottom"/>
+
+            <EditText
+                android:layout_width="wrap_content"
+                android:layout_height="30dp"
+                android:layout_weight="1"
+                android:hint="Domain"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/text_light"
+                android:textSize="16sp"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"/>
+
+            <ImageView
+                android:layout_width="20dp"
+                android:layout_height="20dp"
+                android:layout_gravity="center"
+                android:layout_marginRight="5dp"/>
+
+            <View
+                android:layout_width="0.2dp"
+                android:layout_height="5dp"
+                android:background="@color/text_light"
+                android:layout_gravity="bottom"/>
+
+        </LinearLayout>
+
+        <View
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/text_light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <View
+                android:layout_width="0.2dp"
+                android:layout_height="5dp"
+                android:background="@color/text_light"
+                android:layout_gravity="bottom"/>
+
+            <EditText
+                android:id="@+id/user_name"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:hint="Username"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/text_light"
+                android:textSize="30sp"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"/>
+
+            <View
+                android:layout_width="0.2dp"
+                android:layout_height="5dp"
+                android:background="@color/text_light"
+                android:layout_gravity="bottom"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/text_light"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="20dp">
+
+            <View
+                android:layout_width="0.2dp"
+                android:layout_height="5dp"
+                android:background="@color/text_light"
+                android:layout_gravity="bottom"/>
+
+            <EditText
+                android:id="@+id/pass_word"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:hint="Password"
+                android:inputType="textPassword"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/text_light"
+                android:textSize="30sp"
+                android:layout_marginLeft="10dp"
+                android:background="@android:color/transparent"/>
+
+            <View
+                android:layout_width="0.2dp"
+                android:layout_height="5dp"
+                android:background="@color/text_light"
+                android:layout_gravity="bottom"/>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/text_light"/>
+
+        <Button
+            android:id="@+id/login"
+            android:layout_width="match_parent"
+            android:layout_height="65dp"
+            android:layout_marginTop="50dp"
+            android:text="Login"
+            android:textSize="30sp"
+            android:textColor="@color/white"
+            android:background="@color/button"
+            android:textAllCaps="true"/>
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+        <TextView
+            android:id="@+id/forgot_password"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Forgot your Password?"
+            android:textColor="@color/action_bar"
+            android:textSize="28sp"
+            android:layout_marginTop="30dp"
+            android:layout_gravity="start"/>
+
+            <TextView
+                android:id="@+id/sign_up"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Sign Up"
+                android:textColor="@color/light_black"
+                android:textSize="28sp"
+                android:layout_marginTop="30dp"
+                android:layout_gravity="end"/>
+
+        </FrameLayout>
+
+
+    </LinearLayout>
+
+        <View
+            android:layout_width="0.3dp"
+            android:layout_height="wrap_content"
+            android:background="@color/text_light"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"/>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:orientation="vertical">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Job Scheduling Preferences"
+                android:textSize="36sp"
+                android:textColor="@color/black"
+                android:layout_marginLeft="10dp"/>
+
+            <ImageView
+                android:layout_width="200dp"
+                android:layout_height="200dp"
+                android:src="@drawable/datetime"
+                android:layout_gravity="start"
+                android:layout_marginLeft="50dp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Specify Job Scheduling Windows according to your customers' wishes: morning, afternoon, evening, etc. You can also choose the preferred team or technician. Use the same preference system on your recurring jobs, which can now be created or scheduled automatically."
+                android:textSize="24sp"
+                android:textColor="@color/text_light"
+                android:layout_marginLeft="10dp"/>
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <TextView
+                    android:id="@+id/schedule_job_number"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Job Number"
+                    android:textSize="24sp"
+                    android:textColor="@color/button"/>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:background="@color/button"
+                    android:layout_marginTop="5dp"/>
+
+                <TextView
+                    android:id="@+id/schedule_job_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Job Type"
+                    android:textSize="24sp"
+                    android:textColor="@color/light_black"
+                    android:layout_marginTop="10dp"/>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:layout_weight="1">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:id="@+id/schedule_start_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:hint="Start Date"
+                        android:textSize="24sp"
+                        android:gravity="center|start"
+                        android:textColor="@color/text_light"
+                        android:background="@drawable/button_red"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"/>
+
+                    <TextView
+                        android:id="@+id/schedule_start_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:hint="Start Time"
+                        android:textSize="24sp"
+                        android:gravity="center|start"
+                        android:textColor="@color/text_light"
+                        android:background="@drawable/button_red"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        android:paddingLeft="10dp"/>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal"
+                    android:layout_marginTop="10dp">
+
+                    <TextView
+                        android:id="@+id/schedule_end_date"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:hint="End Date"
+                        android:textSize="24sp"
+                        android:gravity="center|start"
+                        android:textColor="@color/text_light"
+                        android:background="@drawable/button_red"
+                        android:layout_weight="1"
+                        android:paddingLeft="10dp"/>
+
+                    <TextView
+                        android:id="@+id/schedule_end_time"
+                        android:layout_width="wrap_content"
+                        android:layout_height="60dp"
+                        android:hint="End Time"
+                        android:textSize="24sp"
+                        android:gravity="center|start"
+                        android:textColor="@color/text_light"
+                        android:background="@drawable/button_red"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="15dp"
+                        android:paddingLeft="10dp"/>
+
+                </LinearLayout>
+
+                <Spinner
+                    android:id="@+id/technician_spinner"
+                    android:layout_width="match_parent"
+                    android:layout_height="60dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_red"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <Button
+            android:id="@+id/accept_job"
+            android:layout_width="150dp"
+            android:layout_height="60dp"
+            android:textColor="@color/white"
+            android:text="Accept"
+            android:textSize="26sp"
+            android:background="@color/button"
+            android:layout_gravity="center"
+            android:layout_marginTop="20dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

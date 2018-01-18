@@ -1,0 +1,176 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        tools:context="com.example.rohin.fieldoutadmin.activity.AddTeamActivity">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:orientation="vertical"
+                android:layout_margin="10dp"
+                android:id="@+id/linear_1_teams"
+                android:layout_height="match_parent">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:weightSum="100"
+                    android:id="@+id/linear_2_teams"
+                    android:orientation="horizontal">
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:id="@+id/linear_3_teams"
+                        android:layout_weight="50"
+                        android:layout_height="match_parent">
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sub_header_size"
+                            android:textColor="@color/light_black"
+                            android:layout_gravity="center|start"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/scheduling_windows"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/light_black"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/light_black"
+                            android:layout_gravity="center|start"
+                            android:text="@string/label"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="@dimen/sub_text_size"/>
+                        <EditText
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textColorHint="@color/light_black"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center|start"
+                            android:layout_marginBottom="15dp"
+                            android:paddingLeft="5dp"
+                            android:paddingRight="5dp"
+                            android:background="@drawable/button_bg"
+                            android:textSize="@dimen/sub_text_size"
+                            android:singleLine="true"
+                            android:id="@+id/add_schedule_label_edit_text"
+                            android:hint="@string/label"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/light_black"
+                            android:layout_gravity="center|start"
+                            android:text="@string/time_start"
+                            android:layout_marginBottom="5dp"
+                            android:textSize="@dimen/sub_text_size"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:textColorHint="@color/light_black"
+                            android:textColor="@color/black"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="15dp"
+                            android:textSize="@dimen/sub_text_size"
+                            android:paddingTop="9dp"
+                            android:background="@drawable/button_bg"
+                            android:paddingLeft="5dp"
+                            android:inputType="time"
+                            android:paddingRight="5dp"
+                            android:id="@+id/add_schedule_start_text_view"
+                            android:hint="@string/time_start"/>
+
+                    </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:orientation="vertical"
+                        android:layout_weight="50"
+                        android:layout_marginLeft="15dp"
+                        android:id="@+id/linear_4_teams"
+                        android:layout_height="match_parent">
+
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sub_header_size"
+                            android:textColor="@color/light_black"
+                            android:layout_gravity="center|start"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/scheduling_windows"/>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/light_black"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/light_black"
+                            android:layout_gravity="center|start"
+                            android:text="@string/time_end"
+                            android:textSize="@dimen/sub_text_size"/>
+
+                        <TextView
+                            android:id="@+id/add_schedule_end_text_view"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/button_bg"
+                            android:padding="8dp"
+                            android:hint="@string/time_end"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sub_text_size" />
+                       <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textSize="@dimen/sub_text_size"
+                            android:textColor="@color/light_black"
+                            android:layout_gravity="center|start"
+                            android:layout_marginTop="5dp"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/public_text"/>
+
+
+                        <Spinner
+                            android:id="@+id/spinner_add_schedule"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="15dp"
+                            android:background="@drawable/button_bg"
+                            android:padding="5dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/sub_text_size" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_gravity="center"
+                    android:background="@drawable/button_background_signup"
+                    android:text="@string/save"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_header_size"
+                    android:id="@+id/save_add_schedule_button"
+                    android:layout_height="wrap_content" />
+
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+</layout>

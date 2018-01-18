@@ -1,0 +1,655 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:layout_marginTop="20dp"
+        android:orientation="horizontal"
+        android:weightSum="100">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dp"
+            android:layout_marginRight="20dp"
+            android:layout_weight="50"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/account_information"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
+                    android:background="@color/text_light" />
+
+              <TableLayout
+                  android:layout_width="match_parent"
+                  android:layout_height="wrap_content">
+                  <TableRow
+                      android:layout_width="match_parent"
+                      android:layout_height="wrap_content"
+                      >
+
+
+                      <TextView
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:text="@string/company"
+                          android:layout_weight="50"
+                          android:layout_gravity="center|start"
+                          android:textColor="@color/light_black"
+                          android:textSize="@dimen/privacy_policy_statement" />
+
+                      <TextView
+                          android:layout_width="match_parent"
+                          android:layout_height="wrap_content"
+                          android:layout_weight="50"
+                          android:layout_gravity="center|start"
+                          android:text="@string/contact"
+                          android:textColor="@color/light_black"
+                          android:textSize="@dimen/privacy_policy_statement" />
+                  </TableRow>
+                  <TableRow
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:layout_width="match_parent">
+
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center|start"
+                          android:layout_weight="50"
+                          android:text="@string/company_name"
+                          android:id="@+id/domain_name_text_view"
+                          android:textColor="@color/light_black"
+                          android:textSize="@dimen/privacy_policy_statement" />
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center|start"
+                          android:layout_weight="50"
+                          android:text="@string/user_name"
+                          android:id="@+id/user_name_text_view"
+                          android:textColor="@color/light_black"
+                          android:textSize="@dimen/privacy_policy_statement" />
+                  </TableRow>
+                  <TableRow
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:layout_width="match_parent">
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center|start"
+                          android:layout_weight="50"
+                          android:text="@string/address_label"
+                          android:textColor="@color/light_black"
+                          android:textSize="@dimen/privacy_policy_statement" />
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center|start"
+                          android:layout_weight="50"
+                          android:drawableLeft="@drawable/icon_general_20"
+                          android:drawablePadding="3dp"
+                          android:id="@+id/email_address_text_view"
+                          android:text="@string/email_address"
+                          android:textColor="@color/light_black"
+                          android:textSize="@dimen/privacy_policy_statement" />
+                  </TableRow>
+                  <TableRow
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:layout_width="match_parent">
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center|start"
+                          android:layout_weight="50"
+                          android:text="@string/address_value"
+                          android:textColor="@color/light_black"
+                          android:textSize="@dimen/privacy_policy_statement" />
+
+                      <TextView
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_gravity="center|start"
+                          android:layout_weight="50"
+                          android:id="@+id/phone_number_text_view"
+                          android:drawableLeft="@drawable/icon_general_20"
+                          android:drawablePadding="3dp"
+                          android:text="@string/mobile_number"
+                          android:textColor="@color/light_black"
+                          android:textSize="@dimen/privacy_policy_statement" />
+                  </TableRow>
+              </TableLayout>
+
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/button_background_signup"
+                    android:drawableLeft="@drawable/icon_general_20"
+                    android:drawablePadding="5dp"
+                    android:padding="10dp"
+                    android:paddingRight="3dp"
+                    android:text="@string/change"
+                    android:id="@+id/edit_profile_button"
+                    android:textColor="@color/white" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:background="@color/text_light" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="50"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center|start"
+                    android:drawableRight="@drawable/icon_general_20"
+                    android:drawablePadding="5dp"
+                    android:text="@string/bussiness_hours"
+                    android:textColor="@color/black"
+                    android:textSize="@dimen/title_text_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="30dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/light_black" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
+                    android:orientation="vertical">
+
+                    <TableLayout xmlns:android="http://schemas.android.com/apk/res/android"
+                        android:id="@+id/tableLayout1"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content">
+
+                        <TableRow
+                            android:id="@+id/tableRow1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:text="@string/day"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/title_text_size"
+
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:text="@string/start_time"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/title_text_size"
+
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:text="@string/end_time"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/title_text_size"
+
+                                />
+
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:text="@string/closed"
+                                android:layout_marginRight="35dp"
+                                android:textColor="@color/black"
+                                android:textSize="@dimen/title_text_size"
+
+                                />
+
+                        </TableRow>
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="0.5dp"
+                                android:background="@color/light_black"
+                                />
+
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:textColor="@color/light_black"
+                                android:text="@string/monday"
+                                android:textSize="@dimen/privacy_policy_statement"/>
+
+                            <TextView
+                                android:id="@+id/monday_start_time_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_am"
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <TextView
+                                android:id="@+id/monday_end_time_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_pm"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <CheckBox
+                                android:id="@+id/monday_checkbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="35dp"
+                                android:checked="false" />
+
+
+                        </TableRow>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/light_black"
+                            />
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:textColor="@color/light_black"
+                                android:text="@string/tuesday"
+                                android:textSize="@dimen/privacy_policy_statement"/>
+
+                            <TextView
+                                android:id="@+id/tuesday_start_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_am"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <TextView
+                                android:id="@+id/tuesday_end_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_pm"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <CheckBox
+                                android:id="@+id/tuesday_checkbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="35dp"
+                                android:checked="false" />
+
+
+                        </TableRow>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/light_black"
+                            />
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:textColor="@color/light_black"
+                                android:text="@string/wednesday"
+                                android:textSize="@dimen/privacy_policy_statement"/>
+
+                            <TextView
+                                android:id="@+id/wednesday_start_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_am"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <TextView
+                                android:id="@+id/wednesday_end_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_pm"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <CheckBox
+                                android:id="@+id/wednesday_checkbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="35dp"
+                                android:checked="false" />
+
+
+                        </TableRow>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/light_black"
+                            />
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:textColor="@color/light_black"
+                                android:text="@string/thursday"
+                                android:textSize="@dimen/privacy_policy_statement"/>
+
+                            <TextView
+                                android:id="@+id/thursday_start_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_am"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <TextView
+                                android:id="@+id/thursday_end_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_pm"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <CheckBox
+                                android:id="@+id/thursday_checkbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="35dp"
+                                android:checked="false" />
+
+
+                        </TableRow>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/light_black"
+                            />
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:textColor="@color/light_black"
+                                android:text="@string/friday"
+                                android:textSize="@dimen/privacy_policy_statement"/>
+
+                            <TextView
+                                android:id="@+id/friday_start_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_am"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <TextView
+                                android:id="@+id/friday_end_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_pm"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <CheckBox
+                                android:id="@+id/friday_checkbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="35dp"
+                                android:checked="false" />
+
+
+                        </TableRow>
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/light_black"
+                            />
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:textColor="@color/light_black"
+                                android:text="@string/saturday"
+                                android:textSize="@dimen/privacy_policy_statement"/>
+
+                            <TextView
+                                android:id="@+id/saturday_start_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_am"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <TextView
+                                android:id="@+id/saturday_end_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_pm"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <CheckBox
+                                android:id="@+id/saturday_checkbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="35dp"
+                                android:checked="false" />
+
+
+                        </TableRow>
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.5dp"
+                            android:background="@color/light_black"
+                            />
+                        <TableRow
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:padding="5dp">
+                            <TextView
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center|start"
+                                android:textColor="@color/light_black"
+                                android:text="@string/sunday"
+                                android:textSize="@dimen/privacy_policy_statement"/>
+
+                            <TextView
+                                android:id="@+id/sunday_start_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginLeft="20dp"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_am"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <TextView
+                                android:id="@+id/sunday_end_date_edit_text"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="20dp"
+                                android:hint="@string/_08_00_pm"
+                                android:textColor="@color/light_black"
+
+
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                            <CheckBox
+                                android:id="@+id/sunday_checkbox"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="35dp"
+                                android:checked="false" />
+
+
+                        </TableRow>
+
+                    </TableLayout>
+
+                    <Button
+                        android:id="@+id/save_bussiness_button"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="20dp"
+                        android:layout_marginTop="35dp"
+                        android:background="@drawable/button_background_signup"
+                        android:drawableLeft="@drawable/icon_general_20"
+                        android:drawablePadding="5dp"
+                        android:padding="10dp"
+                        android:text="@string/save"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/privacy_policy_statement" />
+
+                </LinearLayout>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/light_black"/>
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</LinearLayout>

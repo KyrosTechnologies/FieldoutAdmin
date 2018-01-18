@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:orientation="vertical"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:fillViewport="true"
+        android:layout_height="match_parent">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_margin="20dp"
+            android:orientation="vertical">
+            <Button
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="@color/white"
+                android:text="@string/add_user"
+                android:id="@+id/add_user_button"
+                android:layout_marginBottom="15dp"
+                android:layout_marginTop="5dp"
+                android:textSize="@dimen/privacy_policy_statement"
+                android:background="@drawable/button_background_signup"/>
+        <TableLayout
+            android:layout_width="match_parent"
+            android:id="@+id/users_table_layout"
+            android:divider="@color/light_black"
+            android:showDividers="middle"
+            android:layout_marginBottom="20dp"
+            android:layout_height="wrap_content">
+            <TableRow
+                android:layout_width="match_parent"
+                android:background="@color/button"
+                android:layout_gravity="center"
+                android:id="@+id/row_add_user_table"
+                android:minHeight="100px"
+                android:layout_height="wrap_content">
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_gravity="left|center"
+                    android:layout_weight="50"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:text="@string/user"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_gravity="left|center"
+                    android:layout_weight="50"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:text="@string/user_name"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="50"
+                    android:layout_gravity="left|center"
+                    android:textSize="@dimen/sub_header_size"
+                    android:text="@string/language"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="50"
+                    android:textSize="@dimen/sub_header_size"
+                    android:text="@string/email"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_weight="50"
+                    android:layout_gravity="left|center"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:text="@string/profile"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_gravity="left|center"
+                    android:layout_weight="50"
+                    android:layout_marginLeft="10dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:text="@string/skilled_trades"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:layout_gravity="left|center"
+                    android:layout_weight="50"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:text="@string/teams"/>
+
+
+            </TableRow>
+
+
+
+
+
+
+        </TableLayout>
+
+
+            <LinearLayout
+                android:id="@+id/linear_layout_no_jobs"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:visibility="gone"
+                android:layout_marginTop="10dp">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/no_users_found"
+                    android:textSize="@dimen/site_address_text_size"
+                    android:textColor="@color/button"
+                    android:layout_gravity="center"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+    </ScrollView>
+
+</LinearLayout>
+</layout>

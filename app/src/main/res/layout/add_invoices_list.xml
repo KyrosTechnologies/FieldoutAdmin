@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/item_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:hint="Items         "
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/light_black"
+                android:textSize="24sp"
+                android:background="@drawable/button_red"
+                android:paddingLeft="10dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
+
+            <EditText
+                android:id="@+id/desc_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:hint="Description"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/light_black"
+                android:textSize="24sp"
+                android:background="@drawable/button_red"
+                android:paddingLeft="10dp"
+                android:layout_weight="1"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/unit_price_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:hint="Unit Price "
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/light_black"
+                android:textSize="24sp"
+                android:paddingLeft="10dp"
+                android:inputType="number"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:background="@drawable/button_red"/>
+
+            <EditText
+                android:id="@+id/quantity_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:hint="Quantity   "
+                android:layout_weight="1"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/light_black"
+                android:background="@drawable/button_red"
+                android:paddingLeft="10dp"
+                android:textSize="24sp"
+                android:inputType="number"
+                android:layout_gravity="center"
+                android:layout_marginLeft="15dp"/>
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:layout_marginTop="10dp">
+
+            <EditText
+                android:id="@+id/discount_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:hint="Discount"
+                android:textColor="@color/light_black"
+                android:textColorHint="@color/text_light"
+                android:background="@drawable/button_red"
+                android:paddingLeft="10dp"
+                android:inputType="number"
+                android:textSize="24sp"
+                android:layout_weight="1"
+                android:layout_gravity="center"/>
+
+
+            <TextView
+                android:id="@+id/total_invoice"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:text="Total      "
+                android:textColor="@color/light_black"
+                android:background="@drawable/button_bg"
+                android:textSize="24sp"
+                android:singleLine="true"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="15dp"/>
+
+        </LinearLayout>
+
+        <Spinner
+            android:id="@+id/tax_invoice_spinner"
+            android:layout_width="match_parent"
+            android:layout_height="60dp"
+            android:layout_gravity="center"
+            android:layout_marginTop="15dp"
+            android:background="@drawable/button_red"/>
+
+        <Button
+            android:id="@+id/save_invoice_add"
+            android:layout_width="200dp"
+            android:layout_height="65dp"
+            android:text="Save"
+            android:textColor="@color/white"
+            android:background="@color/blue"
+            android:textSize="24sp"
+            android:layout_marginTop="20dp"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

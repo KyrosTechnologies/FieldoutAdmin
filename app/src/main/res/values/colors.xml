@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorAccent">#6f9418</color>
+    <color name="bg">#e2e2e2</color>
+    <color name="button">#6f9418</color>
+    <color name="text_light">#919191</color>
+    <color name="white">#FFFFFF</color>
+    <color name="white_light">#f5f5f5</color>
+    <color name="black">#000000</color>
+    <color name="cal_bg">#636162</color>
+    <color name="cal_text">#868485</color>
+    <color name="action_bar">#6663a7</color>
+    <color name="actionbar_dark">#3d3c66</color>
+    <color name="red">#d6382f</color>
+    <color name="button_bg">#EAE6E3</color>
+    <color name="pink">#ad3ac2</color>
+    <color name="blue">#3378c4</color>
+    <color name="orange">#dc6149</color>
+    <color name="light_black">#606060</color>
+    <color name="green">#39b327</color>
+    <color name="line_black">#808080</color>
+    <color name="button_light">#FFEFB670</color>
+    <color name="green_light">#fd94f585</color>
+    <color name="blue_light">#98c8fd</color>
+    <color name="light">#FFC4C4C4</color>
+    <color name="brown">#FF401313</color>
+    <color name="https_background">#f6dab9</color>
+    <color name="sign_up_button">#e89f48</color>
+    <color name="green_layout_background">#dbf7db</color>
+    <color name="email_background">#fafafa</color>
+    <color name="ver_email">#f5f5f5</color>
+    <color name="light_blue">#3a87ad</color>
+</resources>

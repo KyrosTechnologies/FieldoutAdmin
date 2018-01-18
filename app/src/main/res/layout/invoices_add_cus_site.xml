@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_margin="10dp">
+
+            <Spinner
+                android:id="@+id/incoices_customer_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/button_red"
+                android:layout_marginTop="20dp"></Spinner>
+
+            <Spinner
+                android:id="@+id/incoices_site_spinner"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:background="@drawable/button_red"
+                android:layout_marginTop="20sp"></Spinner>
+
+        <Button
+            android:id="@+id/save_invoice_cus_site"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:text="Save"
+            android:layout_marginTop="20sp"
+            android:layout_gravity="center"
+            android:background="@color/blue"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:textAllCaps="false"
+            android:layout_weight="1"/>
+
+    </LinearLayout>
+
+</LinearLayout>

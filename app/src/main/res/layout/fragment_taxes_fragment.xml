@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:orientation="vertical">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/white"
+                    android:text="@string/add_taxes"
+                    android:id="@+id/add_tax_button"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="5dp"
+                    android:textSize="@dimen/privacy_policy_statement"
+                    android:background="@drawable/button_background_signup"/>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/tax_table_layout"
+                    android:divider="@color/light_black"
+                    android:showDividers="middle"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="match_parent">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:background="@color/button"
+                        android:layout_gravity="center"
+                        android:minHeight="100px"
+                        android:id="@+id/row_tax_table"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="50"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/name"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="50"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/rate"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="50"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="left|center"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/default_tax"/>
+
+
+
+                    </TableRow>
+
+
+
+
+
+
+                </TableLayout>
+
+
+
+
+            </LinearLayout>
+
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>

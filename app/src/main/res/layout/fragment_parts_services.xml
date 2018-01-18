@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+                <Button
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/text_light"
+                    android:text="@string/add_parts_services"
+                    android:id="@+id/button_add_parts_services"
+                    android:layout_marginBottom="15dp"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:padding="10dp"
+                    android:textSize="@dimen/privacy_policy_statement"
+                    android:background="@drawable/button_bg"/>
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/parts_table_layout"
+                    android:divider="@color/light_black"
+                    android:showDividers="middle"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="match_parent">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:background="@color/button"
+                        android:layout_gravity="center"
+                        android:minHeight="100px"
+                        android:id="@+id/row_parts_table"
+                        android:layout_height="100dp">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="50"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/category"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="50"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/parts_and_services"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="50"
+                            android:layout_gravity="left|center"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/reference"/>
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_weight="50"
+                            android:layout_gravity="left|center"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/price"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
+                            android:layout_weight="50"
+                            android:layout_marginRight="10dp"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/tax"/>
+
+
+                    </TableRow>
+
+                </TableLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
+</layout>

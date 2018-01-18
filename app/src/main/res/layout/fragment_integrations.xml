@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:custom="http://schemas.android.com/tools">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:fillViewport="true">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="match_parent"
+               android:orientation="horizontal"
+               android:weightSum="100"
+               android:layout_marginBottom="20dp"
+               android:layout_margin="10dp">
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:orientation="vertical"
+                   android:layout_weight="50">
+
+                   <android.support.v7.widget.CardView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       app:cardCornerRadius="3dp"
+                       app:cardElevation="5dp">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:orientation="vertical"
+                           android:layout_marginBottom="20dp"
+                           android:layout_height="wrap_content">
+                           <RelativeLayout
+                               android:layout_width="match_parent"
+                               android:background="@color/bg"
+                               android:layout_height="85dp"
+                               android:orientation="horizontal">
+
+                               <ImageView
+                                   android:id="@+id/imageView5"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentStart="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:src="@drawable/icon_general_50" />
+
+                               <ImageView
+                                   android:id="@+id/imageView4"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignBottom="@+id/switchView"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="28dp"
+                                   android:layout_toEndOf="@+id/imageView5"
+                                   android:src="@drawable/right_arrow_25" />
+
+                               <TextView
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignTop="@+id/imageView4"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="21dp"
+                                   android:layout_toEndOf="@+id/imageView4"
+                                   android:text="@string/calendar_software"
+                                   android:textColor="@color/black"
+                                   android:textSize="@dimen/sub_header_size" />
+
+                               <vn.luongvo.widget.iosswitchview.SwitchView
+                                   android:layout_width="50dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentEnd="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:layout_marginEnd="26dp"
+                                   app:checked="true"
+                                   app:color_off="@android:color/darker_gray"
+                                   app:color_on="@android:color/holo_blue_dark"
+                                   android:id="@+id/switchView" />
+
+                           </RelativeLayout>
+                           <TextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:textSize="@dimen/privacy_policy_statement"
+                               android:layout_gravity="center"
+                               android:text="@string/the_calendar_integration_is_always_available_you_can_access_the_url_for_each_technician_s_ics_format_calendar_feed_on_the_users_configuration_page"
+                               android:layout_marginTop="15dp"/>
+
+
+                       </LinearLayout>
+
+                   </android.support.v7.widget.CardView>
+
+                   <android.support.v7.widget.CardView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="20dp"
+                       app:cardCornerRadius="3dp"
+                       app:cardElevation="5dp">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:orientation="vertical"
+                           android:layout_marginBottom="20dp"
+                           android:layout_height="wrap_content">
+                           <RelativeLayout
+                               android:layout_width="match_parent"
+                               android:background="@color/bg"
+                               android:layout_height="85dp"
+                               android:orientation="horizontal">
+
+                               <ImageView
+                                   android:id="@+id/imageView6"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentStart="true"
+                                   android:layout_alignTop="@+id/switchView2"
+                                   android:layout_gravity="center"
+                                   android:src="@drawable/icon_general_50" />
+
+                               <ImageView
+                                   android:id="@+id/imageView7"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="33dp"
+                                   android:layout_toEndOf="@+id/imageView6"
+                                   android:src="@drawable/right_arrow_25" />
+
+                               <TextView
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignBottom="@+id/switchView2"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="31dp"
+                                   android:layout_toEndOf="@+id/imageView7"
+                                   android:text="@string/sage"
+                                   android:textColor="@color/black"
+                                   android:textSize="@dimen/sub_header_size" />
+
+                               <vn.luongvo.widget.iosswitchview.SwitchView
+                                   android:layout_width="50dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentEnd="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:layout_marginEnd="26dp"
+                                   app:checked="true"
+                                   app:color_off="@android:color/darker_gray"
+                                   app:color_on="@android:color/holo_blue_dark"
+                                   android:id="@+id/switchView2" />
+
+                           </RelativeLayout>
+                           <TextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:textSize="@dimen/privacy_policy_statement"
+                               android:layout_gravity="center"
+                               android:text="@string/activating_this_integration_will_allow_to_export_quotations_and_invoices_into_a_sage_formatted_file"
+                               android:layout_marginTop="15dp"/>
+
+
+                       </LinearLayout>
+
+                   </android.support.v7.widget.CardView>
+
+                   <android.support.v7.widget.CardView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="20dp"
+                       app:cardCornerRadius="3dp"
+                       app:cardElevation="5dp">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:orientation="vertical"
+                           android:layout_marginBottom="20dp"
+                           android:layout_height="wrap_content">
+                           <RelativeLayout
+                               android:layout_width="match_parent"
+                               android:background="@color/bg"
+                               android:layout_height="85dp"
+                               android:orientation="horizontal">
+
+                               <ImageView
+                                   android:id="@+id/imageView9"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentStart="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:src="@drawable/icon_general_50" />
+
+                               <ImageView
+                                   android:id="@+id/imageView8"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignTop="@+id/textView4"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="32dp"
+                                   android:layout_toEndOf="@+id/imageView9"
+                                   android:src="@drawable/right_arrow_25" />
+
+                               <TextView
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="71dp"
+                                   android:layout_toEndOf="@+id/imageView9"
+                                   android:text="@string/soul_us_top"
+                                   android:textColor="@color/black"
+                                   android:textSize="@dimen/sub_header_size"
+                                   android:id="@+id/textView4" />
+
+
+                               <vn.luongvo.widget.iosswitchview.SwitchView
+                                   android:layout_width="50dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentEnd="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:layout_marginEnd="26dp"
+                                   app:checked="true"
+                                   app:color_off="@android:color/darker_gray"
+                                   app:color_on="@android:color/holo_blue_dark" />
+
+                           </RelativeLayout>
+                           <TextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:textSize="@dimen/privacy_policy_statement"
+                               android:layout_gravity="center"
+                               android:text="@string/activating_this_integration_will_allow_solustop_gps_devices_to_communication_with_fieldout_each_time_the_vechile_starts_or_stops_it_will_indicate_the_stop_duration_in_the_planning_view"
+                               android:layout_marginTop="15dp"/>
+
+
+                       </LinearLayout>
+
+                   </android.support.v7.widget.CardView>
+                   <android.support.v7.widget.CardView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="20dp"
+                       app:cardCornerRadius="3dp"
+                       app:cardElevation="5dp">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:orientation="vertical"
+                           android:layout_marginBottom="20dp"
+                           android:layout_height="wrap_content">
+                           <RelativeLayout
+                               android:layout_width="match_parent"
+                               android:background="@color/bg"
+                               android:layout_height="85dp"
+                               android:orientation="horizontal">
+
+                               <ImageView
+                                   android:id="@+id/imageView10"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentStart="true"
+                                   android:layout_alignTop="@+id/switchView3"
+                                   android:layout_gravity="center"
+                                   android:src="@drawable/icon_general_50" />
+
+                               <ImageView
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignBottom="@+id/switchView3"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="36dp"
+                                   android:layout_toEndOf="@+id/imageView10"
+                                   android:src="@drawable/right_arrow_25"
+                                   android:id="@+id/imageView11" />
+
+                               <TextView
+                                   android:id="@+id/textView3"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignTop="@+id/imageView11"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="17dp"
+                                   android:layout_toEndOf="@+id/imageView11"
+                                   android:text="@string/stripe"
+                                   android:textColor="@color/black"
+                                   android:textSize="@dimen/sub_header_size" />
+
+
+                               <vn.luongvo.widget.iosswitchview.SwitchView
+                                   android:layout_width="50dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentEnd="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:layout_marginEnd="26dp"
+                                   app:checked="true"
+                                   app:color_off="@android:color/darker_gray"
+                                   app:color_on="@android:color/holo_blue_dark"
+                                   android:id="@+id/switchView3" />
+
+                           </RelativeLayout>
+                           <TextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:textSize="@dimen/privacy_policy_statement"
+                               android:layout_gravity="center"
+                               android:text="@string/activating_this_integration_will_allow_solustop_gps_devices_to_communication_with_fieldout_each_time_the_vechile_starts_or_stops_it_will_indicate_the_stop_duration_in_the_planning_view"
+                               android:layout_marginTop="15dp"/>
+
+
+                       </LinearLayout>
+
+                   </android.support.v7.widget.CardView>
+
+               </LinearLayout>
+
+               <LinearLayout
+                   android:layout_width="match_parent"
+                   android:layout_height="match_parent"
+                   android:layout_marginLeft="20dp"
+                   android:orientation="vertical"
+                   android:layout_weight="50">
+                   <android.support.v7.widget.CardView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       app:cardCornerRadius="3dp"
+                       app:cardElevation="5dp">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:orientation="vertical"
+                           android:layout_marginBottom="20dp"
+                           android:layout_height="wrap_content">
+                           <RelativeLayout
+                               android:layout_width="match_parent"
+                               android:background="@color/bg"
+                               android:layout_height="85dp"
+                               android:orientation="horizontal">
+
+                               <ImageView
+                                   android:id="@+id/imageView3"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentStart="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:src="@drawable/icon_general_50" />
+
+                               <ImageView
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignTop="@+id/textView2"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="33dp"
+                                   android:layout_toEndOf="@+id/imageView3"
+                                   android:src="@drawable/right_arrow_25" />
+
+                               <TextView
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignBottom="@+id/imageView3"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="75dp"
+                                   android:layout_toEndOf="@+id/imageView3"
+                                   android:text="@string/quick_books"
+                                   android:textColor="@color/black"
+                                   android:textSize="@dimen/sub_header_size"
+                                   android:id="@+id/textView2" />
+
+                               <vn.luongvo.widget.iosswitchview.SwitchView
+                                   android:layout_width="50dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentEnd="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:layout_marginEnd="26dp"
+                                   app:checked="true"
+                                   app:color_off="@android:color/darker_gray"
+                                   app:color_on="@android:color/holo_blue_dark" />
+
+                           </RelativeLayout>
+                           <TextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:textSize="@dimen/privacy_policy_statement"
+                               android:layout_gravity="center"
+                               android:text="@string/synchronize_invoices_and_customers_between_fieldout_and_quickbooks_online_nb_activation_will_import_your_customers_from_quickbooks_online_to_fieldout"
+                               android:layout_marginTop="15dp"/>
+
+
+                       </LinearLayout>
+
+                   </android.support.v7.widget.CardView>
+                   <android.support.v7.widget.CardView
+                       android:layout_width="match_parent"
+                       android:layout_height="wrap_content"
+                       android:layout_marginTop="20dp"
+                       app:cardCornerRadius="3dp"
+                       app:cardElevation="5dp">
+                       <LinearLayout
+                           android:layout_width="match_parent"
+                           android:orientation="vertical"
+                           android:layout_marginBottom="20dp"
+                           android:layout_height="wrap_content">
+                           <RelativeLayout
+                               android:layout_width="match_parent"
+                               android:background="@color/bg"
+                               android:layout_height="85dp"
+                               android:orientation="horizontal">
+
+                               <ImageView
+                                   android:id="@+id/imageView2"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentStart="true"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:src="@drawable/icon_general_50" />
+
+                               <ImageView
+                                   android:id="@+id/imageView"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_centerVertical="true"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="30dp"
+                                   android:layout_toEndOf="@+id/imageView2"
+                                   android:src="@drawable/right_arrow_25" />
+
+                               <TextView
+                                   android:id="@+id/textView"
+                                   android:layout_width="wrap_content"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignTop="@+id/imageView"
+                                   android:layout_gravity="center"
+                                   android:layout_marginStart="19dp"
+                                   android:layout_toEndOf="@+id/imageView"
+                                   android:text="@string/zoho"
+                                   android:textColor="@color/black"
+                                   android:textSize="@dimen/sub_header_size" />
+
+                               <vn.luongvo.widget.iosswitchview.SwitchView
+                                   android:id="@+id/switchview"
+                                   android:layout_width="50dp"
+                                   android:layout_height="wrap_content"
+                                   android:layout_alignParentEnd="true"
+                                   android:layout_alignTop="@+id/textView"
+                                   android:layout_gravity="center"
+                                   android:layout_marginEnd="30dp"
+                                   app:checked="true"
+                                   app:color_off="@android:color/darker_gray"
+                                   app:color_on="@android:color/holo_blue_dark" />
+                           </RelativeLayout>
+                           <TextView
+                               android:layout_width="match_parent"
+                               android:layout_height="wrap_content"
+                               android:textSize="@dimen/privacy_policy_statement"
+                               android:layout_gravity="center"
+                               android:text="@string/synchronize_customers_and_sites_between_fieldout_and_zoho_crm_nb_activation_will_import_your_customers_from_zoho_crm_to_fieldout"
+                               android:layout_marginTop="15dp"/>
+
+
+                       </LinearLayout>
+
+                   </android.support.v7.widget.CardView>
+
+
+
+               </LinearLayout>
+           </LinearLayout>
+
+
+
+
+
+
+
+        </LinearLayout>
+    </ScrollView>
+
+</LinearLayout>
+</layout>

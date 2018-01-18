@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout>
+    <LinearLayout
+        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+        <ScrollView
+            android:layout_width="match_parent"
+            android:fillViewport="true"
+            android:layout_height="match_parent">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="20dp"
+                android:layout_marginBottom="15dp"
+                android:orientation="vertical">
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:text="@string/add_job_customfield"
+                        android:id="@+id/button_add_job"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="@dimen/privacy_policy_statement"
+                        android:background="@drawable/button_background_signup"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/add_cus_customfield"
+                        android:id="@+id/button_add_customers"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="@dimen/privacy_policy_statement"
+                        android:background="@drawable/button_background_signup"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/add_cus_sites"
+                        android:id="@+id/button_add_sites"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="@dimen/privacy_policy_statement"
+                        android:background="@drawable/button_background_signup"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:layout_marginLeft="10dp"
+                        android:text="@string/add_cus_equip"
+                        android:id="@+id/button_add_equipment"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="@dimen/privacy_policy_statement"
+                        android:background="@drawable/button_background_signup"/>
+                    <Button
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:textColor="@color/white"
+                        android:layout_weight="1"
+                        android:text="@string/add_cus_users"
+                        android:layout_marginLeft="10dp"
+                        android:id="@+id/button_add_users"
+                        android:layout_marginBottom="10dp"
+                        android:textSize="@dimen/privacy_policy_statement"
+                        android:background="@drawable/button_background_signup"/>
+                </LinearLayout>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/teams_table_layout"
+                    android:divider="@color/light_black"
+                    android:showDividers="middle"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content">
+                    <TableRow
+                        android:layout_width="match_parent"
+                        android:background="@color/button"
+                        android:layout_gravity="center"
+                        android:minHeight="100px"
+                        android:id="@+id/row_team_table"
+                        android:layout_height="wrap_content">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
+                            android:gravity="center"
+                            android:layout_weight="50"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/name"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
+                            android:gravity="center"
+                            android:layout_weight="50"
+                            android:layout_marginLeft="10dp"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/type"/>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:textColor="@color/white"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="50"
+                            android:layout_marginRight="10dp"
+                            android:layout_gravity="left|center"
+                            android:gravity="center"
+                            android:textSize="@dimen/sub_header_size"
+                            android:text="@string/private_text"/>
+
+
+
+
+                    </TableRow>
+
+
+
+
+
+
+                </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/job"
+                    android:padding="8dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:background="@drawable/default_text_view_background"/>
+
+                <TableLayout
+                    android:id="@+id/table_layout_jobs"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
+                    android:divider="@color/light_black"
+                    android:showDividers="middle"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*"></TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/customer"
+                    android:padding="8dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:background="@drawable/default_text_view_background"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/table_layout_customer"
+                    android:divider="@color/light_black"
+                    android:showDividers="middle"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content">
+                </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/site"
+                    android:padding="8dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:background="@drawable/default_text_view_background"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/table_layout_sites"
+                    android:divider="@color/light_black"
+                    android:showDividers="middle"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content">
+                </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/equipment"
+                    android:padding="8dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:background="@drawable/default_text_view_background"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/table_layout_equipment"
+                    android:divider="@color/light_black"
+                    android:showDividers="middle"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content">
+                </TableLayout>
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/black"
+                    android:text="@string/users"
+                    android:padding="8dp"
+                    android:layout_marginBottom="15dp"
+                    android:textSize="@dimen/sub_header_size"
+                    android:background="@drawable/default_text_view_background"/>
+
+                <TableLayout
+                    android:layout_width="match_parent"
+                    android:id="@+id/table_layout_users"
+                    android:divider="@color/light_black"
+                    android:showDividers="middle"
+                    android:shrinkColumns="*"
+                    android:stretchColumns="*"
+                    android:layout_marginBottom="20dp"
+                    android:layout_height="wrap_content">
+                </TableLayout>
+            </LinearLayout>
+
+
+
+
+        </ScrollView>
+
+    </LinearLayout>
+</layout>
