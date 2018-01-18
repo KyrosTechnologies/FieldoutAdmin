@@ -17,12 +17,10 @@ android {
         }
 
     }
-
     dexOptions {
         javaMaxHeapSize "4g"
-
+        incremental true
     }
-
     buildTypes {
         release {
             minifyEnabled false
@@ -43,6 +41,11 @@ android {
 
             maven { url "https://jitpack.io" }
         }
+    }
+    buildToolsVersion '26.0.2'
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
     }
 }
 
@@ -76,29 +79,18 @@ dependencies {
     //timber
     implementation 'com.jakewharton.timber:timber:4.6.0'
     implementation 'com.google.android.gms:play-services:11.8.0'
-//    implementation 'com.google.android.gms:play-services-places:11.8.0'
-//    implementation 'com.google.android.gms:play-services-maps:11.8.0'
-//    implementation 'com.google.android.gms:play-services-maps:11.8.0'
-
+    //    implementation 'com.google.android.gms:play-services-places:11.8.0'
+    //    implementation 'com.google.android.gms:play-services-maps:11.8.0'
+    //    implementation 'com.google.android.gms:play-services-maps:11.8.0'
     //lombok
     compileOnly files('libs/lombok.jar')
     annotationProcessor files('libs/lombok.jar')
-
     //apache logger
-    compile group: 'org.apache.commons', name: 'commons-lang3', version: '3.7'
-
+    compile 'org.apache.commons:commons-lang3:3.7'
     //color picker
-    compile(group: 'uz.shift', name: 'colorpicker', version: '0.5', ext: 'aar')
-
+    compile 'uz.shift:colorpicker:0.5@aar'
     //rx run time
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
-
     //toggle button
     implementation 'com.github.luongvo:iOS-SwitchView:1.0.2'
-
-
-
-
-
-
 }
