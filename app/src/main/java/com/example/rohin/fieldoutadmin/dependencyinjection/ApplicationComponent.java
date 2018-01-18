@@ -9,6 +9,7 @@ import com.example.rohin.fieldoutadmin.activity.AddSchedulingWindowsActivity;
 import com.example.rohin.fieldoutadmin.activity.AddTaxesActivity;
 import com.example.rohin.fieldoutadmin.activity.AddTeamActivity;
 import com.example.rohin.fieldoutadmin.activity.AddUserActivity;
+import com.example.rohin.fieldoutadmin.activity.ChangePasswordActivity;
 import com.example.rohin.fieldoutadmin.activity.PartsAndServicesActivity;
 import com.example.rohin.fieldoutadmin.activity.SignUpActivity;
 import com.example.rohin.fieldoutadmin.activity.UpdateTeamActivity;
@@ -67,4 +68,5 @@ public interface ApplicationComponent {
     void injectCustomFieldsFragment(CustomFieldsFragment customFieldsFragment);
     void injectAddCustomFieldsActivity(AddCustomFieldsActivity addCustomFieldsActivity);
     void injectTagFragment(TagFragment tagFragment);
+    void injectChangePasswordActivity(ChangePasswordActivity changePasswordActivity);
 }

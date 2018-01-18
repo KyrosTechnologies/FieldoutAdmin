@@ -19,6 +19,7 @@ import android.widget.Toast;
 
 import com.example.rohin.fieldoutadmin.R;
 import com.example.rohin.fieldoutadmin.activity.AccountInformationDetailsActivity;
+import com.example.rohin.fieldoutadmin.activity.ChangePasswordActivity;
 import com.example.rohin.fieldoutadmin.common.ServiceHandler;
 import com.example.rohin.fieldoutadmin.models.BussinessHoursModel;
 import com.example.rohin.fieldoutadmin.models.BussinessHoursResponse;
@@ -42,7 +43,7 @@ import rx.subscriptions.CompositeSubscription;
 
 public class AccountInformationFragment extends Fragment {
     private View view;
-    private Button edit_profile_button,save_bussiness_button;
+    private Button edit_profile_button,save_bussiness_button,button_change_password;
     private TimePickerDialog timePickerDialog;
     private CheckBox monday_checkbox,tuesday_checkbox,wednesday_checkbox,thursday_checkbox,friday_checkbox,saturday_checkbox,sunday_checkbox;
     private TextView monday_start_time_edit_text,monday_end_time_edit_text,tuesday_start_date_edit_text,tuesday_end_date_edit_text
@@ -74,6 +75,7 @@ public class AccountInformationFragment extends Fragment {
         //Button
         edit_profile_button=view.findViewById(R.id.edit_profile_button);
         save_bussiness_button=view.findViewById(R.id.save_bussiness_button);
+        button_change_password=view.findViewById(R.id.button_change_password);
         //TextView
         monday_start_time_edit_text=view.findViewById(R.id.monday_start_time_edit_text);
         phone_number_text_view=view.findViewById(R.id.phone_number_text_view);
@@ -120,6 +122,7 @@ public class AccountInformationFragment extends Fragment {
 
         edit_profile_button.setOnClickListener(view-> startActivity(new Intent(getContext(), AccountInformationDetailsActivity.class)));
         save_bussiness_button.setOnClickListener(view-> showSaveDialog());
+        button_change_password.setOnClickListener(view1 -> startActivity(new Intent(getContext(), ChangePasswordActivity.class)));
        return view;
     }
 

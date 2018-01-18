@@ -73,7 +73,7 @@
     <string name="email_address">Email Address</string>
     <string name="address_value">Address Value</string>
     <string name="mobile_number">Mobile Number</string>
-    <string name="change">Change</string>
+    <string name="change">Change Profile</string>
     <string name="bussiness_hours">Bussiness Hours</string>
     <string name="day">Day</string>
     <string name="start_time">Start Time</string>
@@ -290,5 +290,9 @@
     <string name="user_information">User Information</string>
     <string name="mobile">Mobile</string>
     <string name="username">UserName</string>
-    <string name="language">Language</string>
+    <string name="change_password">Change Password</string>
+    <string name="old_password">Old Password</string>
+    <string name="new_password">New Password</string>
+    <string name="confirm_password">Confirm Password</string>
+    <string name="update_password">Update Password</string>
 </resources>

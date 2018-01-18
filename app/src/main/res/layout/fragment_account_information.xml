@@ -143,21 +143,40 @@
                           android:textColor="@color/light_black"
                           android:textSize="@dimen/privacy_policy_statement" />
                   </TableRow>
-              </TableLayout>
+                  <TableRow
+                      android:layout_height="wrap_content"
+                      android:layout_marginTop="10dp"
+                      android:layout_width="match_parent">
+                      <Button
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginBottom="30dp"
+                          android:layout_marginTop="20dp"
+                          android:background="@drawable/button_background_signup"
+                          android:drawableLeft="@drawable/icon_general_20"
+                          android:drawablePadding="5dp"
+                          android:padding="10dp"
+                          android:paddingRight="3dp"
+                          android:text="@string/change"
+                          android:id="@+id/edit_profile_button"
+                          android:textColor="@color/white" />
+                      <Button
+                          android:layout_width="wrap_content"
+                          android:layout_height="wrap_content"
+                          android:layout_marginBottom="30dp"
+                          android:layout_marginTop="20dp"
+                          android:layout_marginLeft="60dp"
+                          android:background="@drawable/button_background_signup"
+                          android:drawableLeft="@drawable/icon_general_20"
+                          android:drawablePadding="5dp"
+                          android:padding="10dp"
+                          android:paddingRight="3dp"
+                          android:text="@string/change_password"
+                          android:id="@+id/button_change_password"
+                          android:textColor="@color/white" />
 
-                <Button
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/button_background_signup"
-                    android:drawableLeft="@drawable/icon_general_20"
-                    android:drawablePadding="5dp"
-                    android:padding="10dp"
-                    android:paddingRight="3dp"
-                    android:text="@string/change"
-                    android:id="@+id/edit_profile_button"
-                    android:textColor="@color/white" />
+                  </TableRow>
+              </TableLayout>
 
                 <View
                     android:layout_width="match_parent"

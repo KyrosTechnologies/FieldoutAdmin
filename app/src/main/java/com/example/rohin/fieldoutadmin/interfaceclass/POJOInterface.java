@@ -53,6 +53,7 @@ import com.example.rohin.fieldoutadmin.models.GetSingleUserResponse;
 import com.example.rohin.fieldoutadmin.models.TechniciansResponse;
 import com.example.rohin.fieldoutadmin.models.UpdateTeamResponse;
 import com.example.rohin.fieldoutadmin.models.UpdateToolsAndResourceResponse;
+import com.example.rohin.fieldoutadmin.models.User;
 import com.example.rohin.fieldoutadmin.models.UserInfo;
 import com.example.rohin.fieldoutadmin.models.UserUpdateResponse;
 import com.example.rohin.fieldoutadmin.models.UsersResponse;
@@ -184,5 +185,7 @@ public interface POJOInterface {
     Observable<TagResponse>updateTag(@Header("Authorization")String authKey,@Path("tagId")String tagId,@Body Tag tag);
     @DELETE("/tags/delete/{tagId}")
     Observable<DeleteTagResponse>deleteTag(@Header("Authorization")String authKey, @Path("tagId")String tagId);
+    @PUT("/users/changePassword/{userId}")
+    Observable<User>changePassword(@Header("Authorization")String authKey,@Path("userId")String userId,@Body User user);
 
 }

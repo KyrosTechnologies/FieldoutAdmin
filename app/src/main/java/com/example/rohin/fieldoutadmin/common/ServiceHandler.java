@@ -51,6 +51,9 @@ public class ServiceHandler extends Application {
     public static synchronized ServiceHandler getInstance() {
         return mInstance;
     }
+    public static Context getContext(){
+        return mInstance;
+    }
 
     private RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {

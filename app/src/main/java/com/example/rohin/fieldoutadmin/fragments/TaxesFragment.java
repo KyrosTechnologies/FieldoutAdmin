@@ -89,9 +89,11 @@ public class TaxesFragment extends Fragment {
 
     private void error(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        dismissProgressDialog();
     }
 
     private void response(TaxResponse taxResponse) {
+        dismissProgressDialog();
         if(taxResponse!=null){
             Log.d("Response : ",TAG+" / / "+taxResponse.toString());
             List<Tax> taxList=taxResponse.getTaxes();
