@@ -1,5 +1,6 @@
 package com.example.rohin.fieldoutadmin.activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
@@ -46,7 +47,7 @@ public class LandingActivity extends AppCompatActivity {
     private ImageView settings_fragment;
     private TextView week_text,month_text,day_text,activity_text,resources_text,list_text,site_text,equipment_text,jobs_month_text,
             jobs_day_text,jobs_week_text,jobs_late_text,upcoming_jobs_text,to_schedule_job_text,invoices_text,quotations_text,
-            company_name,project_text,parts_text,first_last_name;
+            company_name,project_text,parts_text,first_last_name,my_profile;
     private Boolean namearrowclicked=true;
     private Boolean techarrowclicked=true;
     private Boolean schedulearrowclicked=true;
@@ -104,6 +105,7 @@ public class LandingActivity extends AppCompatActivity {
         project_text=findViewById(R.id.project_text);
         parts_text=findViewById(R.id.parts_text);
         first_last_name=findViewById(R.id.first_last_name);
+        my_profile=findViewById(R.id.my_profile);
         companyname=store.getCompanyName();
         firstname=store.getFirstName();
         lastname=store.getLastName();
@@ -496,6 +498,10 @@ public class LandingActivity extends AppCompatActivity {
                     getSupportFragmentManager().beginTransaction();
             k.replace(R.id.container_fragments, h);
             k.commit();
+        });
+        my_profile.setOnClickListener(view -> {
+            Intent intent=new Intent(LandingActivity.this,MyProfile.class);
+            startActivity(intent);
         });
 
     }

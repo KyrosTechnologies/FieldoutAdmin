@@ -289,4 +289,11 @@
     <string name="synchronize_invoices_and_customers_between_fieldout_and_quickbooks_online_nb_activation_will_import_your_customers_from_quickbooks_online_to_fieldout">Synchronize Invoices and Customers between FieldOut and QuickBooks Online. NB: Activation will import your Customers from QuickBooks Online to FieldOut</string>
     <string name="zoho">Zoho</string>
     <string name="synchronize_customers_and_sites_between_fieldout_and_zoho_crm_nb_activation_will_import_your_customers_from_zoho_crm_to_fieldout">Synchronize Customers and Sites between FieldOut and ZOHO CRM. NB: Activation will import your Customers from ZOHO CRM to FieldOut.</string>
+    <string name="user_information">User Information</string>
+    <string name="first_name">First Name</string>
+    <string name="last_name">Last Name</string>
+    <string name="mobile">Mobile</string>
+    <string name="email">Email</string>
+    <string name="username">UserName</string>
+    <string name="language">Language</string>
 </resources>

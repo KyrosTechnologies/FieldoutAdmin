@@ -208,6 +208,7 @@ public class MainActivity extends AppCompatActivity {
                                 e.printStackTrace();
                             }
                             String email = first.getString("email");
+                            store.putEmail(String.valueOf(email));
                             boolean value= store.putEmail(String.valueOf(email));
                             session.createLoginSession(username,password);
                         }
