@@ -1,9 +1,13 @@
 package com.example.rohin.fieldoutadmin.activity;
 
+import android.app.AlertDialog;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -41,13 +45,15 @@ public class LandingActivity extends AppCompatActivity {
 
     private PreferenceManager store;
     private SessionManager session;
+    private AlertDialog logoutdialog;
     private LinearLayout linear_name_down,name_visible_linear,linear_team,linear_schedule_down,map_linear,
             linear_customers_down,linear_projects,linear_jobs_down,linear_invoicing_down,linear_reports_down,
-            schedule_visible_linear,cutomer_visible_linear,jobs_visible_linear,invoice_visible_linear,reports_visible_linear;
+            schedule_visible_linear,cutomer_visible_linear,jobs_visible_linear,invoice_visible_linear,reports_visible_linear,
+            my_profile,logout;
     private ImageView settings_fragment;
     private TextView week_text,month_text,day_text,activity_text,resources_text,list_text,site_text,equipment_text,jobs_month_text,
             jobs_day_text,jobs_week_text,jobs_late_text,upcoming_jobs_text,to_schedule_job_text,invoices_text,quotations_text,
-            company_name,project_text,parts_text,first_last_name,my_profile;
+            company_name,project_text,parts_text,first_last_name;
     private Boolean namearrowclicked=true;
     private Boolean techarrowclicked=true;
     private Boolean schedulearrowclicked=true;
@@ -106,6 +112,7 @@ public class LandingActivity extends AppCompatActivity {
         parts_text=findViewById(R.id.parts_text);
         first_last_name=findViewById(R.id.first_last_name);
         my_profile=findViewById(R.id.my_profile);
+        logout=findViewById(R.id.logout);
         companyname=store.getCompanyName();
         firstname=store.getFirstName();
         lastname=store.getLastName();
@@ -503,7 +510,47 @@ public class LandingActivity extends AppCompatActivity {
             Intent intent=new Intent(LandingActivity.this,MyProfile.class);
             startActivity(intent);
         });
+        logout.setOnClickListener(view -> {
+            showLogoutDialog();
+        });
 
     }
 
+    private void showLogoutDialog(){
+        if(logoutdialog==null){
+            AlertDialog.Builder builder=new AlertDialog.Builder(LandingActivity.this);
+            LayoutInflater inflater=getLayoutInflater();
+            View view=inflater.inflate(R.layout.logout_dialog,null);
+            builder.setView(view);
+            TextView yes_logout=view.findViewById(R.id.yes_logout);
+            TextView back_logout=view.findViewById(R.id.back_logout);
+            back_logout.setOnClickListener(view1 -> {
+                dismissLogoutDialog();
+            });
+            yes_logout.setOnClickListener(view1 ->  {
+                    session.logoutUser();
+                    store.clear();
+                    Intent i=new Intent(LandingActivity.this,MainActivity.class);
+                    startActivity(i);
+            });
+
+            logoutdialog=builder.create();
+            logoutdialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            logoutdialog.setCancelable(false);
+            logoutdialog.setCanceledOnTouchOutside(false);
+        }
+        logoutdialog.show();
+
+    }private void dismissLogoutDialog(){
+        if(logoutdialog!=null && logoutdialog.isShowing()){
+            logoutdialog.dismiss();
+        }
+
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        dismissLogoutDialog();
+    }
 }

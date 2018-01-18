@@ -313,6 +313,7 @@
         android:layout_marginRight="50dp">
 
         <LinearLayout
+            android:id="@+id/my_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -326,7 +327,6 @@
                 android:layout_marginRight="8dp"/>
 
         <TextView
-            android:id="@+id/my_profile"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="My Profile"
@@ -416,6 +416,7 @@
             android:layout_marginRight="12dp"/>
 
         <LinearLayout
+            android:id="@+id/logout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal"

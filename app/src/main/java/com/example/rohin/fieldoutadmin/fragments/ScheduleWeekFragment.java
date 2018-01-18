@@ -117,11 +117,16 @@ public class ScheduleWeekFragment extends Fragment {
                         }catch (Exception e){
 
                         }
-                        String contactName="";
+                        String contactFirstName="";
                         try {
-                            contactName=jobinfo.getString("contactName");
+                            contactFirstName=jobinfo.getString("contactFirstName");
                         }catch (Exception e){
 
+                        }
+                        String contactLastName="";
+                        try {
+                            contactLastName=jobinfo.getString("contactLastName");
+                        }catch (Exception e){
                         }
                         String contactMobile="";
                         try {
@@ -226,7 +231,8 @@ public class ScheduleWeekFragment extends Fragment {
                         commonJobs.setPriority(priority);
                         commonJobs.setAddress(address);
                         commonJobs.setLatlng(latlng);
-                        commonJobs.setContactname(contactName);
+                        commonJobs.setFirstname(contactFirstName);
+                        commonJobs.setLastname(contactLastName);
                         commonJobs.setMobilenum(contactMobile);
                         commonJobs.setPhone(contactPhone);
                         commonJobs.setEmail(contactEmail);

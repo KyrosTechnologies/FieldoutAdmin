@@ -148,7 +148,7 @@ public class ScheduleWeekAdapter extends RecyclerView.Adapter<ScheduleWeekAdapte
 
         holder.week_site_name.setText(sitename);
         holder.week_date.setText(dates+" "+fmonth+" "+year);
-        holder.week_first_last_name.setText(contactname);
+        holder.week_first_last_name.setText(firstname+lastname);
         holder.week_start_time.setText(time1+" - "+time2);
         holder.week_description.setText(desc);
         holder.week_address.setText(address);
