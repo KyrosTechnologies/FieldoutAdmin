@@ -116,12 +116,12 @@ public class PartsAndServicesFragment extends Fragment {
                     if(categoryName!=null){
                         categoryTextView.setText(categoryName);
                     }
-                    categoryTextView.setTextSize(20);
+                    categoryTextView.setTextSize(24);
                     TableRow.LayoutParams tableRowCategoryParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
-                    tableRowCategoryParams.setMargins(5,5,5,5);
+                    tableRowCategoryParams.setMargins(15,15,15,15);
                     categoryTextView.setLayoutParams(tableRowCategoryParams);
                     categoryTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    categoryTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    categoryTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(categoryTextView);
 
                     //TextView Parts & Services
@@ -129,13 +129,12 @@ public class PartsAndServicesFragment extends Fragment {
                     if(name!=null){
                         partsServicesTextView.setText(name);
                     }
-                    partsServicesTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowPartsServicesParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowPartsServicesParams.setMargins(10,10,0,10);
+                    partsServicesTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowPartsServicesParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowCategoryParams.setMargins(15,15,15,15);
                     partsServicesTextView.setLayoutParams(tableRowPartsServicesParams);
                     partsServicesTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    partsServicesTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    partsServicesTextView.setPadding(5, 5, 5, 5);
+                    partsServicesTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(partsServicesTextView);
 
                     //TextView reference
@@ -143,38 +142,35 @@ public class PartsAndServicesFragment extends Fragment {
                     if(reference!=null){
                         referenceTextView.setText(reference);
                     }
-                    referenceTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowReferenceParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowReferenceParams.setMargins(10,10,0,10);
+                    referenceTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowReferenceParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowCategoryParams.setMargins(15,15,15,15);
                     referenceTextView.setLayoutParams(tableRowReferenceParams);
                     referenceTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    referenceTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    referenceTextView.setPadding(5, 5, 5, 5);
+                    referenceTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(referenceTextView);
 
                     //TextView price
                     TextView priceTextView=new TextView(getContext());
 
                     priceTextView.setText(String.valueOf(price));
-                    priceTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowPriceParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowPriceParams.setMargins(10,10,0,10);
+                    priceTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowPriceParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowCategoryParams.setMargins(15,15,15,15);
                     priceTextView.setLayoutParams(tableRowPriceParams);
                     priceTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    priceTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    priceTextView.setPadding(5, 5, 5, 5);
+                    priceTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(priceTextView);
 
                     //Tax text view
                     TextView taxTextView=new TextView(getContext());
                     taxTextView.setText(String.valueOf(taxInfo.getRate()));
-                    taxTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowTaxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowTaxParams.setMargins(10,10,0,10);
+                    taxTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowTaxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowCategoryParams.setMargins(15,15,15,15);
                     taxTextView.setLayoutParams(tableRowTaxParams);
-                    taxTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    taxTextView.setTextColor(getResources().getColor(R.color.text_light));
                     taxTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    taxTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(taxTextView);
 
                     tableRow.setTag(stockPart);

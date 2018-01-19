@@ -274,6 +274,15 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"/>
         <activity
+            android:name=".activity.MessageList"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"/>
+        <activity
+            android:name=".activity.AddMessages"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
             android:name=".activity.AddCustomFieldsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"

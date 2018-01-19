@@ -92,13 +92,12 @@ public class JobsDayFragment extends Fragment {
 
                 try {
 
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("userjobs");
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String status=first.getString("status");
+                    JSONObject obj = new JSONObject(response.toString());
+                    JSONArray array = obj.getJSONArray("userjobs");
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject first = array.getJSONObject(i);
+                        String status = first.getString("status");
                         String idJob=first.getString("idJob");
-
                         JSONObject jobinfo=null;
                         try {
                             jobinfo = first.getJSONObject("jobInfo");
@@ -123,6 +122,16 @@ public class JobsDayFragment extends Fragment {
                         }catch (Exception e){
 
                         }
+                        String contactFirstName="";
+                        try {
+                            contactFirstName=jobinfo.getString("contactFirstName");
+                        }catch (Exception e){
+                        }
+                        String contactLastName="";
+                        try {
+                            contactLastName=first.getString("contactLastName");
+                        }catch (Exception e){
+                        }
                         String contactMobile="";
                         try {
                             contactMobile=jobinfo.getString("contactMobile");
@@ -145,6 +154,16 @@ public class JobsDayFragment extends Fragment {
                         try {
                             description=jobinfo.getString("description");
                         }catch (Exception e){
+                        }
+                        String schedullingPreferredDate="";
+                        try {
+                            schedullingPreferredDate=jobinfo.getString("schedullingPreferredDate");
+                        }catch (Exception e){
+                        }
+                        String complementAddress="";
+                        try {
+                            complementAddress=jobinfo.getString("complementAddress");
+                        }catch (Exception e){
 
                         }
                         JSONObject jobTypeInfo =null;
@@ -161,31 +180,42 @@ public class JobsDayFragment extends Fragment {
                         try {
                             customerInfo = jobinfo.getJSONObject("customerInfo");
                         }catch (Exception e){
+                            e.printStackTrace();
                         }
                         String cusname="";
                         try {
                             cusname=customerInfo.getString("name");
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                        JSONArray tagInfo=null;
+                        try {
+                            tagInfo=jobinfo.getJSONArray("tagInfo");
                         }catch (Exception e){
                         }
                         JSONObject equipmentInfo =null;
                         try {
                             equipmentInfo = jobinfo.getJSONObject("equipmentInfo");
                         }catch (Exception e){
+                            e.printStackTrace();
                         }
                         String equipname="";
                         try {
                             equipname=equipmentInfo.getString("name");
                         }catch (Exception e){
+                            e.printStackTrace();
                         }
                         JSONObject siteInfo =null;
                         try {
                             siteInfo = jobinfo.getJSONObject("siteInfo");
                         }catch (Exception e){
+                            e.printStackTrace();
                         }
                         String sitename="";
                         try {
                             sitename=siteInfo.getString("name");
                         }catch (Exception e){
+                            e.printStackTrace();
                         }
                         String address="";
                         try {
@@ -211,18 +241,24 @@ public class JobsDayFragment extends Fragment {
                         }catch (Exception e){
 
                         }
-                        String scheduledBeginDate=first.getString("scheduledBeginDateString");
-                        String scheduledEndDate=first.getString("scheduledEndDateString");
 
-                        CommonJobs commonJobs=new CommonJobs();
+                        String scheduledBeginDate = first.getString("scheduledBeginDateString");
+                        String scheduledEndDate = first.getString("scheduledEndDateString");
+
+                        CommonJobs commonJobs = new CommonJobs();
+                        commonJobs.setJobid(idJob);
                         commonJobs.setEquipname(equipname);
                         commonJobs.setCustomername(cusname);
                         commonJobs.setMyId(myId);
+                        commonJobs.setSchedulingdate(schedullingPreferredDate);
+                        commonJobs.setComplementAddress(complementAddress);
                         commonJobs.setJobTypeName(jobtypename);
                         commonJobs.setScheduledBeginDate(scheduledBeginDate);
                         commonJobs.setScheduleenddate(scheduledEndDate);
                         commonJobs.setStatus(status);
                         commonJobs.setSitename(sitename);
+                        commonJobs.setFirstname(contactFirstName);
+                        commonJobs.setLastname(contactLastName);
                         commonJobs.setPriority(priority);
                         commonJobs.setAddress(address);
                         commonJobs.setLatlng(latlng);
@@ -230,7 +266,7 @@ public class JobsDayFragment extends Fragment {
                         commonJobs.setMobilenum(contactMobile);
                         commonJobs.setPhone(contactPhone);
                         commonJobs.setEmail(contactEmail);
-                        commonJobs.setJobid(idJob);
+                        commonJobs.setTaginfo(tagInfo);
                         commonJobs.setDescription(description);
                         commonJobsArrayList.add(commonJobs);
 

@@ -97,7 +97,7 @@ public class JobsWeekFragment extends Fragment {
                     for (int i = 0; i < array.length(); i++) {
                         JSONObject first = array.getJSONObject(i);
                         String status = first.getString("status");
-
+                        String idJob=first.getString("idJob");
                         JSONObject jobinfo=null;
                         try {
                             jobinfo = first.getJSONObject("jobInfo");
@@ -122,6 +122,16 @@ public class JobsWeekFragment extends Fragment {
                         }catch (Exception e){
 
                         }
+                        String contactFirstName="";
+                        try {
+                            contactFirstName=jobinfo.getString("contactFirstName");
+                        }catch (Exception e){
+                        }
+                        String contactLastName="";
+                        try {
+                            contactLastName=first.getString("contactLastName");
+                        }catch (Exception e){
+                        }
                         String contactMobile="";
                         try {
                             contactMobile=jobinfo.getString("contactMobile");
@@ -143,6 +153,16 @@ public class JobsWeekFragment extends Fragment {
                         String description="";
                         try {
                             description=jobinfo.getString("description");
+                        }catch (Exception e){
+                        }
+                        String schedullingPreferredDate="";
+                        try {
+                            schedullingPreferredDate=jobinfo.getString("schedullingPreferredDate");
+                        }catch (Exception e){
+                        }
+                        String complementAddress="";
+                        try {
+                            complementAddress=jobinfo.getString("complementAddress");
                         }catch (Exception e){
 
                         }
@@ -167,6 +187,11 @@ public class JobsWeekFragment extends Fragment {
                             cusname=customerInfo.getString("name");
                         }catch (Exception e){
                             e.printStackTrace();
+                        }
+                        JSONArray tagInfo=null;
+                        try {
+                            tagInfo=jobinfo.getJSONArray("tagInfo");
+                        }catch (Exception e){
                         }
                         JSONObject equipmentInfo =null;
                         try {
@@ -221,14 +246,19 @@ public class JobsWeekFragment extends Fragment {
                         String scheduledEndDate = first.getString("scheduledEndDateString");
 
                         CommonJobs commonJobs = new CommonJobs();
+                        commonJobs.setJobid(idJob);
                         commonJobs.setEquipname(equipname);
                         commonJobs.setCustomername(cusname);
                         commonJobs.setMyId(myId);
+                        commonJobs.setSchedulingdate(schedullingPreferredDate);
+                        commonJobs.setComplementAddress(complementAddress);
                         commonJobs.setJobTypeName(jobtypename);
                         commonJobs.setScheduledBeginDate(scheduledBeginDate);
                         commonJobs.setScheduleenddate(scheduledEndDate);
                         commonJobs.setStatus(status);
                         commonJobs.setSitename(sitename);
+                        commonJobs.setFirstname(contactFirstName);
+                        commonJobs.setLastname(contactLastName);
                         commonJobs.setPriority(priority);
                         commonJobs.setAddress(address);
                         commonJobs.setLatlng(latlng);
@@ -236,6 +266,7 @@ public class JobsWeekFragment extends Fragment {
                         commonJobs.setMobilenum(contactMobile);
                         commonJobs.setPhone(contactPhone);
                         commonJobs.setEmail(contactEmail);
+                        commonJobs.setTaginfo(tagInfo);
                         commonJobs.setDescription(description);
                         commonJobsArrayList.add(commonJobs);
 

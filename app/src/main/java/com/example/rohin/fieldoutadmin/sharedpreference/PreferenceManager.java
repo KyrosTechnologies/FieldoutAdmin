@@ -936,6 +936,17 @@ public class PreferenceManager {
         editor.commit();
     }
 
+    public String getMessageId() {
+        return sp.getString("MessageId", null);
+    }
+
+    public void putMessageId(String value) {
+        SharedPreferences.Editor editor;
+        editor = sp.edit();
+        editor.putString("MessageId", value);
+        editor.commit();
+    }
+
     public String getTaxId() {
         return sp.getString("TaxId", null);
     }

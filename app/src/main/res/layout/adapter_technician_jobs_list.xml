@@ -1,0 +1,133 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:background="@color/bg">
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/tech_my_id"
+            android:layout_width="85dp"
+            android:layout_height="wrap_content"
+            android:text="Job"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/tech_job_status"
+            android:layout_width="125dp"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/tech_priority"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:text="Priority"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/tech_jobs_customer_name"
+            android:layout_width="345dp"
+            android:layout_height="wrap_content"
+            android:text="Customer / Site / Equipment"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:singleLine="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/tech_phone"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:singleLine="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/tech_job_type"
+            android:layout_width="203dp"
+            android:layout_height="wrap_content"
+            android:text="JobType"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/light_black"/>
+
+</LinearLayout>

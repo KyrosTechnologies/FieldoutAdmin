@@ -15,7 +15,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -1559,87 +1558,6 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
         }
     }
 
-    private void DeleteJobsList() {
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"jobs/delete/"+jobid;
-        Log.d("waggonurl", url);
-        //showProgressDialog();
-
-        JSONObject inputjso=new JSONObject();
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.DELETE, url, inputjso, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response",response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean array=obj.getBoolean("result");
-                    String message=obj.getString("message");
-
-                    if (!array){
-                        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
-                    }
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-                JobsUpdateDelete.this.finish();
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //dismissProgressDialog();
-
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
-    private void showDeleteDialog(){
-        if(builder==null){
-            builder = new android.support.v7.app.AlertDialog.Builder(JobsUpdateDelete.this);
-            builder.setMessage("Do you want to Delete it?");
-            builder.setCancelable(true);
-
-            builder.setPositiveButton(
-                    "Yes",
-                    (dialog, id) ->{
-                        DeleteJobsList();
-                        Log.d("Dialog Yes ","dialog initialization");
-                        dialog.cancel();
-                    });
-
-            builder.setNegativeButton(
-                    "No",
-                    (dialog, id) -> dialog.cancel());
-
-        }
-        android.support.v7.app.AlertDialog alertDialog = builder.create();
-        alertDialog.show();
-    }
-
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_delete, menu);
-        return true;
-    }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -1647,9 +1565,6 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
             case android.R.id.home:
                 JobsUpdateDelete.this.finish();
                 return true;
-            case R.id.action_delete:
-                showDeleteDialog();
-                break;
         }
 
         return super.onOptionsItemSelected(item);

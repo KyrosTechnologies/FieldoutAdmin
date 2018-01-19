@@ -14,6 +14,8 @@ import com.example.rohin.fieldoutadmin.activity.JobsWeekDetails;
 import com.example.rohin.fieldoutadmin.common.CommonJobs;
 import com.example.rohin.fieldoutadmin.sharedpreference.PreferenceManager;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 /**
@@ -79,9 +81,23 @@ public class JobsWeekAdapter extends RecyclerView.Adapter<JobsWeekAdapter.MyView
         String email=commonJobs.getEmail();
         String desc=commonJobs.getDescription();
         String latlng=commonJobs.getLatlng();
+        String compaddress=commonJobs.getComplementAddress();
+        String jobid=commonJobs.getJobid();
+        String firstname=commonJobs.getFirstname();
+        String lastname=commonJobs.getLastname();
+        String date=commonJobs.getSchedulingdate();
+        JSONArray tags=commonJobs.getTaginfo();
 
         holder.month_jobs_linear.setOnClickListener(view -> {
             Intent i=new Intent(mContext, JobsWeekDetails.class);
+            i.putExtra("cusname",cusname);
+            i.putExtra("sitename",sitename);
+            i.putExtra("equipname",equipname);
+            i.putExtra("compaddress",compaddress);
+            i.putExtra("firstname",firstname);
+            i.putExtra("lastname",lastname);
+            i.putExtra("date",date);
+            i.putExtra("jobid",jobid);
             i.putExtra("myid",myid);
             i.putExtra("status",status);
             i.putExtra("address",address);
@@ -93,6 +109,7 @@ public class JobsWeekAdapter extends RecyclerView.Adapter<JobsWeekAdapter.MyView
             i.putExtra("email",email);
             i.putExtra("desc",desc);
             i.putExtra("latlng",latlng);
+            i.putExtra("tags",tags.toString());
             mContext.startActivity(i);
         });
 

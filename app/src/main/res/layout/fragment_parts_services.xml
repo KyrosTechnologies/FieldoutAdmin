@@ -45,27 +45,27 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:layout_gravity="left|center"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:layout_weight="50"
-                            android:layout_marginLeft="10dp"
                             android:textSize="@dimen/sub_header_size"
                             android:text="@string/category"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:layout_gravity="left|center"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:layout_weight="50"
-                            android:layout_marginLeft="10dp"
                             android:textSize="@dimen/sub_header_size"
                             android:text="@string/parts_and_services"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:layout_marginLeft="10dp"
                             android:layout_weight="50"
-                            android:layout_gravity="left|center"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:textSize="@dimen/sub_header_size"
                             android:text="@string/reference"/>
 
@@ -74,18 +74,17 @@
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
                             android:layout_weight="50"
-                            android:layout_gravity="left|center"
-                            android:layout_marginLeft="10dp"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:textSize="@dimen/sub_header_size"
                             android:text="@string/price"/>
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/white"
-                            android:layout_gravity="left|center"
+                            android:gravity="center"
+                            android:layout_gravity="center"
                             android:layout_weight="50"
-                            android:layout_marginRight="10dp"
-                            android:layout_marginLeft="10dp"
                             android:textSize="@dimen/sub_header_size"
                             android:text="@string/tax"/>
 

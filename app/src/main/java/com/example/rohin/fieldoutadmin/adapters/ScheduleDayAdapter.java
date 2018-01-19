@@ -14,6 +14,8 @@ import com.example.rohin.fieldoutadmin.activity.ScheduleDayDetails;
 import com.example.rohin.fieldoutadmin.common.CommonJobs;
 import com.example.rohin.fieldoutadmin.sharedpreference.PreferenceManager;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -66,6 +68,8 @@ public class ScheduleDayAdapter extends RecyclerView.Adapter<ScheduleDayAdapter.
 
         CommonJobs commonJobs=commonJobsArrayList.get(position);
         final String sitename=commonJobs.getSitename();
+        String cusname=commonJobs.getCustomername();
+        String equipname=commonJobs.getEquipname();
         String firstname=commonJobs.getFirstname();
         String lastname=commonJobs.getLastname();
         String priority=commonJobs.getPriority();
@@ -80,6 +84,10 @@ public class ScheduleDayAdapter extends RecyclerView.Adapter<ScheduleDayAdapter.
         String startdate=commonJobs.getScheduledBeginDate();
         String time1=startdate.substring(11);
         String enddate=commonJobs.getScheduleenddate();
+        String compaddress=commonJobs.getComplementAddress();
+        String jobid=commonJobs.getJobid();
+        String date=commonJobs.getSchedulingdate();
+        JSONArray tags=commonJobs.getTaginfo();
         String time2=enddate.substring(11);
         String address=commonJobs.getAddress();
         String status=commonJobs.getStatus();
@@ -130,6 +138,14 @@ public class ScheduleDayAdapter extends RecyclerView.Adapter<ScheduleDayAdapter.
 
         holder.week_jobs_card.setOnClickListener(view -> {
             Intent i=new Intent(mContext, ScheduleDayDetails.class);
+            i.putExtra("cusname",cusname);
+            i.putExtra("sitename",sitename);
+            i.putExtra("equipname",equipname);
+            i.putExtra("compaddress",compaddress);
+            i.putExtra("firstname",firstname);
+            i.putExtra("lastname",lastname);
+            i.putExtra("date",date);
+            i.putExtra("jobid",jobid);
             i.putExtra("myid",myid);
             i.putExtra("status",status);
             i.putExtra("address",address);
@@ -141,6 +157,7 @@ public class ScheduleDayAdapter extends RecyclerView.Adapter<ScheduleDayAdapter.
             i.putExtra("email",email);
             i.putExtra("desc",desc);
             i.putExtra("latlng",latlng);
+            i.putExtra("tags",tags.toString());
             mContext.startActivity(i);
         });
 

@@ -3,7 +3,6 @@ package com.example.rohin.fieldoutadmin.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,6 +13,8 @@ import com.example.rohin.fieldoutadmin.R;
 import com.example.rohin.fieldoutadmin.activity.JobsDayDetails;
 import com.example.rohin.fieldoutadmin.common.CommonJobs;
 import com.example.rohin.fieldoutadmin.sharedpreference.PreferenceManager;
+
+import org.json.JSONArray;
 
 import java.util.ArrayList;
 
@@ -80,12 +81,23 @@ public class MyViewHolderEleven extends RecyclerView.ViewHolder{
         String email=commonJobs.getEmail();
         String desc=commonJobs.getDescription();
         String latlng=commonJobs.getLatlng();
+        String compaddress=commonJobs.getComplementAddress();
         String jobid=commonJobs.getJobid();
+        String firstname=commonJobs.getFirstname();
+        String lastname=commonJobs.getLastname();
+        String date=commonJobs.getSchedulingdate();
+        JSONArray tags=commonJobs.getTaginfo();
 
         holder.month_jobs_linear.setOnClickListener(view -> {
             Intent i=new Intent(mContext, JobsDayDetails.class);
+            i.putExtra("cusname",cusname);
+            i.putExtra("sitename",sitename);
+            i.putExtra("equipname",equipname);
+            i.putExtra("compaddress",compaddress);
+            i.putExtra("firstname",firstname);
+            i.putExtra("lastname",lastname);
+            i.putExtra("date",date);
             i.putExtra("jobid",jobid);
-            Log.e("JobId"," "+jobid);
             i.putExtra("myid",myid);
             i.putExtra("status",status);
             i.putExtra("address",address);
@@ -97,6 +109,7 @@ public class MyViewHolderEleven extends RecyclerView.ViewHolder{
             i.putExtra("email",email);
             i.putExtra("desc",desc);
             i.putExtra("latlng",latlng);
+            i.putExtra("tags",tags.toString());
             mContext.startActivity(i);
         });
 

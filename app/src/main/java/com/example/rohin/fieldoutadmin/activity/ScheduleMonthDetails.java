@@ -1,9 +1,16 @@
 package com.example.rohin.fieldoutadmin.activity;
 
+import android.Manifest;
+import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.LinearLayout;
@@ -11,6 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.rohin.fieldoutadmin.R;
+import com.example.rohin.fieldoutadmin.common.FilePath;
+
+import java.io.File;
+import java.io.FileInputStream;
 
 /**
  * Created by Rohin on 27-12-2017.
@@ -32,6 +43,18 @@ public class ScheduleMonthDetails extends AppCompatActivity {
     private String email=null;
     private String latlng=null;
     private String status=null;
+    private String jobid=null;
+    private String cusname=null;
+    private String sitename=null;
+    private String equipname=null;
+    private String compaddress=null;
+    private String firstname=null;
+    private String lastname=null;
+    private String date=null;
+    private String taginfo=null;
+    private String TAG=AddAttachmentActivity.class.getSimpleName();
+    private int FILE_PICKER=3;
+    private final int READ_EXTERNAL_STORAGE=4;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +81,14 @@ public class ScheduleMonthDetails extends AppCompatActivity {
         try {
 
             Bundle bundle = getIntent().getExtras();
+            jobid=bundle.getString("jobid");
+            cusname=bundle.getString("cusname");
+            sitename=bundle.getString("sitename");
+            equipname=bundle.getString("equipname");
+            compaddress=bundle.getString("compaddress");
+            firstname=bundle.getString("firstname");
+            lastname=bundle.getString("lastname");
+            date=bundle.getString("date");
             status=bundle.getString("status");
             priority = bundle.getString("priority");
             jobtype = bundle.getString("jobtypename");
@@ -69,6 +100,7 @@ public class ScheduleMonthDetails extends AppCompatActivity {
             desc = bundle.getString("desc");
             email = bundle.getString("email");
             latlng=bundle.getString("latlng");
+            taginfo=bundle.getString("tags");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -109,24 +141,109 @@ public class ScheduleMonthDetails extends AppCompatActivity {
         }
 
         add_attachments.setOnClickListener(view -> {
-            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setType("*/*");
-            startActivityForResult(intent, 7);
+           checkReadPermission();
         });
 
     }
 
+    private void checkReadPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showToast("Please allow permission for attachments!");
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        READ_EXTERNAL_STORAGE);
+
+            }
+        }else{
+            getAttachment();
+        }
+
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case READ_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getAttachment();
+
+                } else {
+
+                    showToast("Please enable permission for attachment");
+                }
+                return;
+            }
+
+        }
+    }
+    private void getAttachment() {
+        Intent intent = new Intent();
+        intent.setType("*/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Choose File to Upload"),FILE_PICKER);
+    }
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        // TODO Auto-generated method stub
-        switch(requestCode){
-            case 7:
-                if(resultCode==RESULT_OK){
-                    String PathHolder = data.getData().getPath();
-                    Toast.makeText(ScheduleMonthDetails.this, PathHolder , Toast.LENGTH_LONG).show();
+        super.onActivityResult(requestCode, resultCode, data);
+        if(resultCode == Activity.RESULT_OK){
+            if(requestCode == FILE_PICKER){
+                if(data != null){
+                    Uri selectedFileUri = data.getData();
+                    String selectedFilePath = FilePath.getPath(this,selectedFileUri);
+                    Log.i(TAG,"Selected File Path:" + selectedFilePath);
+
+                    if(selectedFilePath != null && !selectedFilePath.equals("")){
+                        Log.d("File Path : ",TAG+" / / "+selectedFilePath);
+                        byte[] fileByte=getBytes(new File(selectedFilePath));
+                        try {
+                            Log.d("fileByte : ",TAG+" / / "+fileByte.toString());
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+                    }else{
+                        showToast("File path is empty!");
+                    }
                 }
-                break;
+            }
         }
+    }
+
+    private byte[] getBytes (File file){
+        FileInputStream input = null;
+        if (file.exists())
+            try{
+                input = new FileInputStream (file);
+                int len = (int) file.length();
+                byte[] data = new byte[len];
+                int count, total = 0;
+                while ((count = input.read (data, total, len - total)) > 0) total += count;
+                return data;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            finally{
+                if (input != null)
+                    try{
+                        input.close();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+            }
+        return null;
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -142,21 +259,25 @@ public class ScheduleMonthDetails extends AppCompatActivity {
             case android.R.id.home:
                 ScheduleMonthDetails.this.finish();
                 return true;
-//            case R.id.action_edit:
-//                Intent i=new Intent(ToScheduleDetails.this,CustomerUpdateDelete.class);
-//                i.putExtra("customerid",customerid);
-//                i.putExtra("customername",customername);
-//                i.putExtra("address",cusaddress);
-//                i.putExtra("compaddress",compaddress);
-//                i.putExtra("myid",cusmyid);
-//                i.putExtra("firstname",cusfirstname);
-//                i.putExtra("lastname",cuslastname);
-//                i.putExtra("mobile",cusmobile);
-//                i.putExtra("phone",cusphone);
-//                i.putExtra("fax",cusfax);
-//                i.putExtra("email",cusemail);
-//                startActivity(i);
-//                break;
+            case R.id.action_edit:
+                Intent i=new Intent(ScheduleMonthDetails.this,JobsUpdateDelete.class);
+                i.putExtra("jobid",jobid);
+                i.putExtra("cusname",cusname);
+                i.putExtra("sitename",sitename);
+                i.putExtra("equipname",equipname);
+                i.putExtra("address",address);
+                i.putExtra("compaddress",compaddress);
+                i.putExtra("firstname",firstname);
+                i.putExtra("lastname",lastname);
+                i.putExtra("mobile",mobile);
+                i.putExtra("phone",phone);
+                i.putExtra("email",email);
+                i.putExtra("myid",myid);
+                i.putExtra("desc",desc);
+                i.putExtra("date",date);
+                i.putExtra("tags",taginfo.toString());
+                startActivity(i);
+                break;
 
         }
 

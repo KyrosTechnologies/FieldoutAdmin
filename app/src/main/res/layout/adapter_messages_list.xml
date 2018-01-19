@@ -1,0 +1,115 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+
+    <LinearLayout
+        android:id="@+id/messages_linear"
+        android:layout_width="wrap_content"
+        android:layout_height="80dp"
+        android:orientation="horizontal"
+        android:background="@color/bg">
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/msg_title"
+            android:layout_width="435dp"
+            android:layout_height="wrap_content"
+            android:text="Title"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/msg_body"
+            android:layout_width="435dp"
+            android:layout_height="wrap_content"
+            android:text="Message"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:layout_marginLeft="15dp"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/msg_sent"
+            android:layout_width="118dp"
+            android:layout_height="wrap_content"
+            android:text="Sent"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:singleLine="true"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/msg_read"
+            android:layout_width="118dp"
+            android:layout_height="wrap_content"
+            android:text="Read"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:singleLine="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:id="@+id/msg_delete"
+            android:layout_width="118dp"
+            android:layout_height="wrap_content"
+            android:text="Deleted"
+            android:textColor="@color/text_light"
+            android:textSize="24sp"
+            android:singleLine="false"
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="0.2dp"
+        android:background="@color/light_black"/>
+
+</LinearLayout>

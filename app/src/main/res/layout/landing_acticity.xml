@@ -348,6 +348,7 @@
             android:layout_marginRight="12dp"/>
 
         <LinearLayout
+            android:id="@+id/messages"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:orientation="horizontal">
@@ -835,6 +836,7 @@
             android:layout_marginLeft="450dp">
 
             <TextView
+                android:id="@+id/jobs_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Jobs"

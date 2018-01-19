@@ -81,6 +81,12 @@ public class CommonJobs {
     private String projecttypename;
     private JSONArray taginfo;
     private String schedulingdate;
+    private String messageid;
+    private String messagetitle;
+    private String messagebody;
+    private int issent;
+    private int isread;
+    private int isdelete;
 
     public CommonJobs(){
 
@@ -654,5 +660,53 @@ public class CommonJobs {
 
     public void setSchedulingdate(String schedulingdate) {
         this.schedulingdate = schedulingdate;
+    }
+
+    public String getMessageid() {
+        return messageid;
+    }
+
+    public void setMessageid(String messageid) {
+        this.messageid = messageid;
+    }
+
+    public String getMessagetitle() {
+        return messagetitle;
+    }
+
+    public void setMessagetitle(String messagetitle) {
+        this.messagetitle = messagetitle;
+    }
+
+    public String getMessagebody() {
+        return messagebody;
+    }
+
+    public void setMessagebody(String messagebody) {
+        this.messagebody = messagebody;
+    }
+
+    public int getIssent() {
+        return issent;
+    }
+
+    public void setIssent(int issent) {
+        this.issent = issent;
+    }
+
+    public int getIsread() {
+        return isread;
+    }
+
+    public void setIsread(int isread) {
+        this.isread = isread;
+    }
+
+    public int getIsdelete() {
+        return isdelete;
+    }
+
+    public void setIsdelete(int isdelete) {
+        this.isdelete = isdelete;
     }
 }

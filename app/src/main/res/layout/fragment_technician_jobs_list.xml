@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <Spinner
+        android:id="@+id/tech_spinner"
+        android:layout_width="match_parent"
+        android:layout_height="60dp"
+        android:layout_margin="10dp"
+        android:background="@drawable/button_red"/>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="50dp"
+        android:orientation="horizontal"
+        android:background="@color/button"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp">
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black"/>
+
+        <TextView
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
+            android:text="Job"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:layout_gravity="center"
+            android:gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="140dp"
+            android:layout_height="wrap_content"
+            android:text="Status"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:text="Priority"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="360dp"
+            android:layout_height="wrap_content"
+            android:text="Customer / Site / Equipment"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:text="Phone"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+        <TextView
+            android:layout_width="218dp"
+            android:layout_height="wrap_content"
+            android:text="JobType"
+            android:textColor="@color/white"
+            android:textSize="24sp"
+            android:gravity="center"
+            android:layout_gravity="center"/>
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/white"/>
+
+    </LinearLayout>
+
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/technician_jobs_recycler"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginBottom="10dp"/>
+
+    <LinearLayout
+        android:id="@+id/no_tech_jobs_linear"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:visibility="gone"
+        android:layout_marginTop="10dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="No Jobs Found"
+            android:textSize="28sp"
+            android:textColor="@color/button"
+            android:layout_gravity="center"/>
+
+    </LinearLayout>
+
+</LinearLayout>

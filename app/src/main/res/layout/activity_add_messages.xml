@@ -1,0 +1,162 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_margin="15dp">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginRight="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Message"
+                        android:textSize="24sp"
+                        android:textColor="@color/button"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:background="@color/button"
+                        android:layout_marginTop="5dp"/>
+
+                    <EditText
+                        android:id="@+id/msg_title_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:background="@drawable/button_red"
+                        android:hint="Title"
+                        android:paddingLeft="8dp"
+                        android:inputType="text"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/light_black"
+                        android:textColorHint="@color/text_light"
+                        android:textSize="20sp"/>
+
+                    <EditText
+                        android:id="@+id/msg_body_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:background="@drawable/button_red"
+                        android:hint="Message Body"
+                        android:paddingLeft="8dp"
+                        android:gravity="start"
+                        android:paddingTop="8dp"
+                        android:layout_marginTop="10dp"
+                        android:textColor="@color/light_black"
+                        android:textColorHint="@color/text_light"
+                        android:textSize="20sp"/>
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Message"
+                        android:textSize="24sp"
+                        android:textColor="@color/button"
+                        android:layout_marginTop="20dp"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:background="@color/button"
+                        android:layout_marginTop="5dp"/>
+
+                    <LinearLayout
+                        android:id="@+id/msg_priority_linear"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:orientation="horizontal"
+                        android:background="@drawable/button_bg"
+                        android:layout_marginTop="10dp">
+
+                        <TextView
+                            android:id="@+id/msg_priority_text"
+                            android:singleLine="true"
+                            android:layout_width="wrap_content"
+                            android:gravity="start|center"
+                            android:layout_height="match_parent"
+                            android:ellipsize="marquee"
+                            android:textSize="22sp"
+                            android:paddingLeft="8dp"
+                            android:textColor="@color/text_light"
+                            android:text="Priority"
+                            android:layout_weight="1"/>
+
+                        <ImageView
+                            android:layout_width="20dp"
+                            android:layout_height="20dp"
+                            android:src="@drawable/down_black"
+                            android:layout_gravity="center"
+                            android:layout_marginRight="10dp"/>
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:layout_weight="1"
+                    android:layout_marginLeft="5dp">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="To"
+                        android:textSize="24sp"
+                        android:textColor="@color/button"/>
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:background="@color/button"
+                        android:layout_marginTop="5dp"/>
+
+                    <Spinner
+                        android:id="@+id/msg_tech_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_red"/>
+
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/save_messages"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:textColor="@color/white"
+                android:text="Save"
+                android:textSize="26sp"
+                android:background="@color/button"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="30dp"/>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+</LinearLayout>

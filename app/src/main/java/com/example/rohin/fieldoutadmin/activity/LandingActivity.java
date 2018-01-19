@@ -18,6 +18,7 @@ import com.example.rohin.fieldoutadmin.R;
 import com.example.rohin.fieldoutadmin.fragments.ActivitiesFragment;
 import com.example.rohin.fieldoutadmin.fragments.ConfigurationFragment;
 import com.example.rohin.fieldoutadmin.fragments.CustomerFragment;
+import com.example.rohin.fieldoutadmin.fragments.FragmentTechnicianJobs;
 import com.example.rohin.fieldoutadmin.fragments.InvoicesFragment;
 import com.example.rohin.fieldoutadmin.fragments.JobsDayFragment;
 import com.example.rohin.fieldoutadmin.fragments.JobsMonthFragment;
@@ -49,11 +50,11 @@ public class LandingActivity extends AppCompatActivity {
     private LinearLayout linear_name_down,name_visible_linear,linear_team,linear_schedule_down,map_linear,
             linear_customers_down,linear_projects,linear_jobs_down,linear_invoicing_down,linear_reports_down,
             schedule_visible_linear,cutomer_visible_linear,jobs_visible_linear,invoice_visible_linear,reports_visible_linear,
-            my_profile,logout;
+            my_profile,logout,messages;
     private ImageView settings_fragment;
     private TextView week_text,month_text,day_text,activity_text,resources_text,list_text,site_text,equipment_text,jobs_month_text,
             jobs_day_text,jobs_week_text,jobs_late_text,upcoming_jobs_text,to_schedule_job_text,invoices_text,quotations_text,
-            company_name,project_text,parts_text,first_last_name;
+            company_name,project_text,parts_text,first_last_name,jobs_text;
     private Boolean namearrowclicked=true;
     private Boolean techarrowclicked=true;
     private Boolean schedulearrowclicked=true;
@@ -113,6 +114,8 @@ public class LandingActivity extends AppCompatActivity {
         first_last_name=findViewById(R.id.first_last_name);
         my_profile=findViewById(R.id.my_profile);
         logout=findViewById(R.id.logout);
+        messages=findViewById(R.id.messages);
+        jobs_text=findViewById(R.id.jobs_text);
         companyname=store.getCompanyName();
         firstname=store.getFirstName();
         lastname=store.getLastName();
@@ -506,12 +509,26 @@ public class LandingActivity extends AppCompatActivity {
             k.replace(R.id.container_fragments, h);
             k.commit();
         });
+        jobs_text.setOnClickListener(view -> {
+            reports_visible_linear.setVisibility(View.GONE);
+            FragmentTechnicianJobs h = new FragmentTechnicianJobs();
+            android.support.v4.app.FragmentTransaction k =
+                    getSupportFragmentManager().beginTransaction();
+            k.replace(R.id.container_fragments, h);
+            k.commit();
+        });
         my_profile.setOnClickListener(view -> {
+            name_visible_linear.setVisibility(View.GONE);
             Intent intent=new Intent(LandingActivity.this,MyProfile.class);
             startActivity(intent);
         });
         logout.setOnClickListener(view -> {
             showLogoutDialog();
+        });
+        messages.setOnClickListener(view -> {
+            name_visible_linear.setVisibility(View.GONE);
+            Intent intent=new Intent(LandingActivity.this,MessageList.class);
+            startActivity(intent);
         });
 
     }

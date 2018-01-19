@@ -14,6 +14,8 @@ import com.example.rohin.fieldoutadmin.activity.ScheduleWeekDetails;
 import com.example.rohin.fieldoutadmin.common.CommonJobs;
 import com.example.rohin.fieldoutadmin.sharedpreference.PreferenceManager;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 import java.util.StringTokenizer;
 
@@ -66,12 +68,13 @@ public class ScheduleWeekAdapter extends RecyclerView.Adapter<ScheduleWeekAdapte
 
         CommonJobs commonJobs=commonJobsArrayList.get(position);
         final String sitename=commonJobs.getSitename();
+        String cusname=commonJobs.getCustomername();
+        String equipname=commonJobs.getEquipname();
         String firstname=commonJobs.getFirstname();
         String lastname=commonJobs.getLastname();
         String priority=commonJobs.getPriority();
         String contactname=commonJobs.getContactname();
         String mobile=commonJobs.getMobilenum();
-        String jobid=commonJobs.getJobid();
         String phone=commonJobs.getPhone();
         String email=commonJobs.getEmail();
         String myid=commonJobs.getMyId();
@@ -81,6 +84,10 @@ public class ScheduleWeekAdapter extends RecyclerView.Adapter<ScheduleWeekAdapte
         String startdate=commonJobs.getScheduledBeginDate();
         String time1=startdate.substring(11);
         String enddate=commonJobs.getScheduleenddate();
+        String compaddress=commonJobs.getComplementAddress();
+        String jobid=commonJobs.getJobid();
+        String date=commonJobs.getSchedulingdate();
+        JSONArray tags=commonJobs.getTaginfo();
         String time2=enddate.substring(11);
         String address=commonJobs.getAddress();
         String status=commonJobs.getStatus();
@@ -131,6 +138,13 @@ public class ScheduleWeekAdapter extends RecyclerView.Adapter<ScheduleWeekAdapte
 
         holder.week_jobs_card.setOnClickListener(view -> {
             Intent i=new Intent(mContext, ScheduleWeekDetails.class);
+            i.putExtra("cusname",cusname);
+            i.putExtra("sitename",sitename);
+            i.putExtra("equipname",equipname);
+            i.putExtra("compaddress",compaddress);
+            i.putExtra("firstname",firstname);
+            i.putExtra("lastname",lastname);
+            i.putExtra("date",date);
             i.putExtra("jobid",jobid);
             i.putExtra("myid",myid);
             i.putExtra("status",status);
@@ -143,6 +157,7 @@ public class ScheduleWeekAdapter extends RecyclerView.Adapter<ScheduleWeekAdapte
             i.putExtra("email",email);
             i.putExtra("desc",desc);
             i.putExtra("latlng",latlng);
+            i.putExtra("tags",tags.toString());
             mContext.startActivity(i);
         });
 

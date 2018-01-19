@@ -32,6 +32,15 @@ public class JobsWeekDetails extends AppCompatActivity {
     private String email=null;
     private String latlng=null;
     private String status=null;
+    private String jobid=null;
+    private String cusname=null;
+    private String sitename=null;
+    private String equipname=null;
+    private String compaddress=null;
+    private String firstname=null;
+    private String lastname=null;
+    private String date=null;
+    private String taginfo=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -58,6 +67,14 @@ public class JobsWeekDetails extends AppCompatActivity {
         try {
 
             Bundle bundle = getIntent().getExtras();
+            jobid=bundle.getString("jobid");
+            cusname=bundle.getString("cusname");
+            sitename=bundle.getString("sitename");
+            equipname=bundle.getString("equipname");
+            compaddress=bundle.getString("compaddress");
+            firstname=bundle.getString("firstname");
+            lastname=bundle.getString("lastname");
+            date=bundle.getString("date");
             status=bundle.getString("status");
             priority = bundle.getString("priority");
             jobtype = bundle.getString("jobtypename");
@@ -69,6 +86,7 @@ public class JobsWeekDetails extends AppCompatActivity {
             desc = bundle.getString("desc");
             email = bundle.getString("email");
             latlng=bundle.getString("latlng");
+            taginfo=bundle.getString("tags");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -142,21 +160,25 @@ public class JobsWeekDetails extends AppCompatActivity {
             case android.R.id.home:
                 JobsWeekDetails.this.finish();
                 return true;
-//            case R.id.action_edit:
-//                Intent i=new Intent(ToScheduleDetails.this,CustomerUpdateDelete.class);
-//                i.putExtra("customerid",customerid);
-//                i.putExtra("customername",customername);
-//                i.putExtra("address",cusaddress);
-//                i.putExtra("compaddress",compaddress);
-//                i.putExtra("myid",cusmyid);
-//                i.putExtra("firstname",cusfirstname);
-//                i.putExtra("lastname",cuslastname);
-//                i.putExtra("mobile",cusmobile);
-//                i.putExtra("phone",cusphone);
-//                i.putExtra("fax",cusfax);
-//                i.putExtra("email",cusemail);
-//                startActivity(i);
-//                break;
+            case R.id.action_edit:
+                Intent i=new Intent(JobsWeekDetails.this,JobsUpdateDelete.class);
+                i.putExtra("jobid",jobid);
+                i.putExtra("cusname",cusname);
+                i.putExtra("sitename",sitename);
+                i.putExtra("equipname",equipname);
+                i.putExtra("address",address);
+                i.putExtra("compaddress",compaddress);
+                i.putExtra("firstname",firstname);
+                i.putExtra("lastname",lastname);
+                i.putExtra("mobile",mobile);
+                i.putExtra("phone",phone);
+                i.putExtra("email",email);
+                i.putExtra("myid",myid);
+                i.putExtra("desc",desc);
+                i.putExtra("date",date);
+                i.putExtra("tags",taginfo.toString());
+                startActivity(i);
+                break;
 
         }
 
