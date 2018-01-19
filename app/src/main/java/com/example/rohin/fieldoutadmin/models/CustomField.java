@@ -46,4 +46,9 @@ public class CustomField {
 
     public CustomField() {
     }
+
+    @Override
+    public boolean equals(Object obj) {
+        return (obj instanceof CustomField) && id==((CustomField)obj).getId();
+    }
 }

@@ -277,41 +277,44 @@ public class AddUserActivity extends AppCompatActivity {
                if(choicesList==null){
                    choicesList=new ArrayList<>();
                }
-               String id=customField.getId();
-               boolean isPrivate=customField.getIsPrivate();
+
                String name=customField.getName();
                if(name==null){
                    name="";
                }
+               String id=customField.getId();
                String typeOfField=customField.getTypeOfField();
 
                //Tables Rows
                TableRow tableRow=new TableRow(this);
-               tableRow.setBackground(getResources().getDrawable(R.color.bg));
+             //  tableRow.setBackground(getResources().getDrawable(R.color.bg));
                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
                 switch (typeOfField){
                     case "Text":
                         typeWhich.setId(position);
                         typeWhich.setType("Text");
+                        typeWhich.setCustomFieldId(id);
                         inputTextView =new EditText(this);
                         String valueInput="Enter user input "+name;
                         inputTextView.setHint(valueInput);
                         inputTextView.setTextSize(20);
                         inputTextView.setId(position);
+                        inputTextView.setSingleLine(true);
                         TableRow.LayoutParams tableRowInputTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                        tableRowInputTextParams.setMargins(10,10,0,10);
+                        tableRowInputTextParams.setMargins(10,20,0,10);
                         inputTextView.setLayoutParams(tableRowInputTextParams);
                         inputTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
                         inputTextView.setTextColor(getResources().getColor(R.color.light_black));
-                        inputTextView.setPadding(5, 5, 5, 5);
+                        inputTextView.setPadding(5, 5, 5, 15);
                         tableRow.addView(inputTextView);
                         break;
                     case "List Of Values":
                         typeWhich.setId(position);
                         typeWhich.setType("List Of Values");
-                         spinnerCustomField=new Spinner(this);
+                        typeWhich.setCustomFieldId(id);
+                        spinnerCustomField=new Spinner(this);
                         TableRow.LayoutParams tableRowSpinnerParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                        tableRowSpinnerParams.setMargins(10,10,0,10);
+                        tableRowSpinnerParams.setMargins(10,20,0,10);
                         spinnerCustomField.setLayoutParams(tableRowSpinnerParams);
                         spinnerCustomField.setPrompt(""+name);
                         spinnerCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
@@ -338,13 +341,14 @@ public class AddUserActivity extends AppCompatActivity {
                     case "Date":
                         typeWhich.setId(position);
                         typeWhich.setType("Date");
+                        typeWhich.setCustomFieldId(id);
                         String valueDate="Date "+name;
                          dateTextView=new TextView(this);
                         dateTextView.setText(valueDate);
                         dateTextView.setTextSize(20);
                         dateTextView.setId(position);
                         TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                        tableRowuserNameParams.setMargins(10,10,0,10);
+                        tableRowuserNameParams.setMargins(10,20,0,10);
                         dateTextView.setLayoutParams(tableRowuserNameParams);
                         dateTextView.setTextColor(getResources().getColor(R.color.black));
                         dateTextView.setBackground(getResources().getDrawable(R.drawable.default_text_view_background));
@@ -373,16 +377,18 @@ public class AddUserActivity extends AppCompatActivity {
                     case "Numeric":
                         typeWhich.setId(position);
                         typeWhich.setType("Numeric");
-                         numericEditText=new EditText(this);
+                        typeWhich.setCustomFieldId(id);
+                        numericEditText=new EditText(this);
                          String valueNumeric="Input "+name;
                             numericEditText.setHint(valueNumeric);
                         numericEditText.setTextSize(20);
                         numericEditText.setId(position);
                         numericEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
                         TableRow.LayoutParams tableRowNumericParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                        tableRowNumericParams.setMargins(10,10,0,10);
+                        tableRowNumericParams.setMargins(10,20,0,10);
                         numericEditText.setLayoutParams(tableRowNumericParams);
                         numericEditText.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        numericEditText.setSingleLine(true);
                         numericEditText.setTextColor(getResources().getColor(R.color.light_black));
                         numericEditText.setPadding(5, 5, 5, 15);
                         tableRow.addView(numericEditText);
@@ -390,13 +396,14 @@ public class AddUserActivity extends AppCompatActivity {
                     case "CheckBox":
                         typeWhich.setId(position);
                         typeWhich.setType("CheckBox");
+                        typeWhich.setCustomFieldId(id);
                         checkBoxCustomField=new CheckBox(this);
                         checkBoxCustomField.setChecked(true);
                         checkBoxCustomField.setId(position);
                         String valueCheckBox="Select "+name;
                         checkBoxCustomField.setText(valueCheckBox);
                         TableRow.LayoutParams tableRowCheckBoxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                        tableRowCheckBoxParams.setMargins(10,10,0,10);
+                        tableRowCheckBoxParams.setMargins(10,20,0,10);
                         checkBoxCustomField.setLayoutParams(tableRowCheckBoxParams);
                         checkBoxCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
                         checkBoxCustomField.setTextColor(getResources().getColor(R.color.light_black));
@@ -406,15 +413,17 @@ public class AddUserActivity extends AppCompatActivity {
                     case "AutoCompleteBox":
                         typeWhich.setId(position);
                         typeWhich.setType("AutoCompleteBox");
-                         autoCompleteTextView=new AutoCompleteTextView(this);
+                        typeWhich.setCustomFieldId(id);
+                        autoCompleteTextView=new AutoCompleteTextView(this);
                          String valueACTV=""+name;
                             autoCompleteTextView.setHint(valueACTV);
                         autoCompleteTextView.setTextSize(20);
                         autoCompleteTextView.setId(position);
                         TableRow.LayoutParams tableRowACTVParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                        tableRowACTVParams.setMargins(10,10,0,10);
+                        tableRowACTVParams.setMargins(10,20,0,10);
                         autoCompleteTextView.setLayoutParams(tableRowACTVParams);
                         autoCompleteTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        autoCompleteTextView.setSingleLine(true);
                         autoCompleteTextView.setTextColor(getResources().getColor(R.color.black));
                         autoCompleteTextView.setPadding(5, 5, 5, 15);
                         ArrayAdapter<String> adapterACTV = new ArrayAdapter<>(this,
@@ -824,8 +833,17 @@ dismissDialog();
     public class TypeWhich{
         private int id;
         private String type;
+        private String customFieldId;
         public TypeWhich(){
 
+        }
+
+        public String getCustomFieldId() {
+            return customFieldId;
+        }
+
+        public void setCustomFieldId(String customFieldId) {
+            this.customFieldId = customFieldId;
         }
 
         public int getId() {

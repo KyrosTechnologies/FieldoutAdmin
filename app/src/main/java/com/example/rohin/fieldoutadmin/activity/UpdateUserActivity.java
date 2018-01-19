@@ -512,8 +512,7 @@ private Subscriber<GetSingleUserResponse>checkGetOneUserResponse=new Subscriber<
             if(choicesList==null){
                 choicesList=new ArrayList<>();
             }
-            String id=customField.getId();
-            boolean isPrivate=customField.getIsPrivate();
+
 
             String typeOfField=customField.getTypeOfField();
             String textValueResponse=customField.getTextValue();
@@ -539,7 +538,7 @@ private Subscriber<GetSingleUserResponse>checkGetOneUserResponse=new Subscriber<
                     inputTextView.setLayoutParams(tableRowInputTextParams);
                     inputTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
                     inputTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    inputTextView.setPadding(5, 5, 5, 5);
+                    inputTextView.setPadding(5, 5, 5, 15);
                     tableRow.addView(inputTextView);
                     break;
                 case "List Of Values":

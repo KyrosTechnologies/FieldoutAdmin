@@ -29,6 +29,7 @@ import com.example.rohin.fieldoutadmin.common.CommonJobs;
 import com.example.rohin.fieldoutadmin.common.EndURL;
 import com.example.rohin.fieldoutadmin.common.ServiceHandler;
 import com.example.rohin.fieldoutadmin.sharedpreference.PreferenceManager;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
@@ -162,6 +163,12 @@ public class CustomerFragment extends Fragment {
                             tagInfo=first.getJSONArray("tagInfo");
                         }catch (Exception e){
                         }
+                        JSONArray customFields=null;
+                        try{
+                            customFields=first.getJSONArray("CustomFieldValues");
+                        }catch (Exception e){
+
+                        }
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setCustomername(name);
@@ -177,6 +184,9 @@ public class CustomerFragment extends Fragment {
                         commonJobs.setEmail(contactEmail);
                         commonJobs.setTaginfo(tagInfo);
                         commonJobs.setLatlng(latlng);
+                        if(customFields!=null){
+                            commonJobs.setCustomFields(customFields.toString());
+                        }
                         commonJobsArrayList.add(commonJobs);
 
                     }

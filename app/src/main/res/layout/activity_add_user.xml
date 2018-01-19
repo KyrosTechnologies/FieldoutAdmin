@@ -296,6 +296,11 @@
                     android:layout_gravity="center|start"
                     android:layout_marginBottom="10dp"
                     android:textSize="@dimen/title_text_size"/>
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.5dp"
+                    android:layout_marginBottom="15dp"
+                    android:background="@color/light_black"/>
                 <TableLayout
                     android:id="@+id/table_layout_custom_fields"
                     android:layout_width="match_parent"

@@ -30,6 +30,7 @@ public class CustomerDetails extends AppCompatActivity {
     private String cusemail=null;
     private String latlng=null;
     private String taginfo=null;
+    private String customFields=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -63,6 +64,7 @@ public class CustomerDetails extends AppCompatActivity {
             cusemail = bundle.getString("email");
             latlng=bundle.getString("latlng");
             taginfo=bundle.getString("tags");
+            customFields=bundle.getString("customFields");
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -124,6 +126,7 @@ public class CustomerDetails extends AppCompatActivity {
                 i.putExtra("fax",cusfax);
                 i.putExtra("email",cusemail);
                 i.putExtra("tags",taginfo.toString());
+                i.putExtra("customFields",customFields);
                 startActivity(i);
                 break;
 

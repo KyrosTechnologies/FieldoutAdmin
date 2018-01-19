@@ -2,6 +2,7 @@ package com.example.rohin.fieldoutadmin.activity;
 
 import android.annotation.TargetApi;
 import android.app.AlertDialog;
+import android.app.DatePickerDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +10,9 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.InputType;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -17,8 +20,11 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Spinner;
+import android.widget.TableLayout;
+import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -32,25 +38,39 @@ import com.example.rohin.fieldoutadmin.adapters.SkilledTradersAdapter;
 import com.example.rohin.fieldoutadmin.common.CommonJobs;
 import com.example.rohin.fieldoutadmin.common.EndURL;
 import com.example.rohin.fieldoutadmin.common.ServiceHandler;
+import com.example.rohin.fieldoutadmin.models.CustomField;
+import com.example.rohin.fieldoutadmin.models.CustomFieldResponse;
 import com.example.rohin.fieldoutadmin.sharedpreference.PreferenceManager;
+import com.example.rohin.fieldoutadmin.viewmodel.CustomFieldsFragmentViewModel;
+import com.google.gson.Gson;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.TimeZone;
 import java.util.concurrent.TimeUnit;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
+
+import javax.inject.Inject;
+
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
  * Created by Rohin on 21-12-2017.
  */
 
 public class AddCustomer extends AppCompatActivity {
-
+    private String TAG=AddCustomer.class.getSimpleName();
     private PreferenceManager store;
     private Spinner spinner_time_zone_customer;
     private List<String> timeZoneList=new ArrayList<>();
@@ -81,6 +101,23 @@ public class AddCustomer extends AppCompatActivity {
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
     ArrayList<String>tagsArrayList=new ArrayList<String>();
     private  JSONArray tagarray=null;
+    private TableLayout table_layout_custom_fields_customer;
+    @Inject
+    CustomFieldsFragmentViewModel customFieldsFragmentViewModel;
+    private CompositeSubscription subscription;
+    private List<CustomField>usersCustomFieldList=new ArrayList<>();
+    private List<TypeWhich>typeWhichList=new ArrayList<>();
+    private  List<String>choicesList=new ArrayList<>();
+    private EditText inputTextView=null;
+    private Spinner spinnerCustomField=null;
+    private TextView dateTextView=null;
+    private EditText numericEditText=null;
+    private CheckBox checkBoxCustomField=null;
+    private AutoCompleteTextView autoCompleteTextView =null;
+    private int selectedYear=0;
+    private int selectedMonth=0;
+    private int selectedDay=0;
+    private int spinnerCustomFieldSeletectedChoice=0;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,6 +129,10 @@ public class AddCustomer extends AppCompatActivity {
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.activity_add_customers);
         store= PreferenceManager.getInstance(getApplicationContext());
+        ((ServiceHandler)getApplication()).getApplicationComponent().injectAddCustomer(this);
+        subscription=new CompositeSubscription();
+        //tableLayout
+        table_layout_custom_fields_customer=findViewById(R.id.table_layout_custom_fields_customer);
         spinner_time_zone_customer=findViewById(R.id.spinner_time_zone_customer);
         customer_add_edit_text=findViewById(R.id.customer_add_edit_text);
         additional_address_customer=findViewById(R.id.additional_address_customer);
@@ -108,7 +149,7 @@ public class AddCustomer extends AppCompatActivity {
         tags_add_customer_text=findViewById(R.id.tags_add_customer_text);
         domainid=store.getIdDomain();
         GetTagsList();
-
+        callCustomFieldsAPI(domainid,store.getToken());
         String[] ids= TimeZone.getAvailableIDs();
         for(String id:ids){
             timeZoneList.add(displayTimeZone(TimeZone.getTimeZone(id)));
@@ -172,6 +213,231 @@ public class AddCustomer extends AppCompatActivity {
 
     }
 
+    private void callCustomFieldsAPI(String domainId, String authKey) {
+        if(domainId!= null && authKey !=null){
+            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
+                    .subscribe(this::customFieldResponse,this::customFieldErrorResponse,this::customFieldCompletedResponse));
+        }else{
+            showToast("domain id or authKey is null!");
+        }
+    }
+
+    private void customFieldCompletedResponse() {
+
+    }
+
+    private void customFieldErrorResponse(Throwable throwable) {
+        Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+    }
+
+    private void customFieldResponse(CustomFieldResponse customFieldResponse) {
+       if(customFieldResponse!=null){
+            Log.d("CustomFieRes : ",TAG+" / / "+customFieldResponse);
+           usersCustomFieldList.clear();
+           Log.d("Custom Field Res : ",TAG+" / / "+customFieldResponse);
+           List<CustomField>customFieldList=customFieldResponse.getCustomFields();
+           if(customFieldList!=null && customFieldList.size()!=0){
+               for(CustomField customField:customFieldList){
+                   String formTYpe=customField.getFormType();
+                   switch (formTYpe){
+                       case "customers":
+                           usersCustomFieldList.add(customField);
+                           break;
+                   }
+
+               }
+           }
+           validateCustomField();
+       }else{
+           showToast("customFieldResponse is null!");
+       }
+    }
+
+    private void validateCustomField() {
+        if(usersCustomFieldList!=null && usersCustomFieldList.size()!=0){
+            table_layout_custom_fields_customer.removeAllViews();
+            typeWhichList.clear();
+            int position=0;
+            for(CustomField customField:usersCustomFieldList){
+                TypeWhich typeWhich=new TypeWhich();
+                position++;
+                choicesList=customField.getChoices();
+                if(choicesList==null){
+                    choicesList=new ArrayList<>();
+                }
+                String id=customField.getId();
+                boolean isPrivate=customField.getIsPrivate();
+                String name=customField.getName();
+                if(name==null){
+                    name="";
+                }
+                String typeOfField=customField.getTypeOfField();
+
+                //Tables Rows
+                TableRow tableRow=new TableRow(this);
+             //   tableRow.setBackground(getResources().getDrawable(R.color.bg));
+                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                switch (typeOfField){
+                    case "Text":
+                        typeWhich.setId(position);
+                        typeWhich.setType("Text");
+                        typeWhich.setCustomFieldId(id);
+                        inputTextView =new EditText(this);
+                        String valueInput="Enter user input "+name;
+                        inputTextView.setHint(valueInput);
+                        inputTextView.setTextSize(20);
+                        inputTextView.setId(position);
+                        TableRow.LayoutParams tableRowInputTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowInputTextParams.setMargins(10,20,0,10);
+                        inputTextView.setLayoutParams(tableRowInputTextParams);
+                        inputTextView.setSingleLine(true);
+                        inputTextView.setBackground(getResources().getDrawable(R.drawable.button_bg));
+                        inputTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        inputTextView.setTextColor(getResources().getColor(R.color.light_black));
+                        inputTextView.setPadding(15, 15, 5, 15);
+                        tableRow.addView(inputTextView);
+                        break;
+                    case "List Of Values":
+                        typeWhich.setId(position);
+                        typeWhich.setType("List Of Values");
+                        typeWhich.setCustomFieldId(id);
+                        spinnerCustomField=new Spinner(this);
+                        TableRow.LayoutParams tableRowSpinnerParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowSpinnerParams.setMargins(10,20,0,10);
+                        spinnerCustomField.setLayoutParams(tableRowSpinnerParams);
+                        spinnerCustomField.setPrompt(""+name);
+                        spinnerCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        spinnerCustomField.setId(position);
+                        spinnerCustomField.setPadding(15, 15, 5, 15);
+                        spinnerCustomField.setTag(customField);
+                        ArrayAdapter<String> adapterSpinner=new  ArrayAdapter<>(this,android.R.layout.simple_spinner_item,
+                                choicesList);
+                        adapterSpinner.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                        spinnerCustomField.setAdapter(adapterSpinner);
+                        spinnerCustomField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                spinnerCustomFieldSeletectedChoice=i;
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                        tableRow.addView(spinnerCustomField);
+                        break;
+                    case "Date":
+                        typeWhich.setId(position);
+                        typeWhich.setType("Date");
+                        String valueDate="Date "+name;
+                        typeWhich.setCustomFieldId(id);
+                        dateTextView=new TextView(this);
+                        dateTextView.setText(valueDate);
+                        dateTextView.setTextSize(20);
+                        dateTextView.setId(position);
+                        TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowuserNameParams.setMargins(10,20,0,10);
+                        dateTextView.setLayoutParams(tableRowuserNameParams);
+                        dateTextView.setTextColor(getResources().getColor(R.color.black));
+                        dateTextView.setBackground(getResources().getDrawable(R.drawable.default_text_view_background));
+                        dateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        dateTextView.setPadding(15, 15, 5, 15);
+                        dateTextView.setOnClickListener(view ->{
+                            Calendar mcurrentDate=Calendar.getInstance();
+                            final int mYear = mcurrentDate.get(Calendar.YEAR);
+                            final int mMonth=mcurrentDate.get(Calendar.MONTH);
+                            final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                            DatePickerDialog mDatePicker=new DatePickerDialog(this, (datepicker, selectedyear, selectedmonth, selectedday) -> {
+                                selectedMonth=selectedmonth+1;
+                                selectedDay=selectedday;
+                                selectedYear=selectedyear;
+                                String finalTimeDay=String.format("%02d",selectedDay);
+                                String finalTimeMonth=String.format("%02d",selectedMonth);
+
+                                String value =selectedYear+"-"+finalTimeMonth+"-"+finalTimeDay;
+                                dateTextView.setText(value);
+                            },mYear, mMonth, mDay);
+                            mDatePicker.show();
+                        });
+                        tableRow.addView(dateTextView);
+                        break;
+                    case "Numeric":
+                        typeWhich.setId(position);
+                        typeWhich.setType("Numeric");
+                        typeWhich.setCustomFieldId(id);
+                        numericEditText=new EditText(this);
+                        String valueNumeric="Input "+name;
+                        numericEditText.setHint(valueNumeric);
+                        numericEditText.setTextSize(20);
+                        numericEditText.setId(position);
+                        numericEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        TableRow.LayoutParams tableRowNumericParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowNumericParams.setMargins(10,20,0,10);
+                        numericEditText.setLayoutParams(tableRowNumericParams);
+                        numericEditText.setSingleLine(true);
+                        numericEditText.setBackground(getResources().getDrawable(R.drawable.button_bg));
+                        numericEditText.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        numericEditText.setTextColor(getResources().getColor(R.color.light_black));
+                        numericEditText.setPadding(15, 15, 5, 15);
+                        tableRow.addView(numericEditText);
+                        break;
+                    case "CheckBox":
+                        typeWhich.setId(position);
+                        typeWhich.setType("CheckBox");
+                        typeWhich.setCustomFieldId(id);
+                        checkBoxCustomField=new CheckBox(this);
+                        checkBoxCustomField.setChecked(true);
+                        checkBoxCustomField.setId(position);
+                        String valueCheckBox="Select "+name;
+                        checkBoxCustomField.setText(valueCheckBox);
+                        TableRow.LayoutParams tableRowCheckBoxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowCheckBoxParams.setMargins(10,20,0,10);
+                        checkBoxCustomField.setLayoutParams(tableRowCheckBoxParams);
+                        checkBoxCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        checkBoxCustomField.setTextColor(getResources().getColor(R.color.light_black));
+                        checkBoxCustomField.setPadding(15, 15, 5, 15);
+                        tableRow.addView(checkBoxCustomField);
+                        break;
+                    case "AutoCompleteBox":
+                        typeWhich.setId(position);
+                        typeWhich.setType("AutoCompleteBox");
+                        typeWhich.setCustomFieldId(id);
+                        autoCompleteTextView=new AutoCompleteTextView(this);
+                        String valueACTV=""+name;
+                        autoCompleteTextView.setHint(valueACTV);
+                        autoCompleteTextView.setTextSize(20);
+                        autoCompleteTextView.setId(position);
+                        TableRow.LayoutParams tableRowACTVParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowACTVParams.setMargins(10,20,0,10);
+                        autoCompleteTextView.setLayoutParams(tableRowACTVParams);
+                        autoCompleteTextView.setSingleLine(true);
+                        autoCompleteTextView.setBackground(getResources().getDrawable(R.drawable.button_bg));
+                        autoCompleteTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        autoCompleteTextView.setTextColor(getResources().getColor(R.color.black));
+                        autoCompleteTextView.setPadding(15, 15, 5, 15);
+                        ArrayAdapter<String> adapterACTV = new ArrayAdapter<>(this,
+                                android.R.layout.simple_dropdown_item_1line, choicesList);
+                        autoCompleteTextView.setAdapter(adapterACTV);
+                        tableRow.addView(autoCompleteTextView);
+                        break;
+                }
+                typeWhichList.add(typeWhich);
+                table_layout_custom_fields_customer.addView(tableRow);
+
+            }
+        }
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
+    }
+
     private void skilledTradesDialog(List<String> skilledName,TextView tView) {
         AlertDialog.Builder builder=new AlertDialog.Builder(AddCustomer.this);
         LayoutInflater layoutInflate=getLayoutInflater();
@@ -224,6 +490,7 @@ public class AddCustomer extends AppCompatActivity {
     protected void onDestroy() {
         super.onDestroy();
         dismissTagsDialog();
+        subscription.clear();
 
     }
 
@@ -362,6 +629,115 @@ public class AddCustomer extends AppCompatActivity {
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
+    private List<CustomField> getCustomFilesList(){
+        List<CustomField>customFieldList=new ArrayList<>();
+        if(typeWhichList!=null && typeWhichList.size()!=0){
+            int position=0;
+            for(TypeWhich typeWhich:typeWhichList){
+                position++;
+                switch (typeWhich.getType()){
+                    case "Text":
+                        if(inputTextView!=null){
+                            inputTextView.findViewById(typeWhich.getId());
+                            String textValue=inputTextView.getText().toString();
+                            String formType="users";
+                            String typeOfField="Text";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+                    case "List Of Values":
+                        if(spinnerCustomField!=null){
+                            String value ="";
+                            spinnerCustomField.findViewById(typeWhich.getId());
+                            value=spinnerCustomField.getSelectedItem().toString();
+                            CustomField customFieldTemp =(CustomField)spinnerCustomField.getTag();
+                            List<String>choiceList=customFieldTemp.getChoices();
+                            String formType="users";
+                            String typeOfField="List Of Values";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(value);
+                            customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setChoices(choiceList);
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+
+                        }
+                        break;
+                    case "Date":
+                        if(dateTextView!=null){
+                            String textValue ="";
+                            dateTextView.findViewById(typeWhich.getId());
+                            textValue=dateTextView.getText().toString();
+                            String formType="users";
+                            String typeOfField="Date";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setFormType(formType);
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+                    case "Numeric":
+                        if(numericEditText!=null){
+                            numericEditText.findViewById(typeWhich.getId());
+                            String textValue=numericEditText.getText().toString();
+                            String formType="users";
+                            String typeOfField="Numeric";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+                    case "CheckBox":
+                        if(checkBoxCustomField!=null){
+                            String textValue="";
+                            checkBoxCustomField.findViewById(typeWhich.getId());
+                            boolean isChecked=checkBoxCustomField.isChecked();
+                            if(isChecked){
+                                textValue="True";
+                            }else{
+                                textValue="False";
+                            }
+                            String formType="users";
+                            String typeOfField="CheckBox";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setFormType(formType);
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+                    case "AutoCompleteBox":
+                        if(autoCompleteTextView!=null){
+                            autoCompleteTextView.findViewById(typeWhich.getId());
+                            String textValue=autoCompleteTextView.getText().toString();
+                            String formType="users";
+                            String typeOfField="AutoCompleteBox";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setFormType(formType);
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+
+                }
+            }
+        }
+        return customFieldList;
+    }
 
     private void AddCustomerApi(String myid, String name, String globalAddress, String complementaddress, String firstname,
                             String lastname,String phone, String mobile,  String email, String fax, double latitude, double longitude) {
@@ -369,6 +745,11 @@ public class AddCustomer extends AppCompatActivity {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL + "customers/send";
         Log.d("waggonurl", url);
+        List<CustomField>customFieldList=getCustomFilesList();
+
+
+
+
         JSONObject inputLogin = new JSONObject();
 
         JSONObject position=new JSONObject();
@@ -386,9 +767,12 @@ public class AddCustomer extends AppCompatActivity {
                 first = tagarray.getJSONObject(i);
                 String tagid=first.getString("id");
                 String tagname=first.getString("name");
-                if (tagsArrayList.get(i).equals(tagname)){
-                    tagListId.add(tagid);
+                for(int j=0;j<tagsArrayList.size();j++){
+                    if (tagsArrayList.get(j).equals(tagname)){
+                        tagListId.add(tagid);
+                    }
                 }
+
             } catch (JSONException e) {
             }
 
@@ -413,6 +797,7 @@ public class AddCustomer extends AppCompatActivity {
           inputLogin.put("contactFax",fax);
           inputLogin.put("positions",position);
           inputLogin.put("tags",jsonArray);
+          inputLogin.put("CustomFieldValues",new JSONArray(new Gson().toJson(customFieldList)));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -540,6 +925,44 @@ public class AddCustomer extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+    public class TypeWhich{
+        private int id;
+        private String type;
+        private String customFieldId;
+        public TypeWhich(){
+
+        }
+
+        public String getCustomFieldId() {
+            return customFieldId;
+        }
+
+        public void setCustomFieldId(String customFieldId) {
+            this.customFieldId = customFieldId;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
+        }
+
+        public String getType() {
+            return type;
+        }
+
+        public void setType(String type) {
+            this.type = type;
+        }
+    }
+    public boolean isValidEmailAddress(String email) {
+        String emailPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
+        Pattern pattern = Pattern.compile(emailPattern);
+        Matcher matcher = pattern.matcher(email);
+        return matcher.matches();
     }
 
 }

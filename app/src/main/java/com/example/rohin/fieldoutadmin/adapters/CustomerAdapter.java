@@ -77,6 +77,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
         String email=commonJobs.getEmail();
         String latlng=commonJobs.getLatlng();
         JSONArray tags=commonJobs.getTaginfo();
+        String customFields=commonJobs.getCustomFields();
 
         holder.customer_linear.setOnClickListener(view -> {
             Intent i=new Intent(mContext, CustomerDetails.class);
@@ -93,6 +94,7 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
             i.putExtra("email",email);
             i.putExtra("latlng",latlng);
             i.putExtra("tags",tags.toString());
+            i.putExtra("customFields",customFields);
             mContext.startActivity(i);
         });
 

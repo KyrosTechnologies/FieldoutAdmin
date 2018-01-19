@@ -87,9 +87,18 @@ public class CommonJobs {
     private int issent;
     private int isread;
     private int isdelete;
+    private String customFields;
 
     public CommonJobs(){
 
+    }
+
+    public String getCustomFields() {
+        return customFields;
+    }
+
+    public void setCustomFields(String customFields) {
+        this.customFields = customFields;
     }
 
     public String getSitename() {
