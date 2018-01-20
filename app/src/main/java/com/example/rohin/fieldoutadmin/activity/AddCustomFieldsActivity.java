@@ -341,7 +341,11 @@ public class AddCustomFieldsActivity extends AppCompatActivity {
                 this.finish();
                 return true;
             case R.id.action_delete:
-                showDeleteDialog();
+                if(customFieleId==null){
+                    showToast("You cannot delete new one!");
+                }else {
+                    showDeleteDialog();
+                }
                 break;
         }
 
@@ -369,7 +373,8 @@ public class AddCustomFieldsActivity extends AppCompatActivity {
     private void showDeleteDialog(){
         if(deleteDialog==null){
          AlertDialog.Builder   builder = new AlertDialog.Builder(this);
-            builder.setMessage("Do you want to Delete it?");
+            builder.setTitle("Do you want to Delete it?");
+            builder.setMessage("If you delete this means it will delete all respective column and values in List!!!!");
             builder.setCancelable(true);
 
             builder.setPositiveButton(

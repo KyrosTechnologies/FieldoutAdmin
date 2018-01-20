@@ -385,6 +385,29 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                     bindTableViews();
                 }
                 if(updateCustomFieldList.size()>usersCustomFieldList.size()){
+                    //separating ids from arraylist
+                    List<String>usersCustomFieldIdList=new ArrayList<>();
+                    List<String>updateCustomFieldIdList=new ArrayList<>();
+
+                    for(CustomField customField:usersCustomFieldList){
+                        usersCustomFieldIdList.add(customField.getId());
+                    }
+                    for(CustomField customField:updateCustomFieldList){
+                        updateCustomFieldIdList.add(customField.getId());
+                    }
+                    for(int i=0;i<updateCustomFieldIdList.size();i++) {
+                        if (!usersCustomFieldIdList.contains(updateCustomFieldIdList.get(i))) {
+                            for(int j=0;j<updateCustomFieldList.size();j++){
+                                if(updateCustomFieldList.get(j).getId().equals(updateCustomFieldIdList.get(i))){
+                                    updateCustomFieldList.remove(j);
+                                }
+                            }
+                        }
+                    }
+                    bindTableViews();
+
+                    Log.d("DELETE SIZE : ",TAG+" / / "+updateCustomFieldList.size());
+
 
                 }
 
@@ -412,7 +435,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                 if(choicesList==null){
                     choicesList=new ArrayList<>();
                 }
-
+                String customFieldId=customField.getId();
                 String name=customField.getTextValue();
                 if(name==null){
                     name="";
@@ -427,6 +450,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                     case "Text":
                         typeWhich.setId(position);
                         typeWhich.setType("Text");
+                        typeWhich.setCustomFieldId(customFieldId);
                         inputTextView =new EditText(this);
                         String valueInput="Enter user input "+name;
                         inputTextView.setText(name);
@@ -445,6 +469,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                     case "List Of Values":
                         typeWhich.setId(position);
                         typeWhich.setType("List Of Values");
+                        typeWhich.setCustomFieldId(customFieldId);
                         spinnerCustomField=new Spinner(this);
                         TableRow.LayoutParams tableRowSpinnerParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
                         tableRowSpinnerParams.setMargins(10,20,0,10);
@@ -474,6 +499,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                     case "Date":
                         typeWhich.setId(position);
                         typeWhich.setType("Date");
+                        typeWhich.setCustomFieldId(customFieldId);
                         String valueDate="Date "+name;
                         dateTextView=new TextView(this);
                         dateTextView.setText(name);
@@ -509,6 +535,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                     case "Numeric":
                         typeWhich.setId(position);
                         typeWhich.setType("Numeric");
+                        typeWhich.setCustomFieldId(customFieldId);
                         numericEditText=new EditText(this);
                         String valueNumeric="Input "+name;
                         numericEditText.setText(name);
@@ -528,6 +555,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                     case "CheckBox":
                         typeWhich.setId(position);
                         typeWhich.setType("CheckBox");
+                        typeWhich.setCustomFieldId(customFieldId);
                         checkBoxCustomField=new CheckBox(this);
                         checkBoxCustomField.setChecked(true);
                         checkBoxCustomField.setId(position);
@@ -544,6 +572,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                     case "AutoCompleteBox":
                         typeWhich.setId(position);
                         typeWhich.setType("AutoCompleteBox");
+                        typeWhich.setCustomFieldId(customFieldId);
                         autoCompleteTextView=new AutoCompleteTextView(this);
                         String valueACTV=""+name;
                         autoCompleteTextView.setText(name);
@@ -879,7 +908,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
             inputLogin.put("contactFax",fax);
             inputLogin.put("positions",position);
             inputLogin.put("tags",jsonArray);
-
+            inputLogin.put("CustomFieldValues",new JSONArray(new Gson().toJson(getCustomFilesList())));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -936,7 +965,115 @@ public class CustomerUpdateDelete extends AppCompatActivity {
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
+    private List<CustomField> getCustomFilesList(){
+        List<CustomField>customFieldList=new ArrayList<>();
+        if(typeWhichList!=null && typeWhichList.size()!=0){
+            int position=0;
+            for(TypeWhich typeWhich:typeWhichList){
+                position++;
+                switch (typeWhich.getType()){
+                    case "Text":
+                        if(inputTextView!=null){
+                            inputTextView.findViewById(typeWhich.getId());
+                            String textValue=inputTextView.getText().toString();
+                            String formType="users";
+                            String typeOfField="Text";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+                    case "List Of Values":
+                        if(spinnerCustomField!=null){
+                            String value ="";
+                            spinnerCustomField.findViewById(typeWhich.getId());
+                            value=spinnerCustomField.getSelectedItem().toString();
+                            CustomField customFieldTemp =(CustomField)spinnerCustomField.getTag();
+                            List<String>choiceList=customFieldTemp.getChoices();
+                            String formType="users";
+                            String typeOfField="List Of Values";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(value);
+                            customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setChoices(choiceList);
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
 
+                        }
+                        break;
+                    case "Date":
+                        if(dateTextView!=null){
+                            String textValue ="";
+                            dateTextView.findViewById(typeWhich.getId());
+                            textValue=dateTextView.getText().toString();
+                            String formType="users";
+                            String typeOfField="Date";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setFormType(formType);
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+                    case "Numeric":
+                        if(numericEditText!=null){
+                            numericEditText.findViewById(typeWhich.getId());
+                            String textValue=numericEditText.getText().toString();
+                            String formType="users";
+                            String typeOfField="Numeric";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+                    case "CheckBox":
+                        if(checkBoxCustomField!=null){
+                            String textValue="";
+                            checkBoxCustomField.findViewById(typeWhich.getId());
+                            boolean isChecked=checkBoxCustomField.isChecked();
+                            if(isChecked){
+                                textValue="True";
+                            }else{
+                                textValue="False";
+                            }
+                            String formType="users";
+                            String typeOfField="CheckBox";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setFormType(formType);
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+                    case "AutoCompleteBox":
+                        if(autoCompleteTextView!=null){
+                            autoCompleteTextView.findViewById(typeWhich.getId());
+                            String textValue=autoCompleteTextView.getText().toString();
+                            String formType="users";
+                            String typeOfField="AutoCompleteBox";
+                            CustomField customField=new CustomField();
+                            customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
+                            customField.setFormType(formType);
+                            customField.setTypeOfField(typeOfField);
+                            customFieldList.add(customField);
+                        }
+                        break;
+
+                }
+            }
+        }
+        return customFieldList;
+    }
     private void GetCustomerList() {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"customers/getByDomainId/"+domainid;
@@ -1186,8 +1323,17 @@ public class CustomerUpdateDelete extends AppCompatActivity {
     public class TypeWhich{
         private int id;
         private String type;
+        private String customFieldId;
         public TypeWhich(){
 
+        }
+
+        public String getCustomFieldId() {
+            return customFieldId;
+        }
+
+        public void setCustomFieldId(String customFieldId) {
+            this.customFieldId = customFieldId;
         }
 
         public int getId() {
