@@ -18,7 +18,7 @@
             android:layout_height="wrap_content"
             android:text="Add Message"
             android:textColor="@color/text_light"
-            android:textSize="20sp"
+            android:textSize="@dimen/privacy_policy_statement"
             android:padding="10dp"
             android:layout_gravity="center"/>
 
@@ -43,7 +43,7 @@
             android:layout_height="wrap_content"
             android:text="Title"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/sub_header_size"
             android:layout_gravity="center"
             android:gravity="center"/>
 
@@ -57,7 +57,7 @@
             android:layout_height="wrap_content"
             android:text="Message"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/sub_header_size"
             android:gravity="center"
             android:layout_gravity="center"/>
 
@@ -71,7 +71,7 @@
             android:layout_height="wrap_content"
             android:text="Sent"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/sub_header_size"
             android:gravity="center"
             android:layout_gravity="center"/>
 
@@ -85,7 +85,7 @@
             android:layout_height="wrap_content"
             android:text="Read"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/sub_header_size"
             android:gravity="center"
             android:layout_gravity="center"/>
 
@@ -99,7 +99,7 @@
             android:layout_height="wrap_content"
             android:text="Deleted"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/sub_header_size"
             android:gravity="center"
             android:layout_gravity="center"/>
 
@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No Jobs Found"
-            android:textSize="28sp"
+            android:textSize="@dimen/site_address_text_size"
             android:textColor="@color/button"
             android:layout_gravity="center"/>
 

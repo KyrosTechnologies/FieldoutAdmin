@@ -7,43 +7,50 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.example.rohin.fieldoutadmin.activity.PartsAndServicesActivity">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:orientation="vertical"
                 android:layout_margin="10dp"
                 android:id="@+id/linear_1_teams"
                 android:layout_height="match_parent">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:weightSum="100"
                     android:id="@+id/linear_2_teams"
                     android:orientation="horizontal">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:orientation="vertical"
                         android:id="@+id/linear_3_teams"
                         android:layout_weight="50"
                         android:layout_height="match_parent">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/sub_header_size"
-                            android:textColor="@color/light_black"
+                            android:textColor="@color/button"
                             android:layout_gravity="center|start"
-                            android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             android:text="@string/parts_amp_services"/>
+
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
+                            android:layout_height="0.2dp"
                             android:layout_marginBottom="10dp"
-                            android:background="@color/light_black"/>
+                            android:background="@color/button"/>
+
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/light_black"
@@ -51,21 +58,23 @@
                             android:text="@string/category"
                             android:layout_marginBottom="5dp"
                             android:textSize="@dimen/sub_text_size"/>
+
                         <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textColorHint="@color/light_black"
-                            android:textColor="@color/black"
+                            android:layout_height="60dp"
+                            android:textColorHint="@color/text_light"
+                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
-                            android:layout_marginBottom="15dp"
-                            android:paddingLeft="5dp"
+                            android:layout_marginBottom="10dp"
+                            android:paddingLeft="10dp"
                             android:singleLine="true"
-                            android:paddingRight="5dp"
-                            android:background="@drawable/button_bg"
-                            android:textSize="@dimen/sub_text_size"
+                            android:background="@drawable/button_red"
+                            android:textSize="@dimen/privacy_policy_statement"
                             android:id="@+id/edit_Text_category_name"
                             android:hint="@string/category"/>
+
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textColor="@color/light_black"
@@ -73,22 +82,23 @@
                             android:text="@string/parts_amp_services"
                             android:layout_marginBottom="5dp"
                             android:textSize="@dimen/sub_text_size"/>
+
                         <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textColorHint="@color/light_black"
-                            android:textColor="@color/black"
+                            android:layout_height="60dp"
+                            android:textColorHint="@color/text_light"
+                            android:textColor="@color/light_black"
                             android:layout_gravity="center"
-                            android:layout_marginBottom="15dp"
-                            android:textSize="@dimen/sub_text_size"
-                            android:paddingTop="9dp"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="@dimen/privacy_policy_statement"
                             android:singleLine="true"
-                            android:background="@drawable/button_bg"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
+                            android:background="@drawable/button_red"
+                            android:paddingLeft="10dp"
                             android:id="@+id/edit_text_parts_services"
                             android:hint="@string/parts_amp_services"/>
+
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/sub_header_size"
@@ -97,22 +107,23 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             android:text="@string/reference"/>
+
                         <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textColorHint="@color/light_black"
-                            android:textColor="@color/black"
+                            android:layout_height="60dp"
+                            android:textColorHint="@color/text_light"
+                            android:textColor="@color/light_black"
                             android:layout_gravity="center"
-                            android:layout_marginBottom="15dp"
-                            android:textSize="@dimen/sub_text_size"
-                            android:paddingTop="9dp"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="@dimen/privacy_policy_statement"
                             android:singleLine="true"
-                            android:background="@drawable/button_bg"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
+                            android:background="@drawable/button_red"
+                            android:paddingLeft="10dp"
                             android:id="@+id/edit_text_reference"
                             android:hint="@string/reference"/>
+
                         <TextView
+                            android:visibility="gone"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/sub_header_size"
@@ -121,61 +132,65 @@
                             android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
                             android:text="@string/price"/>
+
                         <EditText
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textColorHint="@color/light_black"
-                            android:textColor="@color/black"
+                            android:layout_height="60dp"
+                            android:textColorHint="@color/text_light"
+                            android:textColor="@color/light_black"
                             android:layout_gravity="center"
-                            android:layout_marginBottom="15dp"
-                            android:textSize="@dimen/sub_text_size"
-                            android:paddingTop="9dp"
+                            android:layout_marginBottom="10dp"
+                            android:textSize="@dimen/privacy_policy_statement"
                             android:singleLine="true"
-                            android:background="@drawable/button_bg"
-                            android:paddingLeft="5dp"
+                            android:background="@drawable/button_red"
+                            android:paddingLeft="10dp"
                             android:inputType="numberDecimal"
-                            android:paddingRight="5dp"
                             android:id="@+id/edit_text_price"
                             android:hint="@string/price"/>
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:textSize="@dimen/sub_header_size"
                             android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
-                            android:layout_marginTop="5dp"
-                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="10dp"
+                            android:layout_marginBottom="10dp"
                             android:text="@string/tax"/>
-
 
                         <Spinner
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
+                            android:layout_height="60dp"
                             android:textColor="@color/light_black"
                             android:id="@+id/spinner_tax_list"
+                            android:background="@drawable/button_red"
                             android:layout_gravity="center|start"
                             android:hint="@string/job_report"
                             style="@style/SpinnerTheme"
                             android:padding="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:textSize="@dimen/sub_text_size"/>
+                            android:textSize="@dimen/privacy_policy_statement"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <Button
-                    android:layout_width="wrap_content"
+                    android:layout_width="150dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/button_background_signup"
+                    android:background="@color/button"
                     android:text="@string/save"
+                    android:textAllCaps="false"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sub_header_size"
                     android:id="@+id/button_save_parts_services"
-                    android:layout_height="wrap_content" />
+                    android:layout_height="60dp" />
 
             </LinearLayout>
+
         </ScrollView>
+
     </LinearLayout>
+
 </layout>

@@ -118,6 +118,16 @@
 
                 </LinearLayout>
 
+
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:textSize="@dimen/sub_header_size"
+                    android:textColor="@color/light_black"
+                    android:layout_gravity="center|start"
+                    android:layout_marginTop="10dp"
+                    android:text="@string/technician"/>
+
                 <Spinner
                     android:id="@+id/technician_spinner"
                     android:layout_width="match_parent"

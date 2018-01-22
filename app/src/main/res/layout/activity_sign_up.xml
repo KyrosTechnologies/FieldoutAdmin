@@ -7,12 +7,14 @@
     android:background="@color/white"
     android:orientation="vertical"
     tools:context="com.example.rohin.fieldoutadmin.activity.SignUpActivity">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
         android:layout_marginTop="10dp"
         android:src="@drawable/text"
         android:layout_gravity="center"/>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -25,34 +27,35 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_weight="50"
+            android:layout_marginRight="15dp"
             android:orientation="vertical">
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/first_name"
                 android:textColor="@color/black"
-                android:textSize="@dimen/standard_text_size"
-
-                />
+                android:textSize="@dimen/standard_text_size"/>
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="@string/enter_first_name"
-                android:textColor="@color/text_light"
                 android:id="@+id/first_name_editText"
-                android:singleLine="true"
-                android:textColorHint="@color/text_light"
-                android:textSize="@dimen/standard_text_size"
-                />
-            <View
                 android:layout_width="wrap_content"
-                android:layout_height="0.5dp"
-                android:layout_marginRight="20dp"
-                android:background="@color/text_light"
-             />
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:hint="@string/enter_first_name"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/privacy_policy_statement"
+                android:paddingLeft="10dp"
+                android:background="@android:color/transparent"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@color/text_light"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -60,36 +63,36 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:layout_weight="50"
+            android:layout_marginLeft="15dp"
             android:orientation="vertical">
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/last_name"
                 android:textColor="@color/black"
-                android:textSize="@dimen/standard_text_size"
-
-                />
+                android:textSize="@dimen/standard_text_size" />
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="@string/enter_last_name"
                 android:id="@+id/last_name_editText"
-                android:singleLine="true"
-                android:textColor="@color/text_light"
-                android:textColorHint="@color/text_light"
-                android:textSize="@dimen/standard_text_size"
-
-                />
-            <View
                 android:layout_width="wrap_content"
-                android:layout_height="0.5dp"
-                android:background="@color/text_light"
-                />
-        </LinearLayout>
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:hint="@string/enter_last_name"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/privacy_policy_statement"
+                android:paddingLeft="10dp"
+                android:background="@android:color/transparent"/>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@color/text_light"/>
+
+        </LinearLayout>
 
     </LinearLayout>
 
@@ -105,36 +108,35 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="30dp"
             android:layout_weight="50"
+            android:layout_marginRight="15dp"
             android:orientation="vertical">
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/company"
                 android:textColor="@color/black"
-                android:textSize="@dimen/standard_text_size"
-
-
-                />
+                android:textSize="@dimen/standard_text_size"/>
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="@string/enter_company_name"
-                android:textColor="@color/text_light"
-                android:singleLine="true"
                 android:id="@+id/company_name_edit_text"
-                android:textColorHint="@color/text_light"
-                android:textSize="@dimen/standard_text_size"
-
-                />
-            <View
                 android:layout_width="wrap_content"
-                android:layout_marginRight="20dp"
-                android:layout_height="0.5dp"
-                android:background="@color/text_light"
-                />
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:hint="@string/enter_company_name"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/privacy_policy_statement"
+                android:paddingLeft="10dp"
+                android:background="@android:color/transparent"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@color/text_light"/>
+
         </LinearLayout>
 
         <LinearLayout
@@ -142,36 +144,35 @@
             android:layout_height="wrap_content"
             android:layout_marginRight="30dp"
             android:layout_weight="50"
+            android:layout_marginLeft="15dp"
             android:orientation="vertical">
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/telephone"
                 android:textColor="@color/black"
-                android:textSize="@dimen/standard_text_size"
-
-
-                />
+                android:textSize="@dimen/standard_text_size"/>
 
             <EditText
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@android:color/transparent"
-                android:hint="@string/enter_telephone_name"
-                android:textColor="@color/text_light"
-                android:textColorHint="@color/text_light"
-                android:inputType="phone"
-                android:singleLine="true"
                 android:id="@+id/mobile_number_edit_text"
-                android:textSize="@dimen/standard_text_size"
-
-                />
-            <View
                 android:layout_width="wrap_content"
-                android:layout_height="0.5dp"
-                android:background="@color/text_light"
-                />
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:inputType="text"
+                android:hint="@string/enter_telephone_name"
+                android:textColorHint="@color/text_light"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/privacy_policy_statement"
+                android:paddingLeft="10dp"
+                android:background="@android:color/transparent"/>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="0.2dp"
+                android:background="@color/text_light"/>
+
         </LinearLayout>
 
 
@@ -186,33 +187,31 @@
         android:orientation="vertical">
 
         <TextView
+            android:visibility="gone"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/email"
             android:textColor="@color/black"
-            android:textSize="@dimen/standard_text_size"
-
-
-            />
+            android:textSize="@dimen/standard_text_size"/>
 
         <EditText
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:background="@android:color/transparent"
-            android:hint="@string/enter_email_address"
-            android:textColor="@color/text_light"
-            android:inputType="textEmailAddress"
             android:id="@+id/email_edit_text"
-            android:singleLine="true"
-            android:textColorHint="@color/text_light"
-            android:textSize="@dimen/standard_text_size"
-
-            />
-        <View
             android:layout_width="wrap_content"
-            android:layout_height="0.5dp"
-            android:background="@color/text_light"
-            />
+            android:layout_height="60dp"
+            android:layout_weight="1"
+            android:inputType="text"
+            android:hint="@string/enter_email_address"
+            android:textColorHint="@color/text_light"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/privacy_policy_statement"
+            android:paddingLeft="10dp"
+            android:background="@android:color/transparent"/>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="0.2dp"
+            android:background="@color/text_light"/>
+
     </LinearLayout>
 
     <LinearLayout
@@ -237,8 +236,8 @@
             android:layout_marginTop="20dp"
             android:gravity="center"
             android:text="@string/choose_your_fieldout_site_address"
-            android:textColor="@color/black"
-            android:textSize="@dimen/site_address_text_size" />
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/sub_header_size" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -251,42 +250,35 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:background="@drawable/text_background_https"
                 android:text="@string/https"
-                android:textColor="@color/black"
-                android:textSize="@dimen/standard_text_size"
-                />
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/site_address_text_size"/>
 
             <EditText
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="20dp"
-                android:background="@android:color/transparent"
                 android:hint="@string/my_company"
                 android:id="@+id/company_domain_edit_text"
                 android:singleLine="true"
                 android:textColor="@color/text_light"
                 android:textColorHint="@color/text_light"
-                android:textSize="@dimen/standard_text_size"
-                />
-
+                android:textSize="@dimen/site_address_text_size"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginLeft="20dp"
-                android:background="@drawable/text_background_https"
                 android:text="@string/fieldout_com"
-                android:textColor="@color/black"
-                android:textSize="@dimen/standard_text_size"
-                />
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/site_address_text_size"/>
 
         </LinearLayout>
 
         <View
             android:layout_width="match_parent"
-            android:layout_height="0.5dp"
+            android:layout_height="0.2dp"
             android:layout_marginTop="20dp"
             android:background="@color/text_light" />
 
@@ -300,23 +292,21 @@
         android:orientation="vertical">
 
         <Button
-            android:layout_width="wrap_content"
+            android:layout_width="300dp"
             android:layout_height="65dp"
             android:layout_gravity="center"
-            android:background="@drawable/button_background_signup"
+            android:background="@color/button"
             android:text="@string/sign_me_up"
             android:id="@+id/sign_up_button"
-            android:paddingLeft="8dp"
             android:textColor="@color/white"
-            android:paddingRight="8dp"
             android:layout_marginBottom="20dp"
-            android:textSize="@dimen/standard_text_size"
-            />
+            android:textSize="@dimen/sub_header_size"/>
+
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:textSize="@dimen/privacy_policy_statement"
-            android:textColor="@color/light_black"
+            android:textColor="@color/text_light"
             android:layout_gravity="center"
             android:gravity="center"
             android:text="@string/by_clicking_sign_me_up_you_are_agreeing_to_the_terms_amp_conditions_and_privacy_policy"/>

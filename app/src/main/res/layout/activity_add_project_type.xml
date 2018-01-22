@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -7,124 +8,131 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.example.rohin.fieldoutadmin.activity.AddTeamActivity">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="10dp"
                 android:id="@+id/linear_1_teams"
-                android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:textSize="@dimen/sub_header_size"
-                    android:textColor="@color/light_black"
                     android:layout_gravity="center|start"
-                    android:layout_marginTop="5dp"
                     android:layout_marginBottom="5dp"
-                    android:text="@string/add_project_type"/>
+                    android:text="@string/add_project_type"
+                    android:textColor="@color/button"
+                    android:textSize="@dimen/sub_header_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
+                    android:layout_marginBottom="10dp"
+                    android:background="@color/button" />
+
                 <LinearLayout
+                    android:id="@+id/linear_2_teams"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="100"
-                    android:id="@+id/linear_2_teams"
                     android:orientation="horizontal">
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="vertical"
-                        android:id="@+id/linear_3_teams"
-                        android:layout_weight="50"
-                        android:layout_height="match_parent">
 
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@color/light_black"/>
+                    <LinearLayout
+                        android:id="@+id/linear_3_teams"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginRight="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
-                            android:text="@string/type"
                             android:layout_marginBottom="5dp"
-                            android:textSize="@dimen/sub_text_size"/>
+                            android:text="@string/type"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/sub_text_size"
+                            android:visibility="gone" />
+
                         <EditText
+                            android:id="@+id/add_project_type_edit_text"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textColorHint="@color/light_black"
-                            android:textColor="@color/black"
+                            android:layout_height="60dp"
                             android:layout_gravity="center|start"
                             android:layout_marginBottom="15dp"
-                            android:paddingLeft="5dp"
+                            android:background="@drawable/button_red"
+                            android:hint="@string/type"
+                            android:paddingLeft="10dp"
                             android:singleLine="true"
-                            android:paddingRight="5dp"
-                            android:background="@drawable/button_bg"
-                            android:textSize="@dimen/sub_text_size"
-                            android:id="@+id/add_project_type_edit_text"
-                            android:hint="@string/type"/>
+                            android:textColor="@color/light_black"
+                            android:textColorHint="@color/text_light"
+                            android:textSize="@dimen/privacy_policy_statement" />
 
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="50"
-                        android:layout_marginLeft="15dp"
                         android:id="@+id/linear_4_teams"
-                        android:layout_height="match_parent">
-
-
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@color/light_black"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="5dp"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
                             android:text="@string/job_sequence"
-                            android:textSize="@dimen/sub_text_size"/>
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/sub_text_size"
+                            android:visibility="gone" />
 
                         <TextView
                             android:id="@+id/add_project_type_job_sequence_text_view"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
+                            android:layout_height="60dp"
                             android:layout_marginBottom="15dp"
-                            android:background="@drawable/button_bg"
-                            android:padding="8dp"
+                            android:background="@drawable/button_red"
+                            android:gravity="center|start"
                             android:hint="@string/job_sequence"
-                            android:textColor="@color/black"/>
+                            android:padding="8dp"
+                            android:textColor="@color/black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
                         <android.support.v7.widget.RecyclerView
-                            android:layout_width="match_parent"
-                            android:layout_marginTop="10dp"
-                            android:visibility="gone"
-                            android:layout_marginBottom="10dp"
                             android:id="@+id/recycler_job_sequence"
-                            android:layout_height="wrap_content"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <Button
-                    android:layout_width="wrap_content"
+                    android:id="@+id/save_add_project_button"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/button_background_signup"
-                    android:text="@string/save"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
+                    android:background="@color/button"
+                    android:text="@string/save"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/sub_header_size"
-                    android:id="@+id/save_add_project_button"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/sub_header_size" />
 
             </LinearLayout>
+
         </ScrollView>
+
     </LinearLayout>
+
 </layout>

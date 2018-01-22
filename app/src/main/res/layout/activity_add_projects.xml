@@ -8,177 +8,178 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:layout_margin="10dp">
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal">
+            android:layout_margin="10dp"
+            android:orientation="vertical">
 
             <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="horizontal">
 
-                <TextView
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Customer"
-                    android:textSize="24sp"
-                    android:textColor="@color/button"/>
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.2dp"
-                    android:background="@color/button"
-                    android:layout_marginTop="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Customer"
+                        android:textColor="@color/button"
+                        android:textSize="24sp" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/customer_auto_complete"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/button_red"
-                    android:layout_marginTop="10dp"
-                    android:hint="Customer"
-                    android:textColor="@color/light_black"
-                    android:textColorHint="@color/text_light"
-                    android:textSize="20sp"
-                    android:paddingLeft="8dp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/button" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/site_auto_complete"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:hint="Site"
-                    android:textSize="20sp"
-                    android:textColor="@color/light_black"
-                    android:textColorHint="@color/text_light"
-                    android:paddingLeft="8dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button_red"/>
+                    <AutoCompleteTextView
+                        android:id="@+id/customer_auto_complete"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_red"
+                        android:hint="Customer"
+                        android:paddingLeft="8dp"
+                        android:textColor="@color/light_black"
+                        android:textColorHint="@color/text_light"
+                        android:textSize="20sp" />
 
-                <AutoCompleteTextView
-                    android:id="@+id/equipment_auto_complete"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:hint="Equipment"
-                    android:textSize="20sp"
-                    android:layout_marginTop="10dp"                    android:textColor="@color/light_black"
-                    android:textColorHint="@color/text_light"
-                    android:paddingLeft="8dp"
-                    android:background="@drawable/button_red"/>
+                    <AutoCompleteTextView
+                        android:id="@+id/site_auto_complete"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_red"
+                        android:hint="Site"
+                        android:paddingLeft="8dp"
+                        android:textColor="@color/light_black"
+                        android:textColorHint="@color/text_light"
+                        android:textSize="20sp" />
 
-                <TextView
+                    <AutoCompleteTextView
+                        android:id="@+id/equipment_auto_complete"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_red"
+                        android:hint="Equipment"
+                        android:paddingLeft="8dp"
+                        android:textColor="@color/light_black"
+                        android:textColorHint="@color/text_light"
+                        android:textSize="20sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:text="Tags"
+                        android:textColor="@color/button"
+                        android:textSize="24sp" />
+
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/button" />
+
+                    <TextView
+                        android:id="@+id/tags_add_projects_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_bg"
+                        android:gravity="center|start"
+                        android:paddingLeft="8dp"
+                        android:text="Tags"
+                        android:textColor="@color/light_black"
+                        android:textSize="20sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/tags_selected_jobs"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone" />
+
+                </LinearLayout>
+
+                <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="Tags"
-                    android:textSize="24sp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/button"/>
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.2dp"
-                    android:background="@color/button"
-                    android:layout_marginTop="5dp"/>
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="Project Information"
+                        android:textColor="@color/button"
+                        android:textSize="24sp" />
 
-                <TextView
-                    android:id="@+id/tags_add_projects_text"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/button_bg"
-                    android:text="Tags"
-                    android:gravity="center|start"
-                    android:paddingLeft="8dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/light_black"
-                    android:layout_marginBottom="5dp"
-                    android:textSize="20sp"/>
+                    <View
+                        android:layout_width="match_parent"
+                        android:layout_height="0.2dp"
+                        android:layout_marginTop="5dp"
+                        android:background="@color/button" />
 
-                <android.support.v7.widget.RecyclerView
-                    android:layout_width="match_parent"
-                    android:layout_marginTop="10dp"
-                    android:visibility="gone"
-                    android:layout_marginBottom="10dp"
-                    android:id="@+id/tags_selected_jobs"
-                    android:layout_height="wrap_content"/>
+                    <EditText
+                        android:id="@+id/project_number_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_red"
+                        android:hint="Custom Job #"
+                        android:paddingLeft="8dp"
+                        android:textColor="@color/light_black"
+                        android:textColorHint="@color/text_light"
+                        android:textSize="20sp" />
+
+                    <EditText
+                        android:id="@+id/description_edit"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_bg"
+                        android:gravity="start"
+                        android:hint="Description"
+                        android:paddingLeft="8dp"
+                        android:paddingTop="8dp"
+                        android:textColor="@color/light_black"
+                        android:textColorHint="@color/text_light"
+                        android:textSize="20sp" />
+
+                    <Spinner
+                        android:id="@+id/project_type_spinner"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_red" />
+
+                </LinearLayout>
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical"
-                android:layout_weight="1"
-                android:layout_marginLeft="15dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Project Information"
-                    android:textSize="24sp"
-                    android:textColor="@color/button"/>
-
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="0.2dp"
-                    android:background="@color/button"
-                    android:layout_marginTop="5dp"/>
-
-                <EditText
-                    android:id="@+id/project_number_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:background="@drawable/button_red"
-                    android:hint="Custom Job #"
-                    android:paddingLeft="8dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/light_black"
-                    android:textColorHint="@color/text_light"
-                    android:textSize="20sp"/>
-
-                <EditText
-                    android:id="@+id/description_edit"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:background="@drawable/button_bg"
-                    android:hint="Description"
-                    android:paddingLeft="8dp"
-                    android:gravity="start"
-                    android:paddingTop="8dp"
-                    android:layout_marginTop="10dp"
-                    android:textColor="@color/light_black"
-                    android:textColorHint="@color/text_light"
-                    android:textSize="20sp"/>
-
-                <Spinner
-                    android:id="@+id/project_type_spinner"
-                    android:layout_width="match_parent"
-                    android:layout_height="60dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button_red"/>
-
-            </LinearLayout>
+            <Button
+                android:id="@+id/save_projects"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:layout_gravity="center"
+                android:layout_marginTop="20dp"
+                android:background="@color/button"
+                android:text="Save"
+                android:textColor="@color/white"
+                android:textSize="26sp" />
 
         </LinearLayout>
-
-        <Button
-            android:id="@+id/save_projects"
-            android:layout_width="150dp"
-            android:layout_height="60dp"
-            android:textColor="@color/white"
-            android:text="Save"
-            android:textSize="26sp"
-            android:background="@color/button"
-            android:layout_gravity="center"
-            android:layout_marginTop="20dp"/>
-
-    </LinearLayout>
 
     </ScrollView>
 

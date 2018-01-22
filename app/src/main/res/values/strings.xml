@@ -46,7 +46,6 @@
     <string name="add_edit_or_remove_user_accounts">Add, Edit or Remove user accounts</string>
     <string name="teams">Teams</string>
     <string name="group_your_technicians_into_teams">Group your technicians into teams</string>
-    <string name="activity_types">Activity Types</string>
     <string name="manage_activity_types_vacation_sickness_etc_and_associated_colors_for_display_in_the_planning_view">Manage activity types (Vacation, Sickness, etc.) and associated colors for display in the planning view</string>
     <string name="tools_and_resources">Tools and Resources</string>
     <string name="define_your_equipment_inventory_tools_vehicles_etc_that_can_be_booked_on_jobs_by_your_team">Define your equipment inventory (Tools, Vehicles, etc.) that can be booked on jobs by your team</string>
@@ -68,7 +67,7 @@
     <string name="download_clients_for_ios_or_android">Download clients for IOS or Android</string>
     <string name="account_information">Account Information</string>
     <string name="company_name">Company Name</string>
-    <string name="user_name">User Name</string>
+    <string name="user_name">Username</string>
     <string name="address_label">Address</string>
     <string name="email_address">Email Address</string>
     <string name="address_value">Address Value</string>
@@ -110,10 +109,10 @@
     <string name="profile">Profile</string>
     <string name="skilled_trades">Skilled Trades</string>
     <string name="add_user">Add User</string>
-    <string name="enter_user_name">enter user name</string>
+    <string name="enter_user_name">Enter User Name</string>
     <string name="sub_contractor">Subcontractor</string>
     <string name="password">Password</string>
-    <string name="enter_password">password</string>
+    <string name="enter_password">Password</string>
     <string name="time_zone">Time Zone</string>
     <string name="start_location">Start location</string>
     <string name="additional_information">Additional Information</string>
@@ -126,7 +125,7 @@
     <string name="managers">Managers</string>
     <string name="team">Team</string>
     <string name="enter_team_name">Enter Team Name</string>
-    <string name="enter_description">description</string>
+    <string name="enter_description">Description</string>
     <string name="all_managers">All Managers</string>
     <string name="all_technicians">All technicians</string>
     <string name="acitivities">Activities</string>
@@ -175,7 +174,7 @@
     <string name="add_taxes">Add Taxes</string>
     <string name="rate">Rate (%)</string>
     <string name="default_tax">Default Tax</string>
-    <string name="tax_name">tax name</string>
+    <string name="tax_name">Tax name</string>
     <string name="turn_system_functions_on_or_off">Turn system functions ON or OFF</string>
     <string name="quotations_invoices">Quotations/Invoices</string>
     <string name="map">Map</string>
@@ -296,4 +295,13 @@
     <string name="confirm_password">Confirm Password</string>
     <string name="update_password">Update Password</string>
     <string name="language">Language</string>
+    <string name="login">Login</string>
+    <string name="forgot_your_password">Forgot your Password?</string>
+    <string name="sign_up">Sign Up</string>
+    <string name="connect_to_fieldout">Connect to Fieldout</string>
+    <string name="job_scheduling_preferences">Job Scheduling Preferences</string>
+    <string name="login_text">Specify Job Scheduling Windows according to your customers\' wishes: morning, afternoon, evening, etc. You can also choose the preferred team or technician. Use the same preference system on your recurring jobs, which can now be created or scheduled automatically.</string>
+    <string name="technician">Technician</string>
+    <string name="activity_types">Activity Types</string>
+    <string name="scheduling">Scheduling</string>
 </resources>
