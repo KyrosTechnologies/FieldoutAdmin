@@ -1,238 +1,238 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <TextView
         android:id="@+id/week_date"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textColor="@color/button"
-        android:textSize="24sp"
-        android:text="Date and Day"
         android:layout_gravity="center"
-        android:layout_marginTop="10dp"/>
+        android:layout_marginTop="10dp"
+        android:text="Date and Day"
+        android:textColor="@color/button"
+        android:textSize="24sp" />
 
     <android.support.v7.widget.CardView
         android:id="@+id/week_jobs_card"
         android:layout_width="match_parent"
         android:layout_height="240dp"
-        android:layout_marginTop="10dp"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         android:background="@color/cal_bg"
-        app:cardElevation="10dp"
-        app:cardCornerRadius="5dp">
+        app:cardCornerRadius="5dp"
+        app:cardElevation="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="horizontal"
-            android:layout_margin="10dp">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_margin="10dp"
+            android:orientation="horizontal">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Name:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/title_text_size" />
+
+                        <TextView
+                            android:id="@+id/week_first_last_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:maxLength="15"
+                            android:text="First Name"
+                            android:textColor="@color/text_light"
+                            android:textSize="@dimen/title_text_size" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Time:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/title_text_size" />
+
+                        <TextView
+                            android:id="@+id/week_start_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Start Time"
+                            android:textColor="@color/text_light"
+                            android:textSize="@dimen/title_text_size" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Name:"
-                        android:textSize="24sp"
-                        android:textColor="@color/light_black"/>
+                        android:text="Site Name :"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/title_text_size" />
 
                     <TextView
-                        android:id="@+id/week_first_last_name"
+                        android:id="@+id/week_site_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="First Name"
-                        android:textSize="24sp"
                         android:layout_marginLeft="5dp"
+                        android:text="Site Name"
                         android:textColor="@color/text_light"
-                        android:maxLength="15"/>
+                        android:textSize="@dimen/title_text_size" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Time:"
-                        android:textSize="24sp"
-                        android:textColor="@color/light_black"/>
-
-                <TextView
-                    android:id="@+id/week_start_time"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Start Time"
-                    android:textSize="24sp"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/text_light"/>
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Site Name :"
-                android:textSize="24sp"
-                android:textColor="@color/light_black"/>
-
-                <TextView
-                    android:id="@+id/week_site_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Site Name"
-                    android:layout_marginLeft="5dp"
-                    android:textSize="24sp"
-                    android:textColor="@color/text_light"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Description :"
-                android:textSize="24sp"
-                android:textColor="@color/light_black"/>
-
-                <TextView
-                    android:id="@+id/week_description"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Des"
-                    android:textSize="24sp"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/text_light"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Address:"
-                    android:textSize="24sp"
-                    android:textColor="@color/light_black"/>
-
-            <TextView
-                android:id="@+id/week_address"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Address"
-                android:textSize="24sp"
-                android:layout_marginLeft="5dp"
-                android:singleLine="true"
-                android:textColor="@color/text_light"/>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:layout_marginLeft="10dp"
-                android:layout_marginTop="10dp"
-                android:layout_marginRight="10dp">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                        android:text="Description :"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/title_text_size" />
 
                     <TextView
+                        android:id="@+id/week_description"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Mobile Number:"
-                        android:textSize="24sp"
-                        android:textColor="@color/light_black"/>
-
-                    <TextView
-                        android:id="@+id/week_mob_number"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Mobile Number"
-                        android:textSize="24sp"
                         android:layout_marginLeft="5dp"
-                        android:textColor="@color/text_light"/>
+                        android:text="Des"
+                        android:textColor="@color/text_light"
+                        android:textSize="@dimen/title_text_size" />
 
                 </LinearLayout>
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal"
-                    android:layout_weight="1">
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Status:"
-                        android:textSize="24sp"
-                        android:textColor="@color/light_black"/>
+                        android:text="Address:"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/title_text_size" />
 
-                <TextView
-                    android:id="@+id/week_status"
-                    android:layout_width="wrap_content"
+                    <TextView
+                        android:id="@+id/week_address"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="5dp"
+                        android:singleLine="true"
+                        android:text="Address"
+                        android:textColor="@color/text_light"
+                        android:textSize="@dimen/title_text_size" />
+
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="Status"
-                    android:textSize="24sp"
-                    android:layout_marginLeft="5dp"
-                    android:textColor="@color/text_light"/>
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Mobile Number:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/title_text_size" />
+
+                        <TextView
+                            android:id="@+id/week_mob_number"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Mobile Number"
+                            android:textColor="@color/text_light"
+                            android:textSize="@dimen/title_text_size" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Status:"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/title_text_size" />
+
+                        <TextView
+                            android:id="@+id/week_status"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="5dp"
+                            android:text="Status"
+                            android:textColor="@color/text_light"
+                            android:textSize="@dimen/title_text_size" />
+
+                    </LinearLayout>
 
                 </LinearLayout>
 
             </LinearLayout>
-
-        </LinearLayout>
 
         </LinearLayout>
 

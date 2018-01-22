@@ -548,7 +548,7 @@ public class SitesUpdateDelete extends AppCompatActivity {
                 first = tagarray.getJSONObject(i);
                 String tagid=first.getString("id");
                 String tagname=first.getString("name");
-                if (tagsList.get(i).equals(tagname)){
+                if (tagsArrayList.get(i).equals(tagname)){
                     tagListId.add(tagid);
                 }
             } catch (JSONException e) {

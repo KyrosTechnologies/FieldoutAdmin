@@ -1,117 +1,117 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content">
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/activities_linear"
         android:layout_width="wrap_content"
         android:layout_height="80dp"
-        android:orientation="horizontal"
-        android:background="@color/bg">
+        android:background="@color/bg"
+        android:orientation="horizontal">
 
         <View
             android:layout_width="0.2dp"
             android:layout_height="match_parent"
-            android:background="@color/light_black"/>
+            android:background="@color/light_black" />
 
         <TextView
             android:id="@+id/technician_activity"
             android:layout_width="235dp"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="false"
             android:text="Customer"
             android:textColor="@color/text_light"
-            android:textSize="24sp"
-            android:singleLine="false"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
-            android:layout_gravity="center"
-            android:layout_marginLeft="15dp"/>
+            android:textSize="@dimen/title_text_size" />
 
         <View
             android:layout_width="0.2dp"
             android:layout_height="match_parent"
-            android:background="@color/light_black"/>
+            android:background="@color/light_black" />
 
         <TextView
             android:id="@+id/activity_name"
             android:layout_width="235dp"
             android:layout_height="wrap_content"
-            android:text="Customer"
-            android:textColor="@color/text_light"
-            android:textSize="24sp"
-            android:singleLine="false"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="false"
+            android:text="@string/customer"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/title_text_size" />
 
         <View
             android:layout_width="0.2dp"
             android:layout_height="match_parent"
-            android:background="@color/light_black"/>
+            android:background="@color/light_black" />
 
         <TextView
             android:id="@+id/activity_from"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:text="Contact"
-            android:textColor="@color/text_light"
-            android:textSize="24sp"
-            android:singleLine="false"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="false"
+            android:text="@string/contact"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/title_text_size" />
 
         <View
             android:layout_width="0.2dp"
             android:layout_height="match_parent"
-            android:background="@color/light_black"/>
+            android:background="@color/light_black" />
 
         <TextView
             android:id="@+id/activity_to"
             android:layout_width="240dp"
             android:layout_height="wrap_content"
-            android:text="Phone"
-            android:textColor="@color/text_light"
-            android:textSize="24sp"
-            android:singleLine="false"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="false"
+            android:text="@string/phone"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/title_text_size" />
 
         <View
             android:layout_width="0.2dp"
             android:layout_height="match_parent"
-            android:background="@color/light_black"/>
+            android:background="@color/light_black" />
 
         <TextView
             android:id="@+id/activity_note"
             android:layout_width="275dp"
             android:layout_height="wrap_content"
-            android:text="Tags"
-            android:textColor="@color/text_light"
-            android:textSize="24sp"
-            android:singleLine="false"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="5dp"
             android:layout_gravity="center"
-            android:layout_marginLeft="15dp"/>
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="false"
+            android:text="@string/tags"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/title_text_size" />
 
         <View
             android:layout_width="0.2dp"
             android:layout_height="match_parent"
-            android:background="@color/light_black"/>
+            android:background="@color/light_black" />
 
     </LinearLayout>
 
     <View
         android:layout_width="match_parent"
         android:layout_height="0.2dp"
-        android:background="@color/light_black"/>
+        android:background="@color/light_black" />
 
 </LinearLayout>
