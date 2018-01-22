@@ -239,6 +239,10 @@
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity android:name=".activity.RandTetActvitiy"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
             android:name=".activity.AddSchedulingWindowsActivity"
             android:screenOrientation="landscape"

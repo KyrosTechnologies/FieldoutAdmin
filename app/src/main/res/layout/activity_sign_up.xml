@@ -8,10 +8,19 @@
     android:orientation="vertical"
     tools:context="com.example.rohin.fieldoutadmin.activity.SignUpActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
     <ImageView
         android:layout_width="wrap_content"
         android:layout_height="120dp"
-        android:layout_marginTop="10dp"
+        android:layout_marginTop="80dp"
         android:src="@drawable/text"
         android:layout_gravity="center"/>
 
@@ -312,5 +321,9 @@
             android:text="@string/by_clicking_sign_me_up_you_are_agreeing_to_the_terms_amp_conditions_and_privacy_policy"/>
 
     </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
 
 </LinearLayout>
