@@ -16,13 +16,13 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="8dp"
+                android:layout_margin="10dp"
                 android:orientation="horizontal">
 
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
+                    android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -31,7 +31,7 @@
                         android:layout_height="wrap_content"
                         android:text="Customer"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/title_text_size" />
 
                     <View
                         android:layout_width="match_parent"
@@ -49,7 +49,7 @@
                         android:paddingLeft="8dp"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <EditText
                         android:id="@+id/address_update_customer"
@@ -62,7 +62,7 @@
                         android:singleLine="true"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <EditText
                         android:id="@+id/additional_address_update"
@@ -75,7 +75,7 @@
                         android:singleLine="true"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <EditText
                         android:id="@+id/job_number_update"
@@ -87,27 +87,28 @@
                         android:paddingLeft="8dp"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
+
                     <TextView
                         android:id="@+id/tags_add_customer_text"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/button_bg"
-                        android:text="Tags"
                         android:gravity="center|start"
                         android:paddingLeft="8dp"
-                        android:layout_marginTop="10dp"
+                        android:text="Tags"
                         android:textColor="@color/light_black"
-                        android:layout_marginBottom="5dp"
-                        android:textSize="20sp"/>
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <android.support.v7.widget.RecyclerView
-                        android:layout_width="match_parent"
-                        android:layout_marginTop="10dp"
-                        android:visibility="gone"
-                        android:layout_marginBottom="10dp"
                         android:id="@+id/tags_selected_customer"
-                        android:layout_height="wrap_content"/>
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
 
@@ -115,7 +116,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
@@ -124,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:text="Contact"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/title_text_size" />
 
                     <View
                         android:layout_width="match_parent"
@@ -148,7 +148,7 @@
                             android:paddingLeft="8dp"
                             android:textColor="@color/light_black"
                             android:textColorHint="@color/text_light"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/privacy_policy_statement" />
 
                         <EditText
                             android:id="@+id/customer_last_name_update"
@@ -161,7 +161,7 @@
                             android:paddingLeft="8dp"
                             android:textColor="@color/light_black"
                             android:textColorHint="@color/text_light"
-                            android:textSize="20sp" />
+                            android:textSize="@dimen/privacy_policy_statement" />
 
                     </LinearLayout>
 
@@ -176,7 +176,7 @@
                         android:singleLine="true"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <EditText
                         android:id="@+id/mobile_customer_update"
@@ -188,7 +188,7 @@
                         android:paddingLeft="8dp"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <EditText
                         android:id="@+id/fax_customer_update"
@@ -201,7 +201,7 @@
                         android:singleLine="true"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <EditText
                         android:id="@+id/email_customer_update"
@@ -213,7 +213,7 @@
                         android:paddingLeft="8dp"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
-                        android:textSize="20sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -221,28 +221,31 @@
                         android:layout_marginTop="8dp"
                         android:text="@string/time_zone"
                         android:textColor="@color/text_light"
-                        android:textSize="22sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <Spinner
                         android:id="@+id/spinner_time_zone_customer"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
                         android:layout_marginBottom="15dp"
+                        android:layout_marginTop="10dp"
                         android:background="@drawable/button_bg" />
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:text="Additional Fields"
-                        android:textSize="24sp"
-                        android:textColor="@color/button"/>
+                        android:textColor="@color/button"
+                        android:textSize="@dimen/title_text_size" />
 
                     <View
                         android:layout_width="match_parent"
                         android:layout_height="0.2dp"
-                        android:background="@color/button"
-                        android:layout_marginTop="5dp"/>
+                        android:layout_marginTop="5dp"
+                        android:background="@color/button" />
+
                     <TableLayout
+                        android:id="@+id/table_layout_custom_fields_customer_update"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="20dp"
@@ -250,12 +253,7 @@
                         android:divider="@color/light_black"
                         android:showDividers="middle"
                         android:shrinkColumns="*"
-                        android:stretchColumns="*"
-                        android:id="@+id/table_layout_custom_fields_customer_update">
-
-                    </TableLayout>
-
-
+                        android:stretchColumns="*" />
 
                 </LinearLayout>
 
@@ -263,14 +261,16 @@
 
             <Button
                 android:id="@+id/save_customer_update"
-                android:layout_width="200dp"
-                android:layout_height="65dp"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="10dp"
+                android:layout_marginBottom="20dp"
+                android:layout_marginTop="20dp"
                 android:background="@color/blue"
-                android:text="Save"
+                android:text="@string/save"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="@dimen/title_text_size" />
 
         </LinearLayout>
 

@@ -11,25 +11,28 @@
         android:layout_marginLeft="5dp"
         android:layout_marginRight="5dp"
         android:orientation="horizontal">
+
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginRight="10dp"
-            android:textColor="@color/black"
+            android:textColor="@color/light_black"
             android:id="@+id/et_skilled"
             android:singleLine="true"
-            android:textSize="@dimen/sub_text_size"
+            android:textSize="@dimen/privacy_policy_statement"
             android:hint="@string/enter_skilled_trades"
             android:layout_weight="30"/>
+
         <Button
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="60dp"
             android:background="@drawable/button_background_signup"
             android:textColor="@color/white"
             android:layout_gravity="center"
-            android:textSize="@dimen/sub_text_size"
+            android:textSize="@dimen/title_text_size"
             android:text="Add"
+            android:textAllCaps="false"
             android:id="@+id/button_add_skill"
             android:layout_marginRight="10dp"
             android:layout_weight="70"/>
@@ -39,7 +42,7 @@
 <android.support.v7.widget.RecyclerView
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="5dp"
+    android:layout_marginTop="10dp"
     android:id="@+id/skilled_traders_recycler_view"
     android:layout_margin="5dp"/>
 

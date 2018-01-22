@@ -8,15 +8,13 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_gravity="center"
-        android:layout_marginTop="20dp"
+        android:layout_margin="10dp"
         android:orientation="horizontal"
         android:weightSum="100">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="20dp"
-            android:layout_marginRight="20dp"
             android:layout_weight="50"
             android:orientation="horizontal">
 
@@ -29,24 +27,23 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:text="@string/account_information"
-                    android:textColor="@color/black"
+                    android:textColor="@color/button"
                     android:textSize="@dimen/title_text_size" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="30dp"
-                    android:background="@color/text_light" />
+                    android:layout_height="0.2dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/button" />
 
               <TableLayout
                   android:layout_width="match_parent"
                   android:layout_height="wrap_content">
+
                   <TableRow
                       android:layout_width="match_parent"
-                      android:layout_height="wrap_content"
-                      >
-
+                      android:layout_height="wrap_content">
 
                       <TextView
                           android:layout_width="match_parent"
@@ -66,11 +63,11 @@
                           android:textColor="@color/light_black"
                           android:textSize="@dimen/privacy_policy_statement" />
                   </TableRow>
+
                   <TableRow
                       android:layout_height="wrap_content"
                       android:layout_marginTop="10dp"
                       android:layout_width="match_parent">
-
 
                       <TextView
                           android:layout_width="wrap_content"
@@ -91,7 +88,9 @@
                           android:id="@+id/user_name_text_view"
                           android:textColor="@color/light_black"
                           android:textSize="@dimen/privacy_policy_statement" />
+
                   </TableRow>
+
                   <TableRow
                       android:layout_height="wrap_content"
                       android:layout_marginTop="10dp"
@@ -111,17 +110,18 @@
                           android:layout_height="wrap_content"
                           android:layout_gravity="center|start"
                           android:layout_weight="50"
-                          android:drawableLeft="@drawable/icon_general_20"
                           android:drawablePadding="3dp"
                           android:id="@+id/email_address_text_view"
                           android:text="@string/email_address"
                           android:textColor="@color/light_black"
                           android:textSize="@dimen/privacy_policy_statement" />
                   </TableRow>
+
                   <TableRow
                       android:layout_height="wrap_content"
                       android:layout_marginTop="10dp"
                       android:layout_width="match_parent">
+
                       <TextView
                           android:layout_width="wrap_content"
                           android:layout_height="wrap_content"
@@ -137,51 +137,49 @@
                           android:layout_gravity="center|start"
                           android:layout_weight="50"
                           android:id="@+id/phone_number_text_view"
-                          android:drawableLeft="@drawable/icon_general_20"
                           android:drawablePadding="3dp"
                           android:text="@string/mobile_number"
                           android:textColor="@color/light_black"
                           android:textSize="@dimen/privacy_policy_statement" />
+
                   </TableRow>
+
                   <TableRow
                       android:layout_height="wrap_content"
-                      android:layout_marginTop="10dp"
+                      android:layout_marginTop="30dp"
+                      android:layout_marginBottom="20dp"
                       android:layout_width="match_parent">
+
                       <Button
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_marginBottom="30dp"
-                          android:layout_marginTop="20dp"
-                          android:background="@drawable/button_background_signup"
-                          android:drawableLeft="@drawable/icon_general_20"
-                          android:drawablePadding="5dp"
-                          android:padding="10dp"
-                          android:paddingRight="3dp"
+                          android:layout_width="230dp"
+                          android:layout_height="60dp"
+                          android:textAllCaps="false"
+                          android:background="@color/blue"
                           android:text="@string/change"
+                          android:textSize="@dimen/title_text_size"
                           android:id="@+id/edit_profile_button"
                           android:textColor="@color/white" />
+
                       <Button
-                          android:layout_width="wrap_content"
-                          android:layout_height="wrap_content"
-                          android:layout_marginBottom="30dp"
-                          android:layout_marginTop="20dp"
-                          android:layout_marginLeft="60dp"
-                          android:background="@drawable/button_background_signup"
-                          android:drawableLeft="@drawable/icon_general_20"
-                          android:drawablePadding="5dp"
-                          android:padding="10dp"
-                          android:paddingRight="3dp"
+                          android:layout_width="230dp"
+                          android:layout_height="60dp"
+                          android:layout_marginLeft="55dp"
+                          android:background="@color/blue"
+                          android:textAllCaps="false"
+                          android:textSize="@dimen/title_text_size"
                           android:text="@string/change_password"
                           android:id="@+id/button_change_password"
                           android:textColor="@color/white" />
 
                   </TableRow>
+
               </TableLayout>
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:background="@color/text_light" />
+                    android:layout_height="0.2dp"
+                    android:background="@color/light_black" />
+
             </LinearLayout>
 
         </LinearLayout>
@@ -202,18 +200,16 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center|start"
-                    android:drawableRight="@drawable/icon_general_20"
-                    android:drawablePadding="5dp"
                     android:text="@string/bussiness_hours"
-                    android:textColor="@color/black"
+                    android:textColor="@color/button"
                     android:textSize="@dimen/title_text_size" />
 
                 <View
                     android:layout_width="match_parent"
-                    android:layout_height="0.5dp"
-                    android:layout_marginBottom="30dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@color/light_black" />
+                    android:layout_height="0.2dp"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="5dp"
+                    android:background="@color/button" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -231,17 +227,16 @@
                             android:id="@+id/tableRow1"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:padding="5dp">
+                            android:padding="10dp"
+                            android:background="@color/button">
 
                             <TextView
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center|start"
                                 android:text="@string/day"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/title_text_size"
-
-                                />
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/title_text_size"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -250,10 +245,8 @@
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:text="@string/start_time"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/title_text_size"
-
-                                />
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/title_text_size"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -261,10 +254,8 @@
                                 android:layout_gravity="center"
                                 android:layout_marginRight="20dp"
                                 android:text="@string/end_time"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/title_text_size"
-
-                                />
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/title_text_size"/>
 
                             <TextView
                                 android:layout_width="match_parent"
@@ -272,27 +263,25 @@
                                 android:layout_gravity="center|start"
                                 android:text="@string/closed"
                                 android:layout_marginRight="35dp"
-                                android:textColor="@color/black"
-                                android:textSize="@dimen/title_text_size"
-
-                                />
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/title_text_size"/>
 
                         </TableRow>
 
                             <View
                                 android:layout_width="match_parent"
-                                android:layout_height="0.5dp"
-                                android:background="@color/light_black"
-                                />
+                                android:layout_height="0.2dp"
+                                android:background="@color/white"/>
 
                         <TableRow
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp">
+
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_gravity="center|start"
+                                android:layout_height="50dp"
+                                android:gravity="center|start"
                                 android:textColor="@color/light_black"
                                 android:text="@string/monday"
                                 android:textSize="@dimen/privacy_policy_statement"/>
@@ -300,7 +289,8 @@
                             <TextView
                                 android:id="@+id/monday_start_time_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
@@ -311,37 +301,40 @@
                             <TextView
                                 android:id="@+id/monday_end_time_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
                                 android:layout_gravity="center"
+                                android:gravity="center"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_pm"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <CheckBox
                                 android:id="@+id/monday_checkbox"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="35dp"
                                 android:checked="false" />
 
 
                         </TableRow>
+
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/light_black"
-                            />
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black"/>
+
                         <TableRow
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp">
+
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center|start"
                                 android:textColor="@color/light_black"
                                 android:text="@string/tuesday"
@@ -350,7 +343,8 @@
                             <TextView
                                 android:id="@+id/tuesday_start_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
@@ -363,37 +357,39 @@
                             <TextView
                                 android:id="@+id/tuesday_end_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_pm"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <CheckBox
                                 android:id="@+id/tuesday_checkbox"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="35dp"
                                 android:checked="false" />
 
-
                         </TableRow>
+
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/light_black"
-                            />
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black"/>
+
                         <TableRow
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp">
+
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center|start"
                                 android:textColor="@color/light_black"
                                 android:text="@string/wednesday"
@@ -402,50 +398,51 @@
                             <TextView
                                 android:id="@+id/wednesday_start_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_am"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <TextView
                                 android:id="@+id/wednesday_end_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_pm"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <CheckBox
                                 android:id="@+id/wednesday_checkbox"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="35dp"
                                 android:checked="false" />
 
-
                         </TableRow>
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:background="@color/light_black"
-                            />
+                            android:background="@color/light_black" />
+
                         <TableRow
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp">
+
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center|start"
                                 android:textColor="@color/light_black"
                                 android:text="@string/thursday"
@@ -454,50 +451,51 @@
                             <TextView
                                 android:id="@+id/thursday_start_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_am"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <TextView
                                 android:id="@+id/thursday_end_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_pm"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <CheckBox
                                 android:id="@+id/thursday_checkbox"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="35dp"
                                 android:checked="false" />
 
-
                         </TableRow>
+
                         <View
                             android:layout_width="match_parent"
                             android:layout_height="0.5dp"
-                            android:background="@color/light_black"
-                            />
+                            android:background="@color/light_black"/>
+
                         <TableRow
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp">
+
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center|start"
                                 android:textColor="@color/light_black"
                                 android:text="@string/friday"
@@ -506,50 +504,51 @@
                             <TextView
                                 android:id="@+id/friday_start_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_am"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <TextView
                                 android:id="@+id/friday_end_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_pm"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <CheckBox
                                 android:id="@+id/friday_checkbox"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="35dp"
                                 android:checked="false" />
 
-
                         </TableRow>
+
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/light_black"
-                            />
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black"/>
+
                         <TableRow
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp">
+
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center|start"
                                 android:textColor="@color/light_black"
                                 android:text="@string/saturday"
@@ -558,32 +557,31 @@
                             <TextView
                                 android:id="@+id/saturday_start_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_am"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <TextView
                                 android:id="@+id/saturday_end_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_pm"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <CheckBox
                                 android:id="@+id/saturday_checkbox"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="35dp"
                                 android:checked="false" />
@@ -593,16 +591,18 @@
 
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:background="@color/light_black"
-                            />
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black"/>
+
                         <TableRow
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:padding="5dp">
+
                             <TextView
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center|start"
                                 android:textColor="@color/light_black"
                                 android:text="@string/sunday"
@@ -611,36 +611,34 @@
                             <TextView
                                 android:id="@+id/sunday_start_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginLeft="20dp"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_am"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <TextView
                                 android:id="@+id/sunday_end_date_edit_text"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="20dp"
                                 android:hint="@string/_08_00_pm"
                                 android:textColor="@color/light_black"
-
-
                                 android:textSize="@dimen/privacy_policy_statement" />
 
                             <CheckBox
                                 android:id="@+id/sunday_checkbox"
                                 android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
+                                android:layout_height="50dp"
+                                android:gravity="center"
                                 android:layout_gravity="center"
                                 android:layout_marginRight="35dp"
                                 android:checked="false" />
-
 
                         </TableRow>
 
@@ -648,17 +646,15 @@
 
                     <Button
                         android:id="@+id/save_bussiness_button"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_width="150dp"
+                        android:layout_height="60dp"
                         android:layout_marginBottom="20dp"
                         android:layout_marginTop="35dp"
-                        android:background="@drawable/button_background_signup"
-                        android:drawableLeft="@drawable/icon_general_20"
-                        android:drawablePadding="5dp"
-                        android:padding="10dp"
+                        android:background="@color/blue"
                         android:text="@string/save"
+                        android:textAllCaps="false"
                         android:textColor="@color/white"
-                        android:textSize="@dimen/privacy_policy_statement" />
+                        android:textSize="@dimen/title_text_size" />
 
                 </LinearLayout>
                 <View
