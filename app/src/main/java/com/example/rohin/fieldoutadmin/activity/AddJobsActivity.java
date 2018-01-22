@@ -168,7 +168,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         GetSchedulingList();
         GetCustomerList();
         GetEquipmentList();
-        GetSiteList();
+        //GetSiteList();
         GetTagsList();
 
         scheduling_time.setOnClickListener(view -> {
@@ -1016,6 +1016,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             String customername=customer[i];
                             bindViews(customername);
+                            GetSiteList(customername);
                         }
                     });
 
@@ -1048,9 +1049,15 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
-    private void GetSiteList() {
+    private void GetSiteList(String customername) {
+        String customid="";
+        for (int i=0;i<=cusDetailsArrayList.size();i++){
+            if (customername.equals(cusDetailsArrayList.get(i).getCustomername())){
+                customid=cusDetailsArrayList.get(i).getCustomerid();
+            }
+        }
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"sites/getByDomainId/"+domainid;
+        String url = EndURL.URL+"sites/getByCustomerId/"+customid;
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -1075,9 +1082,9 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         }
 
                         CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setSitename(sitename);
                         commonJobs.setSiteid(siteid);
                         AddJobsActivity.this.siteid=siteid;
-                        commonJobs.setSitename(sitename);
                         siteDetailsArrayList.add(commonJobs);
                         sitenamestring.add(sitename);
 

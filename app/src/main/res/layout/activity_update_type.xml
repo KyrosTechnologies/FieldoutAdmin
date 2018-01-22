@@ -12,95 +12,96 @@
         android:layout_height="match_parent"
         android:layout_margin="10dp"
         android:orientation="vertical">
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginRight="15dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_text_size"
-                android:layout_gravity="center|start"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
-                android:textColor="@color/black"
+                android:layout_marginTop="10dp"
                 android:layout_weight="50"
-                android:text="@string/activities"/>
+                android:gravity="start|center"
+                android:text="@string/activities"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/privacy_policy_statement" />
 
             <EditText
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
                 android:id="@+id/activity_type_name"
-                android:layout_gravity="center"
-                android:padding="5dp"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sub_text_size"
-                android:layout_weight="50"
-                android:layout_marginBottom="10dp"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginTop="10dp"
-                android:background="@drawable/button_bg"
-                android:hint="@string/activity_types"/>
+                android:layout_weight="50"
+                android:background="@drawable/button_red"
+                android:hint="@string/activity_types"
+                android:paddingLeft="10dp"
+                android:textColor="@color/light_black"
+                android:textColorHint="@color/text_light"
+                android:textSize="@dimen/privacy_policy_statement" />
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginRight="15dp">
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_text_size"
                 android:layout_gravity="center|start"
-                android:layout_marginTop="10dp"
-                android:layout_weight="50"
-                android:layout_marginRight="10dp"
                 android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:text="@string/color"/>
-
-            <uz.shift.colorpicker.LineColorPicker
-                xmlns:app="http://schemas.android.com/apk/res-auto"
-                android:id="@+id/picker"
-                android:layout_gravity="center"
                 android:layout_marginRight="10dp"
-                android:layout_marginLeft="10dp"
-                android:layout_weight="50"
+                android:layout_marginTop="20dp"
+                android:layout_weight="1"
+                android:text="@string/color"
+                android:textColor="@color/black"
+                android:textSize="@dimen/privacy_policy_statement" />
+
+            <uz.shift.colorpicker.LineColorPicker xmlns:app="http://schemas.android.com/apk/res-auto"
+                android:id="@+id/picker"
                 android:layout_width="match_parent"
                 android:layout_height="50dp"
-                app:orientation="horizontal"/>
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_weight="1"
+                app:orientation="horizontal" />
 
 
         </LinearLayout>
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:layout_marginRight="15dp">
+            android:layout_marginRight="15dp"
+            android:orientation="horizontal">
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/sub_text_size"
                 android:layout_gravity="center|start"
-                android:layout_marginTop="10dp"
-                android:layout_weight="50"
+                android:layout_marginBottom="10dp"
                 android:layout_marginRight="10dp"
-                android:layout_marginBottom="10dp"
-                android:textColor="@color/black"
-                android:text="@string/generate_with_conflict"/>
-            <Spinner
-                android:layout_width="match_parent"
-                android:id="@+id/spinner_conflict"
                 android:layout_marginTop="10dp"
                 android:layout_weight="50"
+                android:text="@string/generate_with_conflict"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/privacy_policy_statement" />
+
+            <Spinner
+                android:id="@+id/spinner_conflict"
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
                 android:layout_marginBottom="10dp"
-                android:layout_height="wrap_content"/>
+                android:layout_marginTop="10dp"
+                android:layout_weight="50"
+                android:background="@drawable/button_bg" />
         </LinearLayout>
 
     </LinearLayout>
+
 </LinearLayout>

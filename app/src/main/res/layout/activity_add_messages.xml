@@ -150,10 +150,11 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="20dp"
-                android:background="@color/button"
-                android:text="Save"
+                android:background="@color/blue"
+                android:text="@string/save"
+                android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="26sp" />
+                android:textSize="@dimen/title_text_size" />
 
         </LinearLayout>
 

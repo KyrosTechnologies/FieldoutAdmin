@@ -13,11 +13,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_header_size"
-            android:textColor="@color/light_black"
             android:layout_gravity="center|start"
             android:layout_marginBottom="10dp"
-            android:text="@string/technician"/>
+            android:text="@string/technician"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sub_header_size" />
 
         <Spinner
             android:id="@+id/users_activity_spinner_update"
@@ -28,12 +28,12 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_header_size"
-            android:textColor="@color/light_black"
             android:layout_gravity="center|start"
-            android:layout_marginTop="10dp"
             android:layout_marginBottom="10dp"
-            android:text="@string/activity_types"/>
+            android:layout_marginTop="10dp"
+            android:text="@string/activity_types"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sub_header_size" />
 
         <Spinner
             android:id="@+id/activity_type_spinner_update"
@@ -123,12 +123,13 @@
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
+            android:layout_marginBottom="20dp"
             android:layout_marginTop="20dp"
-            android:background="@color/button"
-            android:text="Save"
+            android:background="@color/blue"
+            android:text="@string/save"
             android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="24sp" />
+            android:textSize="@dimen/title_text_size" />
 
     </LinearLayout>
 

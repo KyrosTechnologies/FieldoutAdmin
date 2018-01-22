@@ -221,18 +221,18 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_header_size"
-                        android:textColor="@color/light_black"
                         android:layout_gravity="center|start"
                         android:layout_marginTop="10dp"
-                        android:text="@string/job_types"/>
+                        android:text="@string/job_types"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/sub_header_size" />
 
                     <Spinner
                         android:id="@+id/job_type_spinner"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/button_red"/>
+                        android:background="@drawable/button_red" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -292,11 +292,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_header_size"
-                        android:textColor="@color/light_black"
                         android:layout_gravity="center|start"
                         android:layout_marginTop="10dp"
-                        android:text="@string/scheduling"/>
+                        android:text="@string/scheduling"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/sub_header_size" />
 
                     <Spinner
                         android:id="@+id/window_spinner"
@@ -335,11 +335,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_header_size"
-                        android:textColor="@color/light_black"
                         android:layout_gravity="center|start"
                         android:layout_marginTop="10dp"
-                        android:text="@string/teams"/>
+                        android:text="@string/teams"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/sub_header_size" />
 
                     <Spinner
                         android:id="@+id/team_spinner"
@@ -351,11 +351,11 @@
                     <TextView
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:textSize="@dimen/sub_header_size"
-                        android:textColor="@color/light_black"
                         android:layout_gravity="center|start"
                         android:layout_marginTop="10dp"
-                        android:text="@string/technician"/>
+                        android:text="@string/technician"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/sub_header_size" />
 
                     <Spinner
                         android:id="@+id/user_spinner"
@@ -415,7 +415,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="60dp"
                 android:layout_gravity="center"
-                android:layout_margin="8dp"
+                android:layout_marginBottom="25dp"
+                android:layout_marginTop="15dp"
                 android:orientation="horizontal">
 
                 <Button
@@ -423,10 +424,10 @@
                     android:layout_width="150dp"
                     android:layout_height="match_parent"
                     android:background="@color/blue"
-                    android:text="Save"
+                    android:text="@string/save"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/title_text_size" />
 
                 <Button
                     android:layout_width="300dp"
@@ -450,7 +451,7 @@
                     android:text="Save and Schedule"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="24sp" />
+                    android:textSize="@dimen/title_text_size" />
 
             </LinearLayout>
 

@@ -13,10 +13,10 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_header_size"
-            android:textColor="@color/light_black"
             android:layout_gravity="center|start"
-            android:text="@string/technician"/>
+            android:text="@string/technician"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sub_header_size" />
 
         <Spinner
             android:id="@+id/resource_activity_spinner"
@@ -28,11 +28,11 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:textSize="@dimen/sub_header_size"
-            android:textColor="@color/light_black"
             android:layout_gravity="center|start"
             android:layout_marginTop="10dp"
-            android:text="@string/tools_resource"/>
+            android:text="@string/tools_resource"
+            android:textColor="@color/light_black"
+            android:textSize="@dimen/sub_header_size" />
 
         <Spinner
             android:id="@+id/resource_type_spinner"
@@ -123,12 +123,13 @@
             android:layout_width="150dp"
             android:layout_height="60dp"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
             android:layout_marginBottom="20dp"
-            android:background="@color/button"
-            android:text="Save"
+            android:layout_marginTop="20dp"
+            android:background="@color/blue"
+            android:text="@string/save"
+            android:textAllCaps="false"
             android:textColor="@color/white"
-            android:textSize="26sp" />
+            android:textSize="@dimen/title_text_size" />
 
     </LinearLayout>
 

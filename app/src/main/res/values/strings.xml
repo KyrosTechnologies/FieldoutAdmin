@@ -304,4 +304,5 @@
     <string name="technician">Technician</string>
     <string name="activity_types">Activity Types</string>
     <string name="scheduling">Scheduling</string>
+    <string name="accept">Accept</string>
 </resources>

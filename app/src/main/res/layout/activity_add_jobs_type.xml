@@ -243,12 +243,16 @@
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
-                    android:background="@color/button"
+                    android:background="@color/blue"
                     android:text="@string/save"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sub_header_size" />
 
             </LinearLayout>
+
         </ScrollView>
+
     </LinearLayout>
+
 </layout>

@@ -167,8 +167,8 @@
                             android:background="@drawable/button_red"
                             android:drawableEnd="@drawable/down_arrow_black_15"
                             android:gravity="center|start"
-                            android:paddingRight="10dp"
                             android:paddingLeft="10dp"
+                            android:paddingRight="10dp"
                             android:text="@string/technicians"
                             android:textColor="@color/light_black"
                             android:textSize="@dimen/privacy_policy_statement" />
@@ -272,13 +272,14 @@
 
                 <Button
                     android:id="@+id/save_add_team_button"
-                    android:layout_width="175dp"
+                    android:layout_width="150dp"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
-                    android:background="@color/button"
+                    android:background="@color/blue"
                     android:text="@string/save"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
                     android:textSize="@dimen/sub_header_size" />
 

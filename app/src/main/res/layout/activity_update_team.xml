@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
+
     <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         xmlns:app="http://schemas.android.com/apk/res-auto"
         xmlns:tools="http://schemas.android.com/tools"
@@ -7,247 +8,278 @@
         android:layout_height="match_parent"
         android:orientation="vertical"
         tools:context="com.example.rohin.fieldoutadmin.activity.AddTeamActivity">
+
         <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:fillViewport="true">
+
             <LinearLayout
-                android:layout_width="match_parent"
-                android:orientation="vertical"
-                android:layout_margin="10dp"
                 android:id="@+id/linear_1_teams"
-                android:layout_height="match_parent">
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="10dp"
+                android:orientation="vertical">
+
                 <LinearLayout
+                    android:id="@+id/linear_2_teams"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:weightSum="100"
-                    android:id="@+id/linear_2_teams"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="vertical"
                         android:id="@+id/linear_3_teams"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
                         android:layout_weight="50"
-                        android:layout_height="match_parent">
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_header_size"
-                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
-                            android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@string/team"/>
+                            android:text="@string/team"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
+                            android:layout_height="0.2dp"
                             android:layout_marginBottom="10dp"
-                            android:background="@color/light_black"/>
+                            android:background="@color/button" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
+                            android:layout_marginBottom="10dp"
                             android:text="@string/name"
-                            android:layout_marginBottom="5dp"
-                            android:textSize="@dimen/sub_text_size"/>
-                        <EditText
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textColorHint="@color/light_black"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center|start"
-                            android:layout_marginBottom="15dp"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:background="@drawable/button_bg"
+                            android:textColor="@color/light_black"
                             android:textSize="@dimen/sub_text_size"
+                            android:visibility="gone" />
+
+                        <EditText
                             android:id="@+id/update_team_name_edit_text"
-                            android:hint="@string/enter_team_name"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_gravity="center|start"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/button_red"
+                            android:hint="@string/enter_team_name"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/light_black"
+                            android:textColorHint="@color/text_light"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
-                            android:text="@string/description"
                             android:layout_marginBottom="5dp"
-                            android:textSize="@dimen/sub_text_size"/>
+                            android:text="@string/description"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/sub_text_size"
+                            android:visibility="gone" />
+
                         <EditText
+                            android:id="@+id/description_edit_text_update"
                             android:layout_width="match_parent"
                             android:layout_height="150dp"
-                            android:textColorHint="@color/light_black"
-                            android:textColor="@color/black"
-                            android:layout_gravity="start"
-                            android:layout_marginBottom="15dp"
-                            android:textSize="@dimen/sub_text_size"
+                            android:layout_marginBottom="10dp"
                             android:background="@drawable/button_bg"
-                            android:paddingLeft="5dp"
-                            android:paddingRight="5dp"
-                            android:id="@+id/description_edit_text_update"
-                            android:hint="@string/enter_description"/>
+                            android:gravity="start"
+                            android:hint="@string/enter_description"
+                            android:paddingLeft="10dp"
+                            android:paddingTop="10dp"
+                            android:textColor="@color/light_black"
+                            android:textColorHint="@color/text_light"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_header_size"
-                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
-                            android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@string/tags"/>
-                        <View
-                            android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
-                            android:layout_marginBottom="10dp"
-                            android:background="@color/light_black"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:textColor="@color/light_black"
-                            android:id="@+id/tags_update_team_edit_text"
-                            android:layout_gravity="center|start"
                             android:text="@string/tags"
-                            android:background="@drawable/button_bg"
-                            android:padding="5dp"
-                            android:layout_marginBottom="5dp"
-                            android:textSize="@dimen/sub_text_size"/>
-                        <android.support.v7.widget.RecyclerView
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <View
                             android:layout_width="match_parent"
-                            android:layout_marginTop="10dp"
-                            android:visibility="gone"
+                            android:layout_height="0.2dp"
                             android:layout_marginBottom="10dp"
+                            android:background="@color/light_black" />
+
+                        <TextView
+                            android:id="@+id/tags_update_team_edit_text"
+                            android:layout_width="match_parent"
+                            android:layout_height="50dp"
+                            android:background="@drawable/button_bg"
+                            android:gravity="center|start"
+                            android:paddingLeft="10dp"
+                            android:text="@string/tags"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/sub_text_size" />
+
+                        <android.support.v7.widget.RecyclerView
                             android:id="@+id/tags_selected_recycler_update"
-                            android:layout_height="wrap_content"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:layout_marginTop="10dp"
+                            android:visibility="gone" />
+
                     </LinearLayout>
+
                     <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="vertical"
-                        android:layout_weight="50"
-                        android:layout_marginLeft="15dp"
                         android:id="@+id/linear_4_teams"
-                        android:layout_height="match_parent">
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="50"
+                        android:orientation="vertical">
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_header_size"
-                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
-                            android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@string/technicians"/>
+                            android:text="@string/technicians"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
+                            android:layout_height="0.2dp"
                             android:layout_marginBottom="10dp"
-                            android:background="@color/light_black"/>
+                            android:background="@color/button" />
+
                         <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:text="@string/technicians"
-                            android:textColor="@color/black"
-                            android:background="@drawable/button_bg"
-                            android:padding="5dp"
-                            android:layout_gravity="center|start"
-                            android:layout_marginBottom="15dp"
-                            android:textSize="@dimen/sub_text_size"
                             android:id="@+id/technician_list_text_view_update"
-                            />
+                            android:layout_width="match_parent"
+                            android:layout_height="60dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/button_red"
+                            android:gravity="center|start"
+                            android:paddingLeft="10dp"
+                            android:text="@string/technicians"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:orientation="horizontal">
+
                             <CheckBox
+                                android:id="@+id/check_box_add_team_update"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:checked="false"
-                                android:id="@+id/check_box_add_team_update"
-                                android:layout_marginRight="10dp"/>
+                                android:layout_marginRight="10dp"
+                                android:checked="false" />
+
                             <TextView
+                                android:id="@+id/all_technician_text_view_update"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/sub_text_size"
-                                android:textColor="@color/black"
                                 android:layout_gravity="center"
                                 android:text="@string/all_technicians"
-                                android:id="@+id/all_technician_text_view_update"/>
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
                         </LinearLayout>
+
                         <android.support.v7.widget.RecyclerView
-                            android:layout_width="match_parent"
                             android:id="@+id/recycler_technicians_update"
-                            android:visibility="gone"
-                            android:layout_marginBottom="5dp"
-                            android:layout_height="wrap_content"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:visibility="gone" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textSize="@dimen/sub_header_size"
-                            android:textColor="@color/light_black"
                             android:layout_gravity="center|start"
-                            android:layout_marginTop="5dp"
                             android:layout_marginBottom="5dp"
-                            android:text="@string/managers"/>
+                            android:text="@string/managers"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
                         <View
                             android:layout_width="match_parent"
-                            android:layout_height="0.5dp"
+                            android:layout_height="0.2dp"
                             android:layout_marginBottom="10dp"
-                            android:background="@color/light_black"/>
+                            android:background="@color/button" />
 
                         <TextView
                             android:id="@+id/manager_list_text_view_update"
                             android:layout_width="match_parent"
-                            android:layout_height="50dp"
-                            android:layout_gravity="center"
-                            android:layout_marginBottom="15dp"
-                            android:layout_marginTop="10dp"
-                            android:background="@drawable/button_bg"
-                            android:padding="5dp"
+                            android:layout_height="60dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@drawable/button_red"
+                            android:gravity="start|center"
+                            android:paddingLeft="10dp"
                             android:text="@string/managers"
-                            android:textColor="@color/black"
-                            android:textSize="@dimen/sub_text_size" />
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:orientation="horizontal">
+
                             <CheckBox
+                                android:id="@+id/check_box_add_team_managers_update"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_gravity="center"
-                                android:checked="false"
-                                android:id="@+id/check_box_add_team_managers_update"
-                                android:layout_marginRight="10dp"/>
+                                android:layout_marginRight="10dp"
+                                android:checked="false" />
+
                             <TextView
+                                android:id="@+id/all_managers_text_view_update"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
-                                android:textSize="@dimen/sub_text_size"
-                                android:textColor="@color/black"
                                 android:layout_gravity="center"
                                 android:text="@string/all_managers"
-                                android:id="@+id/all_managers_text_view_update"/>
+                                android:textColor="@color/light_black"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
                         </LinearLayout>
+
                         <android.support.v7.widget.RecyclerView
-                            android:layout_width="match_parent"
                             android:id="@+id/recycler_managers_update"
-                            android:visibility="gone"
-                            android:layout_marginBottom="5dp"
-                            android:layout_height="wrap_content"/>
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="10dp"
+                            android:visibility="gone" />
+
                     </LinearLayout>
 
                 </LinearLayout>
+
                 <Button
-                    android:layout_width="wrap_content"
+                    android:id="@+id/save_update_team_button"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:background="@drawable/button_background_signup"
-                    android:text="@string/save"
                     android:layout_marginBottom="20dp"
                     android:layout_marginTop="20dp"
+                    android:background="@color/blue"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/sub_header_size"
-                    android:id="@+id/save_update_team_button"
-                    android:layout_height="wrap_content" />
+                    android:textSize="@dimen/sub_header_size" />
 
             </LinearLayout>
+
         </ScrollView>
+
     </LinearLayout>
+
 </layout>
