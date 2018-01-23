@@ -162,13 +162,12 @@ public class CustomFieldsFragment extends Fragment {
                 if(name!=null){
                     nameTextView.setText(name);
                 }
-                nameTextView.setTextSize(20);
-                TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                tableRowuserTextParams.setMargins(10,10,0,10);
+                nameTextView.setTextSize(24);
+                TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                tableRowuserTextParams.setMargins(15,15,15,15);
                 nameTextView.setLayoutParams(tableRowuserTextParams);
-                nameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                nameTextView.setTextColor(getResources().getColor(R.color.light_black));
-                nameTextView.setPadding(5, 5, 5, 5);
+                nameTextView.setGravity(Gravity.CENTER);
+                nameTextView.setTextColor(getResources().getColor(R.color.text_light));
                 tableRow.addView(nameTextView);
 
                 //TextView type
@@ -176,13 +175,12 @@ public class CustomFieldsFragment extends Fragment {
                 if(typeOfField!=null){
                     typeTextView.setText(typeOfField);
                 }
-                typeTextView.setTextSize(20);
-                TableRow.LayoutParams tableRowTypeParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                tableRowTypeParams.setMargins(10,10,0,10);
+                typeTextView.setTextSize(24);
+                TableRow.LayoutParams tableRowTypeParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                tableRowTypeParams.setMargins(15,15,15,15);
                 typeTextView.setLayoutParams(tableRowTypeParams);
-                typeTextView.setTextColor(getResources().getColor(R.color.light_black));
-                typeTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                typeTextView.setPadding(5, 5, 5, 5);
+                typeTextView.setTextColor(getResources().getColor(R.color.text_light));
+                typeTextView.setGravity(Gravity.CENTER);
                 tableRow.addView(typeTextView);
 
                 //Technicians list Text View
@@ -192,13 +190,12 @@ public class CustomFieldsFragment extends Fragment {
                 }else{
                     privateTextView.setText("False");
                 }
-                privateTextView.setTextSize(20);
-                TableRow.LayoutParams tableRowPrivateParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                tableRowPrivateParams.setMargins(10,10,10,10);
+                privateTextView.setTextSize(24);
+                TableRow.LayoutParams tableRowPrivateParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                tableRowPrivateParams.setMargins(15,15,15,15);
                 privateTextView.setLayoutParams(tableRowPrivateParams);
-                privateTextView.setTextColor(getResources().getColor(R.color.light_black));
-                privateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                privateTextView.setPadding(5, 5, 5, 5);
+                privateTextView.setTextColor(getResources().getColor(R.color.text_light));
+                privateTextView.setGravity(Gravity.CENTER);
                 tableRow.addView(privateTextView);
                 tableRow.setTag(customField);
 

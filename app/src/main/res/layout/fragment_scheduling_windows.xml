@@ -1,105 +1,101 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <ScrollView
             android:layout_width="match_parent"
-            android:fillViewport="true"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:layout_margin="10dp"
                 android:orientation="vertical">
+
                 <Button
+                    android:id="@+id/add_schedule_button"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/text_light"
+                    android:layout_marginBottom="10dp"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginTop="10dp"
+                    android:background="@drawable/button_bg"
+                    android:padding="10dp"
                     android:text="@string/add_schedule"
                     android:textAllCaps="false"
-                    android:id="@+id/add_schedule_button"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginTop="10dp"
-                    android:layout_marginLeft="10dp"
-                    android:padding="10dp"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:background="@drawable/button_bg"/>
+                    android:textColor="@color/text_light"
+                    android:textSize="@dimen/privacy_policy_statement" />
+
                 <TableLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/schedule_table_layout"
-                    android:divider="@color/light_black"
-                    android:showDividers="middle"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
                     android:layout_marginBottom="20dp"
-                    android:layout_height="match_parent">
+                    android:divider="@color/light_black"
+                    android:showDividers="middle">
+
                     <TableRow
-                        android:layout_width="match_parent"
-                        android:background="@color/button"
-                        android:layout_gravity="center"
-                        android:minHeight="100px"
                         android:id="@+id/row_schedule_table"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:background="@color/button"
+                        android:minHeight="100px">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
                             android:layout_gravity="left|center"
-                            android:layout_weight="50"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="@dimen/sub_header_size"
-                            android:text="@string/label"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
-                            android:layout_gravity="left|center"
-                            android:layout_weight="50"
-                            android:layout_marginLeft="10dp"
-                            android:textSize="@dimen/sub_header_size"
-                            android:text="@string/time_start"/>
-                        <TextView
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:textColor="@color/white"
                             android:layout_marginLeft="10dp"
                             android:layout_weight="50"
-                            android:layout_gravity="left|center"
-                            android:textSize="@dimen/sub_header_size"
-                            android:text="@string/time_end"/>
+                            android:text="@string/label"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sub_header_size" />
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
+                            android:layout_marginLeft="10dp"
                             android:layout_weight="50"
+                            android:text="@string/time_start"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="left|center"
+                            android:layout_marginLeft="10dp"
+                            android:layout_weight="50"
+                            android:text="@string/time_end"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
                             android:layout_gravity="left|center"
                             android:layout_marginLeft="10dp"
                             android:layout_marginRight="10dp"
-                            android:textSize="@dimen/sub_header_size"
-                            android:text="@string/public_text"/>
-
-
+                            android:layout_weight="50"
+                            android:text="@string/public_text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sub_header_size" />
 
                     </TableRow>
 
-
-
-
-
-
                 </TableLayout>
 
-
-
-
             </LinearLayout>
-
-
-
 
         </ScrollView>
 
     </LinearLayout>
+
 </layout>

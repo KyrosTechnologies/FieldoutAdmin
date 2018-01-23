@@ -12,7 +12,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -42,9 +41,8 @@ public class AddInvoicesListActivity extends AppCompatActivity {
 
     private PreferenceManager store;
     private String domainid=null;
-    private TextView invoices_create_date,invoices_pay_date,mark_as_sent,mark_as_paid,mark_as_late,mark_as_cancel;
+    private TextView invoices_create_date,invoices_pay_date,mark_as_sent,mark_as_paid,mark_as_late,mark_as_cancel,add_invoices_list;
     private RecyclerView invoice_item_recycler;
-    private LinearLayout add_invoices_list;
     private String invoiceid=null;
     private String adapinvoice=null;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();

@@ -42,12 +42,12 @@ import java.util.Map;
 
 public class LateJobsFragment extends Fragment {
 
-        private View latejobs;
-        private RecyclerView jobs_month_recycler;
-        private LinearLayout no_monthjobs_linear,add_jobs_day;
-        private PreferenceManager store;
-        private String domainid=null;
-        ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
+   private View latejobs;
+   private RecyclerView jobs_month_recycler;
+   private LinearLayout no_monthjobs_linear,add_jobs_day;
+   private PreferenceManager store;
+   private String userid=null;
+   ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
 
 @Nullable
 @Override
@@ -57,7 +57,7 @@ public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup c
         no_monthjobs_linear=latejobs.findViewById(R.id.no_monthjobs_linear);
         add_jobs_day=latejobs.findViewById(R.id.add_jobs_day);
         store= PreferenceManager.getInstance(getActivity().getApplicationContext());
-        domainid=store.getIdDomain();
+        userid=store.getUserid();
 
         add_jobs_day.setOnClickListener(view-> startActivity(new Intent(getContext(), AddJobsActivity.class)));
 
@@ -66,7 +66,7 @@ public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup c
 
 private void GetLateJobsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"userjobs/getALateJobs/"+domainid;
+        String url = EndURL.URL+"userjobs/getLateJobs/"+userid;
         Log.d("waggonurl", url);
         //showProgressDialog();
 

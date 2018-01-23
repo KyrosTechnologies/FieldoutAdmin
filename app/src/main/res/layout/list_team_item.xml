@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 
-    <TextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
-      android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_margin="5dp"
-        android:textColor="@color/light_black"
-        android:id="@+id/text_teams"
-        android:textSize="@dimen/sub_text_size"/>
+<TextView xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/text_teams"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_margin="5dp"
+    android:textColor="@color/light_black"
+    android:textSize="@dimen/privacy_policy_statement" />

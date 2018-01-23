@@ -49,7 +49,7 @@ public class JobsDayFragment extends Fragment {
     private RecyclerView jobs_month_recycler;
     private LinearLayout no_monthjobs_linear,add_jobs_day;
     private PreferenceManager store;
-    private String domainid=null;
+    private String userid=null;
     private String dtformat=null;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
 
@@ -61,7 +61,7 @@ public class JobsDayFragment extends Fragment {
         no_monthjobs_linear=jobsday.findViewById(R.id.no_monthjobs_linear);
         add_jobs_day=jobsday.findViewById(R.id.add_jobs_day);
         store= PreferenceManager.getInstance(getActivity().getApplicationContext());
-        domainid=store.getIdDomain();
+        userid=store.getUserid();
 
         add_jobs_day.setOnClickListener(view-> startActivity(new Intent(getContext(), AddJobsActivity.class)));
 
@@ -70,7 +70,7 @@ public class JobsDayFragment extends Fragment {
 
     private void PutJobsDayList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"userjobs/getAJobsByDate/"+domainid;
+        String url = EndURL.URL+"userjobs/getJobsByDate/"+userid;
         Log.d("waggonurl", url);
         //showProgressDialog();
 

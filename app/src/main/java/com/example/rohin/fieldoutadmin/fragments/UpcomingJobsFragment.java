@@ -46,7 +46,7 @@ public class UpcomingJobsFragment extends Fragment {
     private RecyclerView jobs_month_recycler;
     private LinearLayout no_monthjobs_linear,add_jobs_day;
     private PreferenceManager store;
-    private String domainid=null;
+    private String userid=null;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
 
     @Nullable
@@ -57,7 +57,7 @@ public class UpcomingJobsFragment extends Fragment {
         no_monthjobs_linear=upcomingjobs.findViewById(R.id.no_monthjobs_linear);
         add_jobs_day=upcomingjobs.findViewById(R.id.add_jobs_day);
         store= PreferenceManager.getInstance(getActivity().getApplicationContext());
-        domainid=store.getIdDomain();
+        userid=store.getUserid();
 
         add_jobs_day.setOnClickListener(view-> startActivity(new Intent(getContext(), AddJobsActivity.class)));
 
@@ -66,7 +66,7 @@ public class UpcomingJobsFragment extends Fragment {
 
     private void GetUpcomingJobsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"userjobs/getAUpcomingJobs/"+domainid;
+        String url = EndURL.URL+"userjobs/getUpcomingJobs/"+userid;
         Log.d("waggonurl", url);
         //showProgressDialog();
 

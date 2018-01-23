@@ -23,7 +23,7 @@
                     android:layout_width="225dp"
                     android:layout_height="60dp"
                     android:hint="Creation Date"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/privacy_policy_statement"
                     android:gravity="center|start"
                     android:textColor="@color/text_light"
                     android:background="@drawable/button_bg"
@@ -34,7 +34,7 @@
                     android:layout_width="225dp"
                     android:layout_height="60dp"
                     android:hint="Payment Date"
-                    android:textSize="24sp"
+                    android:textSize="@dimen/privacy_policy_statement"
                     android:gravity="center|start"
                     android:textColor="@color/text_light"
                     android:background="@drawable/button_bg"
@@ -42,32 +42,18 @@
                     android:layout_marginLeft="20dp"
                     android:layout_marginRight="20dp"/>
 
-            <LinearLayout
-                android:id="@+id/add_invoices_list"
-                android:layout_width="100dp"
-                android:layout_height="60dp"
-                android:orientation="horizontal"
-                android:layout_gravity="center|end"
-                android:background="@drawable/button_bg">
-
-                <ImageView
-                    android:layout_width="25dp"
-                    android:layout_height="25dp"
-                    android:src="@drawable/add"
-                    android:layout_gravity="center"
-                    android:layout_marginRight="8dp"
-                    android:layout_marginLeft="8dp"/>
-
                 <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Add"
-                    android:textColor="@color/light_black"
-                    android:textSize="24sp"
+                    android:id="@+id/add_invoices_list"
+                    android:layout_width="225dp"
+                    android:layout_height="60dp"
+                    android:text="Add Invoices"
+                    android:paddingLeft="10dp"
+                    android:background="@drawable/button_bg"
+                    android:textColor="@color/text_light"
+                    android:textSize="@dimen/privacy_policy_statement"
                     android:layout_marginRight="8dp"
-                    android:layout_gravity="center"/>
-
-            </LinearLayout>
+                    android:layout_marginLeft="20dp"
+                    android:gravity="start|center"/>
 
         </LinearLayout>
 
@@ -90,7 +76,7 @@
                 android:layout_height="wrap_content"
                 android:text="Item"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/title_text_size"
                 android:layout_gravity="center"
                 android:gravity="center"/>
 
@@ -104,7 +90,7 @@
                 android:layout_height="wrap_content"
                 android:text="Description"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/title_text_size"
                 android:layout_gravity="center"
                 android:gravity="center"/>
 
@@ -118,7 +104,7 @@
                 android:layout_height="wrap_content"
                 android:text="Unit Price"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/title_text_size"
                 android:gravity="center"
                 android:layout_gravity="center"/>
 
@@ -132,7 +118,7 @@
                 android:layout_height="wrap_content"
                 android:text="Quantity"
                 android:textColor="@color/white"
-                android:textSize="24sp"
+                android:textSize="@dimen/title_text_size"
                 android:gravity="center"
                 android:layout_gravity="center"/>
 
@@ -211,7 +197,7 @@
                 android:layout_height="match_parent"
                 android:text="Mark as Sent"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="@dimen/privacy_policy_statement"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:background="@color/blue"
@@ -224,7 +210,7 @@
                 android:layout_height="match_parent"
                 android:text="Mark as Paid"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="@dimen/privacy_policy_statement"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:background="@color/green"
@@ -236,7 +222,7 @@
                 android:layout_height="match_parent"
                 android:text="Mark as Late"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="@dimen/privacy_policy_statement"
                 android:gravity="center"
                 android:layout_weight="1"
                 android:background="@color/red"
@@ -248,7 +234,7 @@
                 android:layout_height="match_parent"
                 android:text="Mark as Cancelled"
                 android:textColor="@color/white"
-                android:textSize="22sp"
+                android:textSize="@dimen/privacy_policy_statement"
                 android:gravity="center"
                 android:layout_weight="0.8"
                 android:background="@color/black"

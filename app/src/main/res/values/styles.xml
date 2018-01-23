@@ -42,4 +42,9 @@
     <style name="SpinnerTheme" parent="android:Widget.Spinner">
         <item name="android:background">@drawable/backgroundg_spinner</item>
     </style>
+
+    <style name="SpinnerThemeRed" parent="android:Widget.Spinner">
+        <item name="android:background">@drawable/spinner_red</item>
+    </style>
+
 </resources>

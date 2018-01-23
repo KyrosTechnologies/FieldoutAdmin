@@ -168,11 +168,12 @@ public class EquipmentFragment extends Fragment {
                         commonJobs.setEquipname(equipname);
                         commonJobs.setEquipid(equipmentid);
                         commonJobs.setLatlng(latlng);
-                        commonJobs.setCustomFields(customFields.toString());
+                        if(customFields!=null){
+                            commonJobs.setCustomFields(customFields.toString());
+                        }
                         commonJobsArrayList.add(commonJobs);
 
                     }
-
 
                     if (commonJobsArrayList.size()!=0){
                         equipment_recycler=equipment.findViewById(R.id.equipment_recycler);

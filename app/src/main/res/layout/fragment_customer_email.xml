@@ -1,424 +1,410 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:background="@color/email_background"
-    android:layout_height="match_parent">
-    <ScrollView
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
-        android:fillViewport="true"
-        android:layout_height="match_parent">
-        <LinearLayout
+        android:layout_height="match_parent"
+        android:background="@color/email_background"
+        android:orientation="vertical">
+
+        <ScrollView
             android:layout_width="match_parent"
-            android:orientation="vertical"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:orientation="horizontal"
-                android:layout_margin="5dp"
-                android:weightSum="100"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="50"
-                    android:layout_marginLeft="10dp"
-                    android:layout_height="match_parent">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:textSize="@dimen/sub_header_size"
-                        android:layout_gravity="center"
-                        android:text="@string/available_fields"/>
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:orientation="horizontal"
-                        android:background="@drawable/email_back"
-                        android:weightSum="100">
-                       <LinearLayout
-                           android:layout_width="match_parent"
-                           android:orientation="vertical"
-                           android:layout_marginLeft="5dp"
-                           android:layout_weight="50"
-                           android:layout_height="match_parent">
-                           <TextView
-                           android:layout_width="wrap_content"
-                           android:textSize="@dimen/sub_header_size"
-                           android:text="@string/job"
-                           android:textColor="@color/white"
-                           android:padding="5dp"
-                               android:layout_marginLeft="10dp"
-                           android:layout_marginTop="15dp"
-                           android:layout_marginBottom="10dp"
-                           android:background="@drawable/background_text_view"
-                           android:layout_height="wrap_content" />
-                           <TextView
-                           android:layout_width="match_parent"
-                           android:textSize="@dimen/sub_header_size"
-                           android:text="@string/date_scheduled"
-                           android:textColor="@color/light_black"
-                               android:layout_marginLeft="10dp"
-                               android:id="@+id/text_view_date_scheduled_started"
-                           android:drawablePadding="5dp"
-                           android:layout_gravity="center"
-                           android:drawableLeft="@drawable/right_arrow_24_filled"
-                           android:padding="5dp"
-                           android:layout_marginBottom="10dp"
-                           android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/date_scheduled_completed"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:id="@+id/text_view_date_scheduled_completed"
-                               android:layout_gravity="center"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/date_and_time_scheduled"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_gravity="center"
-                               android:id="@+id/text_view_date_time_started"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/date_and_time_scheduled_completed"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_gravity="center"
-                               android:id="@+id/text_view_date_time_completed"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/date_carried_out"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:id="@+id/text_view_date_carried_started"
-                               android:layout_gravity="center"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/date_carried_out_completed"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:id="@+id/text_view_date_carried_completed"
-                               android:layout_gravity="center"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/date_and_time_carried"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:id="@+id/text_view_date_time_carried_started"
-                               android:layout_marginLeft="10dp"
-                               android:layout_gravity="center"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/date_and_time_carried_completed"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_gravity="center"
-                               android:id="@+id/text_view_date_time_carried_completed"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/job_types"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_gravity="center"
-                               android:id="@+id/text_view_job_types"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/job_hash"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_gravity="center"
-                               android:id="@+id/text_view_job_hash"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/description"
-                               android:textColor="@color/light_black"
-                               android:id="@+id/text_view_description"
-                               android:drawablePadding="5dp"
-                               android:layout_gravity="center"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:id="@+id/text_view_contact"
-                               android:text="@string/contact"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_gravity="center"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/job_cusf"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:layout_gravity="center"
-                               android:id="@+id/text_view_job_cusf"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
+                        android:layout_marginRight="10dp"
+                        android:layout_weight="40"
+                        android:orientation="vertical">
 
-                           <TextView
-                               android:layout_width="wrap_content"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/technicians"
-                               android:textColor="@color/white"
-                               android:padding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_marginTop="15dp"
-                               android:layout_marginBottom="10dp"
-                               android:background="@drawable/background_text_view"
-                               android:layout_height="wrap_content" />
-                           <TextView
-                               android:layout_width="match_parent"
-                               android:textSize="@dimen/sub_header_size"
-                               android:text="@string/technician_name"
-                               android:textColor="@color/light_black"
-                               android:drawablePadding="5dp"
-                               android:id="@+id/text_view_technician_name"
-                               android:layout_gravity="center"
-                               android:drawableLeft="@drawable/right_arrow_24_filled"
-                               android:padding="5dp"
-                               android:layout_marginLeft="10dp"
-                               android:layout_marginBottom="10dp"
-                               android:layout_height="wrap_content" />
-                       </LinearLayout>
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:text="@string/available_fields"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/button" />
+
                         <LinearLayout
                             android:layout_width="match_parent"
-                            android:orientation="vertical"
-                            android:layout_weight="50"
-                            android:layout_marginLeft="15dp"
-                            android:layout_height="match_parent">
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:textSize="@dimen/sub_header_size"
-                                android:text="@string/customer"
-                                android:textColor="@color/white"
-                                android:padding="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="10dp"
-                                android:background="@drawable/background_text_view"
-                                android:layout_height="wrap_content" />
-                            <TextView
+                            android:layout_height="match_parent"
+                            android:background="@drawable/email_back"
+                            android:orientation="horizontal"
+                            android:weightSum="100">
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:textSize="@dimen/sub_header_size"
-                                android:text="@string/customer"
-                                android:textColor="@color/light_black"
-                                android:drawablePadding="5dp"
-                                android:layout_gravity="center"
-                                android:id="@+id/text_view_customer"
-                                android:drawableLeft="@drawable/right_arrow_24_filled"
-                                android:padding="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:layout_height="wrap_content" />
-                            <TextView
+                                android:layout_height="match_parent"
+                                android:layout_weight="35"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="150dp"
+                                    android:layout_height="60dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/blue"
+                                    android:gravity="center"
+                                    android:text="@string/job"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_date_scheduled_started"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:layout_gravity="center"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="center|start"
+                                    android:text="@string/date_scheduled"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_date_scheduled_completed"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/date_scheduled_completed"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_date_time_started"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/date_and_time_scheduled"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_date_time_completed"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/date_and_time_scheduled_completed"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_date_carried_started"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/date_carried_out"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_date_carried_completed"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/date_carried_out_completed"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_date_time_carried_started"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/date_and_time_carried"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_date_time_carried_completed"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/date_and_time_carried_completed"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_job_types"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/job_types"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_job_hash"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/job_hash"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_description"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/description"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_contact"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/contact"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_job_cusf"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/job_cusf"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:layout_width="175dp"
+                                    android:layout_height="60dp"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/blue"
+                                    android:gravity="center"
+                                    android:text="@string/technicians"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_technician_name"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/technician_name"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
                                 android:layout_width="match_parent"
-                                android:textSize="@dimen/sub_header_size"
-                                android:text="@string/sage_hash"
-                                android:textColor="@color/light_black"
-                                android:drawablePadding="5dp"
-                                android:id="@+id/text_view_sage"
-                                android:layout_gravity="center"
-                                android:drawableLeft="@drawable/right_arrow_24_filled"
-                                android:padding="5dp"
+                                android:layout_height="match_parent"
                                 android:layout_marginLeft="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:textSize="@dimen/sub_header_size"
-                                android:text="@string/site"
-                                android:textColor="@color/white"
-                                android:padding="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="10dp"
-                                android:background="@drawable/background_text_view"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:textSize="@dimen/sub_header_size"
-                                android:text="@string/site"
-                                android:textColor="@color/light_black"
-                                android:drawablePadding="5dp"
-                                android:id="@+id/text_view_site"
-                                android:layout_gravity="center"
-                                android:drawableLeft="@drawable/right_arrow_24_filled"
-                                android:padding="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_width="wrap_content"
-                                android:textSize="@dimen/sub_header_size"
-                                android:text="@string/equipment"
-                                android:textColor="@color/white"
-                                android:padding="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginTop="15dp"
-                                android:layout_marginBottom="10dp"
-                                android:background="@drawable/background_text_view"
-                                android:layout_height="wrap_content" />
-                            <TextView
-                                android:layout_width="match_parent"
-                                android:textSize="@dimen/sub_header_size"
-                                android:text="@string/equipment"
-                                android:textColor="@color/light_black"
-                                android:drawablePadding="5dp"
-                                android:layout_gravity="center"
-                                android:id="@+id/text_view_equipment"
-                                android:drawableLeft="@drawable/right_arrow_24_filled"
-                                android:padding="5dp"
-                                android:layout_marginLeft="10dp"
-                                android:layout_marginBottom="10dp"
-                                android:layout_height="wrap_content" />
+                                android:layout_weight="50"
+                                android:orientation="vertical">
+
+                                <TextView
+                                    android:layout_width="175dp"
+                                    android:layout_height="60dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/blue"
+                                    android:gravity="center"
+                                    android:text="@string/customer"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_customer"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/customer"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_sage"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/sage_hash"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:layout_width="150dp"
+                                    android:layout_height="60dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/blue"
+                                    android:gravity="center"
+                                    android:padding="5dp"
+                                    android:text="@string/site"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_site"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/site"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:layout_width="175dp"
+                                    android:layout_height="60dp"
+                                    android:layout_marginTop="10dp"
+                                    android:background="@color/blue"
+                                    android:gravity="center"
+                                    android:text="@string/equipment"
+                                    android:textColor="@color/white"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                                <TextView
+                                    android:id="@+id/text_view_equipment"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="60dp"
+                                    android:drawableLeft="@drawable/right_arrow_24_filled"
+                                    android:drawablePadding="12dp"
+                                    android:gravity="start|center"
+                                    android:text="@string/equipment"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/sub_header_size" />
+
+                            </LinearLayout>
+
                         </LinearLayout>
 
                     </LinearLayout>
 
-                </LinearLayout>
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:orientation="vertical"
-                    android:layout_weight="50"
-                    android:layout_marginLeft="15dp"
-                    android:layout_height="match_parent">
-
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="@string/subject"
-                        android:textSize="@dimen/sub_header_size"/>
                     <LinearLayout
                         android:layout_width="match_parent"
-                        android:orientation="vertical"
-                        android:background="@drawable/email_back"
-                        android:layout_height="wrap_content">
-                        <EditText
+                        android:layout_height="match_parent"
+                        android:layout_weight="55"
+                        android:orientation="vertical">
+
+                        <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:textColor="@color/black"
-                            android:layout_gravity="center"
-                            android:gravity="start"
-                            android:text="@string/report_f_startedrealiseddatetime_or_job_technicianname"
+                            android:text="@string/subject"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:layout_marginTop="5dp"
+                            android:background="@color/button" />
+
+                        <EditText
                             android:id="@+id/edit_text_subject"
-                            android:textSize="@dimen/privacy_policy_statement"
-                            android:minHeight="80dp"/>
-
-                    </LinearLayout>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/black"
-                        android:text="@string/body"
-                        android:layout_marginTop="20dp"
-                        android:layout_marginBottom="15dp"
-                        android:textSize="@dimen/sub_header_size"/>
-                    <LinearLayout
-                        android:layout_width="match_parent"
-                        android:orientation="vertical"
-                        android:background="@drawable/email_back"
-                        android:layout_height="wrap_content">
-                        <EditText
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_margin="10dp"
-                            android:id="@+id/edit_text_body"
-                            android:text="@string/please_find_enclosed_the_report_for_job"
-                            android:textColor="@color/black"
+                            android:layout_gravity="center"
+                            android:layout_marginTop="10dp"
+                            android:background="@drawable/button_bg"
                             android:gravity="start"
-                            android:padding="5dp"
-                            android:layout_gravity="start"
-                            android:textSize="@dimen/privacy_policy_statement"
-                            android:minHeight="180dp"/>
+                            android:minHeight="80dp"
+                            android:padding="10dp"
+                            android:text="@string/report_f_startedrealiseddatetime_or_job_technicianname"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/body"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/button" />
+
+                        <EditText
+                            android:id="@+id/edit_text_body"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/button_bg"
+                            android:gravity="start"
+                            android:minHeight="180dp"
+                            android:padding="10dp"
+                            android:text="@string/please_find_enclosed_the_report_for_job"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
 
                     </LinearLayout>
-                </LinearLayout>
-            </LinearLayout>
-                <Button
-                    android:layout_width="wrap_content"
-                    android:textSize="@dimen/sub_header_size"
-                    android:textColor="@color/white"
-                    android:text="@string/save"
-                    android:layout_gravity="center"
-                    android:layout_marginBottom="15dp"
-                    android:layout_marginTop="10dp"
-                    android:background="@drawable/button_background_signup"
-                    android:layout_height="wrap_content" />
-        </LinearLayout>
-    </ScrollView>
 
-</LinearLayout>
+                </LinearLayout>
+
+                <Button
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/blue"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_header_size" />
+
+            </LinearLayout>
+
+        </ScrollView>
+
+    </LinearLayout>
+
 </layout>

@@ -23,7 +23,7 @@
             android:id="@+id/users_activity_spinner"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:background="@drawable/button_red" />
+            style="@style/SpinnerThemeRed"/>
 
         <TextView
             android:layout_width="match_parent"
@@ -40,7 +40,7 @@
             android:layout_width="match_parent"
             android:layout_height="60dp"
             android:layout_marginTop="10dp"
-            android:background="@drawable/button_red" />
+            style="@style/SpinnerThemeRed"/>
 
         <LinearLayout
             android:layout_width="match_parent"

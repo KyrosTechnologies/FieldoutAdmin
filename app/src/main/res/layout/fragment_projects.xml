@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Add Projects"
             android:textColor="@color/text_light"
-            android:textSize="20sp"
+            android:textSize="@dimen/privacy_policy_statement"
             android:padding="10dp"
             android:layout_gravity="center"/>
 
@@ -44,7 +44,7 @@
             android:layout_height="wrap_content"
             android:text="Project"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/title_text_size"
             android:layout_gravity="center"
             android:gravity="center"/>
 
@@ -58,7 +58,7 @@
             android:layout_height="wrap_content"
             android:text="Customer / Site / Equipment"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/title_text_size"
             android:gravity="center"
             android:layout_gravity="center"/>
 
@@ -72,7 +72,7 @@
             android:layout_height="wrap_content"
             android:text="Type"
             android:textColor="@color/white"
-            android:textSize="24sp"
+            android:textSize="@dimen/title_text_size"
             android:gravity="center"
             android:layout_gravity="center"/>
 
@@ -89,7 +89,7 @@
         android:layout_height="match_parent"
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"></android.support.v7.widget.RecyclerView>
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
         android:id="@+id/no_projects_linear"
@@ -103,7 +103,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="No Projects Found"
-            android:textSize="28sp"
+            android:textSize="@dimen/site_address_text_size"
             android:textColor="@color/button"
             android:layout_gravity="center"/>
 

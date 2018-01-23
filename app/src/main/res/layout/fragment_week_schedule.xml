@@ -19,7 +19,7 @@
             android:layout_height="wrap_content"
             android:text="Add Job"
             android:textColor="@color/text_light"
-            android:textSize="20sp"
+            android:textSize="@dimen/privacy_policy_statement"
             android:padding="10dp"
             android:layout_gravity="center"/>
 
@@ -29,7 +29,7 @@
         android:id="@+id/week_recycler"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="10dp"></android.support.v7.widget.RecyclerView>
+        android:layout_marginBottom="10dp"/>
 
     <LinearLayout
         android:id="@+id/no_jobs_linear"

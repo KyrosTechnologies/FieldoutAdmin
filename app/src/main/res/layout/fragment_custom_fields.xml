@@ -1,146 +1,178 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-    <LinearLayout
-        xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical">
+
         <ScrollView
             android:layout_width="match_parent"
-            android:fillViewport="true"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:fillViewport="true">
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_margin="20dp"
+                android:layout_margin="10dp"
                 android:layout_marginBottom="15dp"
                 android:orientation="vertical">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
                     android:orientation="horizontal">
+
                     <Button
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
-                        android:text="@string/add_job_customfield"
                         android:id="@+id/button_add_job"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="@dimen/privacy_policy_statement"
-                        android:background="@drawable/button_background_signup"/>
-                    <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
                         android:layout_weight="1"
-                        android:layout_marginLeft="10dp"
-                        android:text="@string/add_cus_customfield"
+                        android:background="@color/blue"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/add_job_customfield"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/title_text_size" />
+
+                    <Button
                         android:id="@+id/button_add_customers"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="@dimen/privacy_policy_statement"
-                        android:background="@drawable/button_background_signup"/>
-                    <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
                         android:layout_marginLeft="10dp"
-                        android:text="@string/add_cus_sites"
+                        android:layout_weight="1"
+                        android:background="@color/blue"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/add_cus_customfield"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/title_text_size" />
+
+                    <Button
                         android:id="@+id/button_add_sites"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="@dimen/privacy_policy_statement"
-                        android:background="@drawable/button_background_signup"/>
-                    <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
                         android:layout_marginLeft="10dp"
-                        android:text="@string/add_cus_equip"
+                        android:layout_weight="1"
+                        android:background="@color/blue"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/add_cus_sites"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/title_text_size" />
+
+                    <Button
                         android:id="@+id/button_add_equipment"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="@dimen/privacy_policy_statement"
-                        android:background="@drawable/button_background_signup"/>
-                    <Button
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:textColor="@color/white"
-                        android:layout_weight="1"
-                        android:text="@string/add_cus_users"
                         android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/blue"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/add_cus_equip"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/title_text_size" />
+
+                    <Button
                         android:id="@+id/button_add_users"
-                        android:layout_marginBottom="10dp"
-                        android:textSize="@dimen/privacy_policy_statement"
-                        android:background="@drawable/button_background_signup"/>
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="1"
+                        android:background="@color/blue"
+                        android:paddingBottom="5dp"
+                        android:paddingLeft="10dp"
+                        android:paddingRight="10dp"
+                        android:paddingTop="5dp"
+                        android:text="@string/add_cus_users"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
+                        android:textSize="@dimen/title_text_size" />
+
                 </LinearLayout>
 
                 <TableLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/teams_table_layout"
-                    android:divider="@color/light_black"
-                    android:showDividers="middle"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
                     android:layout_marginBottom="20dp"
-                    android:layout_height="wrap_content">
+                    android:divider="@color/light_black"
+                    android:showDividers="middle">
+
                     <TableRow
-                        android:layout_width="match_parent"
-                        android:background="@color/button"
-                        android:layout_gravity="center"
-                        android:minHeight="100px"
                         android:id="@+id/row_team_table"
-                        android:layout_height="wrap_content">
+                        android:layout_width="match_parent"
+                        android:layout_height="50dp"
+                        android:layout_gravity="center"
+                        android:background="@color/button"
+                        android:minHeight="100px">
 
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
                             android:layout_gravity="left|center"
-                            android:gravity="center"
-                            android:layout_weight="50"
                             android:layout_marginLeft="10dp"
-                            android:textSize="@dimen/sub_header_size"
-                            android:text="@string/name"/>
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/name"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sub_header_size" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
                             android:layout_gravity="left|center"
-                            android:gravity="center"
-                            android:layout_weight="50"
                             android:layout_marginLeft="10dp"
-                            android:textSize="@dimen/sub_header_size"
-                            android:text="@string/type"/>
+                            android:layout_weight="50"
+                            android:gravity="center"
+                            android:text="@string/type"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sub_header_size" />
+
                         <TextView
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:textColor="@color/white"
+                            android:layout_gravity="left|center"
                             android:layout_marginLeft="10dp"
-                            android:layout_weight="50"
                             android:layout_marginRight="10dp"
-                            android:layout_gravity="left|center"
+                            android:layout_weight="50"
                             android:gravity="center"
-                            android:textSize="@dimen/sub_header_size"
-                            android:text="@string/private_text"/>
-
-
-
+                            android:text="@string/private_text"
+                            android:textColor="@color/white"
+                            android:textSize="@dimen/sub_header_size" />
 
                     </TableRow>
 
-
-
-
-
-
                 </TableLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/job"
+                    android:layout_marginBottom="5dp"
                     android:padding="8dp"
+                    android:text="@string/job"
+                    android:textColor="@color/button"
+                    android:textSize="@dimen/sub_header_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="@dimen/sub_header_size"
-                    android:background="@drawable/default_text_view_background"/>
+                    android:background="@color/button" />
 
                 <TableLayout
                     android:id="@+id/table_layout_jobs"
@@ -150,90 +182,117 @@
                     android:divider="@color/light_black"
                     android:showDividers="middle"
                     android:shrinkColumns="*"
-                    android:stretchColumns="*"></TableLayout>
+                    android:stretchColumns="*" />
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="5dp"
+                    android:padding="8dp"
                     android:text="@string/customer"
-                    android:padding="8dp"
+                    android:textColor="@color/button"
+                    android:textSize="@dimen/sub_header_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="@dimen/sub_header_size"
-                    android:background="@drawable/default_text_view_background"/>
+                    android:background="@color/button" />
 
                 <TableLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/table_layout_customer"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:divider="@color/light_black"
                     android:showDividers="middle"
                     android:shrinkColumns="*"
-                    android:stretchColumns="*"
-                    android:layout_marginBottom="20dp"
-                    android:layout_height="wrap_content">
+                    android:stretchColumns="*">
+
                 </TableLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="5dp"
+                    android:padding="8dp"
                     android:text="@string/site"
-                    android:padding="8dp"
+                    android:textColor="@color/button"
+                    android:textSize="@dimen/sub_header_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="@dimen/sub_header_size"
-                    android:background="@drawable/default_text_view_background"/>
+                    android:background="@color/button" />
 
                 <TableLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/table_layout_sites"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:divider="@color/light_black"
                     android:showDividers="middle"
                     android:shrinkColumns="*"
-                    android:stretchColumns="*"
-                    android:layout_marginBottom="20dp"
-                    android:layout_height="wrap_content">
+                    android:stretchColumns="*">
+
                 </TableLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
+                    android:layout_marginBottom="5dp"
+                    android:padding="8dp"
                     android:text="@string/equipment"
-                    android:padding="8dp"
+                    android:textColor="@color/button"
+                    android:textSize="@dimen/sub_header_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="@dimen/sub_header_size"
-                    android:background="@drawable/default_text_view_background"/>
+                    android:background="@color/button" />
 
                 <TableLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/table_layout_equipment"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:divider="@color/light_black"
                     android:showDividers="middle"
                     android:shrinkColumns="*"
-                    android:stretchColumns="*"
-                    android:layout_marginBottom="20dp"
-                    android:layout_height="wrap_content">
+                    android:stretchColumns="*">
+
                 </TableLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/black"
-                    android:text="@string/users"
+                    android:layout_marginBottom="5dp"
                     android:padding="8dp"
+                    android:text="@string/users"
+                    android:textColor="@color/button"
+                    android:textSize="@dimen/sub_header_size" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="0.2dp"
                     android:layout_marginBottom="15dp"
-                    android:textSize="@dimen/sub_header_size"
-                    android:background="@drawable/default_text_view_background"/>
+                    android:background="@color/button" />
 
                 <TableLayout
-                    android:layout_width="match_parent"
                     android:id="@+id/table_layout_users"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="20dp"
                     android:divider="@color/light_black"
                     android:showDividers="middle"
                     android:shrinkColumns="*"
-                    android:stretchColumns="*"
-                    android:layout_marginBottom="20dp"
-                    android:layout_height="wrap_content">
+                    android:stretchColumns="*">
+
                 </TableLayout>
+
             </LinearLayout>
-
-
 
 
         </ScrollView>

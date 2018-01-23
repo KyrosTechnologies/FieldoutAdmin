@@ -161,11 +161,10 @@
 
                         <Spinner
                             android:id="@+id/spinner_tax_list"
-                            style="@style/SpinnerTheme"
+                            style="@style/SpinnerThemeRed"
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:layout_gravity="center|start"
-                            android:background="@drawable/button_red"
                             android:hint="@string/job_report"
                             android:padding="5dp"
                             android:textColor="@color/light_black"

@@ -1,799 +1,523 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layout>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
-    <ScrollView
+
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:fillViewport="true">
-        <LinearLayout
+        android:orientation="vertical">
+
+        <ScrollView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical">
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:orientation="horizontal"
-        android:layout_margin="5dp"
-        android:weightSum="100"
-        android:layout_height="match_parent">
-<LinearLayout
-    android:layout_width="match_parent"
-    android:orientation="vertical"
-    android:layout_height="match_parent"
-    android:layout_weight="50">
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sub_header_size"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:text="@string/turn_system_functions_on_or_off"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="90"
-            android:layout_gravity="center"
-            android:checked="true"
-            android:text="@string/quotations_invoices"/>
+            android:fillViewport="true">
 
-    </LinearLayout>
-
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:checked="true"
-            android:layout_weight="93"
-            android:layout_gravity="center"
-            android:text="@string/map"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:checked="true"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:layout_gravity="center"
-            android:text="@string/projects"/>
-
-
-    </LinearLayout>
-
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/multiple_customer_sites"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:checked="true"
-            android:layout_weight="92"
-            android:layout_gravity="center"
-            android:text="@string/mandatory_job_description"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:checked="true"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:layout_gravity="center"
-            android:text="@string/enable_comments_for_job_report"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/technician_see_jobs"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/the_customer_can_create"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:checked="true"
-            android:layout_weight="92"
-            android:layout_gravity="center"
-            android:text="@string/add_customer_when_creating"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/force_the_default"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/custom_header_and"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/invoice_job_another"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:checked="true"
-            android:layout_weight="92"
-            android:layout_gravity="center"
-            android:text="@string/delete_all_signature"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="92"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/do_not_display"/>
-
-
-    </LinearLayout>
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/black"
-        android:textSize="@dimen/sub_header_size"
-        android:layout_marginTop="10dp"
-        android:layout_marginBottom="10dp"
-        android:layout_gravity="center"
-        android:text="@string/mobile_synchronization_on_action"/>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:checked="true"
-            android:layout_weight="90"
-            android:layout_gravity="center"
-            android:text="@string/start"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="90"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/suspend"/>
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="90"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/resume"/>
-
-
-    </LinearLayout>
-    <View
-        android:layout_width="match_parent"
-        android:layout_height="0.5dp"
-        android:layout_marginBottom="10dp"
-        android:background="@color/light_black"/>
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:weightSum="100"
-        android:orientation="horizontal">
-        <CheckBox
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/light_black"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:layout_marginBottom="10dp"
-            android:layout_marginLeft="5dp"
-            android:layout_weight="90"
-            android:checked="true"
-            android:layout_gravity="center"
-            android:text="@string/complete"/>
-
-    </LinearLayout>
-</LinearLayout>
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginLeft="15dp"
-            android:orientation="vertical"
-            android:layout_weight="50">
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sub_header_size"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center"
-                android:text="@string/turn_mobile_functions"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:checked="true"
-                    android:layout_gravity="center"
-                    android:text="@string/add_job"/>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="10dp"
+                    android:orientation="horizontal"
+                    android:weightSum="100">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_weight="50"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/turn_system_functions_on_or_off"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:layout_marginBottom="10dp"
+                            android:background="@color/button" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_weight="90"
+                            android:checked="true"
+                            android:gravity="start|center"
+                            android:text="@string/quotations_invoices"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="93"
+                            android:checked="true"
+                            android:text="@string/map"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/projects"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/multiple_customer_sites"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/mandatory_job_description"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/enable_comments_for_job_report"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/technician_see_jobs"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="80dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/the_customer_can_create"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="80dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/add_customer_when_creating"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="80dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/force_the_default"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/custom_header_and"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/invoice_job_another"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="80dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/delete_all_signature"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="80dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="92"
+                            android:checked="true"
+                            android:text="@string/do_not_display"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/mobile_synchronization_on_action"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="90"
+                            android:checked="true"
+                            android:text="@string/start"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="90"
+                            android:checked="true"
+                            android:text="@string/suspend"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="90"
+                            android:checked="true"
+                            android:text="@string/resume"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:layout_weight="90"
+                            android:checked="true"
+                            android:text="@string/complete"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginLeft="15dp"
+                        android:layout_weight="50"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="5dp"
+                            android:text="@string/turn_mobile_functions"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/button" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/add_job"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/decline_job"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/reshedule_job"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/location_tracking"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/user_native_mapping"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="80dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/create_or_update_an_invoice"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/show_customer_list"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <TextView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="5dp"
+                            android:layout_marginTop="10dp"
+                            android:text="@string/what_my_customer_can_do"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/sub_header_size" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/upload_attachments"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/show_invoice_quotation"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <View
+                            android:layout_width="match_parent"
+                            android:layout_height="0.2dp"
+                            android:background="@color/light_black" />
+
+                        <CheckBox
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_gravity="start|center"
+                            android:checked="true"
+                            android:text="@string/display_validated_jobs"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                    </LinearLayout>
+
+                </LinearLayout>
+
+                <Button
+                    android:id="@+id/button_options_save"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center"
+                    android:layout_marginBottom="20dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@color/blue"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/sub_header_size" />
 
             </LinearLayout>
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:checked="true"
-                    android:layout_gravity="center"
-                    android:text="@string/decline_job"/>
-
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:checked="true"
-                    android:layout_gravity="center"
-                    android:text="@string/reshedule_job"/>
-
-
-            </LinearLayout>
-
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:checked="true"
-                    android:layout_weight="90"
-                    android:layout_gravity="center"
-                    android:text="@string/location_tracking"/>
-
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:checked="true"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:layout_gravity="center"
-                    android:text="@string/user_native_mapping"/>
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:checked="true"
-                    android:layout_gravity="center"
-                    android:text="@string/create_or_update_an_invoice"/>
-
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:checked="true"
-                    android:layout_gravity="center"
-                    android:text="@string/show_customer_list"/>
-
-
-            </LinearLayout>
-
-            <TextView
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:textColor="@color/black"
-                android:textSize="@dimen/sub_header_size"
-                android:layout_marginTop="10dp"
-                android:layout_marginBottom="10dp"
-                android:layout_gravity="center"
-                android:text="@string/what_my_customer_can_do"/>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:checked="true"
-                    android:layout_gravity="center"
-                    android:text="@string/upload_attachments"/>
-
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:layout_gravity="center"
-                    android:checked="true"
-                    android:text="@string/show_invoice_quotation"/>
-
-
-            </LinearLayout>
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="0.5dp"
-                android:layout_marginBottom="10dp"
-                android:background="@color/light_black"/>
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:weightSum="100"
-                android:orientation="horizontal">
-                <CheckBox
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement"
-                    android:layout_marginBottom="10dp"
-                    android:layout_marginLeft="5dp"
-                    android:layout_weight="90"
-                    android:checked="true"
-                    android:layout_gravity="center"
-                    android:text="@string/display_validated_jobs"/>
-
-
-            </LinearLayout>
-
-
-
-
-
-
-
-
-        </LinearLayout>
+        </ScrollView>
 
     </LinearLayout>
-            <Button
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/button_background_signup"
-                android:textSize="@dimen/sub_header_size"
-                android:textColor="@color/white"
-                android:layout_marginBottom="10dp"
-                android:id="@+id/button_options_save"
-                android:layout_marginTop="10dp"
-                android:layout_gravity="center"
-                android:text="@string/save"/>
-        </LinearLayout>
-    </ScrollView>
-</LinearLayout>
+
 </layout>

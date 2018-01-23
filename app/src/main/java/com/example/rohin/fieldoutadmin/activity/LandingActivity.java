@@ -48,7 +48,7 @@ public class LandingActivity extends AppCompatActivity {
     private SessionManager session;
     private AlertDialog logoutdialog;
     private LinearLayout linear_name_down,name_visible_linear,linear_team,linear_schedule_down,map_linear,
-            linear_customers_down,linear_projects,linear_jobs_down,linear_invoicing_down,linear_reports_down,
+            linear_customers_down,linear_jobs_down,linear_invoicing_down,linear_reports_down,
             schedule_visible_linear,cutomer_visible_linear,jobs_visible_linear,invoice_visible_linear,reports_visible_linear,
             my_profile,logout,messages;
     private ImageView settings_fragment;
@@ -82,7 +82,6 @@ public class LandingActivity extends AppCompatActivity {
         linear_schedule_down=findViewById(R.id.linear_schedule_down);
         map_linear=findViewById(R.id.map_linear);
         linear_customers_down=findViewById(R.id.linear_customers_down);
-        linear_projects=findViewById(R.id.linear_projects);
         linear_jobs_down=findViewById(R.id.linear_jobs_down);
         linear_invoicing_down=findViewById(R.id.linear_invoicing_down);
         linear_reports_down=findViewById(R.id.linear_reports_down);
@@ -187,7 +186,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.button));
             map_linear.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_customers_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_projects.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            project_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
@@ -210,7 +209,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             map_linear.setBackgroundColor(getResources().getColor(R.color.button));
             linear_customers_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_projects.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            project_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
@@ -226,7 +225,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             map_linear.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_customers_down.setBackgroundColor(getResources().getColor(R.color.button));
-            linear_projects.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            project_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
@@ -245,16 +244,6 @@ public class LandingActivity extends AppCompatActivity {
             }
         });
 
-        linear_projects.setOnClickListener(view -> {
-            linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            map_linear.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_customers_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_projects.setBackgroundColor(getResources().getColor(R.color.button));
-            linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-        });
-
         linear_jobs_down.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             recycler_tech.setVisibility(View.GONE);
@@ -265,7 +254,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             map_linear.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_customers_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_projects.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            project_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.button));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
@@ -294,7 +283,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             map_linear.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_customers_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_projects.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            project_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.button));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
@@ -323,7 +312,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             map_linear.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_customers_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            linear_projects.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            project_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.button));
@@ -495,6 +484,19 @@ public class LandingActivity extends AppCompatActivity {
         });
 
         project_text.setOnClickListener(view -> {
+            name_visible_linear.setVisibility(View.GONE);
+            recycler_tech.setVisibility(View.GONE);
+            schedule_visible_linear.setVisibility(View.GONE);
+            cutomer_visible_linear.setVisibility(View.GONE);
+            jobs_visible_linear.setVisibility(View.GONE);
+            invoice_visible_linear.setVisibility(View.GONE);
+            linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            map_linear.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            linear_customers_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            project_text.setBackgroundColor(getResources().getColor(R.color.button));
+            linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             ProjectsFragment h = new ProjectsFragment();
             android.support.v4.app.FragmentTransaction k =
                     getSupportFragmentManager().beginTransaction();

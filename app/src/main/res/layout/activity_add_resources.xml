@@ -20,10 +20,10 @@
 
         <Spinner
             android:id="@+id/resource_activity_spinner"
+            style="@style/SpinnerThemeRed"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_red" />
+            android:layout_marginTop="10dp" />
 
         <TextView
             android:layout_width="match_parent"
@@ -36,10 +36,10 @@
 
         <Spinner
             android:id="@+id/resource_type_spinner"
+            style="@style/SpinnerThemeRed"
             android:layout_width="match_parent"
             android:layout_height="60dp"
-            android:layout_marginTop="10dp"
-            android:background="@drawable/button_red" />
+            android:layout_marginTop="10dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -57,7 +57,7 @@
                 android:hint="Start Date"
                 android:paddingLeft="10dp"
                 android:textColor="@color/text_light"
-                android:textSize="24sp" />
+                android:textSize="@dimen/privacy_policy_statement" />
 
             <TextView
                 android:id="@+id/resource_start_time"
@@ -70,7 +70,7 @@
                 android:hint="Start Time"
                 android:paddingLeft="10dp"
                 android:textColor="@color/text_light"
-                android:textSize="24sp" />
+                android:textSize="@dimen/privacy_policy_statement" />
 
         </LinearLayout>
 
@@ -90,7 +90,7 @@
                 android:hint="End Date"
                 android:paddingLeft="10dp"
                 android:textColor="@color/text_light"
-                android:textSize="24sp" />
+                android:textSize="@dimen/privacy_policy_statement" />
 
             <TextView
                 android:id="@+id/resource_end_time"
@@ -103,7 +103,7 @@
                 android:hint="End Time"
                 android:paddingLeft="10dp"
                 android:textColor="@color/text_light"
-                android:textSize="24sp" />
+                android:textSize="@dimen/privacy_policy_statement" />
 
         </LinearLayout>
 
@@ -111,7 +111,7 @@
             android:id="@+id/resource_note_edit"
             android:layout_width="match_parent"
             android:layout_height="180dp"
-            android:layout_marginTop="20sp"
+            android:layout_marginTop="@dimen/privacy_policy_statement"
             android:background="@drawable/button_bg"
             android:gravity="start"
             android:hint="Note"

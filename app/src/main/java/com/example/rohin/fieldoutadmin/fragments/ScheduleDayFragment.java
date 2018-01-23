@@ -50,7 +50,7 @@ public class ScheduleDayFragment extends Fragment {
     private RecyclerView week_recycler;
     private LinearLayout no_jobs_linear,add_jobs_schedule;
     private PreferenceManager store;
-    private String domainid=null;
+    private String userid=null;
     private String dtformat=null;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
 
@@ -62,7 +62,7 @@ public class ScheduleDayFragment extends Fragment {
         no_jobs_linear=day.findViewById(R.id.no_jobs_linear);
         add_jobs_schedule=day.findViewById(R.id.add_jobs_schedule);
         store= PreferenceManager.getInstance(getActivity().getApplicationContext());
-        domainid=store.getIdDomain();
+        userid=store.getUserid();
 
         add_jobs_schedule.setOnClickListener(view-> startActivity(new Intent(getContext(), AddJobsActivity.class)));
         return day;
@@ -70,7 +70,7 @@ public class ScheduleDayFragment extends Fragment {
 
     private void PutDayCalendarList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"userjobs/getAJobsByDate/"+domainid;
+        String url = EndURL.URL+"userjobs/getJobsByDate/"+userid;
         Log.d("waggonurl", url);
         //showProgressDialog();
 

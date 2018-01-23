@@ -232,7 +232,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/button_red" />
+                        style="@style/SpinnerThemeRed"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -303,7 +303,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/button_bg" />
+                        style="@style/SpinnerTheme"/>
 
                     <TextView
                         android:id="@+id/scheduling_date"
@@ -346,7 +346,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/button_bg" />
+                        style="@style/SpinnerTheme"/>
 
                     <TextView
                         android:layout_width="match_parent"
@@ -362,7 +362,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/button_bg" />
+                        style="@style/SpinnerTheme"/>
 
 
                 </LinearLayout>

@@ -125,7 +125,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:layout_marginBottom="10dp"
-                                    android:background="@drawable/button_bg"
+                                    style="@style/SpinnerTheme"
                                     android:prompt="@string/profile" />
 
                                 <TextView
@@ -164,7 +164,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:layout_marginBottom="10dp"
-                                    android:background="@drawable/button_bg" />
+                                    style="@style/SpinnerTheme"/>
 
                             </LinearLayout>
 
@@ -235,7 +235,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:layout_marginBottom="10dp"
-                                    android:background="@drawable/button_bg" />
+                                    style="@style/SpinnerTheme"/>
 
                                 <TextView
                                     android:layout_width="match_parent"
@@ -274,7 +274,7 @@
                                     android:layout_width="match_parent"
                                     android:layout_height="60dp"
                                     android:layout_marginBottom="10dp"
-                                    android:background="@drawable/button_bg" />
+                                    style="@style/SpinnerTheme"/>
 
                             </LinearLayout>
 
