@@ -114,6 +114,8 @@ public class UpdateTeamActivity extends AppCompatActivity {
     }
     private void tagError(Throwable throwable){
         showTimber("Error : ","TAG",throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
     private void tagCompleted(){
 
@@ -191,6 +193,7 @@ public class UpdateTeamActivity extends AppCompatActivity {
   }
   private void onError(Throwable throwable){
       dismissDialog();
+      showToast(""+throwable.getMessage());
       Log.e("Error : ",TAG+" /  / "+throwable.getMessage());
   }
   private void onCompleted(){
@@ -212,7 +215,8 @@ dismissDialog();
 
         @Override
         public void onError(Throwable e) {
-        Log.e("Error : ",TAG+" / / "+e.getMessage());
+            showToast(""+e.getMessage());
+            Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 
         @Override
@@ -311,6 +315,7 @@ dismissDialog();
 
         @Override
         public void onError(Throwable e) {
+            showToast(""+e.getMessage());
             Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 
@@ -372,6 +377,7 @@ dismissDialog();
 
         @Override
         public void onError(Throwable e) {
+            showToast(""+e.getMessage());
             Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 
@@ -499,6 +505,8 @@ dismissDialog();
     }
     private void deleteTeamError(Throwable throwable){
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
     private void deleteTeamComplete(){
 

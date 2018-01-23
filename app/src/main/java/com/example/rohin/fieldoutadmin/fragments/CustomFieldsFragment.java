@@ -100,6 +100,8 @@ public class CustomFieldsFragment extends Fragment {
 
     private void getErrorResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void getResponse(CustomFieldResponse customFieldResponse) {

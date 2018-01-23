@@ -4,16 +4,20 @@ import com.example.rohin.fieldoutadmin.activity.AccountInformationDetailsActivit
 import com.example.rohin.fieldoutadmin.activity.AddAttachmentActivity;
 import com.example.rohin.fieldoutadmin.activity.AddCustomFieldsActivity;
 import com.example.rohin.fieldoutadmin.activity.AddCustomer;
+import com.example.rohin.fieldoutadmin.activity.AddEquipment;
 import com.example.rohin.fieldoutadmin.activity.AddJobsTypeActivity;
 import com.example.rohin.fieldoutadmin.activity.AddProjectTypeActivity;
 import com.example.rohin.fieldoutadmin.activity.AddSchedulingWindowsActivity;
+import com.example.rohin.fieldoutadmin.activity.AddSite;
 import com.example.rohin.fieldoutadmin.activity.AddTaxesActivity;
 import com.example.rohin.fieldoutadmin.activity.AddTeamActivity;
 import com.example.rohin.fieldoutadmin.activity.AddUserActivity;
 import com.example.rohin.fieldoutadmin.activity.ChangePasswordActivity;
 import com.example.rohin.fieldoutadmin.activity.CustomerUpdateDelete;
+import com.example.rohin.fieldoutadmin.activity.EquipmentUpdateDelete;
 import com.example.rohin.fieldoutadmin.activity.PartsAndServicesActivity;
 import com.example.rohin.fieldoutadmin.activity.SignUpActivity;
+import com.example.rohin.fieldoutadmin.activity.SitesUpdateDelete;
 import com.example.rohin.fieldoutadmin.activity.UpdateTeamActivity;
 import com.example.rohin.fieldoutadmin.activity.UpdateUserActivity;
 import com.example.rohin.fieldoutadmin.common.RetrofitClient;
@@ -73,4 +77,8 @@ public interface ApplicationComponent {
     void injectChangePasswordActivity(ChangePasswordActivity changePasswordActivity);
     void injectAddCustomer(AddCustomer addCustomer);
     void injectCustomerUpdateDelete(CustomerUpdateDelete customerUpdateDelete);
+    void injectAddSite(AddSite addSite);
+    void injectSitesUpdateDelete(SitesUpdateDelete sitesUpdateDelete);
+    void injectAddEquipment(AddEquipment addEquipment);
+    void injectEquipmentUpdateDelete(EquipmentUpdateDelete equipmentUpdateDelete);
 }

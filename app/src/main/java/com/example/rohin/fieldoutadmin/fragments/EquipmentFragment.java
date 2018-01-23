@@ -151,7 +151,12 @@ public class EquipmentFragment extends Fragment {
                             tagInfo=first.getJSONArray("tagInfo");
                         }catch (Exception e){
                         }
-
+                        JSONArray customFields=null;
+                        try{
+                            customFields=first.getJSONArray("CustomFieldValues");
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setCustomername(cusname);
@@ -163,6 +168,7 @@ public class EquipmentFragment extends Fragment {
                         commonJobs.setEquipname(equipname);
                         commonJobs.setEquipid(equipmentid);
                         commonJobs.setLatlng(latlng);
+                        commonJobs.setCustomFields(customFields.toString());
                         commonJobsArrayList.add(commonJobs);
 
                     }

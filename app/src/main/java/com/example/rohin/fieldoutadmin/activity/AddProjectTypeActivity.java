@@ -79,7 +79,6 @@ public class AddProjectTypeActivity extends AppCompatActivity {
         store=PreferenceManager.getInstance(getApplicationContext());
         try{
         ProjectType projectType=new Gson().fromJson(getIntent().getExtras().getString("projecttype"),ProjectType.class);
-        Log.d("Project Type :  ",TAG+" / / "+projectType.toString());
         projectTypeId=projectType.getId();
         String projectTypeName=projectType.getTypeName();
         if(projectTypeName!=null){
@@ -163,6 +162,8 @@ public class AddProjectTypeActivity extends AppCompatActivity {
 
     private void errorUpdateResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void updateResponse(AddProjectTypeResponse addProjectTypeResponse) {
@@ -236,6 +237,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
     private void errorAddProjectType(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
         dismissProgressDialog();
+        showToast(""+throwable.getMessage());
 
     }
 
@@ -314,6 +316,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
 
     private void errorJobTypes(Throwable throwable) {
         Log.e("Error : ",TAG+ " / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
     }
 
     private void responseJobTypes(JobsTypeResponse jobsTypeResponse) {
@@ -403,6 +406,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
 
     private void errorDeleteProjectType(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
     }
 
     private void responseDeleteProjectType(DeleteProjectTypeResponse deleteProjectTypeResponse) {

@@ -90,6 +90,8 @@ public class TaxesFragment extends Fragment {
     private void error(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
         dismissProgressDialog();
+        showToast(""+throwable.getMessage());
+
     }
 
     private void response(TaxResponse taxResponse) {

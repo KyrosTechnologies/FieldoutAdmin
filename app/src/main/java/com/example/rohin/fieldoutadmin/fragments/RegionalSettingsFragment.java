@@ -408,6 +408,8 @@ public class RegionalSettingsFragment extends Fragment{
     private void errorAddRegionalResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
         dismissProgressDialog();
+        showToast(""+throwable.getMessage());
+
     }
 
     private void addRegionalResponse(RegionalSettingsResponse regionalSettingsResponse) {

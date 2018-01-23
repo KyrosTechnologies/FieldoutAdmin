@@ -148,6 +148,7 @@ public class PartsAndServicesActivity extends AppCompatActivity {
     }
 
     private void updateErrorResponse(Throwable throwable) {
+        showToast(""+throwable.getMessage());
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
         dismissProgressDialog();
     }
@@ -209,6 +210,7 @@ public class PartsAndServicesActivity extends AppCompatActivity {
 
     private void addErrorResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
         dismissProgressDialog();
     }
 
@@ -262,6 +264,8 @@ public class PartsAndServicesActivity extends AppCompatActivity {
 
     private void taxError(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void taxResponse(TaxResponse taxResponse) {

@@ -110,6 +110,8 @@ public class UsersFragment extends Fragment {
 
     private void usersGetErrorResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
 
     }
 
@@ -287,6 +289,8 @@ public class UsersFragment extends Fragment {
 
     private void singleTeamErrorResponse(Throwable throwable) {
     Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private String singleTeamResponse(SingleTeamResponse singleTeamResponse) {
@@ -361,6 +365,8 @@ public class UsersFragment extends Fragment {
 
         @Override
         public void onError(Throwable e) {
+            showToast(""+e.getMessage());
+
             Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 

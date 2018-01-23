@@ -640,7 +640,7 @@ public class AddCustomer extends AppCompatActivity {
                         if(inputTextView!=null){
                             inputTextView.findViewById(typeWhich.getId());
                             String textValue=inputTextView.getText().toString();
-                            String formType="users";
+                            String formType="customers";
                             String typeOfField="Text";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
@@ -657,7 +657,7 @@ public class AddCustomer extends AppCompatActivity {
                             value=spinnerCustomField.getSelectedItem().toString();
                             CustomField customFieldTemp =(CustomField)spinnerCustomField.getTag();
                             List<String>choiceList=customFieldTemp.getChoices();
-                            String formType="users";
+                            String formType="customers";
                             String typeOfField="List Of Values";
                             CustomField customField=new CustomField();
                             customField.setTextValue(value);
@@ -674,7 +674,7 @@ public class AddCustomer extends AppCompatActivity {
                             String textValue ="";
                             dateTextView.findViewById(typeWhich.getId());
                             textValue=dateTextView.getText().toString();
-                            String formType="users";
+                            String formType="customers";
                             String typeOfField="Date";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
@@ -688,7 +688,7 @@ public class AddCustomer extends AppCompatActivity {
                         if(numericEditText!=null){
                             numericEditText.findViewById(typeWhich.getId());
                             String textValue=numericEditText.getText().toString();
-                            String formType="users";
+                            String formType="customers";
                             String typeOfField="Numeric";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
@@ -708,7 +708,7 @@ public class AddCustomer extends AppCompatActivity {
                             }else{
                                 textValue="False";
                             }
-                            String formType="users";
+                            String formType="customers";
                             String typeOfField="CheckBox";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
@@ -722,7 +722,7 @@ public class AddCustomer extends AppCompatActivity {
                         if(autoCompleteTextView!=null){
                             autoCompleteTextView.findViewById(typeWhich.getId());
                             String textValue=autoCompleteTextView.getText().toString();
-                            String formType="users";
+                            String formType="customers";
                             String typeOfField="AutoCompleteBox";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);

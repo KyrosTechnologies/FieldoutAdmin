@@ -86,6 +86,7 @@ public class JobTypesFragment extends Fragment {
 
     private void errorJobType(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
     }
 
     private void responseJobType(JobsTypeResponse jobsTypeResponse) {

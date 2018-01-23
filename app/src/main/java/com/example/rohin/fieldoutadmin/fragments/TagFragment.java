@@ -87,6 +87,8 @@ public class TagFragment extends Fragment {
 
     private void getErrorResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void getResponse(TagResponse tagResponse) {
@@ -207,6 +209,8 @@ public class TagFragment extends Fragment {
 
     private void updateTagError(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void updateTagResponse(TagResponse tagResponse) {
@@ -251,6 +255,8 @@ public class TagFragment extends Fragment {
 
     private void deleteTagError(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void deleteTagResponse(DeleteTagResponse deleteTagResponse) {
@@ -312,6 +318,9 @@ public class TagFragment extends Fragment {
 
     private void addTagError(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
+
     }
 
     private void addTagResponse(AddTagResponse addTagResponse) {

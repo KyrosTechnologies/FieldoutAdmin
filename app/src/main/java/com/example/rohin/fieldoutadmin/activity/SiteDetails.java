@@ -32,6 +32,7 @@ public class SiteDetails extends AppCompatActivity {
     private String cusname=null;
     private String latlng=null;
     private String taginfo=null;
+    private String customFields=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +68,7 @@ public class SiteDetails extends AppCompatActivity {
             siteemail=bundle.getString("email");
             latlng=bundle.getString("latlng");
             taginfo=bundle.getString("tags");
-
+            customFields=bundle.getString("customFields");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -130,6 +131,7 @@ public class SiteDetails extends AppCompatActivity {
                 i.putExtra("fax",sitefax);
                 i.putExtra("email",siteemail);
                 i.putExtra("tags",taginfo.toString());
+                i.putExtra("customFields",customFields);
                 startActivity(i);
                 break;
 

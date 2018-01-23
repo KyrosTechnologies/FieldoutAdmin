@@ -241,6 +241,8 @@ public class AddUserActivity extends AppCompatActivity {
 
     private void customFieldErrorResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void customFieldResponse(CustomFieldResponse customFieldResponse) {
@@ -531,6 +533,7 @@ public class AddUserActivity extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
                         }
@@ -548,6 +551,7 @@ public class AddUserActivity extends AppCompatActivity {
                             customField.setTextValue(value);
                             customField.setFormType(formType);
                             customField.setChoices(choiceList);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
 
@@ -562,6 +566,7 @@ public class AddUserActivity extends AppCompatActivity {
                             String typeOfField="Date";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
@@ -576,6 +581,7 @@ public class AddUserActivity extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
                         }
@@ -595,6 +601,7 @@ public class AddUserActivity extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
                         }
@@ -608,6 +615,7 @@ public class AddUserActivity extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
                         }
@@ -680,6 +688,8 @@ dismissDialog();
     public void onError(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
         dismissDialog();
+        showToast(""+throwable.getMessage());
+
 
     }
 
@@ -719,6 +729,7 @@ dismissDialog();
 
         @Override
         public void onError(Throwable e) {
+            showToast(""+e.getMessage());
             Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 

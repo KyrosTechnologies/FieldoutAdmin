@@ -110,6 +110,8 @@ public class UpdateUserActivity extends AppCompatActivity {
     private int selectedYear=0;
     private int selectedMonth=0;
     private int selectedDay=0;
+    private List<CustomField> updateCustomFieldList=new ArrayList<>();
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -134,6 +136,8 @@ public class UpdateUserActivity extends AppCompatActivity {
         String domainId=store.getIdDomain();
         getTeamsAPI(authKey,domainId);
         getUserAPI(authKey,userId);
+        callCustomFieldsAPI(domainId,authKey);
+
         binding.textViewLanguageAddUser.setOnClickListener(v->generalListDialogBox("Choose an Language",languages,binding.textViewLanguageAddUser,0));
         binding.textViewProfileAddUser.setOnClickListener(v->generalListDialogBox("Choose Profile",profiles,binding.textViewProfileAddUser,0));
         binding.textViewSubcontractorAddUser.setOnClickListener(v->generalListDialogBox("Select subcontract",subContractListString,binding.textViewSubcontractorAddUser,0));
@@ -142,8 +146,298 @@ public class UpdateUserActivity extends AppCompatActivity {
         binding.buttonSaveAddUsers.setOnClickListener(view -> validateFields());
     }
 
+    private void callCustomFieldsAPI(String domainId, String authKey) {
+        if(domainId!= null && authKey !=null){
+            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId)
+                    .subscribeOn(Schedulers.computation())
+                    .observeOn(AndroidSchedulers.mainThread())
+                    .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
+                    .subscribe(this::customFieldResponse,this::customFieldErrorResponse,this::customFieldCompletedResponse));
+        }else{
+            showToast("domain id or authKey is null!");
+        }
+
+    }
+
+    private void customFieldCompletedResponse() {
+
+    }
+
+    private void customFieldErrorResponse(Throwable throwable) {
+        Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
+    }
+
+    private void customFieldResponse(CustomFieldResponse customFieldResponse) {
+        if(customFieldResponse!=null){
+            usersCustomFieldList.clear();
+            Log.d("Custom Field Res : ",TAG+" / / "+customFieldResponse);
+            List<CustomField>customFieldList=customFieldResponse.getCustomFields();
+            if(customFieldList!=null && customFieldList.size()!=0){
+                for(CustomField customField:customFieldList){
+                    String formTYpe=customField.getFormType();
+                    switch (formTYpe){
+                        case "users":
+                            usersCustomFieldList.add(customField);
+                            break;
+                    }
+
+                }
+            }
+           validateCustomField();
+        }else{
+            showToast("customFieldResponse is null!");
+        }
+    }
+    private void validateCustomField() {
+        if(updateCustomFieldList.size()!=0 && usersCustomFieldList.size()!=0 ){
+            if(updateCustomFieldList.size()==usersCustomFieldList.size()){
+                bindTableViews();
+            }else{
+                if(updateCustomFieldList.size()<usersCustomFieldList.size()){
+
+                    //separating ids from arraylist
+                    List<String>usersCustomFieldIdList=new ArrayList<>();
+                    List<String>updateCustomFieldIdList=new ArrayList<>();
+
+                    for(CustomField customField:usersCustomFieldList){
+                        usersCustomFieldIdList.add(customField.getId());
+                    }
+                    for(CustomField customField:updateCustomFieldList){
+                        updateCustomFieldIdList.add(customField.getId());
+                    }
+                    for(int i=0;i<usersCustomFieldIdList.size();i++){
+                        if(!updateCustomFieldIdList.contains(usersCustomFieldIdList.get(i))){
+                            for(CustomField customField:usersCustomFieldList){
+                                if(usersCustomFieldIdList.get(i).equals(customField.getId())){
+                                    CustomField customField1=new CustomField();
+                                    customField1.setTextValue("");
+                                    customField1.setId(customField.getId());
+                                    customField1.setFormType(customField.getFormType());
+                                    customField1.setTypeOfField(customField.getTypeOfField());
+                                    updateCustomFieldList.add(customField1);
+                                }
+                            }
+                        }
+                    }
+                    bindTableViews();
+                }
+                if(updateCustomFieldList.size()>usersCustomFieldList.size()){
+                    //separating ids from arraylist
+                    List<String>usersCustomFieldIdList=new ArrayList<>();
+                    List<String>updateCustomFieldIdList=new ArrayList<>();
+
+                    for(CustomField customField:usersCustomFieldList){
+                        usersCustomFieldIdList.add(customField.getId());
+                    }
+                    for(CustomField customField:updateCustomFieldList){
+                        updateCustomFieldIdList.add(customField.getId());
+                    }
+                    for(int i=0;i<updateCustomFieldIdList.size();i++) {
+                        if (!usersCustomFieldIdList.contains(updateCustomFieldIdList.get(i))) {
+                            for(int j=0;j<updateCustomFieldList.size();j++){
+                                if(updateCustomFieldList.get(j).getId().equals(updateCustomFieldIdList.get(i))){
+                                    updateCustomFieldList.remove(j);
+                                }
+                            }
+                        }
+                    }
+                    bindTableViews();
+
+                    Log.d("DELETE SIZE : ",TAG+" / / "+updateCustomFieldList.size());
 
 
+                }
+
+
+
+
+                showToast("validate customfield else is executing");
+            }
+        }else{
+            showToast("list is empty");
+        }
+    }
+
+    private void bindTableViews() {
+        if(updateCustomFieldList!=null && updateCustomFieldList.size()!=0){
+            binding.tableLayoutCustomFields.removeAllViews();
+            typeWhichList.clear();
+            int position=0;
+            for(CustomField customField:updateCustomFieldList){
+                Log.d("Cus Field New List : ",""+customField.toString());
+
+                TypeWhich typeWhich=new TypeWhich();
+                position++;
+                choicesList=customField.getChoices();
+                if(choicesList==null){
+                    choicesList=new ArrayList<>();
+                }
+                String customFieldId=customField.getId();
+                String name=customField.getTextValue();
+                if(name==null){
+                    name="";
+                }
+                String typeOfField=customField.getTypeOfField();
+
+                //Tables Rows
+                TableRow tableRow=new TableRow(this);
+                //   tableRow.setBackground(getResources().getDrawable(R.color.bg));
+                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                switch (typeOfField){
+                    case "Text":
+                        typeWhich.setId(position);
+                        typeWhich.setType("Text");
+                        typeWhich.setCustomFieldId(customFieldId);
+                        inputTextView =new EditText(this);
+                        String valueInput="Enter user input "+name;
+                        inputTextView.setText(name);
+                        inputTextView.setTextSize(20);
+                        inputTextView.setId(position);
+                        TableRow.LayoutParams tableRowInputTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowInputTextParams.setMargins(10,20,0,10);
+                        inputTextView.setLayoutParams(tableRowInputTextParams);
+                        inputTextView.setSingleLine(true);
+                        inputTextView.setBackground(getResources().getDrawable(R.drawable.button_bg));
+                        inputTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        inputTextView.setTextColor(getResources().getColor(R.color.light_black));
+                        inputTextView.setPadding(15, 15, 5, 15);
+                        tableRow.addView(inputTextView);
+                        break;
+                    case "List Of Values":
+                        typeWhich.setId(position);
+                        typeWhich.setType("List Of Values");
+                        typeWhich.setCustomFieldId(customFieldId);
+                        spinnerCustomField=new Spinner(this);
+                        TableRow.LayoutParams tableRowSpinnerParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowSpinnerParams.setMargins(10,20,0,10);
+                        spinnerCustomField.setLayoutParams(tableRowSpinnerParams);
+                        spinnerCustomField.setPrompt(name);
+                        spinnerCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        spinnerCustomField.setId(position);
+                        spinnerCustomField.setPadding(15, 15, 5, 15);
+                        spinnerCustomField.setTag(customField);
+                        ArrayAdapter<String> adapterSpinner=new  ArrayAdapter<>(this,android.R.layout.simple_spinner_item,
+                                choicesList);
+                        adapterSpinner.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                        spinnerCustomField.setAdapter(adapterSpinner);
+                        spinnerCustomField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                            @Override
+                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                                spinnerCustomFieldSeletectedChoice=i;
+                            }
+
+                            @Override
+                            public void onNothingSelected(AdapterView<?> adapterView) {
+
+                            }
+                        });
+                        tableRow.addView(spinnerCustomField);
+                        break;
+                    case "Date":
+                        typeWhich.setId(position);
+                        typeWhich.setType("Date");
+                        typeWhich.setCustomFieldId(customFieldId);
+                        String valueDate="Date "+name;
+                        dateTextView=new TextView(this);
+                        dateTextView.setText(name);
+                        dateTextView.setTextSize(20);
+                        dateTextView.setId(position);
+                        TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowuserNameParams.setMargins(10,20,0,10);
+                        dateTextView.setLayoutParams(tableRowuserNameParams);
+                        dateTextView.setTextColor(getResources().getColor(R.color.black));
+                        dateTextView.setBackground(getResources().getDrawable(R.drawable.default_text_view_background));
+                        dateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        dateTextView.setPadding(15, 15, 5, 15);
+                        dateTextView.setOnClickListener(view ->{
+                            Calendar mcurrentDate=Calendar.getInstance();
+                            final int mYear = mcurrentDate.get(Calendar.YEAR);
+                            final int mMonth=mcurrentDate.get(Calendar.MONTH);
+                            final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+                            DatePickerDialog mDatePicker=new DatePickerDialog(this, (datepicker, selectedyear, selectedmonth, selectedday) -> {
+                                selectedMonth=selectedmonth+1;
+                                selectedDay=selectedday;
+                                selectedYear=selectedyear;
+                                String finalTimeDay=String.format("%02d",selectedDay);
+                                String finalTimeMonth=String.format("%02d",selectedMonth);
+
+                                String value =selectedYear+"-"+finalTimeMonth+"-"+finalTimeDay;
+                                dateTextView.setText(value);
+                            },mYear, mMonth, mDay);
+                            mDatePicker.show();
+                        });
+                        tableRow.addView(dateTextView);
+                        break;
+                    case "Numeric":
+                        typeWhich.setId(position);
+                        typeWhich.setType("Numeric");
+                        typeWhich.setCustomFieldId(customFieldId);
+                        numericEditText=new EditText(this);
+                        String valueNumeric="Input "+name;
+                        numericEditText.setText(name);
+                        numericEditText.setTextSize(20);
+                        numericEditText.setId(position);
+                        numericEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                        TableRow.LayoutParams tableRowNumericParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowNumericParams.setMargins(10,20,0,10);
+                        numericEditText.setLayoutParams(tableRowNumericParams);
+                        numericEditText.setSingleLine(true);
+                        numericEditText.setBackground(getResources().getDrawable(R.drawable.button_bg));
+                        numericEditText.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        numericEditText.setTextColor(getResources().getColor(R.color.light_black));
+                        numericEditText.setPadding(15, 15, 5, 15);
+                        tableRow.addView(numericEditText);
+                        break;
+                    case "CheckBox":
+                        typeWhich.setId(position);
+                        typeWhich.setType("CheckBox");
+                        typeWhich.setCustomFieldId(customFieldId);
+                        checkBoxCustomField=new CheckBox(this);
+                        checkBoxCustomField.setChecked(true);
+                        checkBoxCustomField.setId(position);
+                        String valueCheckBox="Select "+name;
+                        checkBoxCustomField.setText(name);
+                        TableRow.LayoutParams tableRowCheckBoxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowCheckBoxParams.setMargins(10,20,0,10);
+                        checkBoxCustomField.setLayoutParams(tableRowCheckBoxParams);
+                        checkBoxCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        checkBoxCustomField.setTextColor(getResources().getColor(R.color.light_black));
+                        checkBoxCustomField.setPadding(15, 15, 5, 15);
+                        tableRow.addView(checkBoxCustomField);
+                        break;
+                    case "AutoCompleteBox":
+                        typeWhich.setId(position);
+                        typeWhich.setType("AutoCompleteBox");
+                        typeWhich.setCustomFieldId(customFieldId);
+                        autoCompleteTextView=new AutoCompleteTextView(this);
+                        String valueACTV=""+name;
+                        autoCompleteTextView.setText(name);
+                        autoCompleteTextView.setTextSize(20);
+                        autoCompleteTextView.setId(position);
+                        TableRow.LayoutParams tableRowACTVParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                        tableRowACTVParams.setMargins(10,20,0,10);
+                        autoCompleteTextView.setLayoutParams(tableRowACTVParams);
+                        autoCompleteTextView.setSingleLine(true);
+                        autoCompleteTextView.setBackground(getResources().getDrawable(R.drawable.button_bg));
+                        autoCompleteTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                        autoCompleteTextView.setTextColor(getResources().getColor(R.color.black));
+                        autoCompleteTextView.setPadding(15, 15, 5, 15);
+                        ArrayAdapter<String> adapterACTV = new ArrayAdapter<>(this,
+                                android.R.layout.simple_dropdown_item_1line, choicesList);
+                        autoCompleteTextView.setAdapter(adapterACTV);
+                        tableRow.addView(autoCompleteTextView);
+                        break;
+                }
+                typeWhichList.add(typeWhich);
+                binding.tableLayoutCustomFields.addView(tableRow);
+
+            }
+        }
+
+    }
 
 
     private void validateFields() {
@@ -215,6 +509,7 @@ public class UpdateUserActivity extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
                         }
@@ -231,6 +526,7 @@ public class UpdateUserActivity extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(value);
                             customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setChoices(choiceList);
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
@@ -246,6 +542,7 @@ public class UpdateUserActivity extends AppCompatActivity {
                             String typeOfField="Date";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
@@ -260,6 +557,7 @@ public class UpdateUserActivity extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
                         }
@@ -278,6 +576,7 @@ public class UpdateUserActivity extends AppCompatActivity {
                             String typeOfField="CheckBox";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
@@ -291,6 +590,7 @@ public class UpdateUserActivity extends AppCompatActivity {
                             String typeOfField="AutoCompleteBox";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
+                            customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
@@ -326,6 +626,7 @@ public class UpdateUserActivity extends AppCompatActivity {
 
         @Override
         public void onError(Throwable e) {
+            showToast(""+e.getMessage());
             Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 
@@ -369,7 +670,8 @@ public class UpdateUserActivity extends AppCompatActivity {
 
         @Override
         public void onError(Throwable e) {
-        Log.e("Error : ",TAG+" / / "+e.getMessage());
+            showToast(""+e.getMessage());
+            Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 
         @Override
@@ -411,6 +713,7 @@ private Subscriber<GetSingleUserResponse>checkGetOneUserResponse=new Subscriber<
     @Override
     public void onError(Throwable throwable) {
         dismissDialog();
+        showToast(""+throwable.getMessage());
         Timber.tag("Error : ").e(TAG + " / / " + throwable.getMessage());
     }
 
@@ -423,6 +726,7 @@ private Subscriber<GetSingleUserResponse>checkGetOneUserResponse=new Subscriber<
 };
 
     private void bindViews(GetSingleUserResponse getSingleUserResponse) {
+        updateCustomFieldList=getSingleUserResponse.getUser().getCustomFieldValues();
         String firstName=getSingleUserResponse.getUser().getFirstName();
         if(firstName!=null){
             binding.firstNameAddUserEtext.setText(firstName);
@@ -877,8 +1181,17 @@ private Subscriber<GetSingleUserResponse>checkGetOneUserResponse=new Subscriber<
     public class TypeWhich{
         private int id;
         private String type;
+        private String customFieldId;
         public TypeWhich(){
 
+        }
+
+        public String getCustomFieldId() {
+            return customFieldId;
+        }
+
+        public void setCustomFieldId(String customFieldId) {
+            this.customFieldId = customFieldId;
         }
 
         public int getId() {

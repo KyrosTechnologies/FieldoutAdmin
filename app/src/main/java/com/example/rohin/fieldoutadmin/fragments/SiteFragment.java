@@ -179,6 +179,12 @@ public class SiteFragment extends Fragment {
                             tagInfo=first.getJSONArray("tagInfo");
                         }catch (Exception e){
                         }
+                        JSONArray customFields=null;
+                        try{
+                            customFields=first.getJSONArray("CustomFieldValues");
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setSiteid(siteid);
@@ -196,6 +202,9 @@ public class SiteFragment extends Fragment {
                         commonJobs.setTaginfo(tagInfo);
                         commonJobs.setSitename(sitename);
                         commonJobs.setLatlng(latlng);
+                        if(customFields!=null){
+                            commonJobs.setCustomFields(customFields.toString());
+                        }
                         commonJobsArrayList.add(commonJobs);
 
                     }

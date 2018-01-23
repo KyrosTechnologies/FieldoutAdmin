@@ -174,6 +174,7 @@ public class AccountInformationDetailsActivity extends AppCompatActivity {
         @Override
         public void onError(Throwable throwable) {
             Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+            showToast(""+throwable.getMessage());
             dismissDialog();
         }
 

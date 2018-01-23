@@ -175,6 +175,7 @@ public class AddCustomFieldsActivity extends AppCompatActivity {
 
     private void updateErrorResponse(Throwable throwable) {
         dismissProgressDialog();
+        showToast(""+throwable.getMessage());
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
     }
 
@@ -243,6 +244,7 @@ public class AddCustomFieldsActivity extends AppCompatActivity {
 
     private void addErrorResponse(Throwable throwable) {
         dismissProgressDialog();
+        showToast(""+throwable.getMessage());
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
     }
 
@@ -417,6 +419,7 @@ public class AddCustomFieldsActivity extends AppCompatActivity {
 
     private void deleteErrorResponse(Throwable throwable) {
         dismissProgressDialog();
+        showToast(""+throwable.getMessage());
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
     }
 

@@ -80,7 +80,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.MyViewHolderEl
         String lastname=commonJobs.getLastname();
         String latlng=commonJobs.getLatlng();
         JSONArray tags=commonJobs.getTaginfo();
-
+        String customFields=commonJobs.getCustomFields();
         holder.site_linear.setOnClickListener(view -> {
             Intent i=new Intent(mContext, SiteDetails.class);
             i.putExtra("siteid",siteid);
@@ -98,6 +98,7 @@ public class SiteAdapter extends RecyclerView.Adapter<SiteAdapter.MyViewHolderEl
             i.putExtra("email",email);
             i.putExtra("latlng",latlng);
             i.putExtra("tags",tags.toString());
+            i.putExtra("customFields",customFields);
             mContext.startActivity(i);
         });
 

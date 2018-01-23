@@ -153,6 +153,8 @@ public class AddTaxesActivity extends AppCompatActivity {
     private void error(Throwable throwable) {
         dismissProgressDialog();
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void response(TaxResponse taxResponse) {
@@ -187,6 +189,8 @@ public class AddTaxesActivity extends AppCompatActivity {
     private void errorUpdateResponse(Throwable throwable) {
         dismissProgressDialog();
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
 
     }
 
@@ -274,6 +278,7 @@ public class AddTaxesActivity extends AppCompatActivity {
 
     private void errorDeleteResponse(Throwable throwable) {
         dismissProgressDialog();
+        showToast(""+throwable.getMessage());
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
     }
 

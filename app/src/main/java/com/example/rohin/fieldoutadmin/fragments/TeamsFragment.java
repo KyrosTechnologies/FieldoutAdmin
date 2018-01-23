@@ -91,6 +91,8 @@ public class TeamsFragment extends Fragment {
     private void errorResponseTeam(Throwable throwable) {
 
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void responseTeam(TeamsResponse teamsResponse) {

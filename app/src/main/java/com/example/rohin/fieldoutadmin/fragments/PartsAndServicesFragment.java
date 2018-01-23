@@ -88,6 +88,8 @@ public class PartsAndServicesFragment extends Fragment {
 
     private void getError(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void getResponse(PartsAndServicesResponse partsAndServicesResponse) {

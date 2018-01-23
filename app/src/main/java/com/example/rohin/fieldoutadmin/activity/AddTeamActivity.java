@@ -206,6 +206,7 @@ public class AddTeamActivity extends AppCompatActivity {
         public void onError(Throwable e) {
         Log.e("Error : ",TAG+" / / "+e.getMessage());
         dismissDialog();
+            showToast(""+e.getMessage());
         }
 
         @Override
@@ -313,6 +314,8 @@ public class AddTeamActivity extends AppCompatActivity {
 
     private void tagError(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void tagResponse(TagResponse tagResponse) {
@@ -417,6 +420,7 @@ public class AddTeamActivity extends AppCompatActivity {
 
         @Override
         public void onError(Throwable e) {
+            showToast(""+e.getMessage());
             Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 
@@ -442,6 +446,7 @@ public class AddTeamActivity extends AppCompatActivity {
 
         @Override
         public void onError(Throwable e) {
+            showToast(""+e.getMessage());
             Log.e("Error : ",TAG+" / / "+e.getMessage());
         }
 

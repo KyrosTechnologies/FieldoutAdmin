@@ -109,6 +109,8 @@ public class SignUpActivity extends AppCompatActivity {
             public void onError(Throwable throwable) {
                 Log.e("Error : ",""+TAG+" / /"+throwable.getMessage());
                 dismissDialog();
+                sendToast(""+throwable.getMessage());
+
 
             }
 

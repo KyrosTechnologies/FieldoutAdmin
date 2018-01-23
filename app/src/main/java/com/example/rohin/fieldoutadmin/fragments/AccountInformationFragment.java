@@ -142,6 +142,7 @@ public class AccountInformationFragment extends Fragment {
         @Override
         public void onError(Throwable throwable) {
             Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+            showToast(""+throwable.getMessage());
         }
 
         @Override
@@ -149,6 +150,9 @@ public class AccountInformationFragment extends Fragment {
             bindBussinessHoursViews(bussinessHoursResponse);
         }
     };
+    private void showToast(String message){
+        Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
+    }
 
     private void bindBussinessHoursViews(BussinessHoursResponse bussinessHoursResponse) {
         if(bussinessHoursResponse!=null){
@@ -261,6 +265,8 @@ public class AccountInformationFragment extends Fragment {
         @Override
         public void onError(Throwable throwable) {
             Log.d("Error : ",TAG+" / / "+throwable.getMessage());
+            showToast(""+throwable.getMessage());
+
         }
 
         @Override
@@ -385,6 +391,8 @@ public class AccountInformationFragment extends Fragment {
         @Override
         public void onError(Throwable throwable) {
             Log.e("Error : ",TAG+" / "+throwable.getMessage());
+            showToast(""+throwable.getMessage());
+
         }
 
         @Override

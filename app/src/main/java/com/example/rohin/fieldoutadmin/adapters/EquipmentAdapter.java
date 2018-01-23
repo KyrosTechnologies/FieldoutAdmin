@@ -72,6 +72,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.MyVi
         String cusid=commonJobs.getCustomerid();
         String equipid=commonJobs.getEquipid();
         JSONArray tags=commonJobs.getTaginfo();
+        String customFields=commonJobs.getCustomFields();
 
         holder.equipment_linear.setOnClickListener(view -> {
             Intent i=new Intent(mContext, EquipmentUpdateDelete.class);
@@ -83,6 +84,7 @@ public class EquipmentAdapter extends RecyclerView.Adapter<EquipmentAdapter.MyVi
             i.putExtra("sitename",sitename);
             i.putExtra("equipmentname",equipname);
             i.putExtra("tags",tags.toString());
+            i.putExtra("customFields",customFields);
             mContext.startActivity(i);
         });
 

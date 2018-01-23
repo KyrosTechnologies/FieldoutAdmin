@@ -82,6 +82,8 @@ public class ProjectTypeFragment extends Fragment {
 
     private void errorProjectType(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void responseProjectType(ProjectTypeResponse projectTypeResponse) {

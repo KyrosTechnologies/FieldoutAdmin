@@ -279,6 +279,8 @@ public class ActivityTypeFragment extends Fragment {
 
     private void errorAddActivityTypeRespone(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void addActivityTypeResponse(ActivityTypeAddResponse activityTypeAddResponse) {
@@ -396,6 +398,8 @@ public class ActivityTypeFragment extends Fragment {
 
     private void errorActivityTypeUpdate(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void updateActivityTypeResponse(ActivityTypeUpdateResponse activityTypeUpdateResponse) {
@@ -419,6 +423,8 @@ public class ActivityTypeFragment extends Fragment {
 
     private void activityTypeError(Throwable throwable){
     Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
     private void activityTypeCompleted(){
 
@@ -472,6 +478,8 @@ public class ActivityTypeFragment extends Fragment {
 
     private void errorDeleteActivityTypeResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void completedDeleteActivityTypeResponse() {

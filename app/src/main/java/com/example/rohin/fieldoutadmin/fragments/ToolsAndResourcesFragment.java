@@ -98,6 +98,8 @@ public class ToolsAndResourcesFragment extends Fragment {
 
     private void getErrorToolsResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void getToolsResponse(GetToolsAndResourcesResponse getToolsAndResourcesResponse) {
@@ -253,6 +255,8 @@ public class ToolsAndResourcesFragment extends Fragment {
 
     private void errorDeleteToolsResourcesResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" /  / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void deleteToolsResourcesRespone(DeleteToolsAndResourcesResponse deleteToolsAndResourcesResponse) {
@@ -305,6 +309,8 @@ public class ToolsAndResourcesFragment extends Fragment {
 
     private void updateErrorToolsResponse(Throwable throwable) {
         Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void updateToolsResponse(UpdateToolsAndResourceResponse updateToolsAndResourceResponse) {
@@ -386,6 +392,8 @@ public class ToolsAndResourcesFragment extends Fragment {
 
     private void addToolsError(Throwable throwable) {
         Log.e("Error : ", TAG+" / /  "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+
     }
 
     private void addToolsResponse(AddToolsResourceResponse addToolsResourceResponse) {
