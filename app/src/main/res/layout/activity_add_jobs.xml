@@ -30,7 +30,7 @@
                         android:layout_height="wrap_content"
                         android:text="Customer"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/title_text_size" />
 
                     <View
                         android:layout_width="match_parent"
@@ -50,29 +50,39 @@
                         android:textColorHint="@color/text_light"
                         android:textSize="@dimen/privacy_policy_statement" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/site_auto_complete"
+                    <TextView
                         android:layout_width="match_parent"
-                        android:layout_height="60dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/button_red"
-                        android:hint="Site"
-                        android:paddingLeft="8dp"
+                        android:text="@string/site"
                         android:textColor="@color/light_black"
-                        android:textColorHint="@color/text_light"
-                        android:textSize="@dimen/privacy_policy_statement" />
+                        android:textSize="@dimen/sub_header_size" />
 
-                    <AutoCompleteTextView
-                        android:id="@+id/equipment_auto_complete"
+                    <Spinner
+                        android:id="@+id/site_auto_complete"
+                        style="@style/SpinnerThemeRed"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/button_red"
-                        android:hint="Equipment"
-                        android:paddingLeft="8dp"
+                        android:paddingLeft="8dp" />
+
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/equipment"
                         android:textColor="@color/light_black"
-                        android:textColorHint="@color/text_light"
-                        android:textSize="@dimen/privacy_policy_statement" />
+                        android:textSize="@dimen/sub_header_size" />
+
+                    <Spinner
+                        android:id="@+id/equipment_auto_complete"
+                        style="@style/SpinnerThemeRed"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp"
+                        android:paddingLeft="8dp" />
 
                     <AutoCompleteTextView
                         android:id="@+id/address_auto_complete"
@@ -107,7 +117,8 @@
                         android:gravity="center"
                         android:padding="8dp"
                         android:text="Contact"
-                        android:textColor="@color/button" />
+                        android:textColor="@color/button"
+                        android:textSize="@dimen/title_text_size" />
 
                     <EditText
                         android:id="@+id/jobs_first_name"
@@ -184,7 +195,7 @@
                         android:layout_height="wrap_content"
                         android:text="Job Information"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/title_text_size" />
 
                     <View
                         android:layout_width="match_parent"
@@ -229,10 +240,10 @@
 
                     <Spinner
                         android:id="@+id/job_type_spinner"
+                        style="@style/SpinnerThemeRed"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        style="@style/SpinnerThemeRed"/>
+                        android:layout_marginTop="10dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -281,7 +292,7 @@
                         android:layout_marginTop="10dp"
                         android:text="Scheduling Preferences"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/title_text_size" />
 
                     <View
                         android:layout_width="match_parent"
@@ -300,10 +311,10 @@
 
                     <Spinner
                         android:id="@+id/window_spinner"
+                        style="@style/SpinnerTheme"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        style="@style/SpinnerTheme"/>
+                        android:layout_marginTop="10dp" />
 
                     <TextView
                         android:id="@+id/scheduling_date"
@@ -343,10 +354,10 @@
 
                     <Spinner
                         android:id="@+id/team_spinner"
+                        style="@style/SpinnerTheme"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        style="@style/SpinnerTheme"/>
+                        android:layout_marginTop="10dp" />
 
                     <TextView
                         android:layout_width="match_parent"
@@ -359,10 +370,10 @@
 
                     <Spinner
                         android:id="@+id/user_spinner"
+                        style="@style/SpinnerTheme"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
-                        android:layout_marginTop="10dp"
-                        style="@style/SpinnerTheme"/>
+                        android:layout_marginTop="10dp" />
 
 
                 </LinearLayout>
@@ -378,7 +389,7 @@
                         android:layout_height="wrap_content"
                         android:text="Additional Information"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/title_text_size" />
 
                     <View
                         android:layout_width="match_parent"

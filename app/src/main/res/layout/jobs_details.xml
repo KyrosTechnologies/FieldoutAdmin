@@ -352,18 +352,47 @@
 
             </LinearLayout>
 
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                android:layout_marginBottom="40dp"
+                android:layout_marginTop="20dp"
+                android:layout_gravity="center">
+
             <Button
                 android:id="@+id/save_jobs_details"
                 android:layout_width="150dp"
                 android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="20dp"
                 android:background="@color/blue"
-                android:text="Save"
+                android:text="@string/save"
                 android:textAllCaps="false"
                 android:textColor="@color/white"
-                android:textSize="24sp" />
+                android:textSize="@dimen/title_text_size" />
+
+                <Button
+                    android:id="@+id/validate_jobs_details"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:background="@color/green"
+                    android:text="@string/validate"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title_text_size"
+                    android:layout_marginLeft="15dp"/>
+
+                <Button
+                    android:id="@+id/unschedule_jobs_details"
+                    android:layout_width="175dp"
+                    android:layout_height="60dp"
+                    android:background="@color/red"
+                    android:text="@string/unschedule"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title_text_size"
+                    android:layout_marginLeft="15dp"/>
+
+            </LinearLayout>
 
         </LinearLayout>
 

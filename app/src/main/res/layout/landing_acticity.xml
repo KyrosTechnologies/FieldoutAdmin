@@ -152,24 +152,16 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/map_linear"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginRight="10dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
                 <TextView
-                    android:layout_width="match_parent"
+                    android:id="@+id/map_text"
+                    android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginRight="15dp"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
                     android:text="Map"
+                    android:gravity="center"
                     android:textColor="@color/white"
                     android:textSize="@dimen/privacy_policy_statement" />
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/linear_customers_down"
@@ -202,9 +194,9 @@
                     android:id="@+id/project_text"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:layout_marginLeft="15dp"
+                    android:paddingLeft="15dp"
                     android:gravity="center"
-                    android:layout_marginRight="15dp"
+                    android:paddingRight="15dp"
                     android:text="Projects"
                     android:textColor="@color/white"
                     android:textSize="@dimen/privacy_policy_statement" />

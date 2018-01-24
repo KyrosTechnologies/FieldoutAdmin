@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.example.rohin.fieldoutadmin">
+    package="com.kyros.technologies.fieldout">
 
+    <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
@@ -18,19 +20,20 @@
         android:smallScreens="true" />
 
     <application
-        android:name=".common.ServiceHandler"
+        android:name="com.kyros.technologies.fieldout.common.ServiceHandler"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyD917w2chNF_jp_9W5f7s-yZ-jTqcYY3Lg" />
+            android:value="@string/google_maps_key" />
 
         <activity
-            android:name=".activity.LandingActivity"
+            android:name="com.kyros.technologies.fieldout.activity.LandingActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemes">
             <intent-filter>
@@ -40,253 +43,253 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".activity.MainActivity"
+            android:name="com.kyros.technologies.fieldout.activity.MainActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemes"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.SignUpActivity"
+            android:name="com.kyros.technologies.fieldout.activity.SignUpActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppThemes"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AccountInformationDetailsActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AccountInformationDetailsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddUserActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddUserActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ActivityAdd"
+            android:name="com.kyros.technologies.fieldout.activity.ActivityAdd"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ResourcesAddActivity"
+            android:name="com.kyros.technologies.fieldout.activity.ResourcesAddActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ResourcesUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.ResourcesUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.UpdateUserActivity"
+            android:name="com.kyros.technologies.fieldout.activity.UpdateUserActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ActivitiesUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.ActivitiesUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddJobsActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddJobsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddCustomer"
+            android:name="com.kyros.technologies.fieldout.activity.AddCustomer"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.CustomerDetails"
+            android:name="com.kyros.technologies.fieldout.activity.CustomerDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.CustomerUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.CustomerUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddSite"
+            android:name="com.kyros.technologies.fieldout.activity.AddSite"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.SiteDetails"
+            android:name="com.kyros.technologies.fieldout.activity.SiteDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.SitesUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.SitesUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddEquipment"
+            android:name="com.kyros.technologies.fieldout.activity.AddEquipment"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.EquipmentUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.EquipmentUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddTeamActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddTeamActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.UpdateTeamActivity"
+            android:name="com.kyros.technologies.fieldout.activity.UpdateTeamActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddJobsTypeActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddJobsTypeActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ToScheduleDetails"
+            android:name="com.kyros.technologies.fieldout.activity.ToScheduleDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.JobsDayDetails"
+            android:name="com.kyros.technologies.fieldout.activity.JobsDayDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.JobsWeekDetails"
+            android:name="com.kyros.technologies.fieldout.activity.JobsWeekDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.JobsMonthDetails"
+            android:name="com.kyros.technologies.fieldout.activity.JobsMonthDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ScheduleDayDetails"
+            android:name="com.kyros.technologies.fieldout.activity.ScheduleDayDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ScheduleWeekDetails"
+            android:name="com.kyros.technologies.fieldout.activity.ScheduleWeekDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ScheduleMonthDetails"
+            android:name="com.kyros.technologies.fieldout.activity.ScheduleMonthDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.InvoiceCustomerSite"
+            android:name="com.kyros.technologies.fieldout.activity.InvoiceCustomerSite"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddInvoicesListActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddInvoicesListActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddInvoices"
+            android:name="com.kyros.technologies.fieldout.activity.AddInvoices"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.InvoicesUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.InvoicesUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.QuotationCustomerSite"
+            android:name="com.kyros.technologies.fieldout.activity.QuotationCustomerSite"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddQuotationsListActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddQuotationsListActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddQuotations"
+            android:name="com.kyros.technologies.fieldout.activity.AddQuotations"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.QuotationsUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.QuotationsUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddProjects"
+            android:name="com.kyros.technologies.fieldout.activity.AddProjects"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ProjectsUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.ProjectsUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.ActivityJobsSchedule"
+            android:name="com.kyros.technologies.fieldout.activity.ActivityJobsSchedule"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.JobsUpdateDelete"
+            android:name="com.kyros.technologies.fieldout.activity.JobsUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activity.RandTetActvitiy"
+        <activity android:name="com.kyros.technologies.fieldout.activity.RandTetActvitiy"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize"/>
         <activity
-            android:name=".activity.AddSchedulingWindowsActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddSchedulingWindowsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddProjectTypeActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddProjectTypeActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddAttachmentActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddAttachmentActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddTaxesActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddTaxesActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.PartsAndServicesActivity"
+            android:name="com.kyros.technologies.fieldout.activity.PartsAndServicesActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.MyProfile"
+            android:name="com.kyros.technologies.fieldout.activity.MyProfile"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name=".activity.MessageList"
+            android:name="com.kyros.technologies.fieldout.activity.MessageList"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"/>
         <activity
-            android:name=".activity.AddMessages"
+            android:name="com.kyros.technologies.fieldout.activity.AddMessages"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.AddCustomFieldsActivity"
+            android:name="com.kyros.technologies.fieldout.activity.AddCustomFieldsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity android:name=".activity.ChangePasswordActivity"
+        <activity android:name="com.kyros.technologies.fieldout.activity.ChangePasswordActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize"/>

@@ -52,18 +52,21 @@
                         android:textColorHint="@color/text_light"
                         android:textSize="@dimen/privacy_policy_statement" />
 
-                    <AutoCompleteTextView
+                    <TextView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center|start"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/site"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/sub_header_size" />
+
+                    <Spinner
                         android:id="@+id/equipment_site_auto_complete"
                         android:layout_width="match_parent"
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
-                        android:background="@drawable/button_red"
-                        android:hint="Site"
-                        android:paddingLeft="8dp"
-                        android:singleLine="true"
-                        android:textColor="@color/light_black"
-                        android:textColorHint="@color/text_light"
-                        android:textSize="@dimen/privacy_policy_statement" />
+                        style="@style/SpinnerThemeRed"/>
 
                     <EditText
                         android:id="@+id/equipment_name_edit_text"

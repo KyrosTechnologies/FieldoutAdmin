@@ -312,7 +312,7 @@
                                     android:layout_gravity="center"
                                     android:layout_marginLeft="10dp"
                                     android:layout_marginRight="10dp"
-                                    android:text="@string/attachments"
+                                    android:text="@string/tax"
                                     android:textColor="@color/light_black"
                                     android:textSize="@dimen/privacy_policy_statement" />
 

@@ -7,7 +7,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="vertical"
-        tools:context="com.example.rohin.fieldoutadmin.activity.AddTeamActivity">
+        tools:context="com.kyros.technologies.fieldout.activity.AddTeamActivity">
 
         <ScrollView
             android:layout_width="match_parent"

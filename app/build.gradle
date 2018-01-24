@@ -3,7 +3,7 @@ apply plugin: 'com.android.application'
 android {
     compileSdkVersion 26
     defaultConfig {
-        applicationId "com.example.rohin.fieldoutadmin"
+        applicationId "com.kyros.technologies.fieldout"
         minSdkVersion 23
         targetSdkVersion 26
         versionCode 1
@@ -79,6 +79,7 @@ dependencies {
     //timber
     implementation 'com.jakewharton.timber:timber:4.6.0'
     implementation 'com.google.android.gms:play-services:11.8.0'
+    compile 'com.google.maps.android:android-maps-utils:0.4'
     //    implementation 'com.google.android.gms:play-services-places:11.8.0'
     //    implementation 'com.google.android.gms:play-services-maps:11.8.0'
     //    implementation 'com.google.android.gms:play-services-maps:11.8.0'
@@ -94,3 +95,4 @@ dependencies {
     //toggle button
     implementation 'com.github.luongvo:iOS-SwitchView:1.0.2'
 }
+apply plugin: 'com.google.gms.google-services'

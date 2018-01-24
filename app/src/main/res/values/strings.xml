@@ -1,5 +1,6 @@
 <resources>
     <string name="app_name">FieldoutAdmin</string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">AIzaSyD917w2chNF_jp_9W5f7s-yZ-jTqcYY3Lg</string>
     <string name="enter_first_name">Enter first name</string>
     <string name="last_name">Last Name</string>
     <string name="enter_last_name">Enter last name</string>
@@ -305,4 +306,6 @@
     <string name="activity_types">Activity Types</string>
     <string name="scheduling">Scheduling</string>
     <string name="accept">Accept</string>
+    <string name="validate">Validate</string>
+    <string name="unschedule">UnSchedule</string>
 </resources>
