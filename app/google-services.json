@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "77565938711",
+    "firebase_url": "https://fieldout-70b53.firebaseio.com",
+    "project_id": "fieldout-70b53",
+    "storage_bucket": "fieldout-70b53.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:77565938711:android:880949c9150ceaf6",
+        "android_client_info": {
+          "package_name": "com.kyros.technologies.fieldout"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "77565938711-9pu3ksb65vjrd5o53pi89jt9t9vp8br5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA9E1cJof29YrQ5ULsqd9p1ozUOJlr-0r0"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
