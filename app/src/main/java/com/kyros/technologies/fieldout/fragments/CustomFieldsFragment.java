@@ -150,7 +150,7 @@ public class CustomFieldsFragment extends Fragment {
                 //Tables Rows
                 TableRow tableRow=new TableRow(getContext());
                 tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                 //TextView name
                 TextView nameTextView=new TextView(getContext());

@@ -82,6 +82,7 @@ public class FragmentTechnicianJobs extends Fragment implements AdapterView.OnIt
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List Response",response.toString());
+                commonJobsArrayList.clear();
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
@@ -171,6 +172,7 @@ public class FragmentTechnicianJobs extends Fragment implements AdapterView.OnIt
             @Override
             public void onResponse(JSONObject response) {
                 Log.d("List TeamsResponse", response.toString());
+                commonJobsList.clear();
                 try {
 
                     JSONObject obj = new JSONObject(response.toString());

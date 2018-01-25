@@ -36,6 +36,8 @@ import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -106,7 +108,6 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
 
             Bundle bundle=getIntent().getExtras();
             activitiesid=bundle.getString("activitiesid");
-            Log.e("Activity Id"," "+activitiesid);
             dtstart=bundle.getString("dtstart");
             dtend=bundle.getString("dtend");
             notes=bundle.getString("noteactivity");
@@ -199,9 +200,9 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
                     activity_start_date_update.setText(currentdate);
                     startdate=currentdate;
 
-
                 }
             },mYear, mMonth, mDay);
+            mDatePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 //                mDatePicker.setTitle("Select date");
             mDatePicker.show();
         });
@@ -217,19 +218,45 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
-
-
                     String currentdate=String.valueOf(selectedyear+"-"+month+"-"+selectedday+" ");
-                    activity_end_date_update.setText(currentdate);
-                    enddate=currentdate;
-
+                    boolean enddates=CheckDates(activity_start_date_update.getText().toString(),currentdate);
+                    if (enddates){
+                        activity_end_date_update.setText(currentdate);
+                        enddate=currentdate;
+                    }else {
+                        Toast.makeText(getApplicationContext(),"End Date should be greater than Start Date",Toast.LENGTH_SHORT).show();
+                    }
 
                 }
             },mYear, mMonth, mDay);
+            mDatePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 //                mDatePicker.setTitle("Select date");
             mDatePicker.show();
         });
 
+    }
+
+    public static boolean CheckDates(String d1,String d2)    {
+        SimpleDateFormat dfDate  = new SimpleDateFormat("yyyy-MM-dd");
+        boolean b = false;
+        try {
+            if(dfDate.parse(d1).before(dfDate.parse(d2)))
+            {
+                b = true;//If start date is before end date
+            }
+            else if(dfDate.parse(d1).equals(dfDate.parse(d2)))
+            {
+                b = true;//If two dates are equal
+            }
+            else
+            {
+                b = false; //If start date is after the end date
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return b;
     }
 
     private void starttimePicker(){

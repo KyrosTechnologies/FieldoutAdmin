@@ -25,7 +25,6 @@ import com.kyros.technologies.fieldout.fragments.JobsMonthFragment;
 import com.kyros.technologies.fieldout.fragments.JobsToScheduleFragment;
 import com.kyros.technologies.fieldout.fragments.JobsWeekFragment;
 import com.kyros.technologies.fieldout.fragments.LateJobsFragment;
-import com.kyros.technologies.fieldout.fragments.MapFragment;
 import com.kyros.technologies.fieldout.fragments.PartsAndServicesFragment;
 import com.kyros.technologies.fieldout.fragments.ProjectsFragment;
 import com.kyros.technologies.fieldout.fragments.QuotationsFragment;
@@ -508,13 +507,10 @@ public class LandingActivity extends AppCompatActivity {
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            MapFragment f = new MapFragment();
-            android.support.v4.app.FragmentTransaction k =
-                    getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, f);
-            k.commit();
+            Intent k=new Intent(LandingActivity.this,ActivityMaps.class);
+            startActivity(k);
         });
-        //Tset//
+
 
         parts_text.setOnClickListener(view -> {
             reports_visible_linear.setVisibility(View.GONE);

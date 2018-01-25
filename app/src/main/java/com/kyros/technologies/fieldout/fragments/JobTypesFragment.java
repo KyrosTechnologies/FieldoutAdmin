@@ -111,20 +111,19 @@ public class JobTypesFragment extends Fragment {
                     //Tables Rows
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                     //TextView jobTypeName
                     TextView jobNameTextView=new TextView(getContext());
                     if(jobTypeName!=null){
                         jobNameTextView.setText(jobTypeName);
                     }
-                    jobNameTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowJobTypeNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowJobTypeNameParams.setMargins(10,10,0,10);
+                    jobNameTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowJobTypeNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowJobTypeNameParams.setMargins(15,15,15,15);
                     jobNameTextView.setLayoutParams(tableRowJobTypeNameParams);
                     jobNameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    jobNameTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    jobNameTextView.setPadding(5, 5, 5, 5);
+                    jobNameTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(jobNameTextView);
 
                     //TextView duration
@@ -132,13 +131,12 @@ public class JobTypesFragment extends Fragment {
                     if(duration!=null){
                         durationTextView.setText(duration);
                     }
-                    durationTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowDurationParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowDurationParams.setMargins(10,10,0,10);
+                    durationTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowDurationParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowDurationParams.setMargins(15,15,15,15);
                     durationTextView.setLayoutParams(tableRowDurationParams);
-                    durationTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    durationTextView.setTextColor(getResources().getColor(R.color.text_light));
                     durationTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    durationTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(durationTextView);
 
 
@@ -147,13 +145,12 @@ public class JobTypesFragment extends Fragment {
                     if(jobReportTemplate!=null){
                         jobReportTemplateTextView.setText(jobReportTemplate);
                     }
-                    jobReportTemplateTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowJobReportTypeParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowJobReportTypeParams.setMargins(10,10,0,10);
+                    jobReportTemplateTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowJobReportTypeParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowJobReportTypeParams.setMargins(15,15,15,15);
                     jobReportTemplateTextView.setLayoutParams(tableRowJobReportTypeParams);
                     jobReportTemplateTextView.setTextColor(getResources().getColor(R.color.light_black));
                     jobReportTemplateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    jobReportTemplateTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(jobReportTemplateTextView);
 
                     //TextView Priority
@@ -161,13 +158,12 @@ public class JobTypesFragment extends Fragment {
                     if(priority!=null){
                         priorityTextView.setText(priority);
                     }
-                    priorityTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowPriorityParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowPriorityParams.setMargins(10,10,0,10);
+                    priorityTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowPriorityParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowPriorityParams.setMargins(15,15,15,15);
                     priorityTextView.setLayoutParams(tableRowPriorityParams);
-                    priorityTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    priorityTextView.setTextColor(getResources().getColor(R.color.text_light));
                     priorityTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    priorityTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(priorityTextView);
 
                     //TextView SkilledTraders
@@ -180,13 +176,13 @@ public class JobTypesFragment extends Fragment {
                     if(skilledFirstvalue!=null){
                         skilledTradersTextView.setText(skilledFirstvalue);
                     }
-                    skilledTradersTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowSkilledTradersParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowSkilledTradersParams.setMargins(10,10,0,10);
+                    skilledTradersTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowSkilledTradersParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowSkilledTradersParams.setMargins(15,15,15,15);
                     skilledTradersTextView.setLayoutParams(tableRowSkilledTradersParams);
-                    skilledTradersTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    skilledTradersTextView.setTextColor(getResources().getColor(R.color.text_light));
                     skilledTradersTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    skilledTradersTextView.setPadding(5, 5, 5, 5);
+
                     tableRow.addView(skilledTradersTextView);
 
                     //TextView Default
@@ -196,13 +192,12 @@ public class JobTypesFragment extends Fragment {
                     }else{
                         defaultTextView.setText("No");
                     }
-                    defaultTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowDefaultParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowDefaultParams.setMargins(10,10,10,10);
+                    defaultTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowDefaultParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowDefaultParams.setMargins(15,15,15,15);
                     defaultTextView.setLayoutParams(tableRowDefaultParams);
-                    defaultTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    defaultTextView.setTextColor(getResources().getColor(R.color.text_light));
                     defaultTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    defaultTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(defaultTextView);
                     tableRow.setTag(jobType);
 

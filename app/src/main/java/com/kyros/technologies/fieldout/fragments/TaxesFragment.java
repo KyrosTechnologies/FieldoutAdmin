@@ -112,20 +112,19 @@ public class TaxesFragment extends Fragment {
                     //Tables Rows
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                     //TextView name
                     TextView nameTextView=new TextView(getContext());
                     if(name!=null){
                         nameTextView.setText(name);
                     }
-                    nameTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowNameParams.setMargins(10,10,0,10);
+                    nameTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowNameParams.setMargins(15,15,15,15);
                     nameTextView.setLayoutParams(tableRowNameParams);
                     nameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    nameTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    nameTextView.setPadding(5, 5, 5, 5);
+                    nameTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(nameTextView);
 
                     //TextView Rate
@@ -133,13 +132,12 @@ public class TaxesFragment extends Fragment {
                     if(rate!=null){
                         rateTextView .setText(rate);
                     }
-                    rateTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowRateParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowRateParams.setMargins(10,10,0,10);
+                    rateTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowRateParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowRateParams.setMargins(15,15,15,15);
                     rateTextView.setLayoutParams(tableRowRateParams);
                     rateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    rateTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    rateTextView.setPadding(5, 5, 5, 5);
+                    rateTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(rateTextView);
 
                     //default tax text view
@@ -151,13 +149,12 @@ public class TaxesFragment extends Fragment {
                         tagValue="No";
                     }
                     defaultTaxTextView.setText(tagValue);
-                    defaultTaxTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowDefaultTaxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowDefaultTaxParams.setMargins(10,10,0,10);
+                    defaultTaxTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowDefaultTaxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowDefaultTaxParams.setMargins(15,15,15,15);
                     defaultTaxTextView.setLayoutParams(tableRowDefaultTaxParams);
-                    defaultTaxTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    defaultTaxTextView.setTextColor(getResources().getColor(R.color.text_light));
                     defaultTaxTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    defaultTaxTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(defaultTaxTextView);
 
                     tableRow.setTag(tax);

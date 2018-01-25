@@ -107,7 +107,7 @@ public class PartsAndServicesFragment extends Fragment {
                     //Tables Rows
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                     //TextView category
                     TextView categoryTextView=new TextView(getContext());
@@ -156,7 +156,7 @@ public class PartsAndServicesFragment extends Fragment {
                     TableRow.LayoutParams tableRowPriceParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
                     tableRowCategoryParams.setMargins(15,15,15,15);
                     priceTextView.setLayoutParams(tableRowPriceParams);
-                    priceTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                    priceTextView.setGravity(Gravity.CENTER);
                     priceTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(priceTextView);
 
@@ -168,7 +168,7 @@ public class PartsAndServicesFragment extends Fragment {
                     tableRowCategoryParams.setMargins(15,15,15,15);
                     taxTextView.setLayoutParams(tableRowTaxParams);
                     taxTextView.setTextColor(getResources().getColor(R.color.text_light));
-                    taxTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                    taxTextView.setGravity(Gravity.CENTER);
                     tableRow.addView(taxTextView);
 
                     tableRow.setTag(stockPart);

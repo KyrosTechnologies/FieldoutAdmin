@@ -147,7 +147,7 @@
                         android:layout_height="60dp"
                         android:layout_marginTop="10dp"
                         android:background="@drawable/button_red"
-                        android:hint="Custom Job #"
+                        android:hint="Custom Project #"
                         android:paddingLeft="8dp"
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"

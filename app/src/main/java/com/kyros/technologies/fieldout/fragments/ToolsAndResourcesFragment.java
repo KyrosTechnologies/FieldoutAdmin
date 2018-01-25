@@ -113,20 +113,19 @@ public class ToolsAndResourcesFragment extends Fragment {
                     TableRow tableRow=new TableRow(getContext());
                     binding.toolsResouceTableLayout.removeView(tableRow);
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                     //Tools and resources  name
                     TextView toolsNameTextView=new TextView(getContext());
                     if(resourceName!=null){
                         toolsNameTextView.setText(resourceName);
                     }
-                    toolsNameTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowToolsNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowToolsNameParams.setMargins(10,10,0,10);
+                    toolsNameTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowToolsNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowToolsNameParams.setMargins(15,15,15,15);
                     toolsNameTextView.setLayoutParams(tableRowToolsNameParams);
-                    toolsNameTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    toolsNameTextView.setTextColor(getResources().getColor(R.color.text_light));
                     toolsNameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    toolsNameTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(toolsNameTextView);
 
                     //resource color
@@ -135,14 +134,13 @@ public class ToolsAndResourcesFragment extends Fragment {
                     if(resourceName!=null){
                         resourceColorTextView.setText(resourceName);
                     }
-                    resourceColorTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowResourceColorParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowResourceColorParams.setMargins(10,10,0,10);
+                    resourceColorTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowResourceColorParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowResourceColorParams.setMargins(15,15,15,15);
                     resourceColorTextView.setLayoutParams(tableRowResourceColorParams);
-                    resourceColorTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    resourceColorTextView.setTextColor(getResources().getColor(R.color.text_light));
                     resourceColorTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
                     resourceColorTextView.setBackgroundColor(Color.parseColor(color));
-                    resourceColorTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(resourceColorTextView);
 
                     tableRow.setTag(resource);

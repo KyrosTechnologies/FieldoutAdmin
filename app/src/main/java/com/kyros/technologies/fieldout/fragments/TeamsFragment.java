@@ -116,19 +116,18 @@ public class TeamsFragment extends Fragment {
                     //Tables Rows
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
                     //TextView name
                     TextView nameTextView=new TextView(getContext());
                     if(teamName!=null){
                         nameTextView.setText(teamName);
                     }
-                    nameTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowuserTextParams.setMargins(10,10,0,10);
+                    nameTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowuserTextParams.setMargins(15,15,15,15);
                     nameTextView.setLayoutParams(tableRowuserTextParams);
                     nameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    nameTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    nameTextView.setPadding(5, 5, 5, 5);
+                    nameTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(nameTextView);
 
                     //TextView Description
@@ -136,39 +135,36 @@ public class TeamsFragment extends Fragment {
                     if(description!=null){
                         descriptionTextView.setText(description);
                     }
-                    descriptionTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowuserNameParams.setMargins(10,10,0,10);
+                    descriptionTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowuserNameParams.setMargins(15,15,15,15);
                     descriptionTextView.setLayoutParams(tableRowuserNameParams);
-                    descriptionTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    descriptionTextView.setTextColor(getResources().getColor(R.color.text_light));
                     descriptionTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    descriptionTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(descriptionTextView);
 
                     //Technicians list Text View
                     TextView techniciansTextView=new TextView(getContext());
                     String sizeTechnician= String.valueOf(technicians.size());
                     techniciansTextView.setText(sizeTechnician);
-                    techniciansTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowlanguageParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowlanguageParams.setMargins(10,10,0,10);
+                    techniciansTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowlanguageParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowlanguageParams.setMargins(15,15,15,15);
                     techniciansTextView.setLayoutParams(tableRowlanguageParams);
-                    techniciansTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    techniciansTextView.setTextColor(getResources().getColor(R.color.text_light));
                     techniciansTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    techniciansTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(techniciansTextView);
 
                     //Manages list Text View
                     TextView managersTextView=new TextView(getContext());
                     String sizeManagers= String.valueOf(managers.size());
                     managersTextView.setText(sizeManagers);
-                    managersTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowemailParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowemailParams.setMargins(10,10,0,10);
+                    managersTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowemailParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowemailParams.setMargins(15,15,15,15);
                     managersTextView.setLayoutParams(tableRowemailParams);
-                    managersTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    managersTextView.setTextColor(getResources().getColor(R.color.text_light));
                     managersTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    managersTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(managersTextView);
 
                     //Tags name list Text View
@@ -178,13 +174,12 @@ public class TeamsFragment extends Fragment {
                         tagValue=tag.getName();
                     }
                     tagsTextView.setText(tagValue);
-                    tagsTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowtagsParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowtagsParams.setMargins(10,10,0,10);
+                    tagsTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowtagsParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowtagsParams.setMargins(15,15,15,15);
                     tagsTextView.setLayoutParams(tableRowtagsParams);
-                    tagsTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    tagsTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tagsTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    tagsTextView.setPadding(5, 5, 5, 5);
                     tableRow.addView(tagsTextView);
 
                     tableRow.setTag(teamId);

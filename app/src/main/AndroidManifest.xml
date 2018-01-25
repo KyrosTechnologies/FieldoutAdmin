@@ -133,6 +133,10 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
+            android:name="com.kyros.technologies.fieldout.activity.ActivityMaps"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"/>
+        <activity
             android:name="com.kyros.technologies.fieldout.activity.AddTeamActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
@@ -144,11 +148,6 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name="com.kyros.technologies.fieldout.activity.AddJobsTypeActivity"
-            android:screenOrientation="landscape"
-            android:theme="@style/AppTheme"
-            android:windowSoftInputMode="stateHidden|adjustResize" />
-        <activity
-            android:name="com.kyros.technologies.fieldout.activity.ToScheduleDetails"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />

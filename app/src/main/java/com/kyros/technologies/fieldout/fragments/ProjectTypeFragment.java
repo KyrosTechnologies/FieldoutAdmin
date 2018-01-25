@@ -100,20 +100,19 @@ public class ProjectTypeFragment extends Fragment {
                     //Tables Rows
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                     //label Name
                     TextView typeTextView=new TextView(getContext());
                     if(typeName!=null){
                         typeTextView.setText(typeName);
                     }
-                    typeTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowTypeNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowTypeNameParams.setMargins(10,10,0,10);
+                    typeTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowTypeNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowTypeNameParams.setMargins(15,15,15,15);
                     typeTextView.setLayoutParams(tableRowTypeNameParams);
                     typeTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    typeTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    typeTextView.setPadding(5, 5, 5, 5);
+                    typeTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(typeTextView);
 
                     //Job Sequence
@@ -125,13 +124,12 @@ public class ProjectTypeFragment extends Fragment {
                         }
                         jobSequenceTextView.setText(data);
                     }
-                    jobSequenceTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowJobSequenceParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowJobSequenceParams.setMargins(10,10,10,10);
+                    jobSequenceTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowJobSequenceParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowJobSequenceParams.setMargins(15,15,15,15);
                     jobSequenceTextView.setLayoutParams(tableRowJobSequenceParams);
                     jobSequenceTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    jobSequenceTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    jobSequenceTextView.setPadding(5, 5, 5, 5);
+                    jobSequenceTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(jobSequenceTextView);
 
                     tableRow.setTag(projectType);

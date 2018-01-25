@@ -103,20 +103,19 @@ public class TagFragment extends Fragment {
                     //Tables Rows
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                     //TextView name
                     TextView nameTextView=new TextView(getContext());
                     if(name!=null){
                         nameTextView.setText(name);
                     }
-                    nameTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowuserTextParams.setMargins(10,10,0,10);
+                    nameTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowuserTextParams.setMargins(15,15,15,15);
                     nameTextView.setLayoutParams(tableRowuserTextParams);
                     nameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    nameTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    nameTextView.setPadding(5, 5, 5, 5);
+                    nameTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(nameTextView);
                     tableRow.setTag(tag);
                     tableRow.setOnClickListener(view -> {

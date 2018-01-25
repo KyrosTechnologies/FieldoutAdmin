@@ -308,4 +308,5 @@
     <string name="accept">Accept</string>
     <string name="validate">Validate</string>
     <string name="unschedule">UnSchedule</string>
+    <string name="reschedule">ReSchedule</string>
 </resources>

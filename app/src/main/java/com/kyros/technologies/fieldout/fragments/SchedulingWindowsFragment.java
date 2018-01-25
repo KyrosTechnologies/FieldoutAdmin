@@ -102,20 +102,19 @@ public class SchedulingWindowsFragment extends Fragment {
                     //Tables Rows
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                     //label Name
                     TextView labelNameTextView=new TextView(getContext());
                     if(labelName!=null){
                         labelNameTextView.setText(labelName);
                     }
-                    labelNameTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowlabelNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowlabelNameParams.setMargins(10,10,0,10);
+                    labelNameTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowlabelNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowlabelNameParams.setMargins(15,15,15,15);
                     labelNameTextView.setLayoutParams(tableRowlabelNameParams);
                     labelNameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    labelNameTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    labelNameTextView.setPadding(5, 5, 5, 5);
+                    labelNameTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(labelNameTextView);
 
                     //time Start
@@ -123,13 +122,12 @@ public class SchedulingWindowsFragment extends Fragment {
                     if(timeStart!=null){
                         timeStartTextView.setText(timeStart);
                     }
-                    timeStartTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowTimeStartParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowTimeStartParams.setMargins(10,10,0,10);
+                    timeStartTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowTimeStartParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowTimeStartParams.setMargins(15,15,15,15);
                     timeStartTextView.setLayoutParams(tableRowTimeStartParams);
                     timeStartTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    timeStartTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    timeStartTextView.setPadding(5, 5, 5, 5);
+                    timeStartTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(timeStartTextView);
 
                     //time end
@@ -137,13 +135,12 @@ public class SchedulingWindowsFragment extends Fragment {
                     if(timeEnd!=null){
                         timeEndTextView.setText(timeEnd);
                     }
-                    timeEndTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowTimeEndParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowTimeEndParams.setMargins(10,10,0,10);
+                    timeEndTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowTimeEndParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowTimeEndParams.setMargins(15,15,15,15);
                     timeEndTextView.setLayoutParams(tableRowTimeEndParams);
                     timeEndTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    timeEndTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    timeEndTextView.setPadding(5, 5, 5, 5);
+                    timeEndTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(timeEndTextView);
 
                     //public text view
@@ -154,13 +151,12 @@ public class SchedulingWindowsFragment extends Fragment {
                         publicTextView.setText("no");
                     }
 
-                    publicTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowPublicParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowPublicParams.setMargins(10,10,10,10);
+                    publicTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowPublicParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowPublicParams.setMargins(15,15,15,15);
                     publicTextView.setLayoutParams(tableRowPublicParams);
                     publicTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    publicTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    publicTextView.setPadding(5, 5, 5, 5);
+                    publicTextView.setTextColor(getResources().getColor(R.color.text_light));
                     tableRow.addView(publicTextView);
                     tableRow.setTag(schedulingWindow);
                     tableRow.setOnClickListener(view1 ->{

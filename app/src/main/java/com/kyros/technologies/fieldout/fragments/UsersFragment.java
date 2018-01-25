@@ -108,15 +108,11 @@ public class UsersFragment extends Fragment {
         Log.e("Error : ",TAG+" / / / "+throwable.getMessage());
         showToast(""+throwable.getMessage());
 
-
     }
-
     private void usersGetResponse(UsersResponse usersResponse) {
         bindViews(usersResponse);
 
     }
-
-
 
     private void bindViews(UsersResponse usersResponse) {
         if(usersResponse!=null){
@@ -129,114 +125,116 @@ public class UsersFragment extends Fragment {
                 for(int i=0;i<usersItemList.size();i++){
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                    tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
                     TextView userTextView=new TextView(getContext());
                     userTextView.setText(usersItemList.get(i).getUsername());
-                    userTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowuserTextParams.setMargins(10,10,0,10);
+                    userTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,120,50);
+                    tableRowuserTextParams.setMargins(15,15,15,15);
                     userTextView.setLayoutParams(tableRowuserTextParams);
                     userTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    userTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    userTextView.setPadding(5, 5, 5, 5);
+                    userTextView.setTextColor(getResources().getColor(R.color.text_light));
 
                     tableRow.addView(userTextView);
 
                     TextView userNameTextView=new TextView(getContext());
                     userNameTextView.setText(usersItemList.get(i).getUsername());
-                    userNameTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowuserNameParams.setMargins(10,10,0,10);
+                    userNameTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowuserNameParams.setMargins(15,15,15,15);
                     userNameTextView.setLayoutParams(tableRowuserNameParams);
-
-                    userNameTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    userNameTextView.setTextColor(getResources().getColor(R.color.text_light));
                     userNameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    userNameTextView.setPadding(5, 5, 5, 5);
 
                     tableRow.addView(userNameTextView);
 
                     TextView languageTextView=new TextView(getContext());
                     languageTextView.setText(usersItemList.get(i).getLanguage());
-                    languageTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowlanguageParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowlanguageParams.setMargins(10,10,0,10);
+                    languageTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowlanguageParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowlanguageParams.setMargins(15,15,15,15);
                     languageTextView.setLayoutParams(tableRowlanguageParams);
 
-                    languageTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    languageTextView.setTextColor(getResources().getColor(R.color.text_light));
                     languageTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    languageTextView.setPadding(5, 5, 5, 5);
 
                     tableRow.addView(languageTextView);
 
                     TextView emailTextView=new TextView(getContext());
                     emailTextView.setText(usersItemList.get(i).getEmail());
-                    emailTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowemailParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowemailParams.setMargins(10,10,0,10);
+                    emailTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowemailParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowemailParams.setMargins(15,15,15,15);
                     emailTextView.setLayoutParams(tableRowemailParams);
 
-                    emailTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    emailTextView.setTextColor(getResources().getColor(R.color.text_light));
                     emailTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    emailTextView.setPadding(5, 5, 5, 5);
 
                     tableRow.addView(emailTextView);
 
                     TextView profileTextView=new TextView(getContext());
                     profileTextView.setText(usersItemList.get(i).getProfile());
-                    profileTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowprofileParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowprofileParams.setMargins(10,10,0,10);
+                    profileTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowprofileParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowprofileParams.setMargins(15,15,15,15);
                     profileTextView.setLayoutParams(tableRowprofileParams);
 
                     profileTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    profileTextView.setTextColor(getResources().getColor(R.color.light_black));
-                    profileTextView.setPadding(5, 5, 5, 5);
+                    profileTextView.setTextColor(getResources().getColor(R.color.text_light));
 
                     tableRow.addView(profileTextView);
 
                     TextView skilledTradesTextView=new TextView(getContext());
 
-                    SkilledTradesModel skTrades=usersItemList.get(i).getSkilledTrades();
-                    String sValue=skTrades.getName().get(0);
-                    if(sValue!=null){
-                        skilledTradesTextView.setText(sValue);
+                    try {
+                        SkilledTradesModel skTrades=usersItemList.get(i).getSkilledTrades();
+                        String sValue=skTrades.getName().get(0);
+                        if(sValue!=null){
+                            skilledTradesTextView.setText(sValue);
 
-                    }else{
-                        skilledTradesTextView.setText("");
+                        }else{
+                            skilledTradesTextView.setText("");
+                        }
+                    }catch (Exception e){
+
                     }
-                    skilledTradesTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowskilledTradesParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowskilledTradesParams.setMargins(10,10,0,10);
+
+                    skilledTradesTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowskilledTradesParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowskilledTradesParams.setMargins(15,15,15,15);
                     skilledTradesTextView.setLayoutParams(tableRowskilledTradesParams);
 
-                    skilledTradesTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    skilledTradesTextView.setTextColor(getResources().getColor(R.color.text_light));
                     skilledTradesTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    skilledTradesTextView.setPadding(5, 5, 5, 5);
 
                     tableRow.addView(skilledTradesTextView);
 
 
                     TextView teamsTextView=new TextView(getContext());
-                    TeamAdd teamObject=usersItemList.get(i).getTeams();
-                    List<String>teamIdList=teamObject.getId();
-                    if(teamIdList!=null  && teamIdList.size()!=0){
-                    String[]value= getTeamNameAPI(teamIdList.get(0));
-                       if(value[0]!=null){
-                           teamsTextView.setText(value[0]);
-                       }else {
-                           teamsTextView.setText("");
-                       }
-                    }else {
-                        teamsTextView.setText("");
+                    try {
+                        TeamAdd teamObject=usersItemList.get(i).getTeams();
+                        List<String>teamIdList=teamObject.getId();
+                        if(teamIdList!=null  && teamIdList.size()!=0){
+                            String[]value= getTeamNameAPI(teamIdList.get(0));
+                            if(value[0]!=null){
+                                teamsTextView.setText(value[0]);
+                            }else {
+                                teamsTextView.setText("");
+                            }
+                        }else {
+                            teamsTextView.setText("");
+                        }
+                    }catch (Exception e){
+
                     }
-                    teamsTextView.setTextSize(20);
-                    TableRow.LayoutParams tableRowParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                    tableRowParams.setMargins(10,10,10,10);
+
+                    teamsTextView.setTextSize(24);
+                    TableRow.LayoutParams tableRowParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                    tableRowParams.setMargins(15,15,15,15);
                     teamsTextView.setLayoutParams(tableRowParams);
 
-                    teamsTextView.setTextColor(getResources().getColor(R.color.light_black));
+                    teamsTextView.setTextColor(getResources().getColor(R.color.text_light));
                     teamsTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                    teamsTextView.setPadding(5, 5, 5, 5);
 
                     tableRow.addView(teamsTextView);
 

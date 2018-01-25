@@ -347,6 +347,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
                 }
             },mYear, mMonth, mDay);
+            mDatePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
 //                mDatePicker.setTitle("Select date");
             mDatePicker.show();
         });

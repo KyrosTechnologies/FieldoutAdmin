@@ -113,20 +113,19 @@ public class ActivityTypeFragment extends Fragment {
                 //Table Rows
                 TableRow tableRow=new TableRow(getContext());
                 tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
                 //Manages acitivity name
                 TextView activityNameTextView=new TextView(getContext());
                 if(activityName!=null){
                     activityNameTextView.setText(activityName);
                 }
-                activityNameTextView.setTextSize(20);
-                TableRow.LayoutParams tableRowActivityNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                tableRowActivityNameParams.setMargins(10,10,0,10);
+                activityNameTextView.setTextSize(24);
+                TableRow.LayoutParams tableRowActivityNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                tableRowActivityNameParams.setMargins(15,15,15,15);
                 activityNameTextView.setLayoutParams(tableRowActivityNameParams);
-                activityNameTextView.setTextColor(getResources().getColor(R.color.light_black));
+                activityNameTextView.setTextColor(getResources().getColor(R.color.text_light));
                 activityNameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                activityNameTextView.setPadding(5, 5, 5, 5);
                 tableRow.addView(activityNameTextView);
 
                 //Activity color
@@ -134,14 +133,13 @@ public class ActivityTypeFragment extends Fragment {
                 if(activityName!=null){
                     activityColorTextView.setText(activityName);
                 }
-                activityColorTextView.setTextSize(20);
-                TableRow.LayoutParams tableRowActivityColorParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                tableRowActivityColorParams.setMargins(10,10,0,10);
+                activityColorTextView.setTextSize(24);
+                TableRow.LayoutParams tableRowActivityColorParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                tableRowActivityColorParams.setMargins(15,15,15,15);
                 activityColorTextView.setLayoutParams(tableRowActivityColorParams);
-                activityColorTextView.setTextColor(getResources().getColor(R.color.light_black));
+                activityColorTextView.setTextColor(getResources().getColor(R.color.text_light));
                 activityColorTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
                 activityColorTextView.setBackgroundColor(Color.parseColor(color));
-                activityColorTextView.setPadding(5, 5, 5, 5);
                 tableRow.addView(activityColorTextView);
 
                 //generate conflict with jobs
@@ -149,13 +147,12 @@ public class ActivityTypeFragment extends Fragment {
                 if(hasConflict!=null){
                     conflictTextView.setText(hasConflict);
                 }
-                conflictTextView.setTextSize(20);
-                TableRow.LayoutParams tableRowtagsParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-                tableRowtagsParams.setMargins(10,10,0,10);
+                conflictTextView.setTextSize(24);
+                TableRow.LayoutParams tableRowtagsParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                tableRowtagsParams.setMargins(15,15,15,15);
                 conflictTextView.setLayoutParams(tableRowtagsParams);
-                conflictTextView.setTextColor(getResources().getColor(R.color.light_black));
+                conflictTextView.setTextColor(getResources().getColor(R.color.text_light));
                 conflictTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                conflictTextView.setPadding(5, 5, 5, 5);
                 tableRow.addView(conflictTextView);
                 tableRow.setTag(activityType);
 

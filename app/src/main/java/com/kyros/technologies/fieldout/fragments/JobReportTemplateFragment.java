@@ -36,54 +36,50 @@ public class JobReportTemplateFragment extends Fragment {
             //Tables Rows
             TableRow tableRow=new TableRow(getContext());
             tableRow.setBackground(getResources().getDrawable(R.color.bg));
-            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+            tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
 
             //TextView jobReport Name
             TextView nameTextView=new TextView(getContext());
             nameTextView.setText(R.string.text_standard_job_report_template);
-            nameTextView.setTextSize(20);
-            TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-            tableRowuserTextParams.setMargins(10,10,0,10);
+            nameTextView.setTextSize(24);
+            TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+            tableRowuserTextParams.setMargins(15,15,15,15);
             nameTextView.setLayoutParams(tableRowuserTextParams);
             nameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-            nameTextView.setTextColor(getResources().getColor(R.color.light_black));
-            nameTextView.setPadding(5, 5, 5, 5);
+            nameTextView.setTextColor(getResources().getColor(R.color.text_light));
             tableRow.addView(nameTextView);
 
             //TextView Published
             TextView publishedTextView=new TextView(getContext());
             publishedTextView.setText("Yes");
-            publishedTextView.setTextSize(20);
-            TableRow.LayoutParams tableRowPublishedParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-            tableRowPublishedParams.setMargins(10,10,0,10);
+            publishedTextView.setTextSize(24);
+            TableRow.LayoutParams tableRowPublishedParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+            tableRowPublishedParams.setMargins(15,15,15,15);
             publishedTextView.setLayoutParams(tableRowPublishedParams);
-            publishedTextView.setTextColor(getResources().getColor(R.color.light_black));
+            publishedTextView.setTextColor(getResources().getColor(R.color.text_light));
             publishedTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-            publishedTextView.setPadding(5, 5, 5, 5);
             tableRow.addView(publishedTextView);
 
             //TextView Default
             TextView defaultTextView=new TextView(getContext());
             defaultTextView.setText("Yes");
-            defaultTextView.setTextSize(20);
-            TableRow.LayoutParams tableRowDefaultParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-            tableRowDefaultParams.setMargins(10,10,0,10);
+            defaultTextView.setTextSize(24);
+            TableRow.LayoutParams tableRowDefaultParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+            tableRowDefaultParams.setMargins(15,15,15,15);
             defaultTextView.setLayoutParams(tableRowDefaultParams);
-            defaultTextView.setTextColor(getResources().getColor(R.color.light_black));
+            defaultTextView.setTextColor(getResources().getColor(R.color.text_light));
             defaultTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-            defaultTextView.setPadding(5, 5, 5, 5);
             tableRow.addView(defaultTextView);
 
             //TextView PDF Template
             TextView pdfTemplateTextView=new TextView(getContext());
             pdfTemplateTextView.setText("Default");
-            pdfTemplateTextView.setTextSize(20);
-            TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
-            tableRowuserNameParams.setMargins(10,10,10,10);
+            pdfTemplateTextView.setTextSize(24);
+            TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+            tableRowuserNameParams.setMargins(15,15,15,15);
             pdfTemplateTextView.setLayoutParams(tableRowuserNameParams);
-            pdfTemplateTextView.setTextColor(getResources().getColor(R.color.light_black));
+            pdfTemplateTextView.setTextColor(getResources().getColor(R.color.text_light));
             pdfTemplateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-            pdfTemplateTextView.setPadding(5, 5, 5, 5);
             tableRow.addView(pdfTemplateTextView);
             binding.tableLayoutReportTemplate.addView(tableRow);
         }

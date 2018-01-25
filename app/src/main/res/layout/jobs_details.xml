@@ -22,261 +22,379 @@
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:background="@drawable/button_grey"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/status_jobs_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Created"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/privacy_policy_statement" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="8dp"
-                    android:background="@drawable/button_blue"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:id="@+id/priority_jobs_details"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Priority"
-                        android:textColor="@color/white"
-                        android:textSize="@dimen/privacy_policy_statement" />
-
-                </LinearLayout>
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="0.5"
-                    android:orientation="vertical">
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Number"
-                        android:textColor="@color/button"
-                        android:textSize="@dimen/title_text_size" />
-
-                    <TextView
-                        android:id="@+id/job_details_my_id"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="2"
-                        android:textColor="@color/text_light"
-                        android:textSize="@dimen/privacy_policy_statement" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:orientation="vertical">
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/button_grey"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/status_jobs_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginTop="5dp"
+                                android:text="Created"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginLeft="8dp"
+                            android:background="@drawable/button_blue"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/priority_jobs_details"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginLeft="8dp"
+                                android:layout_marginRight="8dp"
+                                android:layout_marginTop="5dp"
+                                android:text="Priority"
+                                android:textColor="@color/white"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="0.5"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Number"
+                                android:textColor="@color/button"
+                                android:textSize="@dimen/title_text_size" />
+
+                            <TextView
+                                android:id="@+id/job_details_my_id"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="2"
+                                android:textColor="@color/text_light"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:orientation="vertical">
+
+                            <TextView
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="Type"
+                                android:textColor="@color/button"
+                                android:textSize="@dimen/title_text_size" />
+
+                            <TextView
+                                android:id="@+id/job_details_job_type"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="5dp"
+                                android:text="2"
+                                android:textColor="@color/text_light"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Site"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/title_text_size" />
+
+                        <TextView
+                            android:id="@+id/job_details_address"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="2"
+                            android:textColor="@color/text_light"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/location" />
+
+                            <TextView
+                                android:id="@+id/job_details_lat_lng"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="2"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="8dp"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="Contact"
+                            android:textColor="@color/light_black"
+                            android:textSize="@dimen/title_text_size" />
+
+                        <TextView
+                            android:id="@+id/job_details_name"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
+                            android:text="First Name"
+                            android:textColor="@color/button"
+                            android:textSize="@dimen/title_text_size" />
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/mobile" />
+
+                            <TextView
+                                android:id="@+id/job_details_mobile"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="First Name"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/title_text_size" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/phone" />
+
+                            <TextView
+                                android:id="@+id/job_details_phone"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="First Name"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dp"
+                            android:orientation="horizontal">
+
+                            <ImageView
+                                android:layout_width="25dp"
+                                android:layout_height="25dp"
+                                android:layout_gravity="center"
+                                android:layout_marginRight="8dp"
+                                android:src="@drawable/email" />
+
+                            <TextView
+                                android:id="@+id/job_details_email"
+                                android:layout_width="wrap_content"
+                                android:layout_height="wrap_content"
+                                android:text="First Name"
+                                android:textColor="@color/blue"
+                                android:textSize="@dimen/privacy_policy_statement" />
+
+                        </LinearLayout>
+
+                    </LinearLayout>
+
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="Type"
+                        android:layout_marginTop="8dp"
+                        android:text="Description"
                         android:textColor="@color/button"
                         android:textSize="@dimen/title_text_size" />
 
                     <TextView
-                        android:id="@+id/job_details_job_type"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="5dp"
-                        android:text="2"
+                        android:id="@+id/job_details_desc"
+                        android:layout_width="match_parent"
+                        android:layout_height="150dp"
+                        android:layout_marginTop="8dp"
+                        android:background="@drawable/button_bg"
+                        android:paddingLeft="10dp"
+                        android:paddingTop="8dp"
+                        android:text="Desc"
                         android:textColor="@color/text_light"
                         android:textSize="@dimen/privacy_policy_statement" />
 
                 </LinearLayout>
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Site"
-                    android:textColor="@color/button"
-                    android:textSize="@dimen/title_text_size" />
-
-                <TextView
-                    android:id="@+id/job_details_address"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="2"
-                    android:textColor="@color/text_light"
-                    android:textSize="@dimen/privacy_policy_statement" />
-
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:orientation="horizontal">
+                    android:layout_marginLeft="15dp"
+                    android:layout_weight="1"
+                    android:orientation="vertical">
 
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/location" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/schedule_start_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_red"
+                            android:gravity="center|start"
+                            android:hint="Start Date"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/text_light"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/schedule_start_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_red"
+                            android:gravity="center|start"
+                            android:hint="Start Time"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/text_light"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="10dp"
+                        android:orientation="horizontal">
+
+                        <TextView
+                            android:id="@+id/schedule_end_date"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_red"
+                            android:gravity="center|start"
+                            android:hint="End Date"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/text_light"
+                            android:textSize="24sp" />
+
+                        <TextView
+                            android:id="@+id/schedule_end_time"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_marginLeft="15dp"
+                            android:layout_weight="1"
+                            android:background="@drawable/button_red"
+                            android:gravity="center|start"
+                            android:hint="End Time"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/text_light"
+                            android:textSize="24sp" />
+
+                    </LinearLayout>
+
 
                     <TextView
-                        android:id="@+id/job_details_lat_lng"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:text="2"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/privacy_policy_statement" />
+                        android:layout_gravity="center|start"
+                        android:layout_marginTop="10dp"
+                        android:text="@string/technician"
+                        android:textColor="@color/light_black"
+                        android:textSize="@dimen/sub_header_size" />
 
-                </LinearLayout>
+                    <Spinner
+                        android:id="@+id/technician_spinner"
+                        style="@style/SpinnerThemeRed"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginTop="10dp" />
 
-            </LinearLayout>
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="vertical">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:text="Contact"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/title_text_size" />
-
-                <TextView
-                    android:id="@+id/job_details_name"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="5dp"
-                    android:text="First Name"
-                    android:textColor="@color/button"
-                    android:textSize="@dimen/title_text_size" />
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
+                    <Button
+                        android:id="@+id/reschedule_jobs_details"
+                        android:layout_width="175dp"
+                        android:layout_height="60dp"
                         android:layout_gravity="center"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/mobile" />
-
-                    <TextView
-                        android:id="@+id/job_details_mobile"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="First Name"
-                        android:textColor="@color/blue"
+                        android:layout_marginTop="20dp"
+                        android:background="@color/button"
+                        android:text="ReSchedule"
+                        android:textAllCaps="false"
+                        android:textColor="@color/white"
                         android:textSize="@dimen/title_text_size" />
 
                 </LinearLayout>
 
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/phone" />
-
-                    <TextView
-                        android:id="@+id/job_details_phone"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="First Name"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/privacy_policy_statement" />
-
-                </LinearLayout>
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="8dp"
-                    android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/email" />
-
-                    <TextView
-                        android:id="@+id/job_details_email"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="First Name"
-                        android:textColor="@color/blue"
-                        android:textSize="@dimen/privacy_policy_statement" />
-
-                </LinearLayout>
-
             </LinearLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:text="Description"
-                android:textColor="@color/button"
-                android:textSize="@dimen/title_text_size" />
-
-            <TextView
-                android:id="@+id/job_details_desc"
-                android:layout_width="match_parent"
-                android:layout_height="150dp"
-                android:layout_marginTop="8dp"
-                android:background="@drawable/button_bg"
-                android:paddingLeft="10dp"
-                android:paddingTop="8dp"
-                android:text="Desc"
-                android:textColor="@color/text_light"
-                android:textSize="@dimen/privacy_policy_statement" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -355,42 +473,42 @@
             <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal"
+                android:layout_gravity="center"
                 android:layout_marginBottom="40dp"
                 android:layout_marginTop="20dp"
-                android:layout_gravity="center">
+                android:orientation="horizontal">
 
-            <Button
-                android:id="@+id/save_jobs_details"
-                android:layout_width="150dp"
-                android:layout_height="60dp"
-                android:background="@color/blue"
-                android:text="@string/save"
-                android:textAllCaps="false"
-                android:textColor="@color/white"
-                android:textSize="@dimen/title_text_size" />
+                <Button
+                    android:id="@+id/save_jobs_details"
+                    android:layout_width="150dp"
+                    android:layout_height="60dp"
+                    android:background="@color/blue"
+                    android:text="@string/save"
+                    android:textAllCaps="false"
+                    android:textColor="@color/white"
+                    android:textSize="@dimen/title_text_size" />
 
                 <Button
                     android:id="@+id/validate_jobs_details"
                     android:layout_width="150dp"
                     android:layout_height="60dp"
+                    android:layout_marginLeft="15dp"
                     android:background="@color/green"
                     android:text="@string/validate"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/title_text_size"
-                    android:layout_marginLeft="15dp"/>
+                    android:textSize="@dimen/title_text_size" />
 
                 <Button
                     android:id="@+id/unschedule_jobs_details"
                     android:layout_width="175dp"
                     android:layout_height="60dp"
+                    android:layout_marginLeft="15dp"
                     android:background="@color/red"
                     android:text="@string/unschedule"
                     android:textAllCaps="false"
                     android:textColor="@color/white"
-                    android:textSize="@dimen/title_text_size"
-                    android:layout_marginLeft="15dp"/>
+                    android:textSize="@dimen/title_text_size" />
 
             </LinearLayout>
 
