@@ -6,26 +6,6 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/add_jobs_day"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal"
-        android:background="@drawable/button_bg"
-        android:layout_marginLeft="20dp"
-        android:layout_marginTop="20dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="Add Job"
-            android:textColor="@color/text_light"
-            android:textSize="@dimen/privacy_policy_statement"
-            android:padding="10dp"
-            android:layout_gravity="center"/>
-
-    </LinearLayout>
-
-    <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="50dp"
         android:orientation="horizontal"
@@ -132,23 +112,5 @@
         android:layout_marginLeft="10dp"
         android:layout_marginRight="10dp"
         android:layout_marginBottom="10dp"/>
-
-    <LinearLayout
-        android:id="@+id/no_monthjobs_linear"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical"
-        android:visibility="gone"
-        android:layout_marginTop="10dp">
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="No Jobs Found"
-            android:textSize="@dimen/site_address_text_size"
-            android:textColor="@color/button"
-            android:layout_gravity="center"/>
-
-    </LinearLayout>
 
 </LinearLayout>

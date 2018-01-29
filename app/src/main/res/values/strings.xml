@@ -309,4 +309,8 @@
     <string name="validate">Validate</string>
     <string name="unschedule">UnSchedule</string>
     <string name="reschedule">ReSchedule</string>
+    <string name="incompletedjobs">InCompleted Jobs</string>
+    <string name="late_jobs">Late Jobs</string>
+    <string name="completed_jobs">Completed Jobs</string>
+    <string name="no_chart_data_available">No Chart Data Available</string>
 </resources>

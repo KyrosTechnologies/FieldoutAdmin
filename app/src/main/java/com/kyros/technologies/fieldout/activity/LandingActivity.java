@@ -16,8 +16,10 @@ import android.widget.Toast;
 
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.fragments.ActivitiesFragment;
+import com.kyros.technologies.fieldout.fragments.ChartFragment;
 import com.kyros.technologies.fieldout.fragments.ConfigurationFragment;
 import com.kyros.technologies.fieldout.fragments.CustomerFragment;
+import com.kyros.technologies.fieldout.fragments.EquipmentFragment;
 import com.kyros.technologies.fieldout.fragments.FragmentTechnicianJobs;
 import com.kyros.technologies.fieldout.fragments.InvoicesFragment;
 import com.kyros.technologies.fieldout.fragments.JobsDayFragment;
@@ -28,12 +30,11 @@ import com.kyros.technologies.fieldout.fragments.LateJobsFragment;
 import com.kyros.technologies.fieldout.fragments.PartsAndServicesFragment;
 import com.kyros.technologies.fieldout.fragments.ProjectsFragment;
 import com.kyros.technologies.fieldout.fragments.QuotationsFragment;
-import com.kyros.technologies.fieldout.fragments.ScheduleDayFragment;
-import com.kyros.technologies.fieldout.fragments.EquipmentFragment;
-import com.kyros.technologies.fieldout.fragments.ScheduleMonthFragment;
 import com.kyros.technologies.fieldout.fragments.ResourcesFragment;
-import com.kyros.technologies.fieldout.fragments.SiteFragment;
+import com.kyros.technologies.fieldout.fragments.ScheduleDayFragment;
+import com.kyros.technologies.fieldout.fragments.ScheduleMonthFragment;
 import com.kyros.technologies.fieldout.fragments.ScheduleWeekFragment;
+import com.kyros.technologies.fieldout.fragments.SiteFragment;
 import com.kyros.technologies.fieldout.fragments.UpcomingJobsFragment;
 import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 import com.kyros.technologies.fieldout.sharedpreference.SessionManager;
@@ -54,7 +55,7 @@ public class LandingActivity extends AppCompatActivity {
     private ImageView settings_fragment;
     private TextView week_text,month_text,day_text,activity_text,resources_text,list_text,site_text,equipment_text,jobs_month_text,
             jobs_day_text,jobs_week_text,jobs_late_text,upcoming_jobs_text,to_schedule_job_text,invoices_text,quotations_text,
-            company_name,project_text,parts_text,first_last_name,jobs_text,map_text;
+            company_name,project_text,parts_text,first_last_name,jobs_text,map_text,dashboard_text;
     private Boolean namearrowclicked=true;
     private Boolean techarrowclicked=true;
     private Boolean schedulearrowclicked=true;
@@ -114,14 +115,15 @@ public class LandingActivity extends AppCompatActivity {
         logout=findViewById(R.id.logout);
         messages=findViewById(R.id.messages);
         jobs_text=findViewById(R.id.jobs_text);
+        dashboard_text=findViewById(R.id.dashboard_text);
         companyname=store.getCompanyName();
         firstname=store.getFirstName();
         lastname=store.getLastName();
-        ScheduleMonthFragment i = new ScheduleMonthFragment();
-        android.support.v4.app.FragmentTransaction j =
+        ChartFragment h = new ChartFragment();
+        android.support.v4.app.FragmentTransaction k =
                 getSupportFragmentManager().beginTransaction();
-        j.replace(R.id.container_fragments, i);
-        j.commit();
+        k.replace(R.id.container_fragments, h);
+        k.commit();
 
         if (companyname!=null){
             company_name.setText(companyname);
@@ -129,7 +131,6 @@ public class LandingActivity extends AppCompatActivity {
         if (firstname!=null&&lastname!=null){
             first_last_name.setText(firstname+" "+lastname);
         }
-
         linear_name_down.setOnClickListener(view -> {
             recycler_tech.setVisibility(View.GONE);
             schedule_visible_linear.setVisibility(View.GONE);
@@ -151,7 +152,6 @@ public class LandingActivity extends AppCompatActivity {
                 name_visible_linear.setVisibility(View.GONE);
             }
         });
-
         linear_team.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             schedule_visible_linear.setVisibility(View.GONE);
@@ -174,7 +174,6 @@ public class LandingActivity extends AppCompatActivity {
                 recycler_tech.setVisibility(View.GONE);
             }
         });
-
         linear_schedule_down.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             recycler_tech.setVisibility(View.GONE);
@@ -189,6 +188,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            dashboard_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             if (schedulearrowclicked){
                 schedulearrowclicked=false;
                 namearrowclicked=true;
@@ -203,7 +203,6 @@ public class LandingActivity extends AppCompatActivity {
                 schedule_visible_linear.setVisibility(View.GONE);
             }
         });
-
         linear_customers_down.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             recycler_tech.setVisibility(View.GONE);
@@ -218,6 +217,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            dashboard_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             if (customerarrowclicked){
                 customerarrowclicked=false;
                 schedulearrowclicked=true;
@@ -232,7 +232,6 @@ public class LandingActivity extends AppCompatActivity {
                 cutomer_visible_linear.setVisibility(View.GONE);
             }
         });
-
         linear_jobs_down.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             recycler_tech.setVisibility(View.GONE);
@@ -247,6 +246,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.button));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            dashboard_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             if (jobsarrowclicked){
                 jobsarrowclicked=false;
                 customerarrowclicked=false;
@@ -261,7 +261,6 @@ public class LandingActivity extends AppCompatActivity {
                 jobs_visible_linear.setVisibility(View.GONE);
             }
         });
-
         linear_invoicing_down.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             recycler_tech.setVisibility(View.GONE);
@@ -276,6 +275,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.button));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            dashboard_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             if (invoicearrowclicked){
                 invoicearrowclicked=false;
                 customerarrowclicked=false;
@@ -290,7 +290,6 @@ public class LandingActivity extends AppCompatActivity {
                 invoice_visible_linear.setVisibility(View.GONE);
             }
         });
-
         linear_reports_down.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             recycler_tech.setVisibility(View.GONE);
@@ -305,6 +304,7 @@ public class LandingActivity extends AppCompatActivity {
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.button));
+            dashboard_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
             if (reportsarrowclicked){
                 reportsarrowclicked=false;
                 customerarrowclicked=false;
@@ -319,159 +319,142 @@ public class LandingActivity extends AppCompatActivity {
                 reports_visible_linear.setVisibility(View.GONE);
             }
         });
-
         settings_fragment.setOnClickListener(view -> {
-            ConfigurationFragment h = new ConfigurationFragment();
-            android.support.v4.app.FragmentTransaction k =
+            ConfigurationFragment configurationFragment = new ConfigurationFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, configurationFragment);
+            fragmentTransaction.commit();
         });
-
         week_text.setOnClickListener(view -> {
             schedule_visible_linear.setVisibility(View.GONE);
-            ScheduleWeekFragment h = new ScheduleWeekFragment();
-            android.support.v4.app.FragmentTransaction k =
+            ScheduleWeekFragment scheduleWeekFragment = new ScheduleWeekFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, scheduleWeekFragment);
+            fragmentTransaction.commit();
         });
-
         month_text.setOnClickListener(view -> {
             schedule_visible_linear.setVisibility(View.GONE);
-            ScheduleMonthFragment h = new ScheduleMonthFragment();
-            android.support.v4.app.FragmentTransaction k =
+            ScheduleMonthFragment scheduleMonthFragment = new ScheduleMonthFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, scheduleMonthFragment);
+            fragmentTransaction.commit();
         });
 
         day_text.setOnClickListener(view -> {
             schedule_visible_linear.setVisibility(View.GONE);
-            ScheduleDayFragment h = new ScheduleDayFragment();
-            android.support.v4.app.FragmentTransaction k =
+            ScheduleDayFragment scheduleDayFragment = new ScheduleDayFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, scheduleDayFragment);
+            fragmentTransaction.commit();
         });
-
         activity_text.setOnClickListener(view -> {
             schedule_visible_linear.setVisibility(View.GONE);
-            ActivitiesFragment h = new ActivitiesFragment();
-            android.support.v4.app.FragmentTransaction k =
+            ActivitiesFragment activitiesFragment = new ActivitiesFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, activitiesFragment);
+            fragmentTransaction.commit();
         });
-
         resources_text.setOnClickListener(view -> {
             schedule_visible_linear.setVisibility(View.GONE);
-            ResourcesFragment h = new ResourcesFragment();
-            android.support.v4.app.FragmentTransaction k =
+            ResourcesFragment resourcesFragment = new ResourcesFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, resourcesFragment);
+            fragmentTransaction.commit();
         });
-
         list_text.setOnClickListener(view -> {
             cutomer_visible_linear.setVisibility(View.GONE);
-            CustomerFragment h = new CustomerFragment();
-            android.support.v4.app.FragmentTransaction k =
+            CustomerFragment customerFragment = new CustomerFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, customerFragment);
+            fragmentTransaction.commit();
         });
-
         site_text.setOnClickListener(view -> {
             cutomer_visible_linear.setVisibility(View.GONE);
-            SiteFragment h = new SiteFragment();
-            android.support.v4.app.FragmentTransaction k =
+            SiteFragment siteFragment = new SiteFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, siteFragment);
+            fragmentTransaction.commit();
         });
-
         equipment_text.setOnClickListener(view -> {
             cutomer_visible_linear.setVisibility(View.GONE);
-            EquipmentFragment h = new EquipmentFragment();
-            android.support.v4.app.FragmentTransaction k =
+            EquipmentFragment equipmentFragment = new EquipmentFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, equipmentFragment);
+            fragmentTransaction.commit();
         });
-
         jobs_month_text.setOnClickListener(view -> {
             jobs_visible_linear.setVisibility(View.GONE);
-            JobsMonthFragment h = new JobsMonthFragment();
-            android.support.v4.app.FragmentTransaction k =
+            JobsMonthFragment jobsMonthFragment = new JobsMonthFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, jobsMonthFragment);
+            fragmentTransaction.commit();
         });
-
         jobs_day_text.setOnClickListener(view -> {
             jobs_visible_linear.setVisibility(View.GONE);
-            JobsDayFragment h = new JobsDayFragment();
-            android.support.v4.app.FragmentTransaction k =
+            JobsDayFragment jobsDayFragment = new JobsDayFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, jobsDayFragment);
+            fragmentTransaction.commit();
         });
-
         jobs_week_text.setOnClickListener(view -> {
             jobs_visible_linear.setVisibility(View.GONE);
-            JobsWeekFragment h = new JobsWeekFragment();
-            android.support.v4.app.FragmentTransaction k =
+            JobsWeekFragment jobsWeekFragment = new JobsWeekFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, jobsWeekFragment);
+            fragmentTransaction.commit();
         });
-
         jobs_late_text.setOnClickListener(view -> {
             jobs_visible_linear.setVisibility(View.GONE);
-            LateJobsFragment h = new LateJobsFragment();
-            android.support.v4.app.FragmentTransaction k =
+            LateJobsFragment lateJobsFragment = new LateJobsFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, lateJobsFragment);
+            fragmentTransaction.commit();
         });
-
         upcoming_jobs_text.setOnClickListener(view -> {
             jobs_visible_linear.setVisibility(View.GONE);
-            UpcomingJobsFragment h = new UpcomingJobsFragment();
-            android.support.v4.app.FragmentTransaction k =
+            UpcomingJobsFragment upcomingJobsFragment = new UpcomingJobsFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, upcomingJobsFragment);
+            fragmentTransaction.commit();
         });
-
         to_schedule_job_text.setOnClickListener(view -> {
             jobs_visible_linear.setVisibility(View.GONE);
-            JobsToScheduleFragment h = new JobsToScheduleFragment();
-            android.support.v4.app.FragmentTransaction k =
+            JobsToScheduleFragment jobsToScheduleFragment = new JobsToScheduleFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, jobsToScheduleFragment);
+            fragmentTransaction.commit();
         });
-
         invoices_text.setOnClickListener(view -> {
             invoice_visible_linear.setVisibility(View.GONE);
-            InvoicesFragment h = new InvoicesFragment();
-            android.support.v4.app.FragmentTransaction k =
+            InvoicesFragment invoicesFragment = new InvoicesFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, invoicesFragment);
+            fragmentTransaction.commit();
         });
-
         quotations_text.setOnClickListener(view -> {
             invoice_visible_linear.setVisibility(View.GONE);
-            QuotationsFragment h = new QuotationsFragment();
-            android.support.v4.app.FragmentTransaction k =
+            QuotationsFragment quotationsFragment = new QuotationsFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, quotationsFragment);
+            fragmentTransaction.commit();
         });
-
         project_text.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             recycler_tech.setVisibility(View.GONE);
@@ -486,13 +469,13 @@ public class LandingActivity extends AppCompatActivity {
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            ProjectsFragment h = new ProjectsFragment();
-            android.support.v4.app.FragmentTransaction k =
+            dashboard_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            ProjectsFragment projectsFragment = new ProjectsFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, projectsFragment);
+            fragmentTransaction.commit();
         });
-
         map_text.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
             recycler_tech.setVisibility(View.GONE);
@@ -507,26 +490,46 @@ public class LandingActivity extends AppCompatActivity {
             linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
             linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
-            Intent k=new Intent(LandingActivity.this,ActivityMaps.class);
-            startActivity(k);
+            dashboard_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            Intent intent=new Intent(LandingActivity.this,ActivityMaps.class);
+            startActivity(intent);
         });
-
-
+        dashboard_text.setOnClickListener(view -> {
+            name_visible_linear.setVisibility(View.GONE);
+            recycler_tech.setVisibility(View.GONE);
+            schedule_visible_linear.setVisibility(View.GONE);
+            cutomer_visible_linear.setVisibility(View.GONE);
+            jobs_visible_linear.setVisibility(View.GONE);
+            invoice_visible_linear.setVisibility(View.GONE);
+            linear_schedule_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            map_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            linear_customers_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            project_text.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            linear_jobs_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            linear_invoicing_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            linear_reports_down.setBackgroundColor(getResources().getColor(R.color.action_bar));
+            dashboard_text.setBackgroundColor(getResources().getColor(R.color.button));
+            ChartFragment chartFragment = new ChartFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragments, chartFragment);
+            fragmentTransaction.commit();
+        });
         parts_text.setOnClickListener(view -> {
             reports_visible_linear.setVisibility(View.GONE);
-            PartsAndServicesFragment h = new PartsAndServicesFragment();
-            android.support.v4.app.FragmentTransaction k =
+            PartsAndServicesFragment partsAndServicesFragment = new PartsAndServicesFragment();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, partsAndServicesFragment);
+            fragmentTransaction.commit();
         });
         jobs_text.setOnClickListener(view -> {
             reports_visible_linear.setVisibility(View.GONE);
-            FragmentTechnicianJobs h = new FragmentTechnicianJobs();
-            android.support.v4.app.FragmentTransaction k =
+            FragmentTechnicianJobs fragmentTechnicianJobs = new FragmentTechnicianJobs();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
-            k.replace(R.id.container_fragments, h);
-            k.commit();
+            fragmentTransaction.replace(R.id.container_fragments, fragmentTechnicianJobs);
+            fragmentTransaction.commit();
         });
         my_profile.setOnClickListener(view -> {
             name_visible_linear.setVisibility(View.GONE);
@@ -543,7 +546,6 @@ public class LandingActivity extends AppCompatActivity {
         });
 
     }
-
     private void showLogoutDialog(){
         if(logoutdialog==null){
             AlertDialog.Builder builder=new AlertDialog.Builder(LandingActivity.this);
@@ -575,7 +577,6 @@ public class LandingActivity extends AppCompatActivity {
         }
 
     }
-
     @Override
     protected void onDestroy() {
         super.onDestroy();

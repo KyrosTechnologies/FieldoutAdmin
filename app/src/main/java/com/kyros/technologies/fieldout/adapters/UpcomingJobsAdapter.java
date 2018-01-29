@@ -23,7 +23,6 @@ public class UpcomingJobsAdapter extends RecyclerView.Adapter<UpcomingJobsAdapte
     private Context mContext;
     private PreferenceManager store;
     private ArrayList<CommonJobs> commonJobsArrayList;
-    private String username=null;
 
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
@@ -67,14 +66,13 @@ public class UpcomingJobsAdapter extends RecyclerView.Adapter<UpcomingJobsAdapte
         String status=commonJobs.getStatus();
         String address=commonJobs.getGlobalAddress();
         String jobtype=commonJobs.getJobTypeName();
-        username=store.getUsername();
         String startdate=commonJobs.getScheduledBeginDate();
         String enddate=commonJobs.getScheduleenddate();
 
         holder.job_my_id.setText(myid);
         holder.job_status.setText(status);
         holder.jobs_customer_name.setText(cusname+" / "+sitename+" / "+equipname);
-        holder.job_tech.setText(username);
+        holder.job_tech.setText(jobtype);
         holder.job_from.setText(startdate);
         holder.job_to.setText(enddate);
 

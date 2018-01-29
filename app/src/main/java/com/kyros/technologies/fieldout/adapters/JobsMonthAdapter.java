@@ -27,7 +27,6 @@ public class JobsMonthAdapter extends RecyclerView.Adapter<JobsMonthAdapter.MyVi
     private Context mContext;
     private PreferenceManager store;
     private ArrayList<CommonJobs> commonJobsArrayList;
-    private String username=null;
 
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
@@ -72,7 +71,6 @@ public class JobsMonthAdapter extends RecyclerView.Adapter<JobsMonthAdapter.MyVi
         String address=commonJobs.getGlobalAddress();
         String jobtype=commonJobs.getJobTypeName();
         String compaddress=commonJobs.getComplementAddress();
-        username=store.getUsername();
         String startdate=commonJobs.getScheduledBeginDate();
         String enddate=commonJobs.getScheduleenddate();
         String priority=commonJobs.getPriority();
@@ -118,7 +116,7 @@ public class JobsMonthAdapter extends RecyclerView.Adapter<JobsMonthAdapter.MyVi
         holder.job_my_id.setText(myid);
         holder.job_status.setText(status);
         holder.jobs_customer_name.setText(cusname+" / "+sitename+" / "+equipname);
-        holder.job_tech.setText(username);
+        holder.job_tech.setText(jobtype);
         holder.job_from.setText(startdate);
         holder.job_to.setText(enddate);
 

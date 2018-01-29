@@ -89,6 +89,12 @@ public class CommonJobs {
     private int isdelete;
     private String customFields;
     private String userJobId;
+    private String highlevelid;
+    private String highlevelidjob;
+    private String normallevelid;
+    private String normallevelidjob;
+    private String lowlevelid;
+    private String lowlevelidjob;
 
     public CommonJobs(){
 
@@ -726,5 +732,53 @@ public class CommonJobs {
 
     public void setUserJobId(String userJobId) {
         this.userJobId = userJobId;
+    }
+
+    public String getHighlevelid() {
+        return highlevelid;
+    }
+
+    public void setHighlevelid(String highlevelid) {
+        this.highlevelid = highlevelid;
+    }
+
+    public String getHighlevelidjob() {
+        return highlevelidjob;
+    }
+
+    public void setHighlevelidjob(String highlevelidjob) {
+        this.highlevelidjob = highlevelidjob;
+    }
+
+    public String getNormallevelid() {
+        return normallevelid;
+    }
+
+    public void setNormallevelid(String normallevelid) {
+        this.normallevelid = normallevelid;
+    }
+
+    public String getNormallevelidjob() {
+        return normallevelidjob;
+    }
+
+    public void setNormallevelidjob(String normallevelidjob) {
+        this.normallevelidjob = normallevelidjob;
+    }
+
+    public String getLowlevelid() {
+        return lowlevelid;
+    }
+
+    public void setLowlevelid(String lowlevelid) {
+        this.lowlevelid = lowlevelid;
+    }
+
+    public String getLowlevelidjob() {
+        return lowlevelidjob;
+    }
+
+    public void setLowlevelidjob(String lowlevelidjob) {
+        this.lowlevelidjob = lowlevelidjob;
     }
 }

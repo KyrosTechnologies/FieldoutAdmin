@@ -94,5 +94,6 @@ dependencies {
     compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
     //toggle button
     implementation 'com.github.luongvo:iOS-SwitchView:1.0.2'
+    implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
 }
 apply plugin: 'com.google.gms.google-services'

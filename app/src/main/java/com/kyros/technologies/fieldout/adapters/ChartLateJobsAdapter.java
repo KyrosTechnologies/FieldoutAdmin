@@ -12,18 +12,19 @@ import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.common.CommonJobs;
 import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 
+import org.json.JSONArray;
+
 import java.util.ArrayList;
 
 /**
- * Created by Rohin on 14-12-2017.
+ * Created by Rohin on 29-01-2018.
  */
 
-public class LateJobsAdapter extends RecyclerView.Adapter<LateJobsAdapter.MyViewHolderEleven>{
+public class ChartLateJobsAdapter extends RecyclerView.Adapter<ChartLateJobsAdapter.MyViewHolderEleven>{
 
     private Context mContext;
     private PreferenceManager store;
     private ArrayList<CommonJobs> commonJobsArrayList;
-
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
         public TextView job_my_id,job_status,jobs_customer_name,job_tech,job_from,job_to;
@@ -42,21 +43,21 @@ public class LateJobsAdapter extends RecyclerView.Adapter<LateJobsAdapter.MyView
 
         }
     }
-    public LateJobsAdapter(Context mContext, ArrayList<CommonJobs>duration){
+    public ChartLateJobsAdapter(Context mContext, ArrayList<CommonJobs>duration){
         this.mContext=mContext;
         this.commonJobsArrayList =duration;
 
 
     }
     @Override
-    public LateJobsAdapter.MyViewHolderEleven onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ChartLateJobsAdapter.MyViewHolderEleven onCreateViewHolder(ViewGroup parent, int viewType) {
         View view= LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_frag_month_jobs,parent,false);
 
-        return new LateJobsAdapter.MyViewHolderEleven(view);
+        return new ChartLateJobsAdapter.MyViewHolderEleven(view);
     }
 
     @Override
-    public void onBindViewHolder(LateJobsAdapter.MyViewHolderEleven holder, int position) {
+    public void onBindViewHolder(ChartLateJobsAdapter.MyViewHolderEleven holder, int position) {
 
         CommonJobs commonJobs=commonJobsArrayList.get(position);
         final String sitename=commonJobs.getSitename();
@@ -66,8 +67,48 @@ public class LateJobsAdapter extends RecyclerView.Adapter<LateJobsAdapter.MyView
         String status=commonJobs.getStatus();
         String address=commonJobs.getGlobalAddress();
         String jobtype=commonJobs.getJobTypeName();
+        String compaddress=commonJobs.getComplementAddress();
         String startdate=commonJobs.getScheduledBeginDate();
         String enddate=commonJobs.getScheduleenddate();
+        String priority=commonJobs.getPriority();
+        String contactname=commonJobs.getContactname();
+        String firstname=commonJobs.getFirstname();
+        String lastname=commonJobs.getLastname();
+        String mobile=commonJobs.getMobilenum();
+        String userjobid=commonJobs.getUserJobId();
+        String phone=commonJobs.getPhone();
+        String email=commonJobs.getEmail();
+        String desc=commonJobs.getDescription();
+        String latlng=commonJobs.getLatlng();
+        String jobid=commonJobs.getJobid();
+        String date=commonJobs.getSchedulingdate();
+        JSONArray tags=commonJobs.getTaginfo();
+
+//        holder.month_jobs_linear.setOnClickListener(view -> {
+//            Intent i=new Intent(mContext, JobsMonthDetails.class);
+//            i.putExtra("cusname",cusname);
+//            i.putExtra("sitename",sitename);
+//            i.putExtra("equipname",equipname);
+//            i.putExtra("compaddress",compaddress);
+//            i.putExtra("firstname",firstname);
+//            i.putExtra("lastname",lastname);
+//            i.putExtra("date",date);
+//            i.putExtra("jobid",jobid);
+//            i.putExtra("userjobid",userjobid);
+//            i.putExtra("myid",myid);
+//            i.putExtra("status",status);
+//            i.putExtra("address",address);
+//            i.putExtra("jobtypename",jobtype);
+//            i.putExtra("priority",priority);
+//            i.putExtra("contactname",contactname);
+//            i.putExtra("mobile",mobile);
+//            i.putExtra("phone",phone);
+//            i.putExtra("email",email);
+//            i.putExtra("desc",desc);
+//            i.putExtra("latlng",latlng);
+//            i.putExtra("tags",tags.toString());
+//            mContext.startActivity(i);
+//        });
 
         holder.job_my_id.setText(myid);
         holder.job_status.setText(status);

@@ -17,7 +17,7 @@
             android:background="@drawable/button_bg"
             android:gravity="start|center"
             android:paddingLeft="10dp"
-            android:text="Add Quotations"
+            android:text="Add Items"
             android:textColor="@color/light_black"
             android:textSize="@dimen/privacy_policy_statement" />
 
