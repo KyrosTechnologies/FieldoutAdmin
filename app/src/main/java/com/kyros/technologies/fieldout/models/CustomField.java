@@ -44,6 +44,10 @@ public class CustomField {
     @Expose
     private String textValue;
 
+
+    @SerializedName("position")
+    @Expose
+    private int position;
     public CustomField() {
     }
 

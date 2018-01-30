@@ -1,5 +1,6 @@
 package com.kyros.technologies.fieldout.dependencyinjection;
 
+import com.kyros.technologies.fieldout.PDF_CSV_Activity;
 import com.kyros.technologies.fieldout.activity.AccountInformationDetailsActivity;
 import com.kyros.technologies.fieldout.activity.AddAttachmentActivity;
 import com.kyros.technologies.fieldout.activity.AddCustomFieldsActivity;
@@ -80,4 +81,5 @@ public interface ApplicationComponent {
     void injectSitesUpdateDelete(SitesUpdateDelete sitesUpdateDelete);
     void injectAddEquipment(AddEquipment addEquipment);
     void injectEquipmentUpdateDelete(EquipmentUpdateDelete equipmentUpdateDelete);
+    void injectPDF_CSV_Activity(PDF_CSV_Activity pdf_csv_activity);
 }

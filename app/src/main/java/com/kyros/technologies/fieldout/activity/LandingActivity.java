@@ -14,6 +14,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.kyros.technologies.fieldout.PDF_CSV_Activity;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.fragments.ActivitiesFragment;
 import com.kyros.technologies.fieldout.fragments.ChartFragment;
@@ -127,6 +128,7 @@ public class LandingActivity extends AppCompatActivity {
 
         if (companyname!=null){
             company_name.setText(companyname);
+          //  company_name.setOnClickListener(view -> startActivity(new Intent(this, PDF_CSV_Activity.class)));
         }
         if (firstname!=null&&lastname!=null){
             first_last_name.setText(firstname+" "+lastname);

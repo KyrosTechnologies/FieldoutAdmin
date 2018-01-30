@@ -66,52 +66,52 @@ import rx.subscriptions.CompositeSubscription;
 public class AddEquipment extends AppCompatActivity {
 
     private PreferenceManager store;
-    private EditText equipment_name_edit_text,job_number_equipment;
+    private EditText equipment_name_edit_text, job_number_equipment;
     private AutoCompleteTextView equipment_cus_auto_complete;
     private Spinner equipment_site_auto_complete;
     private Button save_equipment;
-    private RecyclerView tags_selected_equipment,recycler_custom_array;
+    private RecyclerView tags_selected_equipment, recycler_custom_array;
     private TextView tags_add_equipment_text;
-    private String domainid=null;
-    private String cusid=null;
-    private String siteid=null;
-    private List<String> cusnamestring=new ArrayList<String>();
+    private String domainid = null;
+    private String cusid = null;
+    private String siteid = null;
+    private List<String> cusnamestring = new ArrayList<String>();
     ArrayList<CommonJobs> cusDetailsArrayList = new ArrayList<CommonJobs>();
-    private List<String> sitenamestring=new ArrayList<String>();
+    private List<String> sitenamestring = new ArrayList<String>();
     ArrayList<CommonJobs> siteDetailsArrayList = new ArrayList<CommonJobs>();
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
-    private String myid=null;
-    private String cusname=null;
-    private String sitename=null;
-    private String equipmentname=null;
+    private String myid = null;
+    private String cusname = null;
+    private String sitename = null;
+    private String equipmentname = null;
     private String queryurl = null;
-    private AlertDialog tagsDialog=null;
+    private AlertDialog tagsDialog = null;
     private SkilledTradersAdapter adapter;
     private SkilledTradersAdapter selectedAdapter;
-    private List<String>tagsList=new ArrayList<>();
-    ArrayList<String>tagsArrayList=new ArrayList<String>();
-    private  JSONArray tagarray=null;
+    private List<String> tagsList = new ArrayList<>();
+    ArrayList<String> tagsArrayList = new ArrayList<String>();
+    private JSONArray tagarray = null;
     @Inject
     CustomFieldsFragmentViewModel customFieldsFragmentViewModel;
     private CompositeSubscription subscription;
-    private List<CustomField>usersCustomFieldList=new ArrayList<>();
-    private List<TypeWhich>typeWhichList=new ArrayList<>();
-    private  List<String>choicesList=new ArrayList<>();
-    private EditText inputTextView=null;
-    private Spinner spinnerCustomField=null;
-    private TextView dateTextView=null;
-    private EditText numericEditText=null;
-    private CheckBox checkBoxCustomField=null;
-    private AutoCompleteTextView autoCompleteTextView =null;
-    private int selectedYear=0;
-    private int selectedMonth=0;
-    private int selectedDay=0;
-    private int spinnerCustomFieldSeletectedChoice=0;
-    private String TAG=AddEquipment.class.getSimpleName();
+    private List<CustomField> usersCustomFieldList = new ArrayList<>();
+    private List<TypeWhich> typeWhichList = new ArrayList<>();
+    private List<String> choicesList = new ArrayList<>();
+    private EditText inputTextView = null;
+    private Spinner spinnerCustomField = null;
+    private TextView dateTextView = null;
+    private EditText numericEditText = null;
+    private CheckBox checkBoxCustomField = null;
+    private AutoCompleteTextView autoCompleteTextView = null;
+    private int selectedYear = 0;
+    private int selectedMonth = 0;
+    private int selectedDay = 0;
+    private int spinnerCustomFieldSeletectedChoice = 0;
+    private String TAG = AddEquipment.class.getSimpleName();
     private TableLayout table_layout_custom_fields_eqipmemnt;
     private CustomFieldsAdapter customFieldsAdapter;
-    private String customertext=null;
-    private String sitetext=null;
+    private String customertext = null;
+    private String sitetext = null;
     private ProgressDialog pDialog;
 
     @Override
@@ -123,62 +123,62 @@ public class AddEquipment extends AppCompatActivity {
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.action_bar)));
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.add_equipments);
-        ((ServiceHandler)getApplication()).getApplicationComponent().injectAddEquipment(this);
+        ((ServiceHandler) getApplication()).getApplicationComponent().injectAddEquipment(this);
         store = PreferenceManager.getInstance(getApplicationContext());
-        equipment_name_edit_text=findViewById(R.id.equipment_name_edit_text);
-        subscription=new CompositeSubscription();
-        customFieldsAdapter=new CustomFieldsAdapter();
+        equipment_name_edit_text = findViewById(R.id.equipment_name_edit_text);
+        subscription = new CompositeSubscription();
+        customFieldsAdapter = new CustomFieldsAdapter();
         //table layout
-        table_layout_custom_fields_eqipmemnt=findViewById(R.id.table_layout_custom_fields_eqipmemnt);
-        job_number_equipment=findViewById(R.id.job_number_equipment);
-        equipment_cus_auto_complete=findViewById(R.id.equipment_cus_auto_complete);
-        equipment_site_auto_complete=findViewById(R.id.equipment_site_auto_complete);
-        save_equipment=findViewById(R.id.save_equipment);
-        tags_add_equipment_text=findViewById(R.id.tags_add_equipment_text);
-        tags_selected_equipment=findViewById(R.id.tags_selected_equipment);
-        recycler_custom_array=findViewById(R.id.recycler_custom_array);
-        domainid=store.getIdDomain();
+        table_layout_custom_fields_eqipmemnt = findViewById(R.id.table_layout_custom_fields_eqipmemnt);
+        job_number_equipment = findViewById(R.id.job_number_equipment);
+        equipment_cus_auto_complete = findViewById(R.id.equipment_cus_auto_complete);
+        equipment_site_auto_complete = findViewById(R.id.equipment_site_auto_complete);
+        save_equipment = findViewById(R.id.save_equipment);
+        tags_add_equipment_text = findViewById(R.id.tags_add_equipment_text);
+        tags_selected_equipment = findViewById(R.id.tags_selected_equipment);
+        recycler_custom_array = findViewById(R.id.recycler_custom_array);
+        domainid = store.getIdDomain();
         GetCustomerList();
         GetTagsList();
-        callCustomFieldsAPI(domainid,store.getToken());
+        callCustomFieldsAPI(domainid, store.getToken());
 
         save_equipment.setOnClickListener(view -> {
-            List<CustomField>customFieldList=customFieldsAdapter.getCustomFilesList();
-            Log.d("CustomField Adapter : ",""+new Gson().toJson(customFieldList));
-            cusname=equipment_cus_auto_complete.getText().toString();
-            if (cusname==null && cusname.isEmpty()){
+            List<CustomField> customFieldList = customFieldsAdapter.getCustomFieldListOutput();
+            Log.d("CustomField Adapter : ", "" + new Gson().toJson(customFieldList));
+            cusname = equipment_cus_auto_complete.getText().toString();
+            if (cusname == null && cusname.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
-                return ;
+                return;
             }
             String sitename = null;
             try {
-                sitename=equipment_site_auto_complete.getSelectedItem().toString();
-            }catch (Exception e){
+                sitename = equipment_site_auto_complete.getSelectedItem().toString();
+            } catch (Exception e) {
                 e.printStackTrace();
             }
-            if(sitename==null){
+            if (sitename == null) {
                 Toast.makeText(getApplicationContext(), "Please Select Site Name!", Toast.LENGTH_SHORT).show();
                 return;
             }
-            equipmentname=equipment_name_edit_text.getText().toString();
-            if (equipmentname==null && equipmentname.isEmpty()){
+            equipmentname = equipment_name_edit_text.getText().toString();
+            if (equipmentname == null && equipmentname.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Please Enter Equipment Namr!", Toast.LENGTH_SHORT).show();
-                return ;
+                return;
             }
-            myid=job_number_equipment.getText().toString();
-            if (myid==null && myid.isEmpty()){
+            myid = job_number_equipment.getText().toString();
+            if (myid == null && myid.isEmpty()) {
                 Toast.makeText(getApplicationContext(), "Please Enter Custom Job!", Toast.LENGTH_SHORT).show();
-                return ;
+                return;
             }
 
-            if(cusname!=null &&!cusname.isEmpty()&&sitename!=null &&equipmentname!=null &&!equipmentname.isEmpty()&&myid!=null &&!myid.isEmpty()){
-                AddEquipmentApi(equipmentname,myid,cusid,siteid);
-            }else{
+            if (cusname != null && !cusname.isEmpty() && sitename != null && equipmentname != null && !equipmentname.isEmpty() && myid != null && !myid.isEmpty()) {
+                AddEquipmentApi(equipmentname, myid, cusid, siteid);
+            } else {
                 Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
             }
         });
 
-        tags_add_equipment_text.setOnClickListener(view -> skilledTradesDialog(new ArrayList<>(),tags_add_equipment_text));
+        tags_add_equipment_text.setOnClickListener(view -> skilledTradesDialog(new ArrayList<>(), tags_add_equipment_text));
 
 
 //        equipment_cus_auto_complete.addTextChangedListener(new TextWatcher() {
@@ -209,13 +209,13 @@ public class AddEquipment extends AppCompatActivity {
     }
 
     private void callCustomFieldsAPI(String domainId, String authKey) {
-        if(domainId!= null && authKey !=null){
-            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId)
+        if (domainId != null && authKey != null) {
+            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey, domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
-                    .subscribe(this::customFieldResponse,this::customFieldErrorResponse,this::customFieldCompletedResponse));
-        }else{
+                    .doOnError(throwable -> Log.e("Error : ", TAG + " / / " + throwable.getMessage()))
+                    .subscribe(this::customFieldResponse, this::customFieldErrorResponse, this::customFieldCompletedResponse));
+        } else {
             showToast("domain id or authKey is null!");
         }
     }
@@ -224,20 +224,20 @@ public class AddEquipment extends AppCompatActivity {
     }
 
     private void customFieldErrorResponse(Throwable throwable) {
-        Log.e("Error : ",TAG+" / / "+throwable.getMessage());
-        showToast(""+throwable.getMessage());
+        Log.e("Error : ", TAG + " / / " + throwable.getMessage());
+        showToast("" + throwable.getMessage());
     }
 
     private void customFieldResponse(CustomFieldResponse customFieldResponse) {
-        if(customFieldResponse!=null){
-            Log.d("CustomFieRes : ",TAG+" / / "+customFieldResponse);
+        if (customFieldResponse != null) {
+            Log.d("CustomFieRes : ", TAG + " / / " + customFieldResponse);
             usersCustomFieldList.clear();
-            Log.d("Custom Field Res : ",TAG+" / / "+customFieldResponse);
-            List<CustomField>customFieldList=customFieldResponse.getCustomFields();
-            if(customFieldList!=null && customFieldList.size()!=0){
-                for(CustomField customField:customFieldList){
-                    String formTYpe=customField.getFormType();
-                    switch (formTYpe){
+            Log.d("Custom Field Res : ", TAG + " / / " + customFieldResponse);
+            List<CustomField> customFieldList = customFieldResponse.getCustomFields();
+            if (customFieldList != null && customFieldList.size() != 0) {
+                for (CustomField customField : customFieldList) {
+                    String formTYpe = customField.getFormType();
+                    switch (formTYpe) {
                         case "equipments":
                             usersCustomFieldList.add(customField);
                             break;
@@ -246,19 +246,21 @@ public class AddEquipment extends AppCompatActivity {
                 }
             }
             validateCustomField();
-        }else{
+        } else {
             showToast("customFieldResponse is null!");
         }
     }
-    private void validateCustomField(){
+
+    private void validateCustomField() {
+        if(!this.isFinishing())
         recycler_custom_array.setLayoutManager(new LinearLayoutManager(this));
         recycler_custom_array.setItemAnimator(new DefaultItemAnimator());
-         customFieldsAdapter.setCustomFieldData(usersCustomFieldList,this);
+        customFieldsAdapter.setCustomFieldData(usersCustomFieldList, this,"add");
         recycler_custom_array.setAdapter(customFieldsAdapter);
     }
 
 
-//        private void validateCustomField() {
+    //        private void validateCustomField() {
 //        if(usersCustomFieldList!=null && usersCustomFieldList.size()!=0){
 //            table_layout_custom_fields_eqipmemnt.removeAllViews();
 //            typeWhichList.clear();
@@ -445,20 +447,20 @@ public class AddEquipment extends AppCompatActivity {
 //            }
 //        }
 //    }
-    private List<CustomField> getCustomFilesList(){
-        List<CustomField>customFieldList=new ArrayList<>();
-        if(typeWhichList!=null && typeWhichList.size()!=0){
-            int position=0;
-            for(TypeWhich typeWhich:typeWhichList){
+    private List<CustomField> getCustomFilesList() {
+        List<CustomField> customFieldList = new ArrayList<>();
+        if (typeWhichList != null && typeWhichList.size() != 0) {
+            int position = 0;
+            for (TypeWhich typeWhich : typeWhichList) {
                 position++;
-                switch (typeWhich.getType()){
+                switch (typeWhich.getType()) {
                     case "Text":
-                        if(inputTextView!=null){
+                        if (inputTextView != null) {
                             inputTextView.findViewById(typeWhich.getId());
-                            String textValue=inputTextView.getText().toString();
-                            String formType="equipments";
-                            String typeOfField="Text";
-                            CustomField customField=new CustomField();
+                            String textValue = inputTextView.getText().toString();
+                            String formType = "equipments";
+                            String typeOfField = "Text";
+                            CustomField customField = new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
                             customField.setId(typeWhich.getCustomFieldId());
@@ -467,15 +469,15 @@ public class AddEquipment extends AppCompatActivity {
                         }
                         break;
                     case "List Of Values":
-                        if(spinnerCustomField!=null){
-                            String value ="";
+                        if (spinnerCustomField != null) {
+                            String value = "";
                             spinnerCustomField.findViewById(typeWhich.getId());
-                            value=spinnerCustomField.getSelectedItem().toString();
-                            CustomField customFieldTemp =(CustomField)spinnerCustomField.getTag();
-                            List<String>choiceList=customFieldTemp.getChoices();
-                            String formType="equipments";
-                            String typeOfField="List Of Values";
-                            CustomField customField=new CustomField();
+                            value = spinnerCustomField.getSelectedItem().toString();
+                            CustomField customFieldTemp = (CustomField) spinnerCustomField.getTag();
+                            List<String> choiceList = customFieldTemp.getChoices();
+                            String formType = "equipments";
+                            String typeOfField = "List Of Values";
+                            CustomField customField = new CustomField();
                             customField.setTextValue(value);
                             customField.setFormType(formType);
                             customField.setId(typeWhich.getCustomFieldId());
@@ -486,13 +488,13 @@ public class AddEquipment extends AppCompatActivity {
                         }
                         break;
                     case "Date":
-                        if(dateTextView!=null){
-                            String textValue ="";
+                        if (dateTextView != null) {
+                            String textValue = "";
                             dateTextView.findViewById(typeWhich.getId());
-                            textValue=dateTextView.getText().toString();
-                            String formType="equipments";
-                            String typeOfField="Date";
-                            CustomField customField=new CustomField();
+                            textValue = dateTextView.getText().toString();
+                            String formType = "equipments";
+                            String typeOfField = "Date";
+                            CustomField customField = new CustomField();
                             customField.setTextValue(textValue);
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
@@ -501,12 +503,12 @@ public class AddEquipment extends AppCompatActivity {
                         }
                         break;
                     case "Numeric":
-                        if(numericEditText!=null){
+                        if (numericEditText != null) {
                             numericEditText.findViewById(typeWhich.getId());
-                            String textValue=numericEditText.getText().toString();
-                            String formType="equipments";
-                            String typeOfField="Numeric";
-                            CustomField customField=new CustomField();
+                            String textValue = numericEditText.getText().toString();
+                            String formType = "equipments";
+                            String typeOfField = "Numeric";
+                            CustomField customField = new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
                             customField.setId(typeWhich.getCustomFieldId());
@@ -515,18 +517,18 @@ public class AddEquipment extends AppCompatActivity {
                         }
                         break;
                     case "CheckBox":
-                        if(checkBoxCustomField!=null){
-                            String textValue="";
+                        if (checkBoxCustomField != null) {
+                            String textValue = "";
                             checkBoxCustomField.findViewById(typeWhich.getId());
-                            boolean isChecked=checkBoxCustomField.isChecked();
-                            if(isChecked){
-                                textValue="True";
-                            }else{
-                                textValue="False";
+                            boolean isChecked = checkBoxCustomField.isChecked();
+                            if (isChecked) {
+                                textValue = "True";
+                            } else {
+                                textValue = "False";
                             }
-                            String formType="equipments";
-                            String typeOfField="CheckBox";
-                            CustomField customField=new CustomField();
+                            String formType = "equipments";
+                            String typeOfField = "CheckBox";
+                            CustomField customField = new CustomField();
                             customField.setTextValue(textValue);
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
@@ -535,12 +537,12 @@ public class AddEquipment extends AppCompatActivity {
                         }
                         break;
                     case "AutoCompleteBox":
-                        if(autoCompleteTextView!=null){
+                        if (autoCompleteTextView != null) {
                             autoCompleteTextView.findViewById(typeWhich.getId());
-                            String textValue=autoCompleteTextView.getText().toString();
-                            String formType="equipments";
-                            String typeOfField="AutoCompleteBox";
-                            CustomField customField=new CustomField();
+                            String textValue = autoCompleteTextView.getText().toString();
+                            String formType = "equipments";
+                            String typeOfField = "AutoCompleteBox";
+                            CustomField customField = new CustomField();
                             customField.setTextValue(textValue);
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
@@ -554,8 +556,9 @@ public class AddEquipment extends AppCompatActivity {
         }
         return customFieldList;
     }
-    private void showToast(String message){
-        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+
+    private void showToast(String message) {
+        Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -565,79 +568,80 @@ public class AddEquipment extends AppCompatActivity {
     }
 
     private void skilledTradesDialog(List<String> skilledName, TextView tView) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(AddEquipment.this);
-        LayoutInflater layoutInflate=getLayoutInflater();
-        View view=layoutInflate.inflate(R.layout.adapter_teams_list,null);
-        EditText editText=view.findViewById(R.id.et_skilled);
+        AlertDialog.Builder builder = new AlertDialog.Builder(AddEquipment.this);
+        LayoutInflater layoutInflate = getLayoutInflater();
+        View view = layoutInflate.inflate(R.layout.adapter_teams_list, null);
+        EditText editText = view.findViewById(R.id.et_skilled);
         editText.setHint("Enter tags");
-        Button button=view.findViewById(R.id.button_add_skill);
-        RecyclerView recyclerView=view.findViewById(R.id.skilled_traders_recycler_view);
+        Button button = view.findViewById(R.id.button_add_skill);
+        RecyclerView recyclerView = view.findViewById(R.id.skilled_traders_recycler_view);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
         recyclerView.setItemAnimator(new DefaultItemAnimator());
-        adapter=new SkilledTradersAdapter(this,skilledName);
+        adapter = new SkilledTradersAdapter(this, skilledName);
         recyclerView.setAdapter(adapter);
         builder.setView(view);
-        button.setOnClickListener(views->{
-            String edName=editText.getText().toString();
-            if(edName!=null && !edName.isEmpty()){
+        button.setOnClickListener(views -> {
+            String edName = editText.getText().toString();
+            if (edName != null && !edName.isEmpty()) {
                 adapter.setSkilledTradersName(edName);
                 editText.setText("");
             }
         });
-        builder.setPositiveButton("OK",(dialog,id)->{
-            tagsList=adapter.getSkilledTradersList();
-            if(tagsList.size()!=0){
+        builder.setPositiveButton("OK", (dialog, id) -> {
+            tagsList = adapter.getSkilledTradersList();
+            if (tagsList.size() != 0) {
                 tags_selected_equipment.setVisibility(View.VISIBLE);
-                selectedAdapter=new SkilledTradersAdapter(this,tagsList);
+                selectedAdapter = new SkilledTradersAdapter(this, tagsList);
                 tags_selected_equipment.setItemAnimator(new DefaultItemAnimator());
                 tags_selected_equipment.setLayoutManager(new LinearLayoutManager(this));
                 tags_selected_equipment.setAdapter(selectedAdapter);
                 selectedAdapter.notifyDataSetChanged();
-                for (int i=0;i<tagsList.size();i++){
+                for (int i = 0; i < tagsList.size(); i++) {
                     AddTagsApi(tagsList.get(i));
                 }
             }
 
         });
-        builder.setNegativeButton("Cancel",(dialog,i)->{
+        builder.setNegativeButton("Cancel", (dialog, i) -> {
             dismissTagsDialog();
         });
-        tagsDialog=builder.create();
+        tagsDialog = builder.create();
         tagsDialog.show();
 
     }
-    private  void dismissTagsDialog(){
-        if(tagsDialog!=null && tagsDialog.isShowing()){
+
+    private void dismissTagsDialog() {
+        if (tagsDialog != null && tagsDialog.isShowing()) {
             tagsDialog.dismiss();
         }
     }
 
     private void GetTagsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"tags/getByDomainId/"+domainid;
+        String url = EndURL.URL + "tags/getByDomainId/" + domainid;
         Log.d("waggonurl", url);
         //showProgressDialog();
 
-        JSONObject inputjso=new JSONObject();
+        JSONObject inputjso = new JSONObject();
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, inputjso, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("List TeamsResponse",response.toString());
+                Log.d("List TeamsResponse", response.toString());
                 commonJobsArrayList.clear();
 
                 try {
 
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("tags");
-                    tagarray=new JSONArray(array.toString());
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String tagid=first.getString("id");
-                        String tagname=first.getString("name");
+                    JSONObject obj = new JSONObject(response.toString());
+                    JSONArray array = obj.getJSONArray("tags");
+                    tagarray = new JSONArray(array.toString());
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject first = array.getJSONObject(i);
+                        String tagid = first.getString("id");
+                        String tagname = first.getString("name");
 
-                        CommonJobs commonJobs=new CommonJobs();
+                        CommonJobs commonJobs = new CommonJobs();
                         commonJobs.setTagid(tagid);
                         commonJobs.setTagname(tagname);
                         commonJobsArrayList.add(commonJobs);
@@ -645,21 +649,21 @@ public class AddEquipment extends AppCompatActivity {
 
                     }
 
-                    if (tagsArrayList.size()!=0){
+                    if (tagsArrayList.size() != 0) {
                         tags_selected_equipment.setVisibility(View.VISIBLE);
                         tags_selected_equipment = findViewById(R.id.tags_selected_equipment);
-                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
+                        LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
                         tags_selected_equipment.setLayoutManager(layoutManager);
                         //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                         tags_selected_equipment.setItemAnimator(new DefaultItemAnimator());
                         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(AddEquipment.this,tagsArrayList);
+                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(AddEquipment.this, tagsArrayList);
                         tags_selected_equipment.setAdapter(projectsAdapter);
                         projectsAdapter.notifyDataSetChanged();
-                    }else {
+                    } else {
                         tags_selected_equipment.setVisibility(View.GONE);
                     }
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -674,7 +678,7 @@ public class AddEquipment extends AppCompatActivity {
         }) {
 
             @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
 
                 params.put("Authorization", store.getToken());
@@ -698,17 +702,17 @@ public class AddEquipment extends AppCompatActivity {
     }
 
     private void dismissProgressDialog() {
-        try{
+        try {
             if (pDialog != null && pDialog.isShowing()) {
                 pDialog.dismiss();
             }
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
     }
 
-    private void AddEquipmentApi(String name, String myid,String cusid,String siteid) {
+    private void AddEquipmentApi(String name, String myid, String cusid, String siteid) {
 
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL + "equipments/add";
@@ -716,33 +720,33 @@ public class AddEquipment extends AppCompatActivity {
         showProgressDialog();
         JSONObject inputLogin = new JSONObject();
 
-        String customid=null;
-        for (int i=0;i<cusDetailsArrayList.size();i++){
-            String customname=cusDetailsArrayList.get(i).getCustomername();
-            if (customertext!=null){
+        String customid = null;
+        for (int i = 0; i < cusDetailsArrayList.size(); i++) {
+            String customname = cusDetailsArrayList.get(i).getCustomername();
+            if (customertext != null) {
                 if (customertext.equals(customname)) {
-                    customid=cusDetailsArrayList.get(i).getCustomerid();
+                    customid = cusDetailsArrayList.get(i).getCustomerid();
                 }
             }
         }
-        String sitid=null;
-        for (int i=0;i<siteDetailsArrayList.size();i++){
-            String sitename=siteDetailsArrayList.get(i).getSitename();
-            if (sitetext!=null){
+        String sitid = null;
+        for (int i = 0; i < siteDetailsArrayList.size(); i++) {
+            String sitename = siteDetailsArrayList.get(i).getSitename();
+            if (sitetext != null) {
                 if (sitetext.equals(sitename)) {
-                    sitid=siteDetailsArrayList.get(i).getSiteid();
+                    sitid = siteDetailsArrayList.get(i).getSiteid();
                 }
             }
         }
 
-        ArrayList<String>tagListId=new ArrayList<String>();
-        for (int i=0;i<tagarray.length();i++){
-            JSONObject first= null;
+        ArrayList<String> tagListId = new ArrayList<String>();
+        for (int i = 0; i < tagarray.length(); i++) {
+            JSONObject first = null;
             try {
                 first = tagarray.getJSONObject(i);
-                String tagid=first.getString("id");
-                String tagname=first.getString("name");
-                if (tagsArrayList.get(i).equals(tagname)){
+                String tagid = first.getString("id");
+                String tagname = first.getString("name");
+                if (tagsArrayList.get(i).equals(tagname)) {
                     tagListId.add(tagid);
                 }
             } catch (JSONException e) {
@@ -750,19 +754,19 @@ public class AddEquipment extends AppCompatActivity {
 
         }
 
-        JSONArray jsonArray=new JSONArray();
-        for (int i=0;i<tagListId.size();i++){
+        JSONArray jsonArray = new JSONArray();
+        for (int i = 0; i < tagListId.size(); i++) {
             jsonArray.put(tagListId.get(i));
         }
 
         try {
-            inputLogin.put("name",name);
-            inputLogin.put("myId",myid);
-            inputLogin.put("idDomain",domainid);
-            inputLogin.put("idCustomer",customid);
-            inputLogin.put("idSite",sitid);
-            inputLogin.put("tags",jsonArray);
-            inputLogin.put("CustomFieldValues",new JSONArray(new Gson().toJson(getCustomFilesList())));
+            inputLogin.put("name", name);
+            inputLogin.put("myId", myid);
+            inputLogin.put("idDomain", domainid);
+            inputLogin.put("idCustomer", customid);
+            inputLogin.put("idSite", sitid);
+            inputLogin.put("tags", jsonArray);
+            inputLogin.put("CustomFieldValues", new JSONArray(new Gson().toJson(customFieldsAdapter.getCustomFieldListOutput())));
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -777,8 +781,8 @@ public class AddEquipment extends AppCompatActivity {
 
                 try {
 
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
+                    JSONObject obj = new JSONObject(response.toString());
+                    boolean success = obj.getBoolean("isSuccess");
                     if (success) {
                         JSONObject first = obj.getJSONObject("equipment");
                         String equipmentid = first.getString("id");
@@ -807,7 +811,7 @@ public class AddEquipment extends AppCompatActivity {
 
 
             @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
                 return params;
@@ -826,8 +830,8 @@ public class AddEquipment extends AppCompatActivity {
         JSONObject inputLogin = new JSONObject();
 
         try {
-            inputLogin.put("name",name);
-            inputLogin.put("idDomain",domainid);
+            inputLogin.put("name", name);
+            inputLogin.put("idDomain", domainid);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -841,11 +845,11 @@ public class AddEquipment extends AppCompatActivity {
 
                 try {
 
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
+                    JSONObject obj = new JSONObject(response.toString());
+                    boolean success = obj.getBoolean("isSuccess");
                     if (success) {
                         JSONObject first = obj.getJSONObject("tag");
-                        String tagid=first.getString("id");
+                        String tagid = first.getString("id");
                         store.putTagId(String.valueOf(tagid));
 
                         tagsArrayList.add(tagid);
@@ -872,7 +876,7 @@ public class AddEquipment extends AppCompatActivity {
 
 
             @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
                 return params;
@@ -885,96 +889,96 @@ public class AddEquipment extends AppCompatActivity {
 
     private void GetCustomerList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"customers/getByDomainId/"+domainid;
+        String url = EndURL.URL + "customers/getByDomainId/" + domainid;
         Log.d("waggonurl", url);
 
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("List TeamsResponse",response.toString());
+                Log.d("List TeamsResponse", response.toString());
                 cusDetailsArrayList.clear();
                 try {
 
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("customers");
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String customerid=first.getString("id");
+                    JSONObject obj = new JSONObject(response.toString());
+                    JSONArray array = obj.getJSONArray("customers");
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject first = array.getJSONObject(i);
+                        String customerid = first.getString("id");
                         store.putCustomerId(String.valueOf(customerid));
-                        String name="";
+                        String name = "";
                         try {
-                            name=first.getString("name");
-                        }catch (Exception e){
+                            name = first.getString("name");
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String contactEmail="";
+                        String contactEmail = "";
                         try {
-                            contactEmail=first.getString("contactEmail");
-                        }catch (Exception e){
+                            contactEmail = first.getString("contactEmail");
+                        } catch (Exception e) {
 
                         }
-                        String contactfirstname="";
+                        String contactfirstname = "";
                         try {
-                            contactfirstname=first.getString("contactFirstName");
-                        }catch (Exception e){
+                            contactfirstname = first.getString("contactFirstName");
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String contactlastname="";
+                        String contactlastname = "";
                         try {
-                            contactlastname=first.getString("contactLastName");
-                        }catch (Exception e){
+                            contactlastname = first.getString("contactLastName");
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String contactmobile="";
+                        String contactmobile = "";
                         try {
-                            contactmobile=first.getString("contactMobile");
-                        }catch (Exception e){
+                            contactmobile = first.getString("contactMobile");
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String contactphone="";
+                        String contactphone = "";
                         try {
-                            contactphone=first.getString("contactPhone");
-                        }catch (Exception e){
+                            contactphone = first.getString("contactPhone");
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String address="";
+                        String address = "";
                         try {
-                            address=first.getString("address");
-                        }catch (Exception e){
+                            address = first.getString("address");
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String addressComplement="";
+                        String addressComplement = "";
                         try {
-                            addressComplement=first.getString("addressComplement");
-                        }catch (Exception e){
+                            addressComplement = first.getString("addressComplement");
+                        } catch (Exception e) {
 
                         }
-                        JSONObject tagInfo =null;
+                        JSONObject tagInfo = null;
                         try {
                             tagInfo = first.getJSONObject("tagInfo");
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
-                        String tagid=null;
+                        String tagid = null;
                         try {
-                            tagid=tagInfo.getString("id");
+                            tagid = tagInfo.getString("id");
                             store.putTagId(String.valueOf(tagid));
-                        }catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
-                        String tagname="";
+                        String tagname = "";
                         try {
-                            tagname=tagInfo.getString("name");
-                        }catch (Exception e){
+                            tagname = tagInfo.getString("name");
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
-                        CommonJobs commonJobs=new CommonJobs();
+                        CommonJobs commonJobs = new CommonJobs();
                         commonJobs.setCustomername(name);
                         commonJobs.setCustomerid(customerid);
-                        AddEquipment.this.cusid=customerid;
+                        AddEquipment.this.cusid = customerid;
                         commonJobs.setFirstname(contactfirstname);
                         commonJobs.setLastname(contactlastname);
                         commonJobs.setMobilenum(contactmobile);
@@ -987,10 +991,10 @@ public class AddEquipment extends AppCompatActivity {
                         cusnamestring.add(name);
 
                     }
-                    String[]customer=cusnamestring.stream().toArray(String[]::new);
+                    String[] customer = cusnamestring.stream().toArray(String[]::new);
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                            (AddEquipment.this,android.R.layout.select_dialog_item,customer);
-                    equipment_cus_auto_complete= findViewById(R.id.equipment_cus_auto_complete);
+                            (AddEquipment.this, android.R.layout.select_dialog_item, customer);
+                    equipment_cus_auto_complete = findViewById(R.id.equipment_cus_auto_complete);
                     equipment_cus_auto_complete.setThreshold(1);//will start working from first character
                     equipment_cus_auto_complete.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
                     equipment_cus_auto_complete.setTextColor(R.color.text_light);
@@ -998,15 +1002,15 @@ public class AddEquipment extends AppCompatActivity {
                     equipment_cus_auto_complete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
                         @Override
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            String customername=customer[i];
+                            String customername = customer[i];
                             bindViews(customername);
-                            customertext=customername;
+                            customertext = customername;
                             GetSiteList(customertext);
                         }
                     });
 
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -1015,14 +1019,14 @@ public class AddEquipment extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
-                Log.e("Error"," "+error.getMessage());
+                Toast.makeText(getApplicationContext(), "Not Working", Toast.LENGTH_SHORT).show();
+                Log.e("Error", " " + error.getMessage());
 
             }
         }) {
 
             @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
                 return params;
@@ -1042,62 +1046,62 @@ public class AddEquipment extends AppCompatActivity {
     }
 
     private void GetSiteList(String customername) {
-        String customid="";
-        for (int i=0;i<cusDetailsArrayList.size();i++){
-            if (customername.equals(cusDetailsArrayList.get(i).getCustomername())){
-                customid=cusDetailsArrayList.get(i).getCustomerid();
+        String customid = "";
+        for (int i = 0; i < cusDetailsArrayList.size(); i++) {
+            if (customername.equals(cusDetailsArrayList.get(i).getCustomername())) {
+                customid = cusDetailsArrayList.get(i).getCustomerid();
             }
         }
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"sites/getByCustomerId/"+customid;
+        String url = EndURL.URL + "sites/getByCustomerId/" + customid;
         Log.d("waggonurl", url);
 
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String) null, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onResponse(JSONObject response) {
-                Log.d("List TeamsResponse",response.toString());
+                Log.d("List TeamsResponse", response.toString());
                 siteDetailsArrayList.clear();
                 try {
 
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("sites");
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String siteid=first.getString("id");
+                    JSONObject obj = new JSONObject(response.toString());
+                    JSONArray array = obj.getJSONArray("sites");
+                    for (int i = 0; i < array.length(); i++) {
+                        JSONObject first = array.getJSONObject(i);
+                        String siteid = first.getString("id");
                         store.putSiteId(String.valueOf(siteid));
-                        String sitename="";
+                        String sitename = "";
                         try {
-                            sitename=first.getString("name");
-                        }catch (Exception e){
+                            sitename = first.getString("name");
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
 
-                        CommonJobs commonJobs=new CommonJobs();
+                        CommonJobs commonJobs = new CommonJobs();
                         commonJobs.setSitename(sitename);
                         commonJobs.setSiteid(siteid);
-                        AddEquipment.this.siteid=siteid;
+                        AddEquipment.this.siteid = siteid;
                         siteDetailsArrayList.add(commonJobs);
                         sitenamestring.add(sitename);
 
                     }
 
-                    for (String s:sitenamestring) {
+                    for (String s : sitenamestring) {
 
                     }
-                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(AddEquipment.this,android.R.layout.simple_spinner_item,
+                    ArrayAdapter<String> adapter = new ArrayAdapter<String>(AddEquipment.this, android.R.layout.simple_spinner_item,
                             sitenamestring);
                     adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     equipment_site_auto_complete.setPrompt("Site");
                     equipment_site_auto_complete.setAdapter(adapter);
-                    equipment_site_auto_complete.setAdapter(new SpinnerDetails(adapter,R.layout.site_spinner,AddEquipment.this));
+                    equipment_site_auto_complete.setAdapter(new SpinnerDetails(adapter, R.layout.site_spinner, AddEquipment.this));
                     equipment_site_auto_complete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                             try {
                                 String text = equipment_site_auto_complete.getSelectedItem().toString();
-                                sitetext=text;
-                            }catch (Exception e){
+                                sitetext = text;
+                            } catch (Exception e) {
                                 e.printStackTrace();
                             }
                         }
@@ -1125,7 +1129,7 @@ public class AddEquipment extends AppCompatActivity {
 //                        }
 //                    });
 
-                }catch (Exception e){
+                } catch (Exception e) {
                     e.printStackTrace();
                 }
 
@@ -1134,14 +1138,14 @@ public class AddEquipment extends AppCompatActivity {
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
-                Log.e("Error"," "+error.getMessage());
+                Toast.makeText(getApplicationContext(), "Not Working", Toast.LENGTH_SHORT).show();
+                Log.e("Error", " " + error.getMessage());
 
             }
         }) {
 
             @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
+            public Map<String, String> getHeaders() throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
                 return params;
@@ -1163,7 +1167,7 @@ public class AddEquipment extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case android.R.id.home:
                 AddEquipment.this.finish();
                 return true;
@@ -1172,11 +1176,13 @@ public class AddEquipment extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
-    public class TypeWhich{
+
+    public class TypeWhich {
         private int id;
         private String type;
         private String customFieldId;
-        public TypeWhich(){
+
+        public TypeWhich() {
 
         }
 
@@ -1204,11 +1210,11 @@ public class AddEquipment extends AppCompatActivity {
             this.type = type;
         }
     }
+
     public boolean isValidEmailAddress(String email) {
         String emailPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
-
 }

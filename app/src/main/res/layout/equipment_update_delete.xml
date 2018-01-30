@@ -95,8 +95,31 @@
                         android:textColor="@color/light_black"
                         android:textColorHint="@color/text_light"
                         android:textSize="20sp" />
+                    <TextView
+                        android:id="@+id/tags_add_customer_text"
+                        android:layout_width="match_parent"
+                        android:layout_height="60dp"
+                        android:layout_marginBottom="5dp"
+                        android:layout_marginTop="10dp"
+                        android:background="@drawable/button_bg"
+                        android:gravity="center|start"
+                        android:paddingLeft="8dp"
+                        android:text="Tags"
+                        android:textColor="@color/light_black"
+                        android:textSize="20sp" />
+
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/tags_selected_customer"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="10dp"
+                        android:layout_marginTop="10dp"
+                        android:visibility="gone" />
 
                 </LinearLayout>
+
+
+
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -118,40 +141,8 @@
                         android:layout_marginTop="5dp"
                         android:background="@color/button" />
 
-                    <TextView
-                        android:id="@+id/tags_add_customer_text"
-                        android:layout_width="match_parent"
-                        android:layout_height="60dp"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginTop="10dp"
-                        android:background="@drawable/button_bg"
-                        android:gravity="center|start"
-                        android:paddingLeft="8dp"
-                        android:text="Tags"
-                        android:textColor="@color/light_black"
-                        android:textSize="20sp" />
 
-                    <android.support.v7.widget.RecyclerView
-                        android:id="@+id/tags_selected_customer"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="10dp"
-                        android:layout_marginTop="10dp"
-                        android:visibility="gone" />
-                        android:id="@+id/tags_selected_customer"
-                        android:layout_height="wrap_content"/>
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Additional Fields"
-                        android:textColor="@color/button"
-                        android:textSize="24sp" />
 
-                    <View
-                        android:layout_width="match_parent"
-                        android:layout_height="0.2dp"
-                        android:layout_marginTop="5dp"
-                        android:background="@color/button" />
 
                     <TableLayout
                         android:id="@+id/table_layout_custom_fields_equipment_update"
@@ -162,8 +153,14 @@
                         android:divider="@color/light_black"
                         android:showDividers="middle"
                         android:shrinkColumns="*"
+                        android:visibility="gone"
                         android:stretchColumns="*">
                     </TableLayout>
+                    <android.support.v7.widget.RecyclerView
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="10dp"
+                        android:id="@+id/recycler_custom_equip_update"
+                        android:layout_height="wrap_content"/>
 
                 </LinearLayout>
 

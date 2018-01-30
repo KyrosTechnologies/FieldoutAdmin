@@ -47,6 +47,9 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+    packagingOptions {
+        exclude 'META-INF/jasperreports_extension.properties'
+    }
 }
 
 dependencies {
@@ -95,5 +98,8 @@ dependencies {
     //toggle button
     implementation 'com.github.luongvo:iOS-SwitchView:1.0.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
+    compileOnly files('libs/opencsv-4.1.jar')
+
+
 }
 apply plugin: 'com.google.gms.google-services'

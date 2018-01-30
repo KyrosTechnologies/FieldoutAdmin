@@ -54,6 +54,18 @@
                     android:layout_marginRight="8dp"
                     android:layout_marginLeft="20dp"
                     android:gravity="start|center"/>
+            <TextView
+                android:id="@+id/text_view_export"
+                android:layout_width="225dp"
+                android:layout_height="60dp"
+                android:text="Export to csv"
+                android:paddingLeft="10dp"
+                android:background="@drawable/button_bg"
+                android:textColor="@color/text_light"
+                android:textSize="@dimen/privacy_policy_statement"
+                android:layout_marginRight="8dp"
+                android:layout_marginLeft="20dp"
+                android:gravity="start|center"/>
 
         </LinearLayout>
 

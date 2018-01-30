@@ -86,7 +86,7 @@ public class CustomFieldsViewModel extends RecyclerView.ViewHolder {
         numericEditText.setPadding(15, 15, 5, 15);
 
         checkBoxCustomField=new CheckBox(itemView.getContext());
-        checkBoxCustomField.setChecked(true);
+        checkBoxCustomField.setChecked(false);
         String valueCheckBox="Select ";
         checkBoxCustomField.setText(valueCheckBox);
         LinearLayout.LayoutParams tableRowCheckBoxParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 120,50);
