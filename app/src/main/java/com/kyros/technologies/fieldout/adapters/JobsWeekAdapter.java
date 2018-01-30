@@ -103,7 +103,8 @@ public class JobsWeekAdapter extends RecyclerView.Adapter<JobsWeekAdapter.MyView
             i.putExtra("address",address);
             i.putExtra("jobtypename",jobtype);
             i.putExtra("priority",priority);
-            i.putExtra("contactname",contactname);
+            i.putExtra("firstname",firstname);
+            i.putExtra("lastname",lastname);
             i.putExtra("mobile",mobile);
             i.putExtra("phone",phone);
             i.putExtra("email",email);

@@ -51,7 +51,7 @@
                           android:text="@string/company"
                           android:layout_weight="50"
                           android:layout_gravity="center|start"
-                          android:textColor="@color/light_black"
+                          android:textColor="@color/button"
                           android:textSize="@dimen/privacy_policy_statement" />
 
                       <TextView
@@ -60,7 +60,7 @@
                           android:layout_weight="50"
                           android:layout_gravity="center|start"
                           android:text="@string/contact"
-                          android:textColor="@color/light_black"
+                          android:textColor="@color/button"
                           android:textSize="@dimen/privacy_policy_statement" />
                   </TableRow>
 
@@ -102,7 +102,7 @@
                           android:layout_gravity="center|start"
                           android:layout_weight="50"
                           android:text="@string/address_label"
-                          android:textColor="@color/light_black"
+                          android:textColor="@color/button"
                           android:textSize="@dimen/privacy_policy_statement" />
 
                       <TextView

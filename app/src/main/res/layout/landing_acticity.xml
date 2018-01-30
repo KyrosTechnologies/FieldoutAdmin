@@ -557,7 +557,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginLeft="180dp"
+            android:layout_marginLeft="320dp"
             android:background="@color/action_bar"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -621,7 +621,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginLeft="150dp"
+            android:layout_marginLeft="350dp"
             android:background="@color/action_bar"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -742,6 +742,7 @@
                 android:background="@color/white" />
 
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -752,12 +753,6 @@
                 android:text="Issues"
                 android:textColor="@color/white"
                 android:textSize="@dimen/privacy_policy_statement" />
-
-            <View
-                android:layout_width="0.2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="12dp"
-                android:background="@color/white" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -778,7 +773,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginLeft="550dp"
+            android:layout_marginLeft="700dp"
             android:background="@color/action_bar"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -824,7 +819,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="start"
-            android:layout_marginLeft="450dp"
+            android:layout_marginLeft="700dp"
             android:background="@color/action_bar"
             android:orientation="horizontal"
             android:visibility="gone">
@@ -882,13 +877,8 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/privacy_policy_statement" />
 
-            <View
-                android:layout_width="0.2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="12dp"
-                android:background="@color/white" />
-
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
@@ -901,13 +891,8 @@
                 android:textColor="@color/white"
                 android:textSize="@dimen/privacy_policy_statement" />
 
-            <View
-                android:layout_width="0.2dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="12dp"
-                android:background="@color/white" />
-
             <TextView
+                android:visibility="gone"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

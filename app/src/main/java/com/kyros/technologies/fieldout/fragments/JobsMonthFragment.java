@@ -130,7 +130,7 @@ public class JobsMonthFragment extends Fragment {
                         }
                         String contactLastName="";
                         try {
-                            contactLastName=first.getString("contactLastName");
+                            contactLastName=jobinfo.getString("contactLastName");
                         }catch (Exception e){
                         }
                         String contactMobile="";
@@ -228,7 +228,7 @@ public class JobsMonthFragment extends Fragment {
                         String latlng=null;
                         try {
                             StringBuilder stringBuilder=new StringBuilder();
-                            positions=siteInfo.getJSONArray("positions");
+                            positions=jobinfo.getJSONArray("positions");
                             for (int j=0;j<positions.length();j++){
                                 Double pos=positions.getDouble(j);
 

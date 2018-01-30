@@ -168,14 +168,19 @@ public class JobTypesFragment extends Fragment {
 
                     //TextView SkilledTraders
                     TextView skilledTradersTextView=new TextView(getContext());
-                    List<String>skilledList=skilledTradesModel.getName();
-                    String skilledFirstvalue="";
-                    if(skilledList!=null && skilledList.size()!=0){
-                        skilledFirstvalue=skilledList.get(0);
+                    try {
+                        List<String>skilledList=skilledTradesModel.getName();
+                        String skilledFirstvalue="";
+                        if(skilledList!=null && skilledList.size()!=0){
+                            skilledFirstvalue=skilledList.get(0);
+                        }
+                        if(skilledFirstvalue!=null){
+                            skilledTradersTextView.setText(skilledFirstvalue);
+                        }
+                    }catch (Exception e){
+
                     }
-                    if(skilledFirstvalue!=null){
-                        skilledTradersTextView.setText(skilledFirstvalue);
-                    }
+
                     skilledTradersTextView.setTextSize(24);
                     TableRow.LayoutParams tableRowSkilledTradersParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
                     tableRowSkilledTradersParams.setMargins(15,15,15,15);
@@ -187,11 +192,16 @@ public class JobTypesFragment extends Fragment {
 
                     //TextView Default
                     TextView defaultTextView=new TextView(getContext());
-                    if(defaultvalue){
-                        defaultTextView.setText("Yes");
-                    }else{
-                        defaultTextView.setText("No");
+                    try {
+                        if(defaultvalue){
+                            defaultTextView.setText("Yes");
+                        }else{
+                            defaultTextView.setText("No");
+                        }
+                    }catch (Exception e){
+
                     }
+
                     defaultTextView.setTextSize(24);
                     TableRow.LayoutParams tableRowDefaultParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
                     tableRowDefaultParams.setMargins(15,15,15,15);

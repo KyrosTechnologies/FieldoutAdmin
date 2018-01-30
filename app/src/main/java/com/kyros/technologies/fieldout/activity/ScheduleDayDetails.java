@@ -66,7 +66,6 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
     private String jobtype=null;
     private String address=null;
     private String myid=null;
-    private String contactname=null;
     private String mobile=null;
     private String phone=null;
     private String desc=null;
@@ -149,7 +148,6 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
             jobtype = bundle.getString("jobtypename");
             address = bundle.getString("address");
             myid = bundle.getString("myid");
-            contactname = bundle.getString("contactname");
             mobile = bundle.getString("mobile");
             phone = bundle.getString("phone");
             desc = bundle.getString("desc");
@@ -179,8 +177,8 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
         if (latlng!=null){
             job_details_lat_lng.setText(latlng);
         }
-        if (contactname!=null){
-            job_details_name.setText(contactname);
+        if (firstname!=null&&lastname!=null){
+            job_details_name.setText(firstname+" "+lastname);
         }
         if (mobile!=null){
             job_details_mobile.setText(mobile);

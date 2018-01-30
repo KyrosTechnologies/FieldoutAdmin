@@ -75,7 +75,6 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
     private String jobtype=null;
     private String address=null;
     private String myid=null;
-    private String contactname=null;
     private String mobile=null;
     private String phone=null;
     private String desc=null;
@@ -161,7 +160,6 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             jobtype = bundle.getString("jobtypename");
             address = bundle.getString("address");
             myid = bundle.getString("myid");
-            contactname = bundle.getString("contactname");
             mobile = bundle.getString("mobile");
             phone = bundle.getString("phone");
             desc = bundle.getString("desc");
@@ -191,8 +189,8 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
         if (latlng!=null){
             job_details_lat_lng.setText(latlng);
         }
-        if (contactname!=null){
-            job_details_name.setText(contactname);
+        if (firstname!=null&&lastname!=null){
+            job_details_name.setText(firstname+" "+lastname);
         }
         if (mobile!=null){
             job_details_mobile.setText(mobile);
@@ -291,7 +289,6 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             DatePickerDialog mDatePicker=new DatePickerDialog(ScheduleMonthDetails.this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                     // TODO Auto-generated method stub
-                    /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
                     String monts=String.format("%02d",month);
                     String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
@@ -302,7 +299,6 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
                 }
             },mYear, mMonth, mDay);
             mDatePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-//                mDatePicker.setTitle("Select date");
             mDatePicker.show();
         });
 
@@ -315,7 +311,6 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             DatePickerDialog mDatePicker=new DatePickerDialog(ScheduleMonthDetails.this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                     // TODO Auto-generated method stub
-                    /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
                     String monts2=String.format("%02d",month);
                     String currentdate=String.valueOf(selectedyear+"-"+monts2+"-"+selectedday+" ");
@@ -330,8 +325,6 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
                 }
             },mYear, mMonth, mDay);
             mDatePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
-
-//                mDatePicker.setTitle("Select date");
             mDatePicker.show();
         });
 
@@ -343,15 +336,15 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
         try {
             if(dfDate.parse(d1).before(dfDate.parse(d2)))
             {
-                b = true;//If start date is before end date
+                b = true;
             }
             else if(dfDate.parse(d1).equals(dfDate.parse(d2)))
             {
-                b = true;//If two dates are equal
+                b = true;
             }
             else
             {
-                b = false; //If start date is after the end date
+                b = false;
             }
         } catch (ParseException e) {
             // TODO Auto-generated catch block

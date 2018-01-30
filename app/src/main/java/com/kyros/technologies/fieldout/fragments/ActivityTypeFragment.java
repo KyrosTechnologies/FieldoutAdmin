@@ -152,7 +152,7 @@ public class ActivityTypeFragment extends Fragment {
                 tableRowtagsParams.setMargins(15,15,15,15);
                 conflictTextView.setLayoutParams(tableRowtagsParams);
                 conflictTextView.setTextColor(getResources().getColor(R.color.text_light));
-                conflictTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+                conflictTextView.setGravity(Gravity.CENTER);
                 tableRow.addView(conflictTextView);
                 tableRow.setTag(activityType);
 

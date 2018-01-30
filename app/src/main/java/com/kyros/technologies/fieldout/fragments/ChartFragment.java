@@ -685,7 +685,7 @@ public class ChartFragment extends Fragment {
                     incompletedchart.animateXY(1400, 1400);
 
                     Legend l = incompletedchart.getLegend();
-                    l.setPosition(Legend.LegendPosition.ABOVE_CHART_CENTER);
+                    l.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
                     l.setXEntrySpace(7);
                     l.setYEntrySpace(5);
 
@@ -1230,7 +1230,7 @@ public class ChartFragment extends Fragment {
                     latejobschart.animateXY(1400, 1400);
 
                     Legend l = latejobschart.getLegend();
-                    l.setPosition(Legend.LegendPosition.ABOVE_CHART_CENTER);
+                    l.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
                     l.setXEntrySpace(7);
                     l.setYEntrySpace(5);
 
@@ -1773,7 +1773,7 @@ public class ChartFragment extends Fragment {
                     completedjobschart.animateXY(1400, 1400);
 
                     Legend l = completedjobschart.getLegend();
-                    l.setPosition(Legend.LegendPosition.ABOVE_CHART_CENTER);
+                    l.setPosition(Legend.LegendPosition.BELOW_CHART_RIGHT);
                     l.setXEntrySpace(7);
                     l.setYEntrySpace(5);
 

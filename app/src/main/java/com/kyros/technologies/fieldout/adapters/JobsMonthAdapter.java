@@ -3,6 +3,7 @@ package com.kyros.technologies.fieldout.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -103,7 +104,8 @@ public class JobsMonthAdapter extends RecyclerView.Adapter<JobsMonthAdapter.MyVi
             i.putExtra("address",address);
             i.putExtra("jobtypename",jobtype);
             i.putExtra("priority",priority);
-            i.putExtra("contactname",contactname);
+            i.putExtra("firstname",firstname);
+            i.putExtra("lastname",lastname);
             i.putExtra("mobile",mobile);
             i.putExtra("phone",phone);
             i.putExtra("email",email);
