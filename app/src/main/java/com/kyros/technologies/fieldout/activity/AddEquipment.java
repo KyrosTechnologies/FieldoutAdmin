@@ -255,7 +255,7 @@ public class AddEquipment extends AppCompatActivity {
         if(!this.isFinishing())
         recycler_custom_array.setLayoutManager(new LinearLayoutManager(this));
         recycler_custom_array.setItemAnimator(new DefaultItemAnimator());
-        customFieldsAdapter.setCustomFieldData(usersCustomFieldList, this,"add");
+        customFieldsAdapter.setCustomFieldData(usersCustomFieldList, this,"add","equipments");
         recycler_custom_array.setAdapter(customFieldsAdapter);
     }
 

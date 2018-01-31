@@ -6,9 +6,11 @@ import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.TextView;
@@ -51,15 +53,17 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
     private HashMap<Integer, String> hMapBoolean = new HashMap<>();
     private HashMap<Integer, String> hMapText = new HashMap<>();
     private HashMap<Integer, String> hMapActv = new HashMap<>();
+    private String formType;
 
     public CustomFieldsAdapter(){
 
     }
 
-    public void setCustomFieldData(List<CustomField> customFieldList, Context mContext,String whichOne){
+    public void setCustomFieldData(List<CustomField> customFieldList, Context mContext,String whichOne,String formType){
         this.customFieldList = customFieldList;
         this.mContext = mContext;
         this.whichOne=whichOne;
+        this.formType=formType;
         notifyDataSetChanged();
     }
     @Override
@@ -81,7 +85,7 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                if(vl!=null){
                    updateText=vl;
                }
-                customFieldListOutput=customFieldList;
+             //   customFieldListOutput=customFieldList;
             }
         if(choicesList==null){
             choicesList=new ArrayList<>();
@@ -97,47 +101,38 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
         }catch (Exception e){
             e.printStackTrace();
         }
+
+
         switch (typeOfField){
             case "Text":
+                holder.linear_custom_fields_parent.addView(holder.labelName);
+                holder.labelName.setText(name);
                 holder.linear_custom_fields_parent.addView(holder.inputTextView);
-
                 String valueInput="Enter user input "+name;
                 holder.inputTextView.setHint(valueInput);
                 if(whichOne.equals("update")){
                     hMapText.put(position,updateText);
                     holder.inputTextView.setText(updateText);
-                    for(CustomField customF:customFieldListOutput){
-
-                        if(customF.getPosition()==holder.inputTextView.getId()){
-                            if(customF.getTextValue().equals(holder.inputTextView.getText().toString())){
-                                customF.setTextValue( holder.inputTextView.getText().toString());
-                                return;
-                            }
+                    holder.inputTextView.setOnEditorActionListener((textView, i, keyEvent) ->{
+                        if(i == EditorInfo.IME_ACTION_DONE){
+                            String textValue= holder.inputTextView.getText().toString();
+                            CustomField customField_text=new CustomField();
+                            customField_text.setTextValue(textValue);
+                            customField_text.setFormType(formType);
+                            customField_text.setId(id);
+                            customField_text.setPosition(position);
+                            customField_text.setTypeOfField("Text");
+                            customFieldListOutput.add(customField_text);
+                            return true ;
                         }
+                        return true;
+                    } );
 
-                    }
-
-                        holder.inputTextView.addTextChangedListener(new TextWatcher() {
-                            @Override
-                            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                            }
-
-                            @Override
-                            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                            }
-
-                            @Override
-                            public void afterTextChanged(Editable editable) {
-
-                            }
-                        });
 
                     String textValue= holder.inputTextView.getText().toString();
                     CustomField customField_text=new CustomField();
                     customField_text.setTextValue(textValue);
-                    customField_text.setFormType("equipments");
+                    customField_text.setFormType(formType);
                     customField_text.setId(id);
                     customField_text.setPosition(position);
                     customField_text.setTypeOfField("Text");
@@ -151,6 +146,7 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     typeWhich.setId(position);
                     typeWhich.setType("Text");
                     typeWhich.setCustomFieldId(id);
+                    String finalName = name;
                     holder.inputTextView.addTextChangedListener(new TextWatcher() {
                         @Override
                         public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -175,8 +171,9 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                             String textValue= holder.inputTextView.getText().toString();
                             CustomField customField_text=new CustomField();
                             customField_text.setTextValue(textValue);
-                            customField_text.setFormType("equipments");
+                            customField_text.setFormType(formType);
                             customField_text.setId(id);
+                            customField_text.setName(finalName);
                             customField_text.setPosition(position);
                             customField_text.setTypeOfField("Text");
                             customFieldListOutput.add(customField_text);
@@ -188,6 +185,8 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
 
                 break;
             case "List Of Values":
+                holder.linear_custom_fields_parent.addView(holder.labelName);
+                holder.labelName.setText(name);
                 holder.linear_custom_fields_parent.addView(holder.spinnerCustomField);
                 holder.spinnerCustomField.setPrompt(""+name);
                 holder.spinnerCustomField.setId(position);
@@ -197,7 +196,8 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                 holder.spinnerCustomField.setAdapter(adapterSpinner);
                 List<String> finalChoicesList = choicesList;
 
-                    holder. spinnerCustomField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                String finalName1 = name;
+                holder. spinnerCustomField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
                           //  if(++check > 1) {
@@ -212,8 +212,9 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                                 }
                                 CustomField customField_lov=new CustomField();
                                 customField_lov.setTextValue(str);
-                                customField_lov.setFormType("equipments");
+                                customField_lov.setFormType(formType);
                                 customField_lov.setId(id);
+                                customField_lov.setName(finalName1);
                                 customField_lov.setPosition(position);
                                 customField_lov.setChoices(finalChoicesList);
                                 customField_lov.setTypeOfField("List Of Values");
@@ -236,6 +237,8 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
 
                 break;
             case "Date":
+                holder.linear_custom_fields_parent.addView(holder.labelName);
+                holder.labelName.setText(name);
                 holder.linear_custom_fields_parent.addView(holder.dateTextView);
                 String valueDate="Date "+name;
                 holder.dateTextView.setText(valueDate);
@@ -257,16 +260,19 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     customField1.setTextValue(holder.dateTextView.getText().toString());
                     customField1.setId(id);
                     customField1.setPosition(position);
-                    customField1.setFormType("equipments");
+                    customField1.setName(name);
+                    customField1.setFormType(formType);
                     customField1.setTypeOfField("Date");
                     customFieldListOutput.add(customField1);
                 }else if(whichOne.equals("add")){
+                    String finalName6 = name;
                     holder.dateTextView.setOnClickListener(view ->{
                         Calendar mcurrentDate=Calendar.getInstance();
                         final int mYear = mcurrentDate.get(Calendar.YEAR);
                         final int mMonth=mcurrentDate.get(Calendar.MONTH);
                         final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
+                        String finalName2 = finalName6;
                         DatePickerDialog mDatePicker=new DatePickerDialog(mContext, (datepicker, selectedyear, selectedmonth, selectedday) -> {
                             selectedMonth=selectedmonth+1;
                             selectedDay=selectedday;
@@ -287,8 +293,9 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                             CustomField customField1=new CustomField();
                             customField1.setTextValue(holder.dateTextView.getText().toString());
                             customField1.setId(id);
+                            customField1.setName(finalName2);
                             customField1.setPosition(position);
-                            customField1.setFormType("equipments");
+                            customField1.setFormType(formType);
                             customField1.setTypeOfField("Date");
                             customFieldListOutput.add(customField1);
 
@@ -303,6 +310,8 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
 
                 break;
             case "Numeric":
+                holder.linear_custom_fields_parent.addView(holder.labelName);
+                holder.labelName.setText(name);
                 holder.linear_custom_fields_parent.addView(holder.numericEditText);
                 String valueNumeric="Input "+name;
                 holder.numericEditText.setHint(valueNumeric);
@@ -313,49 +322,64 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                 if(whichOne.equals("update")){
                     holder.numericEditText.setText(updateText);
                     hMapNumeric.put(position,updateText);
-
-                }
-                holder.numericEditText.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-                        for(CustomField customF:customFieldListOutput){
-                            if(customF.getPosition()==holder.numericEditText.getId()){
-                                customF.setTextValue( holder.numericEditText.getText().toString());
-                                return;
-                            }
+                    CustomField customField_numeric=new CustomField();
+                    String tValue=holder.numericEditText.getText().toString();
+                    customField_numeric.setTextValue(tValue);
+                    customField_numeric.setFormType(formType);
+                    customField_numeric.setId(id);
+                    customField_numeric.setPosition(position);
+                    customField_numeric.setName(name);
+                    customField_numeric.setTypeOfField("Numeric");
+                    customFieldListOutput.add(customField_numeric);
+                }else{
+                    String finalName3 = name;
+                    holder.numericEditText.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                         }
 
-                        CustomField customField_numeric=new CustomField();
-                        String tValue=holder.numericEditText.getText().toString();
-                        customField_numeric.setTextValue(tValue);
-                        customField_numeric.setFormType("equipments");
-                        customField_numeric.setId(id);
-                        customField_numeric.setPosition(position);
-                        customField_numeric.setTypeOfField("Numeric");
-                        customFieldListOutput.add(customField_numeric);
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
-                    }
-                });
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            for(CustomField customF:customFieldListOutput){
+                                if(customF.getPosition()==holder.numericEditText.getId()){
+                                    customF.setTextValue( holder.numericEditText.getText().toString());
+                                    return;
+                                }
+
+                            }
+
+                            CustomField customField_numeric=new CustomField();
+                            String tValue=holder.numericEditText.getText().toString();
+                            customField_numeric.setTextValue(tValue);
+                            customField_numeric.setFormType(formType);
+                            customField_numeric.setId(id);
+                            customField_numeric.setPosition(position);
+                            customField_numeric.setName(finalName3);
+                            customField_numeric.setTypeOfField("Numeric");
+                            customFieldListOutput.add(customField_numeric);
+
+                        }
+                    });
+                }
+
 
 
                 break;
             case "CheckBox":
+                holder.linear_custom_fields_parent.addView(holder.labelName);
+                holder.labelName.setText(name);
                 holder.linear_custom_fields_parent.addView(holder.checkBoxCustomField);
                 String valueCheckBox="Select "+name;
                 holder.checkBoxCustomField.setText(valueCheckBox);
                 holder.checkBoxCustomField.setId(position);
                 if(whichOne.equals("update")){
+                    String chValue="";
                     hMapBoolean.put(position,updateText);
                     holder.checkBoxCustomField.setText(updateText);
                     if(updateText.equals("True")){
@@ -363,43 +387,62 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     }else{
                         holder.checkBoxCustomField.setChecked(false);
                     }
-                }
-                typeWhich.setId(position);
-                        typeWhich.setType("CheckBox");
-                        typeWhich.setCustomFieldId(id);
-                        boolean isChecked=holder.checkBoxCustomField.isChecked();
-                        String teValue="";
-                if(isChecked){
-                    teValue="True";
-                }else{
-                    teValue="False";
-                }
-                holder.checkBoxCustomField.setOnCheckedChangeListener((compoundButton, b) -> {
-                    String chValue="";
-                    if(b){
+                    if(holder.checkBoxCustomField.isChecked()){
                         chValue="True";
                     }else{
                         chValue="False";
                     }
-                    for(CustomField customF:customFieldListOutput){
-                        if(customF.getPosition()==holder.checkBoxCustomField.getId()){
-                            customF.setTextValue( chValue);
-                            return;
-                        }
-
-                    }
                     CustomField customField_checkBox=new CustomField();
                     customField_checkBox.setTextValue(chValue);
                     customField_checkBox.setId(id);
-                    customField_checkBox.setFormType("equipments");
+                    customField_checkBox.setFormType(formType);
                     customField_checkBox.setTypeOfField("CheckBox");
                     customField_checkBox.setPosition(position);
+                    customField_checkBox.setName(name);
                     customFieldListOutput.add(customField_checkBox);
+                }else{
+                    typeWhich.setId(position);
+                    typeWhich.setType("CheckBox");
+                    typeWhich.setCustomFieldId(id);
+                    boolean isChecked=holder.checkBoxCustomField.isChecked();
+                    String teValue="";
+                    if(isChecked){
+                        teValue="True";
+                    }else{
+                        teValue="False";
+                    }
+                    String finalName4 = name;
+                    holder.checkBoxCustomField.setOnCheckedChangeListener((compoundButton, b) -> {
+                        String chValue="";
+                        if(b){
+                            chValue="True";
+                        }else{
+                            chValue="False";
+                        }
+                        for(CustomField customF:customFieldListOutput){
+                            if(customF.getPosition()==holder.checkBoxCustomField.getId()){
+                                customF.setTextValue( chValue);
+                                return;
+                            }
 
-                });
+                        }
+                        CustomField customField_checkBox=new CustomField();
+                        customField_checkBox.setTextValue(chValue);
+                        customField_checkBox.setId(id);
+                        customField_checkBox.setFormType(formType);
+                        customField_checkBox.setTypeOfField("CheckBox");
+                        customField_checkBox.setPosition(position);
+                        customField_checkBox.setName(finalName4);
+                        customFieldListOutput.add(customField_checkBox);
+
+                    });
+                }
+
 
                 break;
             case "AutoCompleteBox":
+                holder.linear_custom_fields_parent.addView(holder.labelName);
+                holder.labelName.setText(name);
                 holder.linear_custom_fields_parent.addView(holder.autoCompleteTextView);
                 String valueACTV=""+name;
                 holder.autoCompleteTextView.setHint(valueACTV);
@@ -407,42 +450,53 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                 if(whichOne.equals("update")) {
                     holder.autoCompleteTextView.setText(updateText);
                     hMapActv.put(position,updateText);
+                    CustomField customField_actv=new CustomField();
+                    customField_actv.setTextValue(holder.autoCompleteTextView.getText().toString());
+                    customField_actv.setId(id);
+                    customField_actv.setPosition(position);
+                    customField_actv.setFormType(formType);
+                    customField_actv.setName(name);
+                    customField_actv.setTypeOfField("AutoCompleteBox");
+                    customFieldListOutput.add(customField_actv);
+                }else {
+                    typeWhich.setId(position);
+                    typeWhich.setType("AutoCompleteBox");
+                    typeWhich.setCustomFieldId(id);
+                    String texValue=holder.autoCompleteTextView.getText().toString();
 
-                }
-                typeWhich.setId(position);
-                        typeWhich.setType("AutoCompleteBox");
-                        typeWhich.setCustomFieldId(id);
-                        String texValue=holder.autoCompleteTextView.getText().toString();
-
-                holder.autoCompleteTextView.addTextChangedListener(new TextWatcher() {
-                    @Override
-                    public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
-
-                    }
-
-                    @Override
-                    public void afterTextChanged(Editable editable) {
-                        for(CustomField customF:customFieldListOutput){
-                            if(customF.getPosition()==holder.autoCompleteTextView.getId()){
-                                customF.setTextValue( holder.autoCompleteTextView.getText().toString());
-                                return;
-                            }
+                    String finalName5 = name;
+                    holder.autoCompleteTextView.addTextChangedListener(new TextWatcher() {
+                        @Override
+                        public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
 
                         }
-                        CustomField customField_actv=new CustomField();
-                        customField_actv.setTextValue(texValue);
-                        customField_actv.setId(id);
-                        customField_actv.setPosition(position);
-                        customField_actv.setFormType("equipments");
-                        customField_actv.setTypeOfField("AutoCompleteBox");
-                        customFieldListOutput.add(customField_actv);
-                    }
-                });
+
+                        @Override
+                        public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+                        }
+
+                        @Override
+                        public void afterTextChanged(Editable editable) {
+                            for(CustomField customF:customFieldListOutput){
+                                if(customF.getPosition()==holder.autoCompleteTextView.getId()){
+                                    customF.setTextValue( holder.autoCompleteTextView.getText().toString());
+                                    return;
+                                }
+
+                            }
+                            CustomField customField_actv=new CustomField();
+                            customField_actv.setTextValue(texValue);
+                            customField_actv.setId(id);
+                            customField_actv.setPosition(position);
+                            customField_actv.setFormType(formType);
+                            customField_actv.setName(finalName5);
+                            customField_actv.setTypeOfField("AutoCompleteBox");
+                            customFieldListOutput.add(customField_actv);
+                        }
+                    });
+
+                }
 
                 break;
 

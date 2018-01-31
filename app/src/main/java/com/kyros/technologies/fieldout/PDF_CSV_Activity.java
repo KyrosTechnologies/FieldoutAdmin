@@ -23,14 +23,28 @@ import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 import com.kyros.technologies.fieldout.viewmodel.PDF_CSV_ActivityViewModel;
 import com.opencsv.CSVWriter;
 
+import net.sf.jasperreports.engine.JREmptyDataSource;
+import net.sf.jasperreports.engine.JRException;
+import net.sf.jasperreports.engine.JasperExportManager;
+import net.sf.jasperreports.engine.JasperFillManager;
+import net.sf.jasperreports.engine.JasperPrint;
+import net.sf.jasperreports.engine.data.JRBeanCollectionDataSource;
+import net.sf.jasperreports.engine.export.JRPdfExporter;
+import net.sf.jasperreports.export.SimpleExporterInput;
+import net.sf.jasperreports.export.SimpleOutputStreamExporterOutput;
+import net.sf.jasperreports.export.SimplePdfExporterConfiguration;
+
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import javax.inject.Inject;
 
@@ -51,6 +65,10 @@ public class PDF_CSV_Activity extends AppCompatActivity {
     private List<String[]> data = new ArrayList<>();
     private static final int MY_PERMISSIONS_REQUEST_READ_WRITE_STORAGE = 1;
     private AlertDialog showChooseDialog;
+    private String companyName;
+    private String customerName;
+    private String customerAddress;
+    private String jrxmlPath=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -65,7 +83,21 @@ public class PDF_CSV_Activity extends AppCompatActivity {
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
                 .subscribe(this::response,this::error,this::completed));
         data.add(new String[]{"ITEM", "DESCRIPTION","UNIT PRICE","QUANTITY","DISCOUNT","TOTAL","TAX"});
+        customerName=store.getCustomerName();
+        customerAddress=store.getCustomerAddress();
+        companyName=store.getCompanyName();
+        if(companyName == null){
+            companyName="Harrison";
+        } if(customerAddress == null){
+            customerAddress="3rd main road kasthuri bhai nagar, adyar, chennai-20.";
+        } if(customerName == null){
+            customerName="Harrison Ford";
+        }
         binding.buttonWriteToDisk.setOnClickListener(view -> checkPermission());
+        Uri path = Uri.parse("file:///android_asset/invoice.jrxml");
+
+      //  jrxmlPath= path.toString();
+        jrxmlPath= getAssets()+"invoice.jrxml";
     }
     private void checkPermission(){
         if (ContextCompat.checkSelfPermission(this,
@@ -101,6 +133,15 @@ public class PDF_CSV_Activity extends AppCompatActivity {
             } catch (Exception e) {
                 e.printStackTrace();
             }
+            try {
+                writePDF(pdfTotalListList,store.getIdDomain()+"_pdf_");
+            } catch (JRException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -126,6 +167,15 @@ public class PDF_CSV_Activity extends AppCompatActivity {
                     try {
                         fileWriteCSV(store.getIdDomain()+"_csv_");
                     } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                    try {
+                        writePDF(pdfTotalListList,store.getIdDomain()+"_pdf_");
+                    } catch (JRException e) {
+                        e.printStackTrace();
+                    } catch (FileNotFoundException e) {
+                        e.printStackTrace();
+                    } catch (IOException e) {
                         e.printStackTrace();
                     }
 
@@ -219,5 +269,42 @@ public class PDF_CSV_Activity extends AppCompatActivity {
             showChooseDialog.dismiss();
         }
     }
+    private void writePDF(List<PdfTotalList>pdfTotalListList,String title)throws JRException,FileNotFoundException,IOException{
+        File newFolder = new File(Environment.getExternalStorageDirectory(), "FieldOut");
+        if (!newFolder.exists()) {
+            newFolder.mkdir();
+        }
+        File textFile=new File(newFolder,File.separator+title+".pdf");
+        JRBeanCollectionDataSource itemsJRBean = new JRBeanCollectionDataSource(pdfTotalListList);
+        Map<String, Object> parameters = new HashMap<>();
+        parameters.put("invoicedataset", itemsJRBean);
+        parameters.put("companyName",companyName );
+        parameters.put("customerName", customerName);
+        parameters.put("customerAddress", customerAddress);
+        String[] imgPath = getAssets().list("invoice.jrxml");
+        try{
+            for(String value: imgPath){
+                Log.d("VALUE : ",value);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
 
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jrxmlPath, parameters, new JREmptyDataSource());
+//        OutputStream outputStream = new FileOutputStream(textFile);
+//            /* Write content to PDF file */
+//        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
+        exportPDF(jasperPrint,textFile.toString());
+
+    }
+    private void exportPDF(JasperPrint print,String path)throws JRException{
+        JRPdfExporter exporter = new JRPdfExporter();
+        exporter.setExporterInput(new SimpleExporterInput(print));
+        exporter.setExporterOutput(new SimpleOutputStreamExporterOutput(path));
+        SimplePdfExporterConfiguration configuration = new SimplePdfExporterConfiguration();
+        exporter.setConfiguration(configuration);
+        exporter.exportReport();
+        System.out.println("Document Exported Successfully!");
+        showToast("Pdf Generated successfully");
+    }
 }

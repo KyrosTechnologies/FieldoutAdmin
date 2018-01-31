@@ -35,6 +35,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.fieldout.R;
+import com.kyros.technologies.fieldout.adapters.CustomFieldsAdapter;
 import com.kyros.technologies.fieldout.adapters.SkilledTradersAdapter;
 import com.kyros.technologies.fieldout.common.CommonJobs;
 import com.kyros.technologies.fieldout.common.EndURL;
@@ -119,6 +120,11 @@ public class AddCustomer extends AppCompatActivity {
     private int selectedDay=0;
     private int spinnerCustomFieldSeletectedChoice=0;
     private ProgressDialog pDialog;
+    private CustomFieldsAdapter customFieldsAdapter;
+    private RecyclerView recycler_customer_fields;
+    private AlertDialog multipleSelectDialog=null;
+    private List<String>selectedTagListName=new ArrayList<>();
+    private SkilledTradersAdapter tagsAdapter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -132,6 +138,8 @@ public class AddCustomer extends AppCompatActivity {
         store= PreferenceManager.getInstance(getApplicationContext());
         ((ServiceHandler)getApplication()).getApplicationComponent().injectAddCustomer(this);
         subscription=new CompositeSubscription();
+        customFieldsAdapter=new CustomFieldsAdapter();
+        recycler_customer_fields=findViewById(R.id.recycler_customer_fields);
         //tableLayout
         table_layout_custom_fields_customer=findViewById(R.id.table_layout_custom_fields_customer);
         spinner_time_zone_customer=findViewById(R.id.spinner_time_zone_customer);
@@ -178,7 +186,14 @@ public class AddCustomer extends AppCompatActivity {
             }
         });
 
-        tags_add_customer_text.setOnClickListener(view -> skilledTradesDialog(new ArrayList<>(),tags_add_customer_text));
+        tags_add_customer_text.setOnClickListener(view ->{
+            if(tagsArrayList.size() != 0){
+                multipleSelectDialogBox("Select Tags",tagsArrayList.toArray(new String[tagsArrayList.size()]),new boolean[tagsArrayList.size()]);
+            }else{
+                showToast("Tag list is empty!");
+            }
+
+        } );
 
         save_customer.setOnClickListener(view -> {
             cusname=customer_add_edit_text.getText().toString();
@@ -252,10 +267,17 @@ public class AddCustomer extends AppCompatActivity {
 
                }
            }
-           validateCustomField();
+           validateCustomFieldRecycler();
        }else{
            showToast("customFieldResponse is null!");
        }
+    }
+
+    private void validateCustomFieldRecycler() {
+        recycler_customer_fields.setLayoutManager(new LinearLayoutManager(this));
+        recycler_customer_fields.setItemAnimator(new DefaultItemAnimator());
+        customFieldsAdapter.setCustomFieldData(usersCustomFieldList, this,"add","customers");
+        recycler_customer_fields.setAdapter(customFieldsAdapter);
     }
 
     private void validateCustomField() {
@@ -287,6 +309,7 @@ public class AddCustomer extends AppCompatActivity {
                         typeWhich.setId(position);
                         typeWhich.setType("Text");
                         typeWhich.setCustomFieldId(id);
+                        typeWhich.setLabelName(customField.getName());
                         inputTextView =new EditText(this);
                         String valueInput="Enter user input "+name;
                         inputTextView.setHint(valueInput);
@@ -306,6 +329,7 @@ public class AddCustomer extends AppCompatActivity {
                         typeWhich.setId(position);
                         typeWhich.setType("List Of Values");
                         typeWhich.setCustomFieldId(id);
+                        typeWhich.setLabelName(customField.getName());
                         spinnerCustomField=new Spinner(this);
                         TableRow.LayoutParams tableRowSpinnerParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
                         tableRowSpinnerParams.setMargins(10,20,0,10);
@@ -337,6 +361,7 @@ public class AddCustomer extends AppCompatActivity {
                         typeWhich.setType("Date");
                         String valueDate="Date "+name;
                         typeWhich.setCustomFieldId(id);
+                        typeWhich.setLabelName(customField.getName());
                         dateTextView=new TextView(this);
                         dateTextView.setText(valueDate);
                         dateTextView.setTextSize(20);
@@ -372,6 +397,7 @@ public class AddCustomer extends AppCompatActivity {
                         typeWhich.setId(position);
                         typeWhich.setType("Numeric");
                         typeWhich.setCustomFieldId(id);
+                        typeWhich.setLabelName(customField.getName());
                         numericEditText=new EditText(this);
                         String valueNumeric="Input "+name;
                         numericEditText.setHint(valueNumeric);
@@ -392,6 +418,7 @@ public class AddCustomer extends AppCompatActivity {
                         typeWhich.setId(position);
                         typeWhich.setType("CheckBox");
                         typeWhich.setCustomFieldId(id);
+                        typeWhich.setLabelName(customField.getName());
                         checkBoxCustomField=new CheckBox(this);
                         checkBoxCustomField.setChecked(true);
                         checkBoxCustomField.setId(position);
@@ -409,6 +436,7 @@ public class AddCustomer extends AppCompatActivity {
                         typeWhich.setId(position);
                         typeWhich.setType("AutoCompleteBox");
                         typeWhich.setCustomFieldId(id);
+                        typeWhich.setLabelName(customField.getName());
                         autoCompleteTextView=new AutoCompleteTextView(this);
                         String valueACTV=""+name;
                         autoCompleteTextView.setHint(valueACTV);
@@ -492,6 +520,7 @@ public class AddCustomer extends AppCompatActivity {
         super.onDestroy();
         dismissTagsDialog();
         subscription.clear();
+        dismissMultipleSelectDialogBox();
 
     }
 
@@ -589,20 +618,20 @@ public class AddCustomer extends AppCompatActivity {
 
                     }
 
-                    if (tagsArrayList.size()!=0){
-                        tags_selected_customer.setVisibility(View.VISIBLE);
-                        tags_selected_customer = findViewById(R.id.tags_selected_customer);
-                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
-                        tags_selected_customer.setLayoutManager(layoutManager);
-                        //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-                        tags_selected_customer.setItemAnimator(new DefaultItemAnimator());
-                        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(AddCustomer.this,tagsArrayList);
-                        tags_selected_customer.setAdapter(projectsAdapter);
-                        projectsAdapter.notifyDataSetChanged();
-                    }else {
-                        tags_selected_customer.setVisibility(View.GONE);
-                    }
+//                    if (tagsArrayList.size()!=0){
+//                        tags_selected_customer.setVisibility(View.VISIBLE);
+//                        tags_selected_customer = findViewById(R.id.tags_selected_customer);
+//                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
+//                        tags_selected_customer.setLayoutManager(layoutManager);
+//                        //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+//                        tags_selected_customer.setItemAnimator(new DefaultItemAnimator());
+//                        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(AddCustomer.this,tagsArrayList);
+//                        tags_selected_customer.setAdapter(projectsAdapter);
+//                        projectsAdapter.notifyDataSetChanged();
+//                    }else {
+//                        tags_selected_customer.setVisibility(View.GONE);
+//                    }
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -646,6 +675,7 @@ public class AddCustomer extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
                             customField.setFormType(formType);
+                            customField.setName(typeWhich.getLabelName());
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
                             customFieldList.add(customField);
@@ -663,6 +693,7 @@ public class AddCustomer extends AppCompatActivity {
                             CustomField customField=new CustomField();
                             customField.setTextValue(value);
                             customField.setFormType(formType);
+                            customField.setName(typeWhich.getLabelName());
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setChoices(choiceList);
                             customField.setTypeOfField(typeOfField);
@@ -679,6 +710,7 @@ public class AddCustomer extends AppCompatActivity {
                             String typeOfField="Date";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
+                            customField.setName(typeWhich.getLabelName());
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
                             customField.setTypeOfField(typeOfField);
@@ -693,6 +725,7 @@ public class AddCustomer extends AppCompatActivity {
                             String typeOfField="Numeric";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
+                            customField.setName(typeWhich.getLabelName());
                             customField.setFormType(formType);
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setTypeOfField(typeOfField);
@@ -713,6 +746,7 @@ public class AddCustomer extends AppCompatActivity {
                             String typeOfField="CheckBox";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
+                            customField.setName(typeWhich.getLabelName());
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
                             customField.setTypeOfField(typeOfField);
@@ -727,6 +761,7 @@ public class AddCustomer extends AppCompatActivity {
                             String typeOfField="AutoCompleteBox";
                             CustomField customField=new CustomField();
                             customField.setTextValue(textValue);
+                            customField.setName(typeWhich.getLabelName());
                             customField.setId(typeWhich.getCustomFieldId());
                             customField.setFormType(formType);
                             customField.setTypeOfField(typeOfField);
@@ -769,7 +804,7 @@ public class AddCustomer extends AppCompatActivity {
         String url = EndURL.URL + "customers/send";
         Log.d("waggonurl", url);
         showProgressDialog();
-        List<CustomField>customFieldList=getCustomFilesList();
+        List<CustomField>customFieldList=customFieldsAdapter.getCustomFieldListOutput();
 
         JSONObject inputLogin = new JSONObject();
 
@@ -782,20 +817,30 @@ public class AddCustomer extends AppCompatActivity {
         }
 
         ArrayList<String>tagListId=new ArrayList<String>();
-        for (int i=0;i<tagarray.length();i++){
-            JSONObject first= null;
-            try {
-                first = tagarray.getJSONObject(i);
-                String tagid=first.getString("id");
-                String tagname=first.getString("name");
-                for(int j=0;j<tagsArrayList.size();j++){
-                    if (tagsArrayList.get(j).equals(tagname)){
-                        tagListId.add(tagid);
-                    }
+        for (int i=0;i<selectedTagListName.size();i++){
+            for(int j=0; j<commonJobsArrayList.size();j++){
+                if(commonJobsArrayList.get(j).getTagname().equals(selectedTagListName.get(i))){
+                    tagListId.add(commonJobsArrayList.get(j).getTagid());
                 }
-
-            } catch (JSONException e) {
             }
+
+
+
+
+
+//            JSONObject first= null;
+//            try {
+//                first = tagarray.getJSONObject(i);
+//                String tagid=first.getString("id");
+//                String tagname=first.getString("name");
+//                for(int j=0;j<tagsArrayList.size();j++){
+//                    if (tagsArrayList.get(j).equals(tagname)){
+//                        tagListId.add(tagid);
+//                    }
+//                }
+//
+//            } catch (JSONException e) {
+//            }
 
         }
 
@@ -953,6 +998,7 @@ public class AddCustomer extends AppCompatActivity {
         private int id;
         private String type;
         private String customFieldId;
+        private String labelName;
         public TypeWhich(){
 
         }
@@ -980,12 +1026,52 @@ public class AddCustomer extends AppCompatActivity {
         public void setType(String type) {
             this.type = type;
         }
+
+        public String getLabelName() {
+            return labelName;
+        }
+
+        public void setLabelName(String labelName) {
+            this.labelName = labelName;
+        }
     }
     public boolean isValidEmailAddress(String email) {
         String emailPattern = "^[a-zA-Z0-9.!#$%&'*+/=?^_`{|}~-]+@((\\[[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\.[0-9]{1,3}\\])|(([a-zA-Z\\-0-9]+\\.)+[a-zA-Z]{2,}))$";
         Pattern pattern = Pattern.compile(emailPattern);
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
+    }
+    private void dismissMultipleSelectDialogBox(){
+        if(multipleSelectDialog!=null && multipleSelectDialog.isShowing()){
+            multipleSelectDialog.dismiss();
+        }
+    }
+    private void multipleSelectDialogBox(String title,String[] values,boolean[] checkedItems){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMultiChoiceItems(values, checkedItems, (dialog, which, isChecked) -> {
+
+            if(isChecked){
+                if(!selectedTagListName.contains(values[which]))
+                selectedTagListName.add(values[which]);
+            }
+        });
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            tags_selected_customer.setVisibility(View.VISIBLE);
+            tags_selected_customer.setLayoutManager(new LinearLayoutManager(this));
+            tags_selected_customer.setItemAnimator(new DefaultItemAnimator());
+            tagsAdapter=new SkilledTradersAdapter(this,selectedTagListName);
+            tags_selected_customer.setAdapter(tagsAdapter);
+            tagsAdapter.notifyDataSetChanged();
+            dialog.cancel();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        multipleSelectDialog = builder.create();
+        multipleSelectDialog.show();
+
+
     }
 
 }

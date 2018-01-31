@@ -36,6 +36,7 @@ import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
 import com.kyros.technologies.fieldout.R;
+import com.kyros.technologies.fieldout.adapters.CustomFieldsAdapter;
 import com.kyros.technologies.fieldout.adapters.SkilledTradersAdapter;
 import com.kyros.technologies.fieldout.common.CommonJobs;
 import com.kyros.technologies.fieldout.common.EndURL;
@@ -140,8 +141,11 @@ public class CustomerUpdateDelete extends AppCompatActivity {
     private String customFields;
     private List<CustomField>updateCustomFieldList=new ArrayList<>();
     private ProgressDialog pDialog;
-
-
+    private CustomFieldsAdapter customFieldsAdapter;
+    private RecyclerView recycler_custom_update;
+    private android.app.AlertDialog multipleSelectDialog;
+    private SkilledTradersAdapter tagsAdapter;
+    private List<String>selectedTagListName=new ArrayList<>();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -155,6 +159,8 @@ public class CustomerUpdateDelete extends AppCompatActivity {
         ((ServiceHandler)getApplication()).getApplicationComponent().injectCustomerUpdateDelete(this);
         subscription=new CompositeSubscription();
         spinner_time_zone_customer=findViewById(R.id.spinner_time_zone_customer);
+        customFieldsAdapter=new CustomFieldsAdapter();
+        recycler_custom_update=findViewById(R.id.recycler_custom_update);
         //table layout
         table_layout_custom_fields_customer_update=findViewById(R.id.table_layout_custom_fields_customer_update);
         customer_update_edit_text=findViewById(R.id.customer_update_edit_text);
@@ -247,7 +253,13 @@ public class CustomerUpdateDelete extends AppCompatActivity {
             email_customer_update.setText(cusemail);
         }
 
-        tags_add_customer_text.setOnClickListener(view -> skilledTradesDialog(new ArrayList<>(),tags_add_customer_text));
+        tags_add_customer_text.setOnClickListener(view -> {
+            if(tagsArrayList.size() != 0){
+                multipleSelectDialogBox("Select Tags",tagsArrayList.toArray(new String[tagsArrayList.size()]),new boolean[tagsArrayList.size()]);
+            }else{
+                showToast("Tag list is empty!");
+            }
+        });
 
         String[] ids= TimeZone.getAvailableIDs();
         for(String id:ids){
@@ -277,35 +289,36 @@ public class CustomerUpdateDelete extends AppCompatActivity {
         });
 
         save_customer_update.setOnClickListener(view -> {
-            cusname=customer_update_edit_text.getText().toString();
-            if (cusname==null && cusname.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
-                return ;
-            }
-            address=address_update_customer.getText().toString();
-            if (address==null && address.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Address!", Toast.LENGTH_SHORT).show();
-                return ;
-            }
-            myid=job_number_update.getText().toString();
-            if (myid==null && myid.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Custom Job!", Toast.LENGTH_SHORT).show();
-                return ;
-            }
-
-            if(cusname!=null &&!cusname.isEmpty()&&address!=null &&!address.isEmpty()&&myid!=null &&!myid.isEmpty()&&
-                    isValidEmailAddress(email_customer_update.getText().toString())){
-                addressComplement=additional_address_update.getText().toString();
-                contactFirstName=customer_first_name_update.getText().toString();
-                contactLastName=customer_last_name_update.getText().toString();
-                contactPhone=phone_customer_update.getText().toString();
-                contactMobile=mobile_customer_update.getText().toString();
-                contactFax=fax_customer_update.getText().toString();
-                contactEmail=email_customer_update.getText().toString();
-                GetLatLngList(address);
-            }else{
-                Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
-            }
+            Log.d("CustomField OutPut : ",""+new Gson().toJson(customFieldsAdapter.getCustomFieldListOutput()));
+//            cusname=customer_update_edit_text.getText().toString();
+//            if (cusname==null && cusname.isEmpty()){
+//                Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
+//                return ;
+//            }
+//            address=address_update_customer.getText().toString();
+//            if (address==null && address.isEmpty()){
+//                Toast.makeText(getApplicationContext(), "Please Enter Address!", Toast.LENGTH_SHORT).show();
+//                return ;
+//            }
+//            myid=job_number_update.getText().toString();
+//            if (myid==null && myid.isEmpty()){
+//                Toast.makeText(getApplicationContext(), "Please Enter Custom Job!", Toast.LENGTH_SHORT).show();
+//                return ;
+//            }
+//
+//            if(cusname!=null &&!cusname.isEmpty()&&address!=null &&!address.isEmpty()&&myid!=null &&!myid.isEmpty()&&
+//                    isValidEmailAddress(email_customer_update.getText().toString())){
+//                addressComplement=additional_address_update.getText().toString();
+//                contactFirstName=customer_first_name_update.getText().toString();
+//                contactLastName=customer_last_name_update.getText().toString();
+//                contactPhone=phone_customer_update.getText().toString();
+//                contactMobile=mobile_customer_update.getText().toString();
+//                contactFax=fax_customer_update.getText().toString();
+//                contactEmail=email_customer_update.getText().toString();
+//                GetLatLngList(address);
+//            }else{
+//                Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
+//            }
 
         });
 
@@ -357,7 +370,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
     private void validateCustomField() {
         if(updateCustomFieldList.size()!=0 && usersCustomFieldList.size()!=0 ){
             if(updateCustomFieldList.size()==usersCustomFieldList.size()){
-                bindTableViews();
+                bindRecyclerViews();
             }else{
                 if(updateCustomFieldList.size()<usersCustomFieldList.size()){
 
@@ -385,7 +398,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                             }
                         }
                     }
-                    bindTableViews();
+                    bindRecyclerViews();
                 }
                 if(updateCustomFieldList.size()>usersCustomFieldList.size()){
                     //separating ids from arraylist
@@ -407,7 +420,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
                             }
                         }
                     }
-                    bindTableViews();
+                    bindRecyclerViews();
 
                     Log.d("DELETE SIZE : ",TAG+" / / "+updateCustomFieldList.size());
 
@@ -423,185 +436,192 @@ public class CustomerUpdateDelete extends AppCompatActivity {
             showToast("list is empty");
         }
     }
-
-    private void bindTableViews() {
-        if(updateCustomFieldList!=null && updateCustomFieldList.size()!=0){
-            table_layout_custom_fields_customer_update.removeAllViews();
-            typeWhichList.clear();
-            int position=0;
-            for(CustomField customField:updateCustomFieldList){
-                Log.d("Cus Field New List : ",""+customField.toString());
-
-                TypeWhich typeWhich=new TypeWhich();
-                position++;
-                choicesList=customField.getChoices();
-                if(choicesList==null){
-                    choicesList=new ArrayList<>();
-                }
-                String customFieldId=customField.getId();
-                String name=customField.getTextValue();
-                if(name==null){
-                    name="";
-                }
-                String typeOfField=customField.getTypeOfField();
-
-                //Tables Rows
-                TableRow tableRow=new TableRow(this);
-                //   tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
-                switch (typeOfField){
-                    case "Text":
-                        typeWhich.setId(position);
-                        typeWhich.setType("Text");
-                        typeWhich.setCustomFieldId(customFieldId);
-                        inputTextView =new EditText(this);
-                        String valueInput="Enter user input "+name;
-                        inputTextView.setText(name);
-                        inputTextView.setTextSize(20);
-                        inputTextView.setId(position);
-                        TableRow.LayoutParams tableRowInputTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
-                        tableRowInputTextParams.setMargins(10,20,0,10);
-                        inputTextView.setLayoutParams(tableRowInputTextParams);
-                        inputTextView.setSingleLine(true);
-                        inputTextView.setBackground(getResources().getDrawable(R.drawable.button_bg));
-                        inputTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                        inputTextView.setTextColor(getResources().getColor(R.color.light_black));
-                        inputTextView.setPadding(15, 15, 5, 15);
-                        tableRow.addView(inputTextView);
-                        break;
-                    case "List Of Values":
-                        typeWhich.setId(position);
-                        typeWhich.setType("List Of Values");
-                        typeWhich.setCustomFieldId(customFieldId);
-                        spinnerCustomField=new Spinner(this);
-                        TableRow.LayoutParams tableRowSpinnerParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
-                        tableRowSpinnerParams.setMargins(10,20,0,10);
-                        spinnerCustomField.setLayoutParams(tableRowSpinnerParams);
-                        spinnerCustomField.setPrompt(name);
-                        spinnerCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
-                        spinnerCustomField.setId(position);
-                        spinnerCustomField.setPadding(15, 15, 5, 15);
-                        spinnerCustomField.setTag(customField);
-                        ArrayAdapter<String> adapterSpinner=new  ArrayAdapter<>(this,android.R.layout.simple_spinner_item,
-                                choicesList);
-                        adapterSpinner.setDropDownViewResource(android.R.layout.simple_list_item_1);
-                        spinnerCustomField.setAdapter(adapterSpinner);
-                        spinnerCustomField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                            @Override
-                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                                spinnerCustomFieldSeletectedChoice=i;
-                            }
-
-                            @Override
-                            public void onNothingSelected(AdapterView<?> adapterView) {
-
-                            }
-                        });
-                        tableRow.addView(spinnerCustomField);
-                        break;
-                    case "Date":
-                        typeWhich.setId(position);
-                        typeWhich.setType("Date");
-                        typeWhich.setCustomFieldId(customFieldId);
-                        String valueDate="Date "+name;
-                        dateTextView=new TextView(this);
-                        dateTextView.setText(name);
-                        dateTextView.setTextSize(20);
-                        dateTextView.setId(position);
-                        TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
-                        tableRowuserNameParams.setMargins(10,20,0,10);
-                        dateTextView.setLayoutParams(tableRowuserNameParams);
-                        dateTextView.setTextColor(getResources().getColor(R.color.black));
-                        dateTextView.setBackground(getResources().getDrawable(R.drawable.default_text_view_background));
-                        dateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                        dateTextView.setPadding(15, 15, 5, 15);
-                        dateTextView.setOnClickListener(view ->{
-                            Calendar mcurrentDate=Calendar.getInstance();
-                            final int mYear = mcurrentDate.get(Calendar.YEAR);
-                            final int mMonth=mcurrentDate.get(Calendar.MONTH);
-                            final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
-
-                            DatePickerDialog mDatePicker=new DatePickerDialog(this, (datepicker, selectedyear, selectedmonth, selectedday) -> {
-                                selectedMonth=selectedmonth+1;
-                                selectedDay=selectedday;
-                                selectedYear=selectedyear;
-                                String finalTimeDay=String.format("%02d",selectedDay);
-                                String finalTimeMonth=String.format("%02d",selectedMonth);
-
-                                String value =selectedYear+"-"+finalTimeMonth+"-"+finalTimeDay;
-                                dateTextView.setText(value);
-                            },mYear, mMonth, mDay);
-                            mDatePicker.show();
-                        });
-                        tableRow.addView(dateTextView);
-                        break;
-                    case "Numeric":
-                        typeWhich.setId(position);
-                        typeWhich.setType("Numeric");
-                        typeWhich.setCustomFieldId(customFieldId);
-                        numericEditText=new EditText(this);
-                        String valueNumeric="Input "+name;
-                        numericEditText.setText(name);
-                        numericEditText.setTextSize(20);
-                        numericEditText.setId(position);
-                        numericEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
-                        TableRow.LayoutParams tableRowNumericParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
-                        tableRowNumericParams.setMargins(10,20,0,10);
-                        numericEditText.setLayoutParams(tableRowNumericParams);
-                        numericEditText.setSingleLine(true);
-                        numericEditText.setBackground(getResources().getDrawable(R.drawable.button_bg));
-                        numericEditText.setGravity(Gravity.LEFT|Gravity.CENTER);
-                        numericEditText.setTextColor(getResources().getColor(R.color.light_black));
-                        numericEditText.setPadding(15, 15, 5, 15);
-                        tableRow.addView(numericEditText);
-                        break;
-                    case "CheckBox":
-                        typeWhich.setId(position);
-                        typeWhich.setType("CheckBox");
-                        typeWhich.setCustomFieldId(customFieldId);
-                        checkBoxCustomField=new CheckBox(this);
-                        checkBoxCustomField.setChecked(true);
-                        checkBoxCustomField.setId(position);
-                        String valueCheckBox="Select "+name;
-                        checkBoxCustomField.setText(name);
-                        TableRow.LayoutParams tableRowCheckBoxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
-                        tableRowCheckBoxParams.setMargins(10,20,0,10);
-                        checkBoxCustomField.setLayoutParams(tableRowCheckBoxParams);
-                        checkBoxCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
-                        checkBoxCustomField.setTextColor(getResources().getColor(R.color.light_black));
-                        checkBoxCustomField.setPadding(15, 15, 5, 15);
-                        tableRow.addView(checkBoxCustomField);
-                        break;
-                    case "AutoCompleteBox":
-                        typeWhich.setId(position);
-                        typeWhich.setType("AutoCompleteBox");
-                        typeWhich.setCustomFieldId(customFieldId);
-                        autoCompleteTextView=new AutoCompleteTextView(this);
-                        String valueACTV=""+name;
-                        autoCompleteTextView.setText(name);
-                        autoCompleteTextView.setTextSize(20);
-                        autoCompleteTextView.setId(position);
-                        TableRow.LayoutParams tableRowACTVParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
-                        tableRowACTVParams.setMargins(10,20,0,10);
-                        autoCompleteTextView.setLayoutParams(tableRowACTVParams);
-                        autoCompleteTextView.setSingleLine(true);
-                        autoCompleteTextView.setBackground(getResources().getDrawable(R.drawable.button_bg));
-                        autoCompleteTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-                        autoCompleteTextView.setTextColor(getResources().getColor(R.color.black));
-                        autoCompleteTextView.setPadding(15, 15, 5, 15);
-                        ArrayAdapter<String> adapterACTV = new ArrayAdapter<>(this,
-                                android.R.layout.simple_dropdown_item_1line, choicesList);
-                        autoCompleteTextView.setAdapter(adapterACTV);
-                        tableRow.addView(autoCompleteTextView);
-                        break;
-                }
-                typeWhichList.add(typeWhich);
-                table_layout_custom_fields_customer_update.addView(tableRow);
-
-            }
-        }
-
+    private void bindRecyclerViews(){
+      //  updateCustomFieldList
+        recycler_custom_update.setLayoutManager(new LinearLayoutManager(this));
+        recycler_custom_update.setItemAnimator(new DefaultItemAnimator());
+        customFieldsAdapter.setCustomFieldData(updateCustomFieldList, this,"update","customers");
+        recycler_custom_update.setAdapter(customFieldsAdapter);
     }
+
+//    private void bindTableViews() {
+//        if(updateCustomFieldList!=null && updateCustomFieldList.size()!=0){
+//            table_layout_custom_fields_customer_update.removeAllViews();
+//            typeWhichList.clear();
+//            int position=0;
+//            for(CustomField customField:updateCustomFieldList){
+//                Log.d("Cus Field New List : ",""+customField.toString());
+//
+//                TypeWhich typeWhich=new TypeWhich();
+//                position++;
+//                choicesList=customField.getChoices();
+//                if(choicesList==null){
+//                    choicesList=new ArrayList<>();
+//                }
+//                String customFieldId=customField.getId();
+//                String name=customField.getTextValue();
+//                if(name==null){
+//                    name="";
+//                }
+//                String typeOfField=customField.getTypeOfField();
+//
+//                //Tables Rows
+//                TableRow tableRow=new TableRow(this);
+//                //   tableRow.setBackground(getResources().getDrawable(R.color.bg));
+//                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
+//                switch (typeOfField){
+//                    case "Text":
+//                        typeWhich.setId(position);
+//                        typeWhich.setType("Text");
+//                        typeWhich.setCustomFieldId(customFieldId);
+//                        inputTextView =new EditText(this);
+//                        String valueInput="Enter user input "+name;
+//                        inputTextView.setText(name);
+//                        inputTextView.setTextSize(20);
+//                        inputTextView.setId(position);
+//                        TableRow.LayoutParams tableRowInputTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+//                        tableRowInputTextParams.setMargins(10,20,0,10);
+//                        inputTextView.setLayoutParams(tableRowInputTextParams);
+//                        inputTextView.setSingleLine(true);
+//                        inputTextView.setBackground(getResources().getDrawable(R.drawable.button_bg));
+//                        inputTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+//                        inputTextView.setTextColor(getResources().getColor(R.color.light_black));
+//                        inputTextView.setPadding(15, 15, 5, 15);
+//                        tableRow.addView(inputTextView);
+//                        break;
+//                    case "List Of Values":
+//                        typeWhich.setId(position);
+//                        typeWhich.setType("List Of Values");
+//                        typeWhich.setCustomFieldId(customFieldId);
+//                        spinnerCustomField=new Spinner(this);
+//                        TableRow.LayoutParams tableRowSpinnerParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+//                        tableRowSpinnerParams.setMargins(10,20,0,10);
+//                        spinnerCustomField.setLayoutParams(tableRowSpinnerParams);
+//                        spinnerCustomField.setPrompt(name);
+//                        spinnerCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
+//                        spinnerCustomField.setId(position);
+//                        spinnerCustomField.setPadding(15, 15, 5, 15);
+//                        spinnerCustomField.setTag(customField);
+//                        ArrayAdapter<String> adapterSpinner=new  ArrayAdapter<>(this,android.R.layout.simple_spinner_item,
+//                                choicesList);
+//                        adapterSpinner.setDropDownViewResource(android.R.layout.simple_list_item_1);
+//                        spinnerCustomField.setAdapter(adapterSpinner);
+//                        spinnerCustomField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+//                            @Override
+//                            public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+//                                spinnerCustomFieldSeletectedChoice=i;
+//                            }
+//
+//                            @Override
+//                            public void onNothingSelected(AdapterView<?> adapterView) {
+//
+//                            }
+//                        });
+//                        tableRow.addView(spinnerCustomField);
+//                        break;
+//                    case "Date":
+//                        typeWhich.setId(position);
+//                        typeWhich.setType("Date");
+//                        typeWhich.setCustomFieldId(customFieldId);
+//                        String valueDate="Date "+name;
+//                        dateTextView=new TextView(this);
+//                        dateTextView.setText(name);
+//                        dateTextView.setTextSize(20);
+//                        dateTextView.setId(position);
+//                        TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+//                        tableRowuserNameParams.setMargins(10,20,0,10);
+//                        dateTextView.setLayoutParams(tableRowuserNameParams);
+//                        dateTextView.setTextColor(getResources().getColor(R.color.black));
+//                        dateTextView.setBackground(getResources().getDrawable(R.drawable.default_text_view_background));
+//                        dateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+//                        dateTextView.setPadding(15, 15, 5, 15);
+//                        dateTextView.setOnClickListener(view ->{
+//                            Calendar mcurrentDate=Calendar.getInstance();
+//                            final int mYear = mcurrentDate.get(Calendar.YEAR);
+//                            final int mMonth=mcurrentDate.get(Calendar.MONTH);
+//                            final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+//
+//                            DatePickerDialog mDatePicker=new DatePickerDialog(this, (datepicker, selectedyear, selectedmonth, selectedday) -> {
+//                                selectedMonth=selectedmonth+1;
+//                                selectedDay=selectedday;
+//                                selectedYear=selectedyear;
+//                                String finalTimeDay=String.format("%02d",selectedDay);
+//                                String finalTimeMonth=String.format("%02d",selectedMonth);
+//
+//                                String value =selectedYear+"-"+finalTimeMonth+"-"+finalTimeDay;
+//                                dateTextView.setText(value);
+//                            },mYear, mMonth, mDay);
+//                            mDatePicker.show();
+//                        });
+//                        tableRow.addView(dateTextView);
+//                        break;
+//                    case "Numeric":
+//                        typeWhich.setId(position);
+//                        typeWhich.setType("Numeric");
+//                        typeWhich.setCustomFieldId(customFieldId);
+//                        numericEditText=new EditText(this);
+//                        String valueNumeric="Input "+name;
+//                        numericEditText.setText(name);
+//                        numericEditText.setTextSize(20);
+//                        numericEditText.setId(position);
+//                        numericEditText.setInputType(InputType.TYPE_CLASS_NUMBER);
+//                        TableRow.LayoutParams tableRowNumericParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+//                        tableRowNumericParams.setMargins(10,20,0,10);
+//                        numericEditText.setLayoutParams(tableRowNumericParams);
+//                        numericEditText.setSingleLine(true);
+//                        numericEditText.setBackground(getResources().getDrawable(R.drawable.button_bg));
+//                        numericEditText.setGravity(Gravity.LEFT|Gravity.CENTER);
+//                        numericEditText.setTextColor(getResources().getColor(R.color.light_black));
+//                        numericEditText.setPadding(15, 15, 5, 15);
+//                        tableRow.addView(numericEditText);
+//                        break;
+//                    case "CheckBox":
+//                        typeWhich.setId(position);
+//                        typeWhich.setType("CheckBox");
+//                        typeWhich.setCustomFieldId(customFieldId);
+//                        checkBoxCustomField=new CheckBox(this);
+//                        checkBoxCustomField.setChecked(true);
+//                        checkBoxCustomField.setId(position);
+//                        String valueCheckBox="Select "+name;
+//                        checkBoxCustomField.setText(name);
+//                        TableRow.LayoutParams tableRowCheckBoxParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+//                        tableRowCheckBoxParams.setMargins(10,20,0,10);
+//                        checkBoxCustomField.setLayoutParams(tableRowCheckBoxParams);
+//                        checkBoxCustomField.setGravity(Gravity.LEFT|Gravity.CENTER);
+//                        checkBoxCustomField.setTextColor(getResources().getColor(R.color.light_black));
+//                        checkBoxCustomField.setPadding(15, 15, 5, 15);
+//                        tableRow.addView(checkBoxCustomField);
+//                        break;
+//                    case "AutoCompleteBox":
+//                        typeWhich.setId(position);
+//                        typeWhich.setType("AutoCompleteBox");
+//                        typeWhich.setCustomFieldId(customFieldId);
+//                        autoCompleteTextView=new AutoCompleteTextView(this);
+//                        String valueACTV=""+name;
+//                        autoCompleteTextView.setText(name);
+//                        autoCompleteTextView.setTextSize(20);
+//                        autoCompleteTextView.setId(position);
+//                        TableRow.LayoutParams tableRowACTVParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+//                        tableRowACTVParams.setMargins(10,20,0,10);
+//                        autoCompleteTextView.setLayoutParams(tableRowACTVParams);
+//                        autoCompleteTextView.setSingleLine(true);
+//                        autoCompleteTextView.setBackground(getResources().getDrawable(R.drawable.button_bg));
+//                        autoCompleteTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+//                        autoCompleteTextView.setTextColor(getResources().getColor(R.color.black));
+//                        autoCompleteTextView.setPadding(15, 15, 5, 15);
+//                        ArrayAdapter<String> adapterACTV = new ArrayAdapter<>(this,
+//                                android.R.layout.simple_dropdown_item_1line, choicesList);
+//                        autoCompleteTextView.setAdapter(adapterACTV);
+//                        tableRow.addView(autoCompleteTextView);
+//                        break;
+//                }
+//                typeWhichList.add(typeWhich);
+//                table_layout_custom_fields_customer_update.addView(tableRow);
+//
+//            }
+//        }
+//
+//    }
 
     private void showToast(String message){
         Toast.makeText(getApplicationContext(), message, Toast.LENGTH_SHORT).show();
@@ -674,6 +694,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
         super.onDestroy();
         dismissTagsDialog();
         subscription.clear();
+        dismissMultipleSelectDialogBox();
 
     }
 
@@ -709,20 +730,20 @@ public class CustomerUpdateDelete extends AppCompatActivity {
 
                     }
 
-                    if (tagsArrayList.size()!=0){
-                        tags_selected_customer.setVisibility(View.VISIBLE);
-                        tags_selected_customer = findViewById(R.id.tags_selected_customer);
-                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
-                        tags_selected_customer.setLayoutManager(layoutManager);
-                        //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-                        tags_selected_customer.setItemAnimator(new DefaultItemAnimator());
-                        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(CustomerUpdateDelete.this,tagsArrayList);
-                        tags_selected_customer.setAdapter(projectsAdapter);
-                        projectsAdapter.notifyDataSetChanged();
-                    }else {
-                        tags_selected_customer.setVisibility(View.GONE);
-                    }
+//                    if (tagsArrayList.size()!=0){
+//                        tags_selected_customer.setVisibility(View.VISIBLE);
+//                        tags_selected_customer = findViewById(R.id.tags_selected_customer);
+//                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
+//                        tags_selected_customer.setLayoutManager(layoutManager);
+//                        //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+//                        tags_selected_customer.setItemAnimator(new DefaultItemAnimator());
+//                        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+//                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(CustomerUpdateDelete.this,tagsArrayList);
+//                        tags_selected_customer.setAdapter(projectsAdapter);
+//                        projectsAdapter.notifyDataSetChanged();
+//                    }else {
+//                        tags_selected_customer.setVisibility(View.GONE);
+//                    }
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -901,21 +922,30 @@ public class CustomerUpdateDelete extends AppCompatActivity {
             e.printStackTrace();
         }
 
-        ArrayList<String>tagListId=new ArrayList<String>();
-        for (int i=0;i<tagarray.length();i++){
-            JSONObject first= null;
-            try {
-                first = tagarray.getJSONObject(i);
-                String tagid=first.getString("id");
-                String tagname=first.getString("name");
-                if (tagsList.get(i).equals(tagname)){
-                    tagListId.add(tagid);
-                }
-            } catch (JSONException e) {
-            }
+//        ArrayList<String>tagListId=new ArrayList<String>();
+//        for (int i=0;i<tagarray.length();i++){
+//            JSONObject first= null;
+//            try {
+//                first = tagarray.getJSONObject(i);
+//                String tagid=first.getString("id");
+//                String tagname=first.getString("name");
+//                if (tagsList.get(i).equals(tagname)){
+//                    tagListId.add(tagid);
+//                }
+//            } catch (JSONException e) {
+//            }
+//
+//        }
 
+        ArrayList<String>tagListId=new ArrayList<String>();
+        for (int i=0;i<selectedTagListName.size();i++) {
+            for (int j = 0; j < commonJobsArrayList.size(); j++) {
+                if (commonJobsArrayList.get(j).getTagname().equals(selectedTagListName.get(i))) {
+                    tagListId.add(commonJobsArrayList.get(j).getTagid());
+                }
+            }
         }
-        JSONArray jsonArray=new JSONArray();
+            JSONArray jsonArray=new JSONArray();
         for (int i=0;i<tagListId.size();i++){
             jsonArray.put(tagListId.get(i));
         }
@@ -934,7 +964,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
             inputLogin.put("contactFax",fax);
             inputLogin.put("positions",position);
             inputLogin.put("tags",jsonArray);
-            inputLogin.put("CustomFieldValues",new JSONArray(new Gson().toJson(getCustomFilesList())));
+            inputLogin.put("CustomFieldValues",new JSONArray(new Gson().toJson(customFieldsAdapter.getCustomFieldListOutput())));
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -1387,4 +1417,37 @@ public class CustomerUpdateDelete extends AppCompatActivity {
         Matcher matcher = pattern.matcher(email);
         return matcher.matches();
     }
+    private void dismissMultipleSelectDialogBox(){
+        if(multipleSelectDialog!=null && multipleSelectDialog.isShowing()){
+            multipleSelectDialog.dismiss();
+        }
+    }
+    private void multipleSelectDialogBox(String title,String[] values,boolean[] checkedItems){
+        android.app.AlertDialog.Builder builder = new android.app.AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMultiChoiceItems(values, checkedItems, (dialog, which, isChecked) -> {
+
+            if(isChecked){
+                if(!selectedTagListName.contains(values[which]))
+                    selectedTagListName.add(values[which]);
+            }
+        });
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            tags_selected_customer.setVisibility(View.VISIBLE);
+            tags_selected_customer.setLayoutManager(new LinearLayoutManager(this));
+            tags_selected_customer.setItemAnimator(new DefaultItemAnimator());
+            tagsAdapter=new SkilledTradersAdapter(this,selectedTagListName);
+            tags_selected_customer.setAdapter(tagsAdapter);
+            tagsAdapter.notifyDataSetChanged();
+            dialog.cancel();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        multipleSelectDialog = builder.create();
+        multipleSelectDialog.show();
+
+
+    }
+
 }

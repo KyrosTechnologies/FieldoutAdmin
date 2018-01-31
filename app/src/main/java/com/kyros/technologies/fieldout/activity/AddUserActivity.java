@@ -497,22 +497,23 @@ public class AddUserActivity extends AppCompatActivity {
         String lastNameEditText=binding.lastNameAddUserEtext.getText().toString();
         String mobileNumberEditText=binding.mobileAddUserEtext.getText().toString();
         String emailEditText=binding.emailAddUserEtext.getText().toString();
-        String userNameEditText=binding.userNameAddUserEtext.getText().toString();
-        String passwordEditText=binding.passwordAddUserEtext.getText().toString();
+     //   String userNameEditText=binding.userNameAddUserEtext.getText().toString();
+      //  String passwordEditText=binding.passwordAddUserEtext.getText().toString();
         String startLocationEditText=binding.startLocationAddUserEtext.getText().toString();
         String skilledTradesEditText=binding.skilledTradesAddUserEtext.getText().toString();
-        if(userNameEditText!=null && !userNameEditText.isEmpty() && passwordEditText !=null && !passwordEditText.isEmpty() && selectedProfile != null){
+//        if(userNameEditText!=null && !userNameEditText.isEmpty() && passwordEditText !=null && !passwordEditText.isEmpty() && selectedProfile != null){
+        if(selectedProfile != null){
             List<CustomField>customFieldList=getCustomFilesList();
             if(customFieldList==null){
                 customFieldList=new ArrayList<>();
             }
             if(isValidEmailAddress(emailEditText)){
-                initiateApiCall(domainId,authKey,firstNameEditText,lastNameEditText,mobileNumberEditText,emailEditText,userNameEditText,passwordEditText,skilledTradesEditText,customFieldList);
+                initiateApiCall(domainId,authKey,firstNameEditText,lastNameEditText,mobileNumberEditText,emailEditText,"","",skilledTradesEditText,customFieldList);
             }else{
                 showToast("Please enter valid email address!");
             }
         }else{
-            showToast("Please enter username,password,and profile !");
+            showToast("Please select profile !");
         }
 
     }
@@ -628,8 +629,8 @@ public class AddUserActivity extends AppCompatActivity {
 
     private void initiateApiCall(String domainId, String authKey, String firstNameEditText, String lastNameEditText, String mobileNumberEditText, String emailEditText, String userNameEditText, String passwordEditText, String skilledTradesEditText, List<CustomField>customFieldList) {
         UserInfo userInfo=new UserInfo();
-        userInfo.setUsername(userNameEditText);
-        userInfo.setPassword(passwordEditText);
+      //  userInfo.setUsername(userNameEditText);
+       // userInfo.setPassword(passwordEditText);
         userInfo.setIdDomain(domainId);
         userInfo.setFirstName(firstNameEditText);
         userInfo.setLastName(lastNameEditText);

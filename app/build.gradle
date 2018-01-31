@@ -95,7 +95,9 @@ dependencies {
     implementation 'com.github.luongvo:iOS-SwitchView:1.0.2'
     implementation 'com.github.PhilJay:MPAndroidChart:v2.2.4'
     compileOnly files('libs/opencsv-4.1.jar')
-
+    compileOnly files('libs/jasperreports-6.5.0.jar')
+    implementation 'commons-collections:commons-collections:3.2.2'
+    compileOnly files('libs/commons-digester-2.1.jar')
 
 }
 apply plugin: 'com.google.gms.google-services'

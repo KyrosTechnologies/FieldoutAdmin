@@ -29,6 +29,7 @@ public class CustomFieldsViewModel extends RecyclerView.ViewHolder {
     public  AutoCompleteTextView autoCompleteTextView =null;
     public  List<String> choicesList=new ArrayList<>();
     public    LinearLayout linear_custom_fields_parent;
+    public TextView labelName=null;
 
     public CustomFieldsViewModel(View itemView) {
         super(itemView);
@@ -69,6 +70,15 @@ public class CustomFieldsViewModel extends RecyclerView.ViewHolder {
         dateTextView.setBackground(itemView.getContext().getResources().getDrawable(R.drawable.default_text_view_background));
         dateTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
         dateTextView.setPadding(15, 15, 5, 15);
+
+        labelName=new TextView(itemView.getContext());
+        labelName.setTextSize(20);
+        LinearLayout.LayoutParams tableRowlabelNameParams=new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 120,50);
+        tableRowlabelNameParams.setMargins(10,20,0,0);
+        labelName.setLayoutParams(tableRowlabelNameParams);
+        labelName.setTextColor(itemView.getContext().getResources().getColor(R.color.light_black));
+        labelName.setGravity(Gravity.LEFT|Gravity.CENTER);
+        labelName.setPadding(15, 10, 5, 0);
 
 
         numericEditText=new EditText(itemView.getContext());

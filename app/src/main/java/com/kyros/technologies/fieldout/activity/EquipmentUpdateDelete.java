@@ -399,7 +399,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity {
             Log.d("Bind View : ",""+new Gson().toJson(updateCustomFieldList));
             recycler_custom_equip_update.setLayoutManager(new LinearLayoutManager(this));
             recycler_custom_equip_update.setItemAnimator(new DefaultItemAnimator());
-            customFieldsAdapter.setCustomFieldData(updateCustomFieldList,this,"update");
+            customFieldsAdapter.setCustomFieldData(updateCustomFieldList,this,"update","equipments");
             recycler_custom_equip_update.setAdapter(customFieldsAdapter);
         }
 
