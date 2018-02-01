@@ -6,8 +6,7 @@
     android:orientation="vertical">
 
     <LinearLayout
-        android:id="@+id/add_invoices_linear"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="80dp"
         android:background="@color/bg"
         android:orientation="horizontal">
@@ -18,14 +17,15 @@
             android:background="@color/light_black" />
 
         <TextView
-            android:id="@+id/item_invoice"
-            android:layout_width="185dp"
+            android:id="@+id/technician_name"
+            android:layout_width="265dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:text="Item"
+            android:singleLine="false"
+            android:text="Customer"
             android:textColor="@color/text_light"
             android:textSize="@dimen/title_text_size" />
 
@@ -35,14 +35,15 @@
             android:background="@color/light_black" />
 
         <TextView
-            android:id="@+id/desc_invoice"
-            android:layout_width="185dp"
+            android:id="@+id/recurring_phone"
+            android:layout_width="250dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:text="Description"
+            android:singleLine="false"
+            android:text="Customer"
             android:textColor="@color/text_light"
             android:textSize="@dimen/title_text_size" />
 
@@ -52,15 +53,34 @@
             android:background="@color/light_black" />
 
         <TextView
-            android:id="@+id/unit_price_invoice"
-            android:layout_width="155dp"
+            android:id="@+id/recurring_created_at"
+            android:layout_width="240dp"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginTop="5dp"
+            android:singleLine="false"
+            android:text="Contact"
+            android:textColor="@color/text_light"
+            android:textSize="@dimen/title_text_size" />
+
+        <View
+            android:layout_width="0.2dp"
+            android:layout_height="match_parent"
+            android:background="@color/light_black" />
+
+        <TextView
+            android:id="@+id/recurring_from"
+            android:layout_width="222dp"
+            android:layout_height="wrap_content"
             android:gravity="center"
+            android:layout_gravity="center"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:text="Unit Price"
+            android:singleLine="false"
+            android:text="Phone"
             android:textColor="@color/text_light"
             android:textSize="@dimen/title_text_size" />
 
@@ -70,69 +90,16 @@
             android:background="@color/light_black" />
 
         <TextView
-            android:id="@+id/quantity_invoice"
-            android:layout_width="155dp"
+            android:id="@+id/recurring_to"
+            android:layout_width="222dp"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
             android:gravity="center"
+            android:layout_gravity="center"
             android:layout_marginBottom="5dp"
             android:layout_marginLeft="15dp"
             android:layout_marginTop="5dp"
-            android:text="Quantity"
-            android:textColor="@color/text_light"
-            android:textSize="@dimen/title_text_size" />
-
-        <View
-            android:layout_width="0.2dp"
-            android:layout_height="match_parent"
-            android:background="@color/light_black" />
-
-        <TextView
-            android:id="@+id/discount_invoice"
-            android:layout_width="155dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:text="Discount"
-            android:textColor="@color/text_light"
-            android:textSize="@dimen/title_text_size" />
-
-        <View
-            android:layout_width="0.2dp"
-            android:layout_height="match_parent"
-            android:background="@color/light_black" />
-
-        <TextView
-            android:id="@+id/total_invoice"
-            android:layout_width="155dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:text="Total"
-            android:textColor="@color/text_light"
-            android:textSize="@dimen/title_text_size" />
-
-        <View
-            android:layout_width="0.2dp"
-            android:layout_height="match_parent"
-            android:background="@color/light_black" />
-
-        <TextView
-            android:id="@+id/tax_invoice"
-            android:layout_width="155dp"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:layout_marginBottom="5dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginTop="5dp"
-            android:text="Tax"
+            android:singleLine="false"
+            android:text="Tags"
             android:textColor="@color/text_light"
             android:textSize="@dimen/title_text_size" />
 

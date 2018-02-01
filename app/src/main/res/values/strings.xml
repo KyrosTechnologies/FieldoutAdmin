@@ -312,5 +312,9 @@
     <string name="incompletedjobs">InCompleted Jobs</string>
     <string name="late_jobs">Late Jobs</string>
     <string name="completed_jobs">Completed Jobs</string>
-    <string name="no_chart_data_available">No Chart Data Available</string>
+    <string name="all_jobs">All Jobs</string>
+    <string name="no_chart_data_available">No Data Available</string>
+    <string name="jobs">Jobs</string>
+    <string name="sales">Sales</string>
+    <string name="performance">Performance</string>
 </resources>

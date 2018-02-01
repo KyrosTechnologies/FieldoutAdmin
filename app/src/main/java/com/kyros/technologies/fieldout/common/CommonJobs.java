@@ -95,6 +95,8 @@ public class CommonJobs {
     private String normallevelidjob;
     private String lowlevelid;
     private String lowlevelidjob;
+    private String startdate;
+    private String enddate;
 
     public CommonJobs(){
 
@@ -780,5 +782,21 @@ public class CommonJobs {
 
     public void setLowlevelidjob(String lowlevelidjob) {
         this.lowlevelidjob = lowlevelidjob;
+    }
+
+    public String getStartdate() {
+        return startdate;
+    }
+
+    public void setStartdate(String startdate) {
+        this.startdate = startdate;
+    }
+
+    public String getEnddate() {
+        return enddate;
+    }
+
+    public void setEnddate(String enddate) {
+        this.enddate = enddate;
     }
 }

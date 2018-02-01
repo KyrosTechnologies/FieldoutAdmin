@@ -755,6 +755,7 @@
                 android:textSize="@dimen/privacy_policy_statement" />
 
             <TextView
+                android:id="@+id/recurring_jobs_text"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"

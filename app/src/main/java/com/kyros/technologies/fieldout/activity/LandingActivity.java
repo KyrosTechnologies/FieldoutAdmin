@@ -21,6 +21,7 @@ import com.kyros.technologies.fieldout.fragments.ChartFragment;
 import com.kyros.technologies.fieldout.fragments.ConfigurationFragment;
 import com.kyros.technologies.fieldout.fragments.CustomerFragment;
 import com.kyros.technologies.fieldout.fragments.EquipmentFragment;
+import com.kyros.technologies.fieldout.fragments.FragmentRecurringJobs;
 import com.kyros.technologies.fieldout.fragments.FragmentTechnicianJobs;
 import com.kyros.technologies.fieldout.fragments.InvoicesFragment;
 import com.kyros.technologies.fieldout.fragments.JobsDayFragment;
@@ -56,7 +57,7 @@ public class LandingActivity extends AppCompatActivity {
     private ImageView settings_fragment;
     private TextView week_text,month_text,day_text,activity_text,resources_text,list_text,site_text,equipment_text,jobs_month_text,
             jobs_day_text,jobs_week_text,jobs_late_text,upcoming_jobs_text,to_schedule_job_text,invoices_text,quotations_text,
-            company_name,project_text,parts_text,first_last_name,jobs_text,map_text,dashboard_text;
+            company_name,project_text,parts_text,first_last_name,jobs_text,map_text,dashboard_text,recurring_jobs_text;
     private Boolean namearrowclicked=true;
     private Boolean techarrowclicked=true;
     private Boolean schedulearrowclicked=true;
@@ -117,6 +118,7 @@ public class LandingActivity extends AppCompatActivity {
         messages=findViewById(R.id.messages);
         jobs_text=findViewById(R.id.jobs_text);
         dashboard_text=findViewById(R.id.dashboard_text);
+        recurring_jobs_text=findViewById(R.id.recurring_jobs_text);
         companyname=store.getCompanyName();
         firstname=store.getFirstName();
         lastname=store.getLastName();
@@ -528,6 +530,14 @@ public class LandingActivity extends AppCompatActivity {
         jobs_text.setOnClickListener(view -> {
             reports_visible_linear.setVisibility(View.GONE);
             FragmentTechnicianJobs fragmentTechnicianJobs = new FragmentTechnicianJobs();
+            android.support.v4.app.FragmentTransaction fragmentTransaction =
+                    getSupportFragmentManager().beginTransaction();
+            fragmentTransaction.replace(R.id.container_fragments, fragmentTechnicianJobs);
+            fragmentTransaction.commit();
+        });
+        recurring_jobs_text.setOnClickListener(view -> {
+            jobs_visible_linear.setVisibility(View.GONE);
+            FragmentRecurringJobs fragmentTechnicianJobs = new FragmentRecurringJobs();
             android.support.v4.app.FragmentTransaction fragmentTransaction =
                     getSupportFragmentManager().beginTransaction();
             fragmentTransaction.replace(R.id.container_fragments, fragmentTechnicianJobs);

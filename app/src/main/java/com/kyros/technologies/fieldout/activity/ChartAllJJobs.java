@@ -9,7 +9,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.MenuItem;
 
 import com.kyros.technologies.fieldout.R;
-import com.kyros.technologies.fieldout.adapters.ChartLateJobsAdapter;
+import com.kyros.technologies.fieldout.adapters.AllJobsAdapter;
 import com.kyros.technologies.fieldout.common.CommonJobs;
 import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 
@@ -20,10 +20,10 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 
 /**
- * Created by Rohin on 29-01-2018.
+ * Created by Rohin on 01-02-2018.
  */
 
-public class ChartLateJobs extends AppCompatActivity {
+public class ChartAllJJobs extends AppCompatActivity {
 
     private PreferenceManager store;
     private String userid=null;
@@ -598,9 +598,9 @@ public class ChartLateJobs extends AppCompatActivity {
                     jobs_month_recycler.setLayoutManager(layoutManager);
                     jobs_month_recycler.setItemAnimator(new DefaultItemAnimator());
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                    ChartLateJobsAdapter chartLateJobsAdapter = new ChartLateJobsAdapter(ChartLateJobs.this, commonJobsArrayList);
-                    jobs_month_recycler.setAdapter(chartLateJobsAdapter);
-                    chartLateJobsAdapter.notifyDataSetChanged();
+                    AllJobsAdapter allJobsAdapter = new AllJobsAdapter(ChartAllJJobs.this, commonJobsArrayList);
+                    jobs_month_recycler.setAdapter(allJobsAdapter);
+                    allJobsAdapter.notifyDataSetChanged();
                 }
             }else if (index==1){
                 if(commonJobsArrayList.size()!=0){
@@ -609,9 +609,9 @@ public class ChartLateJobs extends AppCompatActivity {
                     jobs_month_recycler.setLayoutManager(layoutManager);
                     jobs_month_recycler.setItemAnimator(new DefaultItemAnimator());
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                    ChartLateJobsAdapter chartLateJobsAdapter = new ChartLateJobsAdapter(ChartLateJobs.this, commonJobsArrayList);
-                    jobs_month_recycler.setAdapter(chartLateJobsAdapter);
-                    chartLateJobsAdapter.notifyDataSetChanged();
+                    AllJobsAdapter allJobsAdapter = new AllJobsAdapter(ChartAllJJobs.this, commonJobsArrayList);
+                    jobs_month_recycler.setAdapter(allJobsAdapter);
+                    allJobsAdapter.notifyDataSetChanged();
                 }
             }else if (index==2){
                 if(commonJobsArrayList.size()!=0){
@@ -620,9 +620,9 @@ public class ChartLateJobs extends AppCompatActivity {
                     jobs_month_recycler.setLayoutManager(layoutManager);
                     jobs_month_recycler.setItemAnimator(new DefaultItemAnimator());
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                    ChartLateJobsAdapter chartLateJobsAdapter = new ChartLateJobsAdapter(ChartLateJobs.this, commonJobsArrayList);
-                    jobs_month_recycler.setAdapter(chartLateJobsAdapter);
-                    chartLateJobsAdapter.notifyDataSetChanged();
+                    AllJobsAdapter allJobsAdapter = new AllJobsAdapter(ChartAllJJobs.this, commonJobsArrayList);
+                    jobs_month_recycler.setAdapter(allJobsAdapter);
+                    allJobsAdapter.notifyDataSetChanged();
                 }
             }
 
@@ -637,7 +637,7 @@ public class ChartLateJobs extends AppCompatActivity {
 
         switch (item.getItemId()){
             case android.R.id.home:
-                ChartLateJobs.this.finish();
+                ChartAllJJobs.this.finish();
                 return true;
         }
 

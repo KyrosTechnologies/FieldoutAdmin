@@ -162,6 +162,7 @@ public class UpcomingJobsFragment extends Fragment {
                         commonJobs.setScheduledBeginDate(scheduledBeginDate);
                         commonJobs.setScheduleenddate(scheduledEndDate);
                         commonJobs.setStatus(status);
+                        commonJobs.setJobTypeName(jobtypename);
                         commonJobs.setSitename(sitename);
                         commonJobsArrayList.add(commonJobs);
 

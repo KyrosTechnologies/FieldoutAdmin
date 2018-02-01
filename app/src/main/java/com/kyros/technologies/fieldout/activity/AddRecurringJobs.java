@@ -5,7 +5,6 @@ import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
-import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
@@ -34,6 +33,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.adapters.SkilledTradersAdapter;
 import com.kyros.technologies.fieldout.common.CommonJobs;
@@ -45,6 +45,8 @@ import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.HashMap;
@@ -52,19 +54,19 @@ import java.util.List;
 import java.util.Map;
 
 /**
- * Created by Rohin on 18-12-2017.
+ * Created by Rohin on 31-01-2018.
  */
 
-public class AddJobsActivity extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class AddRecurringJobs extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private TextView scheduling_date,priority_text,scheduling_time;
+    private TextView scheduling_date,priority_text,scheduling_time,jobs_start_date,jobs_end_date,no_of_days_edit;
     private Spinner job_type_spinner,user_spinner,team_spinner,window_spinner,site_auto_complete,equipment_auto_complete;
     private EditText jobs_first_name,jobs_last_name,phone_jobs_edit,mobile_jobs_edit,
             email_jobs_edit,job_number_edit,description_edit,additional_address_auto_complete;
     private PreferenceManager store;
     private Button save_button,save_schedule;
     private TextView tags_add_jobs_text;
-    private RecyclerView tags_selected_jobs;
+    private RecyclerView tags_selected_jobs,recyclerTeamsList;
     ArrayList<CommonJobs> jobTypeArrayList = new ArrayList<CommonJobs>();
     ArrayList<CommonJobs> technicianArrayList = new ArrayList<CommonJobs>();
     ArrayList<CommonJobs> schedulingArrayList = new ArrayList<CommonJobs>();
@@ -107,6 +109,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
     private String description=null;
     private String globalAddress=null;
     private String complementaddress=null;
+    private String days=null;
     private double latitude=0;
     private double longitude=0;
     private String customer;
@@ -120,7 +123,13 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
     private String customertext=null;
     private String sitetext=null;
     private String equiptext=null;
+    private String startdate=null;
+    private String enddate=null;
     private ProgressDialog pDialog;
+    private AlertDialog multipleSelectDialog=null;
+    private ArrayList<String>selectedTeamNameList=new ArrayList<>();
+    private SkilledTradersAdapter teamsAdapter;
+    private String[]day=new String[]{"Monday","Tuesday","Wednesday","Thursday","Friday","Saturday","Sunday"};
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -130,7 +139,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         actionBar.setHomeButtonEnabled(true);
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.action_bar)));
         actionBar.setDisplayHomeAsUpEnabled(true);
-        setContentView(R.layout.activity_add_jobs);
+        setContentView(R.layout.activity_add_recurring_jobs);
         store= PreferenceManager.getInstance(getApplicationContext());
         scheduling_date=findViewById(R.id.scheduling_date);
         job_type_spinner=findViewById(R.id.job_type_spinner);
@@ -144,6 +153,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         site_auto_complete=findViewById(R.id.site_auto_complete);
         equipment_auto_complete=findViewById(R.id.equipment_auto_complete);
         jobs_first_name=findViewById(R.id.jobs_first_name);
+        recyclerTeamsList=findViewById(R.id.recyclerTeamsList);
         jobs_last_name=findViewById(R.id.jobs_last_name);
         phone_jobs_edit=findViewById(R.id.phone_jobs_edit);
         mobile_jobs_edit=findViewById(R.id.mobile_jobs_edit);
@@ -156,6 +166,9 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         job_number_edit=findViewById(R.id.job_number_edit);
         tags_add_jobs_text=findViewById(R.id.tags_add_jobs_text);
         tags_selected_jobs=findViewById(R.id.tags_selected_jobs);
+        no_of_days_edit=findViewById(R.id.no_of_days_edit);
+        jobs_start_date=findViewById(R.id.jobs_start_date);
+        jobs_end_date=findViewById(R.id.jobs_end_date);
         domainid=store.getIdDomain();
         userid=store.getUserid();
         GetSpinnersList();
@@ -163,8 +176,6 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         scheduling_time.setOnClickListener(view -> {
             starttimePicker();
         });
-
-        //tags_add_jobs_text.setOnClickListener(view -> skilledTradesDialog(new ArrayList<>(),tags_add_jobs_text));
 
         save_button.setOnClickListener(view -> {
             saveclick=1;
@@ -213,6 +224,11 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                 Toast.makeText(getApplicationContext(), "Please Select Priority!", Toast.LENGTH_SHORT).show();
                 return ;
             }
+//            days=no_of_days_edit.getText().toString();
+//            if (days==null && days.isEmpty()){
+//                Toast.makeText(getApplicationContext(), "Please Enter No of Days!", Toast.LENGTH_SHORT).show();
+//                return ;
+//            }
             String jobtype = null;
             try {
                 jobtype=job_type_spinner.getSelectedItem().toString();
@@ -223,6 +239,16 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                 Toast.makeText(getApplicationContext(), "Please Select Job Type!", Toast.LENGTH_SHORT).show();
                 return;
             }
+            startdate=jobs_start_date.getText() .toString();
+            if (startdate==null && startdate.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Please Select Start Date!", Toast.LENGTH_SHORT).show();
+                return ;
+            }
+            enddate=jobs_end_date.getText() .toString();
+            if (enddate==null && enddate.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Please Select End Date!", Toast.LENGTH_SHORT).show();
+                return ;
+            }
             complementaddress=additional_address_auto_complete.getText().toString();
             firstname=jobs_first_name.getText().toString();
             lastname=jobs_last_name.getText().toString();
@@ -231,7 +257,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             email=email_jobs_edit.getText().toString();
             if(customer!=null &&!customer.isEmpty()&&sitename!=null&& jobtype!=null&&equipmentname!=null
                     &&globalAddress!=null &&!globalAddress.isEmpty()&&myid!=null &&!myid.isEmpty()&&description!=null &&!description.isEmpty()
-                    &&priority!=null &&!priority.isEmpty()){
+                    &&priority!=null &&!priority.isEmpty()&&startdate!=null &&!startdate.isEmpty()&&enddate!=null &&!enddate.isEmpty()){
                 GetLatLngList(globalAddress);
             }else{
                 Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
@@ -240,77 +266,60 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
         });
 
-        save_schedule.setOnClickListener(view -> {
-            saveclick=2;
-            customer=customer_auto_complete.getText() .toString();
-            if (customer==null && customer.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
-                return ;
-            }
-            String sitename = null;
-            try {
-                sitename=site_auto_complete.getSelectedItem().toString();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            if(sitename==null){
-                Toast.makeText(getApplicationContext(), "Please Select Site Name!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            globalAddress=address_auto_complete.getText() .toString();
-            if (globalAddress==null && globalAddress.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Address!", Toast.LENGTH_SHORT).show();
-                return ;
-            }
-            String equipmentname = null;
-            try {
-                equipmentname=equipment_auto_complete.getSelectedItem().toString();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            if(equipmentname==null){
-                Toast.makeText(getApplicationContext(), "Please Select Equipment Name!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            myid=job_number_edit.getText().toString();
-            if (myid==null && myid.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Custom Job!", Toast.LENGTH_SHORT).show();
-                return ;
-            }
-            description=description_edit.getText().toString();
-            if (description==null && description.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Custom Job!", Toast.LENGTH_SHORT).show();
-                return ;
-            }
-            priority=priority_text.getText().toString();
-            if (priority==null && priority.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Select Priority!", Toast.LENGTH_SHORT).show();
-                return ;
-            }
-            String jobtype = null;
-            try {
-                jobtype=job_type_spinner.getSelectedItem().toString();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
-            if(jobtype==null){
-                Toast.makeText(getApplicationContext(), "Please Select Job Type!", Toast.LENGTH_SHORT).show();
-                return;
-            }
-            complementaddress=additional_address_auto_complete.getText().toString();
-            firstname=jobs_first_name.getText().toString();
-            lastname=jobs_last_name.getText().toString();
-            phone=phone_jobs_edit.getText().toString();
-            mobile=mobile_jobs_edit.getText().toString();
-            email=email_jobs_edit.getText().toString();
-            if(customer!=null &&!customer.isEmpty()&&sitename!=null&& jobtype!=null&&equipmentname!=null
-                    &&globalAddress!=null &&!globalAddress.isEmpty()&&myid!=null &&!myid.isEmpty()&&description!=null &&!description.isEmpty()
-                    &&priority!=null &&!priority.isEmpty()){
-                GetLatLngList(globalAddress);
-            }else{
-                Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
+        no_of_days_edit.setOnClickListener(view -> {
+            multipleSelectDialogBox("Select Days",day,new boolean[day.length]);
+        });
 
-            }
+        jobs_start_date.setOnClickListener(view -> {
+            Calendar mcurrentDate=Calendar.getInstance();
+            final int mYear = mcurrentDate.get(Calendar.YEAR);
+            final int mMonth=mcurrentDate.get(Calendar.MONTH);
+            final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog mDatePicker=new DatePickerDialog(AddRecurringJobs.this, new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                    // TODO Auto-generated method stub
+                    /*      Your code   to get date and time    */
+                    int month=selectedmonth+1;
+                    String monts=String.format("%02d",month);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday);
+                    jobs_start_date.setText(currentdate);
+                    startdate=currentdate;
+
+
+                }
+            },mYear, mMonth, mDay);
+            mDatePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//                mDatePicker.setTitle("Select date");
+            mDatePicker.show();
+        });
+
+        jobs_end_date.setOnClickListener(view -> {
+            Calendar mcurrentDate=Calendar.getInstance();
+            final int mYear = mcurrentDate.get(Calendar.YEAR);
+            final int mMonth=mcurrentDate.get(Calendar.MONTH);
+            final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+
+            DatePickerDialog mDatePicker=new DatePickerDialog(AddRecurringJobs.this, new DatePickerDialog.OnDateSetListener() {
+                public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
+                    // TODO Auto-generated method stub
+                    /*      Your code   to get date and time    */
+                    int month=selectedmonth+1;
+                    String monts=String.format("%02d",month);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday);
+                    boolean enddates=CheckDates(jobs_start_date.getText().toString(),currentdate);
+                    if (enddates){
+                        jobs_end_date.setText(currentdate);
+                        enddate=currentdate;
+                    }else {
+                        Toast.makeText(getApplicationContext(),"End Date should be greater than Start Date",Toast.LENGTH_SHORT).show();
+                    }
+
+                }
+            },mYear, mMonth, mDay);
+            mDatePicker.getDatePicker().setMinDate(System.currentTimeMillis() - 1000);
+//                mDatePicker.setTitle("Select date");
+            mDatePicker.show();
         });
 
         scheduling_date.setOnClickListener(view -> {
@@ -319,13 +328,13 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             final int mMonth=mcurrentDate.get(Calendar.MONTH);
             final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
 
-            DatePickerDialog mDatePicker=new DatePickerDialog(AddJobsActivity.this, new DatePickerDialog.OnDateSetListener() {
+            DatePickerDialog mDatePicker=new DatePickerDialog(AddRecurringJobs.this, new DatePickerDialog.OnDateSetListener() {
                 public void onDateSet(DatePicker datepicker, int selectedyear, int selectedmonth, int selectedday) {
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday);
                     scheduling_date.setText(currentdate);
 
                 }
@@ -342,8 +351,63 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
+    public static boolean CheckDates(String d1,String d2)    {
+        SimpleDateFormat dfDate  = new SimpleDateFormat("yyyy-MM-dd");
+        boolean b = false;
+        try {
+            if(dfDate.parse(d1).before(dfDate.parse(d2)))
+            {
+                b = true;//If start date is before end date
+            }
+            else if(dfDate.parse(d1).equals(dfDate.parse(d2)))
+            {
+                b = true;//If two dates are equal
+            }
+            else
+            {
+                b = false; //If start date is after the end date
+            }
+        } catch (ParseException e) {
+            // TODO Auto-generated catch block
+            e.printStackTrace();
+        }
+        return b;
+    }
+
+    private void multipleSelectDialogBox(String title,String[] values,boolean[] checkedItems){
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMultiChoiceItems(values, checkedItems, (dialog, which, isChecked) -> {
+
+            if(isChecked){
+                selectedTeamNameList.add(values[which]);
+            }
+        });
+
+        builder.setPositiveButton("OK", (dialog, which) -> {
+            recyclerTeamsList.setVisibility(View.VISIBLE);
+            recyclerTeamsList.setLayoutManager(new LinearLayoutManager(this));
+            recyclerTeamsList.setItemAnimator(new DefaultItemAnimator());
+            teamsAdapter=new SkilledTradersAdapter(this,selectedTeamNameList);
+            recyclerTeamsList.setAdapter(teamsAdapter);
+            teamsAdapter.notifyDataSetChanged();
+            dialog.cancel();
+        });
+        builder.setNegativeButton("Cancel", (dialog, which) -> dialog.cancel());
+
+        multipleSelectDialog = builder.create();
+        multipleSelectDialog.show();
+
+
+    }
+    private void dismissMultipleSelectDialogBox(){
+        if(multipleSelectDialog!=null && multipleSelectDialog.isShowing()){
+            multipleSelectDialog.dismiss();
+        }
+    }
+
     private void skilledTradesDialog(List<String> skilledName,TextView tView) {
-        AlertDialog.Builder builder=new AlertDialog.Builder(AddJobsActivity.this);
+        AlertDialog.Builder builder=new AlertDialog.Builder(AddRecurringJobs.this);
         LayoutInflater layoutInflate=getLayoutInflater();
         View view=layoutInflate.inflate(R.layout.adapter_teams_list,null);
         EditText editText=view.findViewById(R.id.et_skilled);
@@ -399,7 +463,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
     private void showPriorityDialog(){
         if(prioritydialog==null){
-            AlertDialog.Builder builder=new AlertDialog.Builder(AddJobsActivity.this);
+            AlertDialog.Builder builder=new AlertDialog.Builder(AddRecurringJobs.this);
             LayoutInflater inflater=getLayoutInflater();
             View view=inflater.inflate(R.layout.priority_spinner_value,null);
             builder.setView(view);
@@ -443,7 +507,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         Calendar mcurrentTime = Calendar.getInstance();
         int hour = mcurrentTime.get(Calendar.HOUR_OF_DAY);
         int minute = mcurrentTime.get(Calendar.MINUTE);
-        timePickerDialog=new TimePickerDialog(AddJobsActivity.this, (timePicker, selectedHour, selectedMinute) -> onTimeSet(selectedHour,selectedMinute),hour,minute,false);
+        timePickerDialog=new TimePickerDialog(AddRecurringJobs.this, (timePicker, selectedHour, selectedMinute) -> onTimeSet(selectedHour,selectedMinute),hour,minute,false);
         timePickerDialog.setTitle("Select Time");
         timePickerDialog.show();
     }
@@ -482,12 +546,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         JSONObject geometry=first.getJSONObject("geometry");
                         JSONObject location=geometry.getJSONObject("location");
                         double lat=location.getDouble("lat");
-                        AddJobsActivity.this.latitude=lat;
+                        AddRecurringJobs.this.latitude=lat;
                         double lng=location.getDouble("lng");
-                        AddJobsActivity.this.longitude=lng;
+                        AddRecurringJobs.this.longitude=lng;
 
                     }
-                    AddJobsApi(myid,description,globalAddress,complementaddress,firstname,lastname,mobile,phone,email,jobtypetext,teamstext,schedulingtext,techniciantext,latitude,longitude);
+                    AddRecurringJobsApi(myid,description,globalAddress,complementaddress,firstname,lastname,mobile,phone,email,jobtypetext,teamstext,schedulingtext,techniciantext,latitude,longitude);
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -598,7 +662,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setCustomername(name);
                         commonJobs.setCustomerid(customerid);
-                        AddJobsActivity.this.customerid=customerid;
+                        AddRecurringJobs.this.customerid=customerid;
                         commonJobs.setFirstname(contactfirstname);
                         commonJobs.setLastname(contactlastname);
                         commonJobs.setMobilenum(contactmobile);
@@ -613,7 +677,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     }
                     String[]customer=cusnamestring.stream().toArray(String[]::new);
                     ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                            (AddJobsActivity.this,android.R.layout.select_dialog_item,customer);
+                            (AddRecurringJobs.this,android.R.layout.select_dialog_item,customer);
                     customer_auto_complete= findViewById(R.id.customer_auto_complete);
                     customer_auto_complete.setThreshold(1);//will start working from first character
                     customer_auto_complete.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
@@ -648,12 +712,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     for (String s:spinnerlist) {
 
                     }
-                    ArrayAdapter<String> adapters=new  ArrayAdapter<String>(AddJobsActivity.this,android.R.layout.simple_spinner_item,
+                    ArrayAdapter<String> adapters=new  ArrayAdapter<String>(AddRecurringJobs.this,android.R.layout.simple_spinner_item,
                             spinnerlist);
                     adapters.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     job_type_spinner.setPrompt("Job Type");
                     job_type_spinner.setAdapter(adapters);
-                    job_type_spinner.setAdapter(new SpinnerDetails(adapters,R.layout.job_type_spinner,AddJobsActivity.this));
+                    job_type_spinner.setAdapter(new SpinnerDetails(adapters,R.layout.job_type_spinner,AddRecurringJobs.this));
                     job_type_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -689,12 +753,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     for (String s:technicianlist) {
 
                     }
-                    ArrayAdapter<String> stringArrayAdapter=new  ArrayAdapter<String>(AddJobsActivity.this,android.R.layout.simple_spinner_item,
+                    ArrayAdapter<String> stringArrayAdapter=new  ArrayAdapter<String>(AddRecurringJobs.this,android.R.layout.simple_spinner_item,
                             technicianlist);
                     stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     user_spinner.setPrompt("Technician");
                     user_spinner.setAdapter(stringArrayAdapter);
-                    user_spinner.setAdapter(new SpinnerDetails(stringArrayAdapter,R.layout.technician,AddJobsActivity.this));
+                    user_spinner.setAdapter(new SpinnerDetails(stringArrayAdapter,R.layout.technician,AddRecurringJobs.this));
                     user_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -730,12 +794,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     for (String s:schedulinglist) {
 
                     }
-                    ArrayAdapter<String> adapter1=new  ArrayAdapter<String>(AddJobsActivity.this,android.R.layout.simple_spinner_item,
+                    ArrayAdapter<String> adapter1=new  ArrayAdapter<String>(AddRecurringJobs.this,android.R.layout.simple_spinner_item,
                             schedulinglist);
                     adapter1.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     window_spinner.setPrompt("Scheduling");
                     window_spinner.setAdapter(adapter1);
-                    window_spinner.setAdapter(new SpinnerDetails(adapter1,R.layout.window_spinner_value,AddJobsActivity.this));
+                    window_spinner.setAdapter(new SpinnerDetails(adapter1,R.layout.window_spinner_value,AddRecurringJobs.this));
                     window_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -771,12 +835,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     for (String s:teamslist) {
 
                     }
-                    ArrayAdapter<String> teamsadapter=new  ArrayAdapter<String>(AddJobsActivity.this,android.R.layout.simple_spinner_item,
+                    ArrayAdapter<String> teamsadapter=new  ArrayAdapter<String>(AddRecurringJobs.this,android.R.layout.simple_spinner_item,
                             teamslist);
                     teamsadapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     team_spinner.setPrompt("Technician");
                     team_spinner.setAdapter(teamsadapter);
-                    team_spinner.setAdapter(new SpinnerDetails(teamsadapter,R.layout.teams_spinner,AddJobsActivity.this));
+                    team_spinner.setAdapter(new SpinnerDetails(teamsadapter,R.layout.teams_spinner,AddRecurringJobs.this));
                     team_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -817,7 +881,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                         tags_selected_jobs.setItemAnimator(new DefaultItemAnimator());
                         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(AddJobsActivity.this,tagsArrayList);
+                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(AddRecurringJobs.this,tagsArrayList);
                         tags_selected_jobs.setAdapter(projectsAdapter);
                         projectsAdapter.notifyDataSetChanged();
                     }else {
@@ -887,7 +951,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setSitename(sitename);
                         commonJobs.setSiteid(siteid);
-                        AddJobsActivity.this.siteid=siteid;
+                        AddRecurringJobs.this.siteid=siteid;
                         siteDetailsArrayList.add(commonJobs);
                         sitenamestring.add(sitename);
 
@@ -896,12 +960,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     for (String s:sitenamestring) {
 
                     }
-                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(AddJobsActivity.this,android.R.layout.simple_spinner_item,
+                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(AddRecurringJobs.this,android.R.layout.simple_spinner_item,
                             sitenamestring);
                     adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     site_auto_complete.setPrompt("Site");
                     site_auto_complete.setAdapter(adapter);
-                    site_auto_complete.setAdapter(new SpinnerDetails(adapter,R.layout.site_spinner,AddJobsActivity.this));
+                    site_auto_complete.setAdapter(new SpinnerDetails(adapter,R.layout.site_spinner,AddRecurringJobs.this));
                     site_auto_complete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -919,23 +983,6 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
                         }
                     });
-
-//                    String[]site=sitenamestring.stream().toArray(String[]::new);
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>
-//                            (AddJobsActivity.this,android.R.layout.select_dialog_item,site);
-//                    site_auto_complete= findViewById(R.id.site_auto_complete);
-//                    site_auto_complete.setThreshold(1);//will start working from first character
-//                    site_auto_complete.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-//                    site_auto_complete.setTextColor(R.color.text_light);
-//
-//                    site_auto_complete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                            String sitename=site[i];
-//                            bindSites(sitename);
-//                            GetEquipmentList(sitename);
-//                        }
-//                    });
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -1000,7 +1047,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setEquipid(equipmentid);
-                        AddJobsActivity.this.equipmentid=equipmentid;
+                        AddRecurringJobs.this.equipmentid=equipmentid;
                         commonJobs.setEquipname(equipname);
                         equipDetailsArrayList.add(commonJobs);
                         equipnamestring.add(equipname);
@@ -1010,12 +1057,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     for (String s:equipnamestring) {
 
                     }
-                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(AddJobsActivity.this,android.R.layout.simple_spinner_item,
+                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(AddRecurringJobs.this,android.R.layout.simple_spinner_item,
                             equipnamestring);
                     adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     equipment_auto_complete.setPrompt("Equipment");
                     equipment_auto_complete.setAdapter(adapter);
-                    equipment_auto_complete.setAdapter(new SpinnerDetails(adapter,R.layout.equipment_spinner,AddJobsActivity.this));
+                    equipment_auto_complete.setAdapter(new SpinnerDetails(adapter,R.layout.equipment_spinner,AddRecurringJobs.this));
                     equipment_auto_complete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -1032,22 +1079,6 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
                         }
                     });
-
-//                    String[]equipment=equipnamestring.stream().toArray(String[]::new);
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>
-//                            (AddJobsActivity.this,android.R.layout.select_dialog_item,equipment);
-//                    equipment_auto_complete= findViewById(R.id.equipment_auto_complete);
-//                    equipment_auto_complete.setThreshold(1);//will start working from first character
-//                    equipment_auto_complete.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-//                    equipment_auto_complete.setTextColor(R.color.text_light);
-//
-//                    equipment_auto_complete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                            String equipname=equipment[i];
-//                            bindEquipments(equipname);
-//                        }
-//                    });
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -1144,7 +1175,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
     private void showProgressDialog() {
         if (pDialog == null) {
-            pDialog = new ProgressDialog(AddJobsActivity.this);
+            pDialog = new ProgressDialog(AddRecurringJobs.this);
             pDialog.setTitle("Please Wait");
             pDialog.setMessage("Synchronization in progress...");
             pDialog.setIndeterminate(false);
@@ -1164,12 +1195,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
     }
 
-    private void AddJobsApi(String myid, String description, String globalAddress, String complementaddress, String firstname,
+    private void AddRecurringJobsApi(String myid, String description, String globalAddress, String complementaddress, String firstname,
                             String lastname, String mobile, String phone, String email, String jobtypetext, String teamstext,
                             String schedulingtext, String techniciantext, double latitude, double longitude) {
 
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "jobs/add";
+        String url = EndURL.URL + "recurring_jobs/add";
         Log.d("waggonurl", url);
         showProgressDialog();
         JSONObject inputLogin = new JSONObject();
@@ -1244,7 +1275,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             }
 
         }
-            JSONObject position=new JSONObject();
+        JSONObject position=new JSONObject();
         try {
             position.put("lat",latitude);
             position.put("lng",longitude);
@@ -1266,39 +1297,80 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             }
 
         }
+        ArrayList<Integer>daycount=new ArrayList<>();
+        for (int i=0;i<selectedTeamNameList.size();i++){
+            String daylist=selectedTeamNameList.get(i);
+            switch (daylist){
+                case "Monday":
+                    daycount.add(0);
+                    break;
+                case "Tuesday":
+                    daycount.add(1);
+                    break;
+                case "Wednesday":
+                    daycount.add(2);
+                    break;
+                case "Thursday":
+                    daycount.add(3);
+                    break;
+                case "Friday":
+                    daycount.add(4);
+                    break;
+                case "Saturday":
+                    daycount.add(5);
+                    break;
+                case "Sunday":
+                    daycount.add(6);
+                    break;
+            }
+        }
 
         JSONArray jsonArray=new JSONArray();
         for (int i=0;i<tagListId.size();i++){
             jsonArray.put(tagListId.get(i));
         }
 
+        JSONObject jobInfo=new JSONObject();
         try {
-            inputLogin.put("myId", myid);
-            inputLogin.put("idJobType", jobtypeid);
-            inputLogin.put("idCustomer",customid);
-            inputLogin.put("idSite",sitid);
-            inputLogin.put("idEquipment",equipid);
-            inputLogin.put("idCreator",userid);
-            inputLogin.put("idDomain",domainid);
-            inputLogin.put("description",description);
-            inputLogin.put("priority",selectedpriority);
-            inputLogin.put("globalAddress",globalAddress);
-            inputLogin.put("complementAddress",complementaddress);
-            inputLogin.put("contactFirstName",firstname);
-            inputLogin.put("contactLastName",lastname);
-            inputLogin.put("contactMobile",mobile);
-            inputLogin.put("contactPhone",phone);
-            inputLogin.put("contactEmail",email);
-            inputLogin.put("idSchedulingWindow",schedulingid);
-            inputLogin.put("schedullingPreferredDate",scheduling_date.getText().toString());
-            inputLogin.put("schedullingPreferredTeam",teamid);
-            inputLogin.put("schedullingpreferredUser",technicianid);
-            inputLogin.put("positions",position);
-            inputLogin.put("tags",jsonArray);
+            jobInfo.put("myId", myid);
+            jobInfo.put("idJobType", jobtypeid);
+            jobInfo.put("idCustomer",customid);
+            jobInfo.put("idSite",sitid);
+            jobInfo.put("idEquipment",equipid);
+            jobInfo.put("idCreator",userid);
+            jobInfo.put("idDomain",domainid);
+            jobInfo.put("description",description);
+            jobInfo.put("priority",selectedpriority);
+            jobInfo.put("globalAddress",globalAddress);
+            jobInfo.put("complementAddress",complementaddress);
+            jobInfo.put("contactFirstName",firstname);
+            jobInfo.put("contactLastName",lastname);
+            jobInfo.put("contactMobile",mobile);
+            jobInfo.put("contactPhone",phone);
+            jobInfo.put("contactEmail",email);
+            jobInfo.put("idSchedulingWindow",schedulingid);
+            jobInfo.put("schedullingPreferredDate",scheduling_date.getText().toString());
+            jobInfo.put("schedullingPreferredTeam",teamid);
+            jobInfo.put("schedullingpreferredUser",technicianid);
+            jobInfo.put("positions",position);
+            jobInfo.put("tags",jsonArray);
 
         } catch (Exception e) {
             e.printStackTrace();
         }
+
+        try {
+            inputLogin.put("jobInfo",jobInfo);
+            inputLogin.put("idUser",technicianid);
+            inputLogin.put("idDomain",domainid);
+            inputLogin.put("idSchedulingWindow",schedulingid);
+            inputLogin.put("startDate",startdate);
+            inputLogin.put("endDate",enddate);
+            inputLogin.put("days",new JSONArray(new Gson().toJson(daycount)));
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
         Log.d("inputJsonuser", inputLogin.toString());
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
@@ -1312,27 +1384,15 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     JSONObject obj=new JSONObject(response.toString());
                     boolean success=obj.getBoolean("isSuccess");
                     if (success) {
-                        JSONObject first = obj.getJSONObject("job");
-                        String jobid=first.getString("id");
-                        store.putJobId(String.valueOf(jobid));
-                        String myId=first.getString("myId");
-                        store.putmyId(String.valueOf(myId));
+                        JSONObject first = obj.getJSONObject("recurring_job");
 
-                        if (saveclick==1){
-                            AddJobsActivity.this.finish();
-                        }else {
-                            Intent i=new Intent(AddJobsActivity.this,ActivityJobsSchedule.class);
-                            i.putExtra("jobtypename",job_type_name);
-                            startActivity(i);
-                        }
-
+                            AddRecurringJobs.this.finish();
 
                     }
 
                 } catch (Exception e) {
                     e.printStackTrace();
                 }
-
 
             }
         }, new Response.ErrorListener() {
@@ -1347,7 +1407,6 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             }
 
         }) {
-
 
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
@@ -1365,13 +1424,13 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         for (int i=0;i<cusDetailsArrayList.size();i++){
             String cname=cusDetailsArrayList.get(i).getCustomername();
             if (cname.equals(customername)){
-                    address=cusDetailsArrayList.get(i).getAddress();
-                    complementaddress=cusDetailsArrayList.get(i).getComplementAddress();
-                    firstname=cusDetailsArrayList.get(i).getFirstname();
-                    lastname=cusDetailsArrayList.get(i).getLastname();
-                    phone=cusDetailsArrayList.get(i).getPhone();
-                    mobile=cusDetailsArrayList.get(i).getMobilenum();
-                    email=cusDetailsArrayList.get(i).getEmail();
+                address=cusDetailsArrayList.get(i).getAddress();
+                complementaddress=cusDetailsArrayList.get(i).getComplementAddress();
+                firstname=cusDetailsArrayList.get(i).getFirstname();
+                lastname=cusDetailsArrayList.get(i).getLastname();
+                phone=cusDetailsArrayList.get(i).getPhone();
+                mobile=cusDetailsArrayList.get(i).getMobilenum();
+                email=cusDetailsArrayList.get(i).getEmail();
             }
         }
         if (address!=null){
@@ -1397,28 +1456,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         }
     }
 
-//    private void bindSites(String sitename) {
-//        for (int i=0;i<siteDetailsArrayList.size();i++){
-//            String sname=siteDetailsArrayList.get(i).getSitename();
-////            if (sname.equals(sitename)){
-////                sitename=siteDetailsArrayList.get(i).getSitename();
-////            }
-//        }
-//    }
-//
-//    private void bindEquipments(String equipname) {
-//        for (int i=0;i<equipDetailsArrayList.size();i++){
-//            String ename=equipDetailsArrayList.get(i).getEquipname();
-//        }
-//    }
-
-
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
             case android.R.id.home:
-                AddJobsActivity.this.finish();
+                AddRecurringJobs.this.finish();
                 return true;
         }
 

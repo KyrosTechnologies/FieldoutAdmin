@@ -158,8 +158,8 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
-
-                    String currentdate=String.valueOf(selectedyear+"-"+month+"-"+selectedday+" ");
+                    String monts=String.format("%02d",month);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
                     activity_start_date.setText(currentdate);
                     startdate=currentdate;
 
@@ -182,7 +182,8 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
-                    String currentdate=String.valueOf(selectedyear+"-"+month+"-"+selectedday+" ");
+                    String monts=String.format("%02d",month);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
                     boolean enddates=CheckDates(activity_start_date.getText().toString(),currentdate);
                     if (enddates){
                         activity_end_date.setText(currentdate);

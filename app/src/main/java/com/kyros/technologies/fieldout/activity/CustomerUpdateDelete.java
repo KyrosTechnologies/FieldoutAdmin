@@ -290,35 +290,35 @@ public class CustomerUpdateDelete extends AppCompatActivity {
 
         save_customer_update.setOnClickListener(view -> {
             Log.d("CustomField OutPut : ",""+new Gson().toJson(customFieldsAdapter.getCustomFieldListOutput()));
-//            cusname=customer_update_edit_text.getText().toString();
-//            if (cusname==null && cusname.isEmpty()){
-//                Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
-//                return ;
-//            }
-//            address=address_update_customer.getText().toString();
-//            if (address==null && address.isEmpty()){
-//                Toast.makeText(getApplicationContext(), "Please Enter Address!", Toast.LENGTH_SHORT).show();
-//                return ;
-//            }
-//            myid=job_number_update.getText().toString();
-//            if (myid==null && myid.isEmpty()){
-//                Toast.makeText(getApplicationContext(), "Please Enter Custom Job!", Toast.LENGTH_SHORT).show();
-//                return ;
-//            }
-//
-//            if(cusname!=null &&!cusname.isEmpty()&&address!=null &&!address.isEmpty()&&myid!=null &&!myid.isEmpty()&&
-//                    isValidEmailAddress(email_customer_update.getText().toString())){
-//                addressComplement=additional_address_update.getText().toString();
-//                contactFirstName=customer_first_name_update.getText().toString();
-//                contactLastName=customer_last_name_update.getText().toString();
-//                contactPhone=phone_customer_update.getText().toString();
-//                contactMobile=mobile_customer_update.getText().toString();
-//                contactFax=fax_customer_update.getText().toString();
-//                contactEmail=email_customer_update.getText().toString();
-//                GetLatLngList(address);
-//            }else{
-//                Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
-//            }
+            cusname=customer_update_edit_text.getText().toString();
+            if (cusname==null && cusname.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
+                return ;
+            }
+            address=address_update_customer.getText().toString();
+            if (address==null && address.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Please Enter Address!", Toast.LENGTH_SHORT).show();
+                return ;
+            }
+            myid=job_number_update.getText().toString();
+            if (myid==null && myid.isEmpty()){
+                Toast.makeText(getApplicationContext(), "Please Enter Custom Job!", Toast.LENGTH_SHORT).show();
+                return ;
+            }
+
+            if(cusname!=null &&!cusname.isEmpty()&&address!=null &&!address.isEmpty()&&myid!=null &&!myid.isEmpty()&&
+                    isValidEmailAddress(email_customer_update.getText().toString())){
+                addressComplement=additional_address_update.getText().toString();
+                contactFirstName=customer_first_name_update.getText().toString();
+                contactLastName=customer_last_name_update.getText().toString();
+                contactPhone=phone_customer_update.getText().toString();
+                contactMobile=mobile_customer_update.getText().toString();
+                contactFax=fax_customer_update.getText().toString();
+                contactEmail=email_customer_update.getText().toString();
+                GetLatLngList(address);
+            }else{
+                Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
+            }
 
         });
 

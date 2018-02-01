@@ -30,4 +30,7 @@
     <color name="email_background">#fafafa</color>
     <color name="ver_email">#f5f5f5</color>
     <color name="light_blue">#3a87ad</color>
+    <color name="green_disable">#8D39B327</color>
+    <color name="red_disable">#7DD6382F</color>
+    <color name="button_disable">#7D6F9418</color>
 </resources>

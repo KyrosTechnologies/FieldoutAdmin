@@ -215,14 +215,15 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
 
         validate_jobs_details.setOnClickListener(view -> {
             if (status.equals("completed")){
+
                 UpdateValidateApi();
             }else {
                 Toast.makeText(getApplicationContext(),"Job Need to be Completed to Validate",Toast.LENGTH_SHORT).show();
             }
         });
-
         unschedule_jobs_details.setOnClickListener(view -> {
-            if (status.equals("scheduled")&&status.equals("cancelled")){
+            if (status.equals("scheduled")&&status.equals("canceled")){
+
                 showDeleteDialog();
             }else {
                 Toast.makeText(getApplicationContext(),"Started Jobs cannot be UnScheduled",Toast.LENGTH_SHORT).show();
