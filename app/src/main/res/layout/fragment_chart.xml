@@ -12,17 +12,6 @@
         android:layout_margin="10dp"
         android:orientation="vertical">
 
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_marginBottom="40dp"
-                android:layout_marginTop="20dp"
-                android:orientation="vertical">
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -31,8 +20,19 @@
                     <LinearLayout
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_weight="80"
+                        android:layout_weight="90"
                         android:orientation="vertical">
+
+                        <ScrollView
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_marginBottom="40dp"
+                            android:layout_marginTop="20dp"
+                            android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
@@ -166,7 +166,7 @@
                                     <TextView
                                         android:id="@+id/day_open"
                                         android:layout_width="match_parent"
-                                        android:layout_height="wrap_content"
+                                        android:layout_height="match_parent"
                                         android:textAlignment="center"
                                         android:text=""
                                         android:textColor="@color/blue"
@@ -200,10 +200,10 @@
 
                                 <TextView
                                     android:id="@+id/day_all"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:text=""
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:textAlignment="center"
+                                    android:text="9"
                                     android:textColor="@color/blue"
                                     android:textSize="@dimen/privacy_policy_statement" />
 
@@ -239,7 +239,7 @@
                                 <TextView
                                     android:id="@+id/week_open"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:textAlignment="center"
                                     android:text=""
                                     android:textColor="@color/blue"
@@ -274,7 +274,7 @@
                                 <TextView
                                     android:id="@+id/week_all"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:textAlignment="center"
                                     android:text=""
                                     android:textColor="@color/blue"
@@ -290,7 +290,7 @@
                                 android:layout_gravity="end"
                                 android:background="@drawable/button_bg"
                                 android:orientation="vertical"
-                                android:layout_marginLeft="200dp">
+                                android:layout_marginLeft="215dp">
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -312,7 +312,7 @@
                                 <TextView
                                     android:id="@+id/month_open"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:textAlignment="center"
                                     android:text=""
                                     android:textColor="@color/blue"
@@ -347,7 +347,7 @@
                                 <TextView
                                     android:id="@+id/month_all"
                                     android:layout_width="match_parent"
-                                    android:layout_height="wrap_content"
+                                    android:layout_height="match_parent"
                                     android:textAlignment="center"
                                     android:text=""
                                     android:textColor="@color/blue"
@@ -558,6 +558,55 @@
 
                         </LinearLayout>
 
+                        <LinearLayout
+                            android:visibility="gone"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_marginTop="15dp"
+                                android:orientation="horizontal">
+
+                                <LinearLayout
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="1"
+                                    android:orientation="vertical">
+
+                                    <TextView
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_gravity="center"
+                                        android:layout_marginBottom="10dp"
+                                        android:layout_marginTop="10dp"
+                                        android:text="@string/completed_jobs"
+                                        android:textColor="@color/light_black"
+                                        android:textSize="@dimen/title_text_size" />
+
+                                    <TextView
+                                        android:id="@+id/status_one_chart"
+                                        android:layout_width="250dp"
+                                        android:layout_height="250dp"
+                                        android:layout_gravity="center"
+                                        android:layout_margin="15dp"
+                                        android:gravity="center"
+                                        android:text="@string/no_chart_data_available"
+                                        android:textColor="@color/text_light"
+                                        android:textSize="@dimen/sub_text_size"
+                                        android:visibility="gone" />
+
+                                    <com.github.mikephil.charting.charts.BubbleChart
+                                        android:id="@+id/jobs_by_status"
+                                        android:layout_width="match_parent"
+                                        android:layout_height="match_parent"
+                                        android:layout_margin="15dp"/>
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                        </ScrollView>
+
                     </LinearLayout>
 
                     <View
@@ -570,18 +619,19 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="10dp"
-                        android:layout_weight="20"
+                        android:layout_weight="10"
                         android:orientation="vertical">
 
                         <LinearLayout
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical">
+                            android:orientation="vertical"
+                            android:layout_gravity="center">
 
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="0.2dp"
-                                android:background="@color/text_light" />
+                                android:background="@color/text_light"/>
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -594,12 +644,14 @@
                                     android:background="@color/text_light" />
 
                                 <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
+                                    android:id="@+id/today_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
                                     android:layout_gravity="center"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginRight="8dp"
-                                    android:text="@string/jobs"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="12dp"
+                                    android:text="Today"
                                     android:textColor="@color/light_black"
                                     android:textSize="@dimen/privacy_policy_statement" />
 
@@ -609,12 +661,13 @@
                                     android:background="@color/text_light" />
 
                                 <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginRight="8dp"
-                                    android:text="@string/sales"
+                                    android:id="@+id/this_week_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="12dp"
+                                    android:text="This Week"
                                     android:textColor="@color/light_black"
                                     android:textSize="@dimen/privacy_policy_statement" />
 
@@ -624,12 +677,13 @@
                                     android:background="@color/text_light" />
 
                                 <TextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:layout_gravity="center"
-                                    android:layout_marginLeft="8dp"
-                                    android:layout_marginRight="8dp"
-                                    android:text="@string/performance"
+                                    android:id="@+id/this_month_text"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="match_parent"
+                                    android:gravity="center"
+                                    android:layout_marginLeft="12dp"
+                                    android:layout_marginRight="12dp"
+                                    android:text="This Month"
                                     android:textColor="@color/light_black"
                                     android:textSize="@dimen/privacy_policy_statement" />
 
@@ -647,14 +701,29 @@
 
                         </LinearLayout>
 
+                        <android.support.v7.widget.RecyclerView
+                            android:id="@+id/today_tech_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:visibility="gone"
+                            android:id="@+id/this_week_tech_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"/>
+
+                        <android.support.v7.widget.RecyclerView
+                            android:visibility="gone"
+                            android:id="@+id/this_month_tech_recycler"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:layout_margin="10dp"/>
 
                     </LinearLayout>
 
                 </LinearLayout>
-
-            </LinearLayout>
-
-        </ScrollView>
 
     </LinearLayout>
 

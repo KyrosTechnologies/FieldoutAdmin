@@ -1,0 +1,57 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android" android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/tech_name_progress"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Technician Name"
+        android:textSize="@dimen/privacy_policy_statement"
+        android:textColor="@color/button"/>
+
+    <ProgressBar
+        android:id="@+id/progressBar_tech"
+        style="?android:attr/progressBarStyleHorizontal"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_marginTop="15dp"
+        android:max="100"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginTop="10dp">
+
+    <TextView
+        android:id="@+id/jobs_count_tech_all"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Open / Closed"
+        android:textSize="@dimen/privacy_policy_statement"
+        android:textColor="@color/light_black"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="/"
+            android:textSize="@dimen/privacy_policy_statement"
+            android:textColor="@color/light_black"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"/>
+
+        <TextView
+            android:id="@+id/jobs_count_tech_closed"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Open / Closed"
+            android:textSize="@dimen/privacy_policy_statement"
+            android:textColor="@color/light_black"
+            android:layout_marginBottom="8dp"/>
+
+    </LinearLayout>
+
+</LinearLayout>

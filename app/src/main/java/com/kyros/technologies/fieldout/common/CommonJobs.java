@@ -97,6 +97,7 @@ public class CommonJobs {
     private String lowlevelidjob;
     private String startdate;
     private String enddate;
+    private JSONArray counts;
 
     public CommonJobs(){
 
@@ -798,5 +799,13 @@ public class CommonJobs {
 
     public void setEnddate(String enddate) {
         this.enddate = enddate;
+    }
+
+    public JSONArray getCounts() {
+        return counts;
+    }
+
+    public void setCounts(JSONArray counts) {
+        this.counts = counts;
     }
 }

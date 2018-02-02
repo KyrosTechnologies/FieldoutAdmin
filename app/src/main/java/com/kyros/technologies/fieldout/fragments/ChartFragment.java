@@ -8,6 +8,9 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +22,7 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.github.mikephil.charting.charts.BubbleChart;
 import com.github.mikephil.charting.charts.PieChart;
 import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
@@ -33,6 +37,7 @@ import com.kyros.technologies.fieldout.activity.ChartAllJJobs;
 import com.kyros.technologies.fieldout.activity.ChartCompletedJobs;
 import com.kyros.technologies.fieldout.activity.ChartIncompletedJobs;
 import com.kyros.technologies.fieldout.activity.ChartLateJobs;
+import com.kyros.technologies.fieldout.adapters.TechnicianProgressAdapter;
 import com.kyros.technologies.fieldout.common.CommonJobs;
 import com.kyros.technologies.fieldout.common.EndURL;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
@@ -53,11 +58,14 @@ import java.util.Map;
  * Created by Rohin on 26-01-2018.
  */
 
-public class ChartFragment extends Fragment {
+public class ChartFragment extends Fragment implements OnChartValueSelectedListener{
 
     private View chart;
     PieChart incompletedchart,latejobschart,completedjobschart,alljobschart;
-    private TextView incomplete_no_chart,late_no_chart,completed_no_chart,all_no_chart,day_open,day_all,week_open,week_all,month_open,month_all;
+    BubbleChart jobs_by_status;
+    private TextView incomplete_no_chart,late_no_chart,completed_no_chart,all_no_chart,day_open,day_all,week_open,
+            week_all,month_open,month_all,status_one_chart,today_text,this_week_text,this_month_text;
+    private RecyclerView this_month_tech_recycler,this_week_tech_recycler,today_tech_recycler;
     ArrayList<Entry> incompletedentries ;
     ArrayList<Entry> lateentries;
     ArrayList<Entry> completedentries;
@@ -78,6 +86,9 @@ public class ChartFragment extends Fragment {
     ArrayList<Entry> completedy = new ArrayList<Entry>();
     private String userid=null;
     private String dtformat=null;
+    ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
+    ArrayList<CommonJobs> thisWeekArrayList = new ArrayList<CommonJobs>();
+    ArrayList<CommonJobs> todayArrayList = new ArrayList<CommonJobs>();
     private String[] xValues = {"High", "Low", "Normal"};
     public static  final int[] MY_COLORS = {
             Color.rgb(51,120,196),Color.rgb(189,189,189),Color.rgb(111,148,24)};
@@ -93,6 +104,7 @@ public class ChartFragment extends Fragment {
         late_no_chart=chart.findViewById(R.id.late_no_chart);
         incomplete_no_chart=chart.findViewById(R.id.incomplete_no_chart);
         completed_no_chart=chart.findViewById(R.id.completed_no_chart);
+        jobs_by_status=chart.findViewById(R.id.jobs_by_status);
         all_no_chart=chart.findViewById(R.id.all_no_chart);
         day_open=chart.findViewById(R.id.day_open);
         day_all=chart.findViewById(R.id.day_all);
@@ -100,6 +112,13 @@ public class ChartFragment extends Fragment {
         week_all=chart.findViewById(R.id.week_all);
         month_open=chart.findViewById(R.id.month_open);
         month_all=chart.findViewById(R.id.month_all);
+        status_one_chart=chart.findViewById(R.id.status_one_chart);
+        this_month_tech_recycler=chart.findViewById(R.id.this_month_tech_recycler);
+        today_text=chart.findViewById(R.id.today_text);
+        this_week_text=chart.findViewById(R.id.this_month_text);
+        this_month_text=chart.findViewById(R.id.today_text);
+        this_week_tech_recycler=chart.findViewById(R.id.this_week_tech_recycler);
+        today_tech_recycler=chart.findViewById(R.id.today_tech_recycler);
         store= PreferenceManager.getInstance(getActivity().getApplicationContext());
         userid=store.getUserid();
         GetGraphList();
@@ -118,6 +137,36 @@ public class ChartFragment extends Fragment {
         latejobschart.setDescription("");
         completedjobschart.setDescription("");
         alljobschart.setDescription("");
+        jobs_by_status.setDescription("");
+
+        jobs_by_status.setOnChartValueSelectedListener(this);
+
+        jobs_by_status.setDrawGridBackground(false);
+
+        jobs_by_status.setTouchEnabled(true);
+        jobs_by_status.setDragEnabled(true);
+        jobs_by_status.setScaleEnabled(true);
+
+        jobs_by_status.setMaxVisibleValueCount(200);
+        jobs_by_status.setPinchZoom(true);
+
+        today_text.setOnClickListener(view -> {
+            today_tech_recycler.setVisibility(View.VISIBLE);
+            this_month_tech_recycler.setVisibility(View.GONE);
+            this_week_tech_recycler.setVisibility(View.GONE);
+        });
+
+        this_month_text.setOnClickListener(view -> {
+            today_tech_recycler.setVisibility(View.GONE);
+            this_month_tech_recycler.setVisibility(View.VISIBLE);
+            this_week_tech_recycler.setVisibility(View.GONE);
+        });
+
+        this_week_text.setOnClickListener(view -> {
+            today_tech_recycler.setVisibility(View.GONE);
+            this_month_tech_recycler.setVisibility(View.GONE);
+            this_week_tech_recycler.setVisibility(View.VISIBLE);
+        });
 
         return chart;
 
@@ -144,9 +193,11 @@ public class ChartFragment extends Fragment {
             public void onResponse(JSONObject response) {
                 Log.d("List TeamsResponse",response.toString());
                 cusDetailsArrayList.clear();
+                commonJobsArrayList.clear();
+                thisWeekArrayList.clear();
+                todayArrayList.clear();
 
                 try {
-
                     JSONObject obj = new JSONObject(response.toString());
                     JSONObject object = obj.getJSONObject("graphResult");
                     JSONObject firstLayer=object.getJSONObject("firstLayer");
@@ -222,7 +273,6 @@ public class ChartFragment extends Fragment {
 
                     for (int c : MY_COLORS)
                         colors.add(c);
-
 
                     dataSet.setColors(colors);
 
@@ -457,6 +507,76 @@ public class ChartFragment extends Fragment {
                         }
                     });
 
+                    JSONObject technicianAndJobsLayer=object.getJSONObject("technicianAndJobsLayer");
+                    JSONArray techthisMonth=technicianAndJobsLayer.getJSONArray("thisMonth");
+                    for (int i=0;i<techthisMonth.length();i++){
+                        JSONObject first = techthisMonth.getJSONObject(i);
+                        String username=first.getString("username");
+                        JSONArray techcounts=first.getJSONArray("counts");
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setCounts(techcounts);
+                        commonJobs.setTechnicianname(username);
+                        commonJobsArrayList.add(commonJobs);
+                    }
+
+                    if (commonJobsArrayList.size()!=0){
+                        this_month_tech_recycler=chart.findViewById(R.id.this_month_tech_recycler);
+                        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+                        this_month_tech_recycler.setLayoutManager(layoutManager);
+                        //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                        this_month_tech_recycler.setItemAnimator(new DefaultItemAnimator());
+                        TechnicianProgressAdapter technicianProgressAdapter=new TechnicianProgressAdapter(getContext(), commonJobsArrayList);
+                        this_month_tech_recycler.setAdapter(technicianProgressAdapter);
+                        technicianProgressAdapter.notifyDataSetChanged();
+                    }
+
+                    JSONArray techthisWeek=technicianAndJobsLayer.getJSONArray("thisWeek");
+                    for (int i=0;i<techthisWeek.length();i++){
+                        JSONObject first = techthisWeek.getJSONObject(i);
+                        String username=first.getString("username");
+                        JSONArray techcounts=first.getJSONArray("counts");
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setCounts(techcounts);
+                        commonJobs.setTechnicianname(username);
+                        thisWeekArrayList.add(commonJobs);
+                    }
+
+                    if (thisWeekArrayList.size()!=0){
+                        this_week_tech_recycler=chart.findViewById(R.id.this_week_tech_recycler);
+                        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+                        this_week_tech_recycler.setLayoutManager(layoutManager);
+                        //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                        this_week_tech_recycler.setItemAnimator(new DefaultItemAnimator());
+                        TechnicianProgressAdapter technicianweeekProgressAdapter=new TechnicianProgressAdapter(getContext(), thisWeekArrayList);
+                        this_week_tech_recycler.setAdapter(technicianweeekProgressAdapter);
+                        technicianweeekProgressAdapter.notifyDataSetChanged();
+                    }
+
+                    JSONArray techtoday=technicianAndJobsLayer.getJSONArray("today");
+                    for (int i=0;i<techtoday.length();i++){
+                        JSONObject first = techtoday.getJSONObject(i);
+                        String username=first.getString("username");
+                        JSONArray techcounts=first.getJSONArray("counts");
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setCounts(techcounts);
+                        commonJobs.setTechnicianname(username);
+                        todayArrayList.add(commonJobs);
+                    }
+
+                    if (todayArrayList.size()!=0){
+                        today_tech_recycler=chart.findViewById(R.id.today_tech_recycler);
+                        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+                        today_tech_recycler.setLayoutManager(layoutManager);
+                        //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                        today_tech_recycler.setItemAnimator(new DefaultItemAnimator());
+                        TechnicianProgressAdapter techniciantodayProgressAdapter=new TechnicianProgressAdapter(getContext(), todayArrayList);
+                        today_tech_recycler.setAdapter(techniciantodayProgressAdapter);
+                        techniciantodayProgressAdapter.notifyDataSetChanged();
+                    }
+
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -481,6 +601,16 @@ public class ChartFragment extends Fragment {
 
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
+    }
+
+    @Override
+    public void onValueSelected(Entry e, int dataSetIndex, Highlight h) {
+
+    }
+
+    @Override
+    public void onNothingSelected() {
 
     }
 
