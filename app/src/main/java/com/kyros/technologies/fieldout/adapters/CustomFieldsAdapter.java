@@ -54,22 +54,23 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
     private HashMap<Integer, String> hMapText = new HashMap<>();
     private HashMap<Integer, String> hMapActv = new HashMap<>();
     private String formType;
-
+    private OnItemClickListener onItemClickListener;
     public CustomFieldsAdapter(){
 
     }
 
-    public void setCustomFieldData(List<CustomField> customFieldList, Context mContext,String whichOne,String formType){
+    public void setCustomFieldData(List<CustomField> customFieldList, Context mContext,String whichOne,String formType,OnItemClickListener onItemClickListener){
         this.customFieldList = customFieldList;
         this.mContext = mContext;
         this.whichOne=whichOne;
         this.formType=formType;
+        this.onItemClickListener=onItemClickListener;
         notifyDataSetChanged();
     }
     @Override
     public CustomFieldsViewModel onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.adapter_customfields, parent, false);
-        return new CustomFieldsViewModel(view);
+        return new CustomFieldsViewModel(view,onItemClickListener);
     }
 
     @Override
@@ -105,28 +106,12 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
 
         switch (typeOfField){
             case "Text":
-                holder.linear_custom_fields_parent.addView(holder.labelName);
-                holder.labelName.setText(name);
-                holder.linear_custom_fields_parent.addView(holder.inputTextView);
-                String valueInput="Enter user input "+name;
-                holder.inputTextView.setHint(valueInput);
                 if(whichOne.equals("update")){
-                    hMapText.put(position,updateText);
-                    holder.inputTextView.setText(updateText);
-                    holder.inputTextView.setOnEditorActionListener((textView, i, keyEvent) ->{
-                        if(i == EditorInfo.IME_ACTION_DONE){
-                            String textValue= holder.inputTextView.getText().toString();
-                            CustomField customField_text=new CustomField();
-                            customField_text.setTextValue(textValue);
-                            customField_text.setFormType(formType);
-                            customField_text.setId(id);
-                            customField_text.setPosition(position);
-                            customField_text.setTypeOfField("Text");
-                            customFieldListOutput.add(customField_text);
-                            return true ;
-                        }
-                        return true;
-                    } );
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.dateTextView);
+                    holder.dateTextView.setHint(updateText);
+
 
 
                     String textValue= holder.inputTextView.getText().toString();
@@ -139,9 +124,12 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     customFieldListOutput.add(customField_text);
 
 
-                }
-                else if (whichOne.equals("add")){
-
+                }else if (whichOne.equals("add")){
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.inputTextView);
+                    String valueInput="Enter user input "+name;
+                    holder.inputTextView.setHint(valueInput);
                     holder.inputTextView.setId(position);
                     typeWhich.setId(position);
                     typeWhich.setType("Text");
@@ -185,41 +173,42 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
 
                 break;
             case "List Of Values":
-                holder.linear_custom_fields_parent.addView(holder.labelName);
-                holder.labelName.setText(name);
-                holder.linear_custom_fields_parent.addView(holder.spinnerCustomField);
-                holder.spinnerCustomField.setPrompt(""+name);
-                holder.spinnerCustomField.setId(position);
-                ArrayAdapter<String> adapterSpinner=new  ArrayAdapter<>(mContext,android.R.layout.simple_spinner_item,
-                        choicesList);
-                adapterSpinner.setDropDownViewResource(android.R.layout.simple_list_item_1);
-                holder.spinnerCustomField.setAdapter(adapterSpinner);
-                List<String> finalChoicesList = choicesList;
+                if(whichOne.equals("add")){
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.spinnerCustomField);
+                    holder.spinnerCustomField.setPrompt(""+name);
+                    holder.spinnerCustomField.setId(position);
+                    ArrayAdapter<String> adapterSpinner=new  ArrayAdapter<>(mContext,android.R.layout.simple_spinner_item,
+                            choicesList);
+                    adapterSpinner.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                    holder.spinnerCustomField.setAdapter(adapterSpinner);
+                    List<String> finalChoicesList = choicesList;
 
-                String finalName1 = name;
-                holder. spinnerCustomField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                    String finalName1 = name;
+                    holder. spinnerCustomField.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                          //  if(++check > 1) {
-                                spinnerCustomFieldSeletectedChoice=i;
-                                String str = (String) adapterView.getItemAtPosition(i);
-                                for(CustomField customF:customFieldListOutput){
-                                    if(customF.getPosition()==holder.spinnerCustomField.getId()){
-                                        customF.setTextValue(str);
-                                        return;
-                                    }
-
+                            //  if(++check > 1) {
+                            spinnerCustomFieldSeletectedChoice=i;
+                            String str = (String) adapterView.getItemAtPosition(i);
+                            for(CustomField customF:customFieldListOutput){
+                                if(customF.getPosition()==holder.spinnerCustomField.getId()){
+                                    customF.setTextValue(str);
+                                    return;
                                 }
-                                CustomField customField_lov=new CustomField();
-                                customField_lov.setTextValue(str);
-                                customField_lov.setFormType(formType);
-                                customField_lov.setId(id);
-                                customField_lov.setName(finalName1);
-                                customField_lov.setPosition(position);
-                                customField_lov.setChoices(finalChoicesList);
-                                customField_lov.setTypeOfField("List Of Values");
-                                customFieldListOutput.add(customField_lov);
-                          //  }
+
+                            }
+                            CustomField customField_lov=new CustomField();
+                            customField_lov.setTextValue(str);
+                            customField_lov.setFormType(formType);
+                            customField_lov.setId(id);
+                            customField_lov.setName(finalName1);
+                            customField_lov.setPosition(position);
+                            customField_lov.setChoices(finalChoicesList);
+                            customField_lov.setTypeOfField("List Of Values");
+                            customFieldListOutput.add(customField_lov);
+                            //  }
 
                         }
 
@@ -230,25 +219,29 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     });
 
 
-                typeWhich.setId(position);
-                        typeWhich.setType("List Of Values");
-                        typeWhich.setCustomFieldId(id);
-                String values=holder.spinnerCustomField.getSelectedItem().toString();
+                    typeWhich.setId(position);
+                    typeWhich.setType("List Of Values");
+                    typeWhich.setCustomFieldId(id);
+                    String values=holder.spinnerCustomField.getSelectedItem().toString();
+                }else if(whichOne.equals("update")){
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.dateTextView);
+                    holder.inputTextView.setText(updateText);
+                }
+
 
                 break;
             case "Date":
-                holder.linear_custom_fields_parent.addView(holder.labelName);
-                holder.labelName.setText(name);
-                holder.linear_custom_fields_parent.addView(holder.dateTextView);
-                String valueDate="Date "+name;
-                holder.dateTextView.setText(valueDate);
-                holder.dateTextView.setId((position));
+
                 if(whichOne.equals("update")){
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.dateTextView);
+                    holder.dateTextView.setText(updateText);
+                    holder.dateTextView.setId((position));
                     holder.dateTextView.setText(updateText);
                     hMapDate.put(position,updateText);
-
-                }
-                if(whichOne.equals("update")){
                     for(CustomField customF:customFieldListOutput){
                         if(customF.getPosition()==holder.dateTextView.getId()){
                             if(customF.getTextValue().equals(holder.dateTextView.getText().toString()))
@@ -265,6 +258,12 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     customField1.setTypeOfField("Date");
                     customFieldListOutput.add(customField1);
                 }else if(whichOne.equals("add")){
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.dateTextView);
+                    String valueDate="Date "+name;
+                    holder.dateTextView.setText(valueDate);
+                    holder.dateTextView.setId((position));
                     String finalName6 = name;
                     holder.dateTextView.setOnClickListener(view ->{
                         Calendar mcurrentDate=Calendar.getInstance();
@@ -310,18 +309,15 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
 
                 break;
             case "Numeric":
-                holder.linear_custom_fields_parent.addView(holder.labelName);
-                holder.labelName.setText(name);
-                holder.linear_custom_fields_parent.addView(holder.numericEditText);
-                String valueNumeric="Input "+name;
-                holder.numericEditText.setHint(valueNumeric);
-                holder.numericEditText.setId(position);
-                typeWhich.setId(position);
-                        typeWhich.setType("Numeric");
-                        typeWhich.setCustomFieldId(id);
+
                 if(whichOne.equals("update")){
-                    holder.numericEditText.setText(updateText);
-                    hMapNumeric.put(position,updateText);
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.dateTextView);
+                  holder.dateTextView.setText(updateText);
+                    typeWhich.setId(position);
+                    typeWhich.setType("Numeric");
+                    typeWhich.setCustomFieldId(id);
                     CustomField customField_numeric=new CustomField();
                     String tValue=holder.numericEditText.getText().toString();
                     customField_numeric.setTextValue(tValue);
@@ -332,6 +328,15 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     customField_numeric.setTypeOfField("Numeric");
                     customFieldListOutput.add(customField_numeric);
                 }else{
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.numericEditText);
+                    String valueNumeric="Input "+name;
+                    holder.numericEditText.setHint(valueNumeric);
+                    holder.numericEditText.setId(position);
+                    typeWhich.setId(position);
+                    typeWhich.setType("Numeric");
+                    typeWhich.setCustomFieldId(id);
                     String finalName3 = name;
                     holder.numericEditText.addTextChangedListener(new TextWatcher() {
                         @Override
@@ -372,13 +377,14 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
 
                 break;
             case "CheckBox":
-                holder.linear_custom_fields_parent.addView(holder.labelName);
-                holder.labelName.setText(name);
-                holder.linear_custom_fields_parent.addView(holder.checkBoxCustomField);
-                String valueCheckBox="Select "+name;
-                holder.checkBoxCustomField.setText(valueCheckBox);
-                holder.checkBoxCustomField.setId(position);
+
                 if(whichOne.equals("update")){
+
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.dateTextView);
+
+                    holder.dateTextView.setText(updateText);
                     String chValue="";
                     hMapBoolean.put(position,updateText);
                     holder.checkBoxCustomField.setText(updateText);
@@ -401,6 +407,13 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     customField_checkBox.setName(name);
                     customFieldListOutput.add(customField_checkBox);
                 }else{
+
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.checkBoxCustomField);
+                    String valueCheckBox="Select "+name;
+                    holder.checkBoxCustomField.setText(valueCheckBox);
+                    holder.checkBoxCustomField.setId(position);
                     typeWhich.setId(position);
                     typeWhich.setType("CheckBox");
                     typeWhich.setCustomFieldId(id);
@@ -441,14 +454,13 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
 
                 break;
             case "AutoCompleteBox":
-                holder.linear_custom_fields_parent.addView(holder.labelName);
-                holder.labelName.setText(name);
-                holder.linear_custom_fields_parent.addView(holder.autoCompleteTextView);
-                String valueACTV=""+name;
-                holder.autoCompleteTextView.setHint(valueACTV);
-                holder.autoCompleteTextView.setId(position);
+
+
                 if(whichOne.equals("update")) {
-                    holder.autoCompleteTextView.setText(updateText);
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.dateTextView);
+                    holder.dateTextView.setText(updateText);
                     hMapActv.put(position,updateText);
                     CustomField customField_actv=new CustomField();
                     customField_actv.setTextValue(holder.autoCompleteTextView.getText().toString());
@@ -459,6 +471,12 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
                     customField_actv.setTypeOfField("AutoCompleteBox");
                     customFieldListOutput.add(customField_actv);
                 }else {
+                    holder.linear_custom_fields_parent.addView(holder.labelName);
+                    holder.labelName.setText(name);
+                    holder.linear_custom_fields_parent.addView(holder.autoCompleteTextView);
+                    String valueACTV=""+name;
+                    holder.autoCompleteTextView.setHint(valueACTV);
+                    holder.autoCompleteTextView.setId(position);
                     typeWhich.setId(position);
                     typeWhich.setType("AutoCompleteBox");
                     typeWhich.setCustomFieldId(id);
@@ -518,7 +536,13 @@ public class CustomFieldsAdapter extends RecyclerView.Adapter<CustomFieldsViewMo
     public List<CustomField>getCustomFieldListOutput(){
         return customFieldListOutput;
     }
-
+    public interface OnItemClickListener {
+        void onItemClick(View view,int position);
+    }
+    public void setUpdatedCustomFields( List<CustomField> customFieldList){
+     this.customFieldList=customFieldList;
+     notifyDataSetChanged();
+    }
 }
 
 

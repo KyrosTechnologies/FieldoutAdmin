@@ -5,6 +5,7 @@ import com.kyros.technologies.fieldout.models.ActivityTypeAddResponse;
 import com.kyros.technologies.fieldout.models.ActivityTypeDeleteResponse;
 import com.kyros.technologies.fieldout.models.ActivityTypeResponse;
 import com.kyros.technologies.fieldout.models.ActivityTypeUpdateResponse;
+import com.kyros.technologies.fieldout.models.AddAttachments;
 import com.kyros.technologies.fieldout.models.AddJobsTypeResponse;
 import com.kyros.technologies.fieldout.models.AddProjectTypeResponse;
 import com.kyros.technologies.fieldout.models.AddSchedulingResponse;
@@ -58,13 +59,22 @@ import com.kyros.technologies.fieldout.models.UserInfo;
 import com.kyros.technologies.fieldout.models.UserUpdateResponse;
 import com.kyros.technologies.fieldout.models.UsersResponse;
 
+import java.util.Map;
+
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import retrofit2.Call;
 import retrofit2.http.Body;
 import retrofit2.http.DELETE;
 import retrofit2.http.GET;
 import retrofit2.http.Header;
 import retrofit2.http.Headers;
+import retrofit2.http.Multipart;
 import retrofit2.http.POST;
 import retrofit2.http.PUT;
+import retrofit2.http.Part;
+import retrofit2.http.PartMap;
 import retrofit2.http.Path;
 import rx.Observable;
 
@@ -184,5 +194,10 @@ public interface POJOInterface {
     Observable<User>changePassword(@Header("Authorization")String authKey,@Path("userId")String userId,@Body User user);
     @GET("/invoices/getById/{invoiceId}")
     Observable<InvoiceCustomerResponse>getCustomerInvoice(@Header("Authorization")String authKey, @Path("invoiceId")String invoiceId);
+    @Multipart
+    @POST("/attachments/add")
+    Observable<ResponseBody>addAttachments(@Header("Authorization")String authKey, @PartMap()Map<String, RequestBody> partMap, @Part MultipartBody.Part file);
+    @POST("/attachments/add")
+    Observable<ResponseBody>addAttachmentsByteStream(@Header("Authorization")String authKey, @Body AddAttachments addAttachments);
 
 }

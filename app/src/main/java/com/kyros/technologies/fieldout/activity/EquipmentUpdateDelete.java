@@ -75,7 +75,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Rohin on 23-12-2017.
  */
 
-public class EquipmentUpdateDelete extends AppCompatActivity {
+public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFieldsAdapter.OnItemClickListener{
 
     private PreferenceManager store;
     private EditText equipment_name_edit_text_update,job_number_equipment_update;
@@ -399,7 +399,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity {
             Log.d("Bind View : ",""+new Gson().toJson(updateCustomFieldList));
             recycler_custom_equip_update.setLayoutManager(new LinearLayoutManager(this));
             recycler_custom_equip_update.setItemAnimator(new DefaultItemAnimator());
-            customFieldsAdapter.setCustomFieldData(updateCustomFieldList,this,"update","equipments");
+            customFieldsAdapter.setCustomFieldData(updateCustomFieldList,this,"update","equipments",this);
             recycler_custom_equip_update.setAdapter(customFieldsAdapter);
         }
 
@@ -1348,6 +1348,12 @@ public class EquipmentUpdateDelete extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
     public class TypeWhich{
         private int id;
         private String type;

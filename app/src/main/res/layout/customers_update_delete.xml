@@ -259,7 +259,7 @@
                         android:layout_width="match_parent"
                         android:layout_marginTop="10dp"
                         android:layout_marginBottom="10dp"
-                        android:layout_weight="1"
+                        android:layout_weight="50"
                         android:fitsSystemWindows="true"
                         android:layout_height="match_parent"
                         android:id="@+id/recycler_custom_update"></android.support.v7.widget.RecyclerView>

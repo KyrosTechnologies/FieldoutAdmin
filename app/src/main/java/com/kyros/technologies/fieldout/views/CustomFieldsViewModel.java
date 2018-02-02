@@ -12,6 +12,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 
 import com.kyros.technologies.fieldout.R;
+import com.kyros.technologies.fieldout.adapters.CustomFieldsAdapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,7 +21,7 @@ import java.util.List;
  * Created by kyros on 23-01-2018.
  */
 
-public class CustomFieldsViewModel extends RecyclerView.ViewHolder {
+public class CustomFieldsViewModel extends RecyclerView.ViewHolder implements View.OnClickListener  {
   public EditText inputTextView=null;
     public  Spinner spinnerCustomField=null;
     public TextView dateTextView=null;
@@ -30,10 +31,13 @@ public class CustomFieldsViewModel extends RecyclerView.ViewHolder {
     public  List<String> choicesList=new ArrayList<>();
     public    LinearLayout linear_custom_fields_parent;
     public TextView labelName=null;
-
-    public CustomFieldsViewModel(View itemView) {
+    public CustomFieldsAdapter.OnItemClickListener onItemClickListener;
+    public CustomFieldsViewModel(View itemView,CustomFieldsAdapter.OnItemClickListener onItemClickListener) {
         super(itemView);
+        this.onItemClickListener=onItemClickListener;
         linear_custom_fields_parent=itemView.findViewById(R.id.linear_custom_fields_parent);
+        itemView.setOnClickListener(this);
+
         validateCustomField();
     }
     private void validateCustomField() {
@@ -121,4 +125,10 @@ public class CustomFieldsViewModel extends RecyclerView.ViewHolder {
 
 
 
-}}
+}
+
+    @Override
+    public void onClick(View view) {
+        onItemClickListener.onItemClick(view,getAdapterPosition());
+    }
+}

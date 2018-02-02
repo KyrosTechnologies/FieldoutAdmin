@@ -72,7 +72,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Rohin on 22-12-2017.
  */
 
-public class CustomerUpdateDelete extends AppCompatActivity {
+public class CustomerUpdateDelete extends AppCompatActivity implements CustomFieldsAdapter.OnItemClickListener {
 
     private PreferenceManager store;
     private Spinner spinner_time_zone_customer;
@@ -146,6 +146,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
     private android.app.AlertDialog multipleSelectDialog;
     private SkilledTradersAdapter tagsAdapter;
     private List<String>selectedTagListName=new ArrayList<>();
+    private AlertDialog customDialogBox;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -440,7 +441,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
       //  updateCustomFieldList
         recycler_custom_update.setLayoutManager(new LinearLayoutManager(this));
         recycler_custom_update.setItemAnimator(new DefaultItemAnimator());
-        customFieldsAdapter.setCustomFieldData(updateCustomFieldList, this,"update","customers");
+        customFieldsAdapter.setCustomFieldData(updateCustomFieldList, this,"update","customers",this);
         recycler_custom_update.setAdapter(customFieldsAdapter);
     }
 
@@ -694,6 +695,7 @@ public class CustomerUpdateDelete extends AppCompatActivity {
         super.onDestroy();
         dismissTagsDialog();
         subscription.clear();
+        dismissCustomDialogBox();
         dismissMultipleSelectDialogBox();
 
     }
@@ -1379,6 +1381,142 @@ public class CustomerUpdateDelete extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onItemClick(View view, int position) {
+            showToast("Position : "+position);
+            try{
+               if(position<=updateCustomFieldList.size()){
+                   CustomField customField=updateCustomFieldList.get(position);
+                   initiateDialogBox(customField);
+               }else{
+                   showToast("position value must be less than or equal to custom list");
+               }
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+    }
+
+    private void initiateDialogBox(CustomField customField) {
+        String typeOfField=customField.getTypeOfField();
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        View view=getLayoutInflater().inflate(R.layout.dialog_custom_field,null);
+        Button button=view.findViewById(R.id.button_save_update);
+        builder.setView(view);
+        customDialogBox=builder.create();
+        List<String>choicesList=customField.getChoices();
+        switch (typeOfField){
+            case "Text":
+               EditText editText=view.findViewById(R.id.edit_text_input);
+               editText.setVisibility(View.VISIBLE);
+               button.setOnClickListener(view1 -> {
+                   for(CustomField customField1:updateCustomFieldList){
+                       if(customField1.getId().equals(customField.getId())){
+                           customField.setTextValue(editText.getText().toString());
+                       }
+                   }
+                   customFieldsAdapter.setUpdatedCustomFields(updateCustomFieldList);
+                   dismissCustomDialogBox();
+               });
+                break;
+            case "List Of Values":
+                Spinner spinner=view.findViewById(R.id.spinner_list_of_values);
+                spinner.setVisibility(View.VISIBLE);
+                ArrayAdapter<String> adapterSpinner=new  ArrayAdapter<>(this,android.R.layout.simple_spinner_item,
+                        choicesList);
+                adapterSpinner.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                spinner.setAdapter(adapterSpinner);
+                button.setOnClickListener(view1 -> {
+                    for(CustomField customField1:updateCustomFieldList){
+                        if(customField1.getId().equals(customField.getId())){
+                            customField.setTextValue(spinner.getSelectedItem().toString());
+                        }
+                    }
+                    customFieldsAdapter.setUpdatedCustomFields(updateCustomFieldList);
+                    dismissCustomDialogBox();
+                });
+                break;
+            case "Date":
+                TextView textView=view.findViewById(R.id.text_view_date_update);
+                textView.setVisibility(View.VISIBLE);
+                final String[] valueDate = new String[1];
+                textView.setOnClickListener(view1 -> {
+                    Calendar mcurrentDate=Calendar.getInstance();
+                    final int mYear = mcurrentDate.get(Calendar.YEAR);
+                    final int mMonth=mcurrentDate.get(Calendar.MONTH);
+                    final int mDay=mcurrentDate.get(Calendar.DAY_OF_MONTH);
+                    DatePickerDialog mDatePicker=new DatePickerDialog(this,(datepicker,selectedyear,selectedmonth,selectedday)->{
+                        selectedMonth=selectedmonth+1;
+                        selectedDay=selectedday;
+                        selectedYear=selectedyear;
+                        String finalTimeDay=String.format("%02d",selectedDay);
+                        String finalTimeMonth=String.format("%02d",selectedMonth);
+                        valueDate[0] =selectedYear+"-"+finalTimeMonth+"-"+finalTimeDay;
+                        textView.setText(valueDate[0]);
+
+                    },mYear,mMonth,mDay);
+                    mDatePicker.show();
+                });
+                button.setOnClickListener(view1 -> {
+                    for(CustomField customField1:updateCustomFieldList){
+                        if(customField1.getId().equals(customField.getId())){
+                            customField.setTextValue(valueDate[0]);
+                        }
+                    }
+                    customFieldsAdapter.setUpdatedCustomFields(updateCustomFieldList);
+                    dismissCustomDialogBox();
+                });
+                break;
+            case "Numeric":
+                EditText editText1=view.findViewById(R.id.edit_text_input_number);
+                editText1.setVisibility(View.VISIBLE);
+                button.setOnClickListener(view1 -> {
+                    for(CustomField customField1:updateCustomFieldList){
+                        if(customField1.getId().equals(customField.getId())){
+                            customField.setTextValue(editText1.getText().toString());
+                        }
+                    }
+                    customFieldsAdapter.setUpdatedCustomFields(updateCustomFieldList);
+                    dismissCustomDialogBox();
+                });
+                break;
+            case "CheckBox":
+                CheckBox checkBox=view.findViewById(R.id.check_box_custom_update);
+                checkBox.setVisibility(View.VISIBLE);
+                button.setOnClickListener(view1 -> {
+
+                    for(CustomField customField1:updateCustomFieldList){
+                        if(customField1.getId().equals(customField.getId())){
+                            customField.setTextValue(String.valueOf(checkBox.isChecked()));
+                        }
+                    }
+                    customFieldsAdapter.setUpdatedCustomFields(updateCustomFieldList);
+                    dismissCustomDialogBox();
+                });
+                break;
+            case "AutoCompleteBox":
+                AutoCompleteTextView autoCompleteTextView=view.findViewById(R.id.auto_complete_text_custom);
+                autoCompleteTextView.setVisibility(View.VISIBLE);
+                button.setOnClickListener(view1 -> {
+                    for(CustomField customField1:updateCustomFieldList){
+                        if(customField1.getId().equals(customField.getId())){
+                            customField.setTextValue(autoCompleteTextView.getText().toString());
+                        }
+                    }
+                    customFieldsAdapter.setUpdatedCustomFields(updateCustomFieldList);
+                    dismissCustomDialogBox();
+                });
+                break;
+
+        }
+        customDialogBox.show();
+    }
+    private void dismissCustomDialogBox(){
+        if(customDialogBox != null && customDialogBox.isShowing()){
+            customDialogBox.dismiss();
+        }
+    }
+
     public class TypeWhich{
         private int id;
         private String type;

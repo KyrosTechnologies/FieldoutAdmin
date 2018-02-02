@@ -70,7 +70,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Rohin on 21-12-2017.
  */
 
-public class AddCustomer extends AppCompatActivity {
+public class AddCustomer extends AppCompatActivity implements CustomFieldsAdapter.OnItemClickListener {
     private String TAG=AddCustomer.class.getSimpleName();
     private PreferenceManager store;
     private Spinner spinner_time_zone_customer;
@@ -276,7 +276,7 @@ public class AddCustomer extends AppCompatActivity {
     private void validateCustomFieldRecycler() {
         recycler_customer_fields.setLayoutManager(new LinearLayoutManager(this));
         recycler_customer_fields.setItemAnimator(new DefaultItemAnimator());
-        customFieldsAdapter.setCustomFieldData(usersCustomFieldList, this,"add","customers");
+        customFieldsAdapter.setCustomFieldData(usersCustomFieldList, this,"add","customers",this);
         recycler_customer_fields.setAdapter(customFieldsAdapter);
     }
 
@@ -994,6 +994,12 @@ public class AddCustomer extends AppCompatActivity {
 
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
+    }
+
     public class TypeWhich{
         private int id;
         private String type;

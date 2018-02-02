@@ -63,7 +63,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Rohin on 23-12-2017.
  */
 
-public class AddEquipment extends AppCompatActivity {
+public class AddEquipment extends AppCompatActivity implements CustomFieldsAdapter.OnItemClickListener {
 
     private PreferenceManager store;
     private EditText equipment_name_edit_text, job_number_equipment;
@@ -255,7 +255,7 @@ public class AddEquipment extends AppCompatActivity {
         if(!this.isFinishing())
         recycler_custom_array.setLayoutManager(new LinearLayoutManager(this));
         recycler_custom_array.setItemAnimator(new DefaultItemAnimator());
-        customFieldsAdapter.setCustomFieldData(usersCustomFieldList, this,"add","equipments");
+        customFieldsAdapter.setCustomFieldData(usersCustomFieldList, this,"add","equipments",this);
         recycler_custom_array.setAdapter(customFieldsAdapter);
     }
 
@@ -1175,6 +1175,11 @@ public class AddEquipment extends AppCompatActivity {
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    @Override
+    public void onItemClick(View view, int position) {
+
     }
 
     public class TypeWhich {

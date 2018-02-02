@@ -230,7 +230,6 @@
     <string name="current_page_number">Current Page Number</string>
     <string name="total_page_number">Total Page Number</string>
     <string name="paging">Paging</string>
-    <string name="date">Date</string>
     <string name="left_zone">Left zone</string>
     <string name="central_zone">Central Zone</string>
     <string name="right_zone">Right zone</string>
@@ -317,4 +316,7 @@
     <string name="jobs">Jobs</string>
     <string name="sales">Sales</string>
     <string name="performance">Performance</string>
+    <string name="input_goes_here">Input goes here</string>
+    <string name="date">Date</string>
+    <string name="select_here">Select here</string>
 </resources>
