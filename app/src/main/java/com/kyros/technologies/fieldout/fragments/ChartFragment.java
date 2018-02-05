@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -37,7 +38,9 @@ import com.kyros.technologies.fieldout.activity.ChartAllJJobs;
 import com.kyros.technologies.fieldout.activity.ChartCompletedJobs;
 import com.kyros.technologies.fieldout.activity.ChartIncompletedJobs;
 import com.kyros.technologies.fieldout.activity.ChartLateJobs;
+import com.kyros.technologies.fieldout.adapters.TechnicianDayAdapter;
 import com.kyros.technologies.fieldout.adapters.TechnicianProgressAdapter;
+import com.kyros.technologies.fieldout.adapters.TechnicianWeekAdapter;
 import com.kyros.technologies.fieldout.common.CommonJobs;
 import com.kyros.technologies.fieldout.common.EndURL;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
@@ -87,8 +90,11 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
     private String userid=null;
     private String dtformat=null;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
+    ArrayList<CommonJobs>thismonthArrayList=new ArrayList<CommonJobs>();
     ArrayList<CommonJobs> thisWeekArrayList = new ArrayList<CommonJobs>();
+    ArrayList<CommonJobs> thisWeekClosedArrayList = new ArrayList<CommonJobs>();
     ArrayList<CommonJobs> todayArrayList = new ArrayList<CommonJobs>();
+    ArrayList<CommonJobs> todayClosedArrayList = new ArrayList<CommonJobs>();
     private String[] xValues = {"High", "Low", "Normal"};
     public static  final int[] MY_COLORS = {
             Color.rgb(51,120,196),Color.rgb(189,189,189),Color.rgb(111,148,24)};
@@ -115,8 +121,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
         status_one_chart=chart.findViewById(R.id.status_one_chart);
         this_month_tech_recycler=chart.findViewById(R.id.this_month_tech_recycler);
         today_text=chart.findViewById(R.id.today_text);
-        this_week_text=chart.findViewById(R.id.this_month_text);
-        this_month_text=chart.findViewById(R.id.today_text);
+        this_week_text=chart.findViewById(R.id.this_week_text);
+        this_month_text=chart.findViewById(R.id.this_month_text);
         this_week_tech_recycler=chart.findViewById(R.id.this_week_tech_recycler);
         today_tech_recycler=chart.findViewById(R.id.today_tech_recycler);
         store= PreferenceManager.getInstance(getActivity().getApplicationContext());
@@ -194,8 +200,11 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                 Log.d("List TeamsResponse",response.toString());
                 cusDetailsArrayList.clear();
                 commonJobsArrayList.clear();
+                thismonthArrayList.clear();
                 thisWeekArrayList.clear();
+                thisWeekClosedArrayList.clear();
                 todayArrayList.clear();
+                todayClosedArrayList.clear();
 
                 try {
                     JSONObject obj = new JSONObject(response.toString());
@@ -513,22 +522,395 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                         JSONObject first = techthisMonth.getJSONObject(i);
                         String username=first.getString("username");
                         JSONArray techcounts=first.getJSONArray("counts");
+                        JSONArray techallJobs=first.getJSONArray("allJobs");
+                        for (int a=0;a<techallJobs.length();a++){
+                            JSONObject second = techallJobs.getJSONObject(a);
+                            String normallevelid=second.getString("id");
+                           // String normallevelidJob=second.getString("idJob");
+                            String startdate=second.getString("scheduledBeginDateString");
+                            String enddate=second.getString("scheduledEndDateString");
+                            String status=second.getString("status");
+                            JSONObject jobInfo=null;
+                            try {
+                                jobInfo=second.getJSONObject("jobInfo");
+                            }catch (Exception e){
+                            }
+                            String myId="";
+                            try {
+                                myId=jobInfo.getString("myId");
+                            }catch (Exception e){
+                            }
+                            String priority="";
+                            try {
+                                priority=jobInfo.getString("priority");
 
-                        CommonJobs commonJobs=new CommonJobs();
-                        commonJobs.setCounts(techcounts);
-                        commonJobs.setTechnicianname(username);
-                        commonJobsArrayList.add(commonJobs);
+                            }catch (Exception e){
+
+                            }
+                            String contactName="";
+                            try {
+                                contactName=jobInfo.getString("contactName");
+                            }catch (Exception e){
+
+                            }
+                            String contactFirstName="";
+                            try {
+                                contactFirstName=jobInfo.getString("contactFirstName");
+                            }catch (Exception e){
+                            }
+                            String contactLastName="";
+                            try {
+                                contactLastName=jobInfo.getString("contactLastName");
+                            }catch (Exception e){
+                            }
+                            String contactMobile="";
+                            try {
+                                contactMobile=jobInfo.getString("contactMobile");
+                            }catch (Exception e){
+
+                            }
+                            String contactPhone="";
+                            try {
+                                contactPhone=jobInfo.getString("contactPhone");
+                            }catch (Exception e){
+
+                            }
+                            String contactEmail="";
+                            try {
+                                contactEmail=jobInfo.getString("contactEmail");
+                            }catch (Exception e){
+
+                            }
+                            String description="";
+                            try {
+                                description=jobInfo.getString("description");
+                            }catch (Exception e){
+                            }
+                            String schedullingPreferredDate="";
+                            try {
+                                schedullingPreferredDate=jobInfo.getString("schedullingPreferredDate");
+                            }catch (Exception e){
+                            }
+                            String complementAddress="";
+                            try {
+                                complementAddress=jobInfo.getString("complementAddress");
+                            }catch (Exception e){
+
+                            }
+                            JSONObject jobTypeInfo =null;
+                            try {
+                                jobTypeInfo = jobInfo.getJSONObject("jobTypeInfo");
+                            }catch (Exception e){
+                            }
+                            String jobtypename="";
+                            try {
+                                jobtypename=jobTypeInfo.getString("job_type_name");
+                            }catch (Exception e){
+                            }
+                            JSONObject customerInfo =null;
+                            try {
+                                customerInfo = jobInfo.getJSONObject("customerInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String cusname="";
+                            try {
+                                cusname=customerInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            JSONArray tagInfo=null;
+                            try {
+                                tagInfo=jobInfo.getJSONArray("tagInfo");
+                            }catch (Exception e){
+                            }
+                            JSONObject equipmentInfo =null;
+                            try {
+                                equipmentInfo = jobInfo.getJSONObject("equipmentInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String equipname="";
+                            try {
+                                equipname=equipmentInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            JSONObject siteInfo =null;
+                            try {
+                                siteInfo = jobInfo.getJSONObject("siteInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String sitename="";
+                            try {
+                                sitename=siteInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String address="";
+                            try {
+                                address=siteInfo.getString("address");
+                            }catch (Exception e){
+
+                            }
+                            JSONArray positions=null;
+                            String latlng=null;
+                            try {
+                                StringBuilder stringBuilder=new StringBuilder();
+                                positions=siteInfo.getJSONArray("positions");
+                                for (int b=0;b<positions.length();b++){
+                                    Double pos=positions.getDouble(b);
+
+                                    if (b==positions.length()){
+                                        stringBuilder.append(pos);
+                                    }else {
+                                        stringBuilder.append(pos+"  ");
+                                    }
+                                }
+                                latlng=stringBuilder.toString();
+                            }catch (Exception e){
+
+                            }
+
+
+
+                            CommonJobs commonJobs = new CommonJobs();
+                            commonJobs.setNormallevelid(normallevelid);
+                            commonJobs.setEquipname(equipname);
+                            commonJobs.setCustomername(cusname);
+                            commonJobs.setMyId(myId);
+                            commonJobs.setSchedulingdate(schedullingPreferredDate);
+                            commonJobs.setComplementAddress(complementAddress);
+                            commonJobs.setJobTypeName(jobtypename);
+                            commonJobs.setScheduledBeginDate(startdate);
+                            commonJobs.setScheduleenddate(enddate);
+                            commonJobs.setStatus(status);
+                            commonJobs.setSitename(sitename);
+                            commonJobs.setFirstname(contactFirstName);
+                            commonJobs.setLastname(contactLastName);
+                            commonJobs.setPriority(priority);
+                            commonJobs.setAddress(address);
+                            commonJobs.setLatlng(latlng);
+                            commonJobs.setContactname(contactName);
+                            commonJobs.setMobilenum(contactMobile);
+                            commonJobs.setPhone(contactPhone);
+                            commonJobs.setEmail(contactEmail);
+                            commonJobs.setTaginfo(tagInfo);
+                            commonJobs.setDescription(description);
+                            commonJobs.setTechmonthallJobs(techallJobs);
+                            commonJobs.setCounts(techcounts);
+                            commonJobs.setTechnicianname(username);
+                            commonJobsArrayList.add(commonJobs);
+                        }
+
+                        try {
+                            JSONArray techclosedjobs=first.getJSONArray("closedJobs");
+                            for (int a=0;a<techclosedjobs.length();a++){
+                                JSONObject second = techclosedjobs.getJSONObject(a);
+                                String normallevelid=second.getString("id");
+                                // String normallevelidJob=second.getString("idJob");
+                                String startdate=second.getString("scheduledBeginDateString");
+                                String enddate=second.getString("scheduledEndDateString");
+                                String status=second.getString("status");
+                                JSONObject jobInfo=null;
+                                try {
+                                    jobInfo=second.getJSONObject("jobInfo");
+                                }catch (Exception e){
+                                }
+                                String myId="";
+                                try {
+                                    myId=jobInfo.getString("myId");
+                                }catch (Exception e){
+                                }
+                                String priority="";
+                                try {
+                                    priority=jobInfo.getString("priority");
+
+                                }catch (Exception e){
+
+                                }
+                                String contactName="";
+                                try {
+                                    contactName=jobInfo.getString("contactName");
+                                }catch (Exception e){
+
+                                }
+                                String contactFirstName="";
+                                try {
+                                    contactFirstName=jobInfo.getString("contactFirstName");
+                                }catch (Exception e){
+                                }
+                                String contactLastName="";
+                                try {
+                                    contactLastName=jobInfo.getString("contactLastName");
+                                }catch (Exception e){
+                                }
+                                String contactMobile="";
+                                try {
+                                    contactMobile=jobInfo.getString("contactMobile");
+                                }catch (Exception e){
+
+                                }
+                                String contactPhone="";
+                                try {
+                                    contactPhone=jobInfo.getString("contactPhone");
+                                }catch (Exception e){
+
+                                }
+                                String contactEmail="";
+                                try {
+                                    contactEmail=jobInfo.getString("contactEmail");
+                                }catch (Exception e){
+
+                                }
+                                String description="";
+                                try {
+                                    description=jobInfo.getString("description");
+                                }catch (Exception e){
+                                }
+                                String schedullingPreferredDate="";
+                                try {
+                                    schedullingPreferredDate=jobInfo.getString("schedullingPreferredDate");
+                                }catch (Exception e){
+                                }
+                                String complementAddress="";
+                                try {
+                                    complementAddress=jobInfo.getString("complementAddress");
+                                }catch (Exception e){
+
+                                }
+                                JSONObject jobTypeInfo =null;
+                                try {
+                                    jobTypeInfo = jobInfo.getJSONObject("jobTypeInfo");
+                                }catch (Exception e){
+                                }
+                                String jobtypename="";
+                                try {
+                                    jobtypename=jobTypeInfo.getString("job_type_name");
+                                }catch (Exception e){
+                                }
+                                JSONObject customerInfo =null;
+                                try {
+                                    customerInfo = jobInfo.getJSONObject("customerInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String cusname="";
+                                try {
+                                    cusname=customerInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                JSONArray tagInfo=null;
+                                try {
+                                    tagInfo=jobInfo.getJSONArray("tagInfo");
+                                }catch (Exception e){
+                                }
+                                JSONObject equipmentInfo =null;
+                                try {
+                                    equipmentInfo = jobInfo.getJSONObject("equipmentInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String equipname="";
+                                try {
+                                    equipname=equipmentInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                JSONObject siteInfo =null;
+                                try {
+                                    siteInfo = jobInfo.getJSONObject("siteInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String sitename="";
+                                try {
+                                    sitename=siteInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String address="";
+                                try {
+                                    address=siteInfo.getString("address");
+                                }catch (Exception e){
+
+                                }
+                                JSONArray positions=null;
+                                String latlng=null;
+                                try {
+                                    StringBuilder stringBuilder=new StringBuilder();
+                                    positions=siteInfo.getJSONArray("positions");
+                                    for (int b=0;b<positions.length();b++){
+                                        Double pos=positions.getDouble(b);
+
+                                        if (b==positions.length()){
+                                            stringBuilder.append(pos);
+                                        }else {
+                                            stringBuilder.append(pos+"  ");
+                                        }
+                                    }
+                                    latlng=stringBuilder.toString();
+                                }catch (Exception e){
+
+                                }
+
+                                CommonJobs commonJobs = new CommonJobs();
+                                commonJobs.setNormallevelid(normallevelid);
+                                commonJobs.setEquipname(equipname);
+                                commonJobs.setCustomername(cusname);
+                                commonJobs.setMyId(myId);
+                                commonJobs.setSchedulingdate(schedullingPreferredDate);
+                                commonJobs.setComplementAddress(complementAddress);
+                                commonJobs.setJobTypeName(jobtypename);
+                                commonJobs.setScheduledBeginDate(startdate);
+                                commonJobs.setScheduleenddate(enddate);
+                                commonJobs.setStatus(status);
+                                commonJobs.setSitename(sitename);
+                                commonJobs.setFirstname(contactFirstName);
+                                commonJobs.setLastname(contactLastName);
+                                commonJobs.setPriority(priority);
+                                commonJobs.setAddress(address);
+                                commonJobs.setLatlng(latlng);
+                                commonJobs.setContactname(contactName);
+                                commonJobs.setMobilenum(contactMobile);
+                                commonJobs.setPhone(contactPhone);
+                                commonJobs.setEmail(contactEmail);
+                                commonJobs.setTaginfo(tagInfo);
+                                commonJobs.setDescription(description);
+                                commonJobs.setTechmonthClosedJobs(techclosedjobs);
+                                commonJobs.setCounts(techcounts);
+                                commonJobs.setTechnicianname(username);
+                                thismonthArrayList.add(commonJobs);
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                     }
 
-                    if (commonJobsArrayList.size()!=0){
+//                    if (commonJobsArrayList.size()!=0){
+//                        this_month_tech_recycler=chart.findViewById(R.id.this_month_tech_recycler);
+//                        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+//                        this_month_tech_recycler.setLayoutManager(layoutManager);
+//                        //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+//                        this_month_tech_recycler.setItemAnimator(new DefaultItemAnimator());
+//                        TechnicianProgressAdapter technicianProgressAdapter=new TechnicianProgressAdapter(getContext(), commonJobsArrayList);
+//                        this_month_tech_recycler.setAdapter(technicianProgressAdapter);
+//                        technicianProgressAdapter.notifyDataSetChanged();
+//                    }
+
+                    if (thismonthArrayList.size()!=0){
                         this_month_tech_recycler=chart.findViewById(R.id.this_month_tech_recycler);
                         LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
                         this_month_tech_recycler.setLayoutManager(layoutManager);
                         //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                         this_month_tech_recycler.setItemAnimator(new DefaultItemAnimator());
-                        TechnicianProgressAdapter technicianProgressAdapter=new TechnicianProgressAdapter(getContext(), commonJobsArrayList);
-                        this_month_tech_recycler.setAdapter(technicianProgressAdapter);
-                        technicianProgressAdapter.notifyDataSetChanged();
+                        TechnicianProgressAdapter technicianClosedJobs=new TechnicianProgressAdapter(getContext(), thismonthArrayList);
+                        Toast.makeText(getContext(),"Month Adapter",Toast.LENGTH_SHORT).show();
+                        this_month_tech_recycler.setAdapter(technicianClosedJobs);
+                        technicianClosedJobs.notifyDataSetChanged();
                     }
 
                     JSONArray techthisWeek=technicianAndJobsLayer.getJSONArray("thisWeek");
@@ -536,11 +918,370 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                         JSONObject first = techthisWeek.getJSONObject(i);
                         String username=first.getString("username");
                         JSONArray techcounts=first.getJSONArray("counts");
+                        JSONArray techallJobs=first.getJSONArray("allJobs");
+                        for (int a=0;a<techallJobs.length();a++){
+                            JSONObject second = techallJobs.getJSONObject(a);
+                            String normallevelid=second.getString("id");
+                            // String normallevelidJob=second.getString("idJob");
+                            String startdate=second.getString("scheduledBeginDateString");
+                            String enddate=second.getString("scheduledEndDateString");
+                            String status=second.getString("status");
+                            JSONObject jobInfo=null;
+                            try {
+                                jobInfo=second.getJSONObject("jobInfo");
+                            }catch (Exception e){
+                            }
+                            String myId="";
+                            try {
+                                myId=jobInfo.getString("myId");
+                            }catch (Exception e){
+                            }
+                            String priority="";
+                            try {
+                                priority=jobInfo.getString("priority");
 
-                        CommonJobs commonJobs=new CommonJobs();
-                        commonJobs.setCounts(techcounts);
-                        commonJobs.setTechnicianname(username);
-                        thisWeekArrayList.add(commonJobs);
+                            }catch (Exception e){
+
+                            }
+                            String contactName="";
+                            try {
+                                contactName=jobInfo.getString("contactName");
+                            }catch (Exception e){
+
+                            }
+                            String contactFirstName="";
+                            try {
+                                contactFirstName=jobInfo.getString("contactFirstName");
+                            }catch (Exception e){
+                            }
+                            String contactLastName="";
+                            try {
+                                contactLastName=jobInfo.getString("contactLastName");
+                            }catch (Exception e){
+                            }
+                            String contactMobile="";
+                            try {
+                                contactMobile=jobInfo.getString("contactMobile");
+                            }catch (Exception e){
+
+                            }
+                            String contactPhone="";
+                            try {
+                                contactPhone=jobInfo.getString("contactPhone");
+                            }catch (Exception e){
+
+                            }
+                            String contactEmail="";
+                            try {
+                                contactEmail=jobInfo.getString("contactEmail");
+                            }catch (Exception e){
+
+                            }
+                            String description="";
+                            try {
+                                description=jobInfo.getString("description");
+                            }catch (Exception e){
+                            }
+                            String schedullingPreferredDate="";
+                            try {
+                                schedullingPreferredDate=jobInfo.getString("schedullingPreferredDate");
+                            }catch (Exception e){
+                            }
+                            String complementAddress="";
+                            try {
+                                complementAddress=jobInfo.getString("complementAddress");
+                            }catch (Exception e){
+
+                            }
+                            JSONObject jobTypeInfo =null;
+                            try {
+                                jobTypeInfo = jobInfo.getJSONObject("jobTypeInfo");
+                            }catch (Exception e){
+                            }
+                            String jobtypename="";
+                            try {
+                                jobtypename=jobTypeInfo.getString("job_type_name");
+                            }catch (Exception e){
+                            }
+                            JSONObject customerInfo =null;
+                            try {
+                                customerInfo = jobInfo.getJSONObject("customerInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String cusname="";
+                            try {
+                                cusname=customerInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            JSONArray tagInfo=null;
+                            try {
+                                tagInfo=jobInfo.getJSONArray("tagInfo");
+                            }catch (Exception e){
+                            }
+                            JSONObject equipmentInfo =null;
+                            try {
+                                equipmentInfo = jobInfo.getJSONObject("equipmentInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String equipname="";
+                            try {
+                                equipname=equipmentInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            JSONObject siteInfo =null;
+                            try {
+                                siteInfo = jobInfo.getJSONObject("siteInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String sitename="";
+                            try {
+                                sitename=siteInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String address="";
+                            try {
+                                address=siteInfo.getString("address");
+                            }catch (Exception e){
+
+                            }
+                            JSONArray positions=null;
+                            String latlng=null;
+                            try {
+                                StringBuilder stringBuilder=new StringBuilder();
+                                positions=siteInfo.getJSONArray("positions");
+                                for (int b=0;b<positions.length();b++){
+                                    Double pos=positions.getDouble(b);
+
+                                    if (b==positions.length()){
+                                        stringBuilder.append(pos);
+                                    }else {
+                                        stringBuilder.append(pos+"  ");
+                                    }
+                                }
+                                latlng=stringBuilder.toString();
+                            }catch (Exception e){
+
+                            }
+
+                            CommonJobs commonJobs = new CommonJobs();
+                            commonJobs.setNormallevelid(normallevelid);
+                            commonJobs.setEquipname(equipname);
+                            commonJobs.setCustomername(cusname);
+                            commonJobs.setMyId(myId);
+                            commonJobs.setSchedulingdate(schedullingPreferredDate);
+                            commonJobs.setComplementAddress(complementAddress);
+                            commonJobs.setJobTypeName(jobtypename);
+                            commonJobs.setScheduledBeginDate(startdate);
+                            commonJobs.setScheduleenddate(enddate);
+                            commonJobs.setStatus(status);
+                            commonJobs.setSitename(sitename);
+                            commonJobs.setFirstname(contactFirstName);
+                            commonJobs.setLastname(contactLastName);
+                            commonJobs.setPriority(priority);
+                            commonJobs.setAddress(address);
+                            commonJobs.setLatlng(latlng);
+                            commonJobs.setContactname(contactName);
+                            commonJobs.setMobilenum(contactMobile);
+                            commonJobs.setPhone(contactPhone);
+                            commonJobs.setEmail(contactEmail);
+                            commonJobs.setTaginfo(tagInfo);
+                            commonJobs.setDescription(description);
+                            commonJobs.setWeekAllJobs(techallJobs);
+                            commonJobs.setCounts(techcounts);
+                            commonJobs.setTechnicianname(username);
+                            thisWeekArrayList.add(commonJobs);
+                        }
+
+                        try {
+                            JSONArray techclosedjobs=first.getJSONArray("closedJobs");
+                            for (int a=0;a<techclosedjobs.length();a++){
+                                JSONObject second = techclosedjobs.getJSONObject(a);
+                                String normallevelid=second.getString("id");
+                                // String normallevelidJob=second.getString("idJob");
+                                String startdate=second.getString("scheduledBeginDateString");
+                                String enddate=second.getString("scheduledEndDateString");
+                                String status=second.getString("status");
+                                JSONObject jobInfo=null;
+                                try {
+                                    jobInfo=second.getJSONObject("jobInfo");
+                                }catch (Exception e){
+                                }
+                                String myId="";
+                                try {
+                                    myId=jobInfo.getString("myId");
+                                }catch (Exception e){
+                                }
+                                String priority="";
+                                try {
+                                    priority=jobInfo.getString("priority");
+
+                                }catch (Exception e){
+
+                                }
+                                String contactName="";
+                                try {
+                                    contactName=jobInfo.getString("contactName");
+                                }catch (Exception e){
+
+                                }
+                                String contactFirstName="";
+                                try {
+                                    contactFirstName=jobInfo.getString("contactFirstName");
+                                }catch (Exception e){
+                                }
+                                String contactLastName="";
+                                try {
+                                    contactLastName=jobInfo.getString("contactLastName");
+                                }catch (Exception e){
+                                }
+                                String contactMobile="";
+                                try {
+                                    contactMobile=jobInfo.getString("contactMobile");
+                                }catch (Exception e){
+
+                                }
+                                String contactPhone="";
+                                try {
+                                    contactPhone=jobInfo.getString("contactPhone");
+                                }catch (Exception e){
+
+                                }
+                                String contactEmail="";
+                                try {
+                                    contactEmail=jobInfo.getString("contactEmail");
+                                }catch (Exception e){
+
+                                }
+                                String description="";
+                                try {
+                                    description=jobInfo.getString("description");
+                                }catch (Exception e){
+                                }
+                                String schedullingPreferredDate="";
+                                try {
+                                    schedullingPreferredDate=jobInfo.getString("schedullingPreferredDate");
+                                }catch (Exception e){
+                                }
+                                String complementAddress="";
+                                try {
+                                    complementAddress=jobInfo.getString("complementAddress");
+                                }catch (Exception e){
+
+                                }
+                                JSONObject jobTypeInfo =null;
+                                try {
+                                    jobTypeInfo = jobInfo.getJSONObject("jobTypeInfo");
+                                }catch (Exception e){
+                                }
+                                String jobtypename="";
+                                try {
+                                    jobtypename=jobTypeInfo.getString("job_type_name");
+                                }catch (Exception e){
+                                }
+                                JSONObject customerInfo =null;
+                                try {
+                                    customerInfo = jobInfo.getJSONObject("customerInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String cusname="";
+                                try {
+                                    cusname=customerInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                JSONArray tagInfo=null;
+                                try {
+                                    tagInfo=jobInfo.getJSONArray("tagInfo");
+                                }catch (Exception e){
+                                }
+                                JSONObject equipmentInfo =null;
+                                try {
+                                    equipmentInfo = jobInfo.getJSONObject("equipmentInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String equipname="";
+                                try {
+                                    equipname=equipmentInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                JSONObject siteInfo =null;
+                                try {
+                                    siteInfo = jobInfo.getJSONObject("siteInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String sitename="";
+                                try {
+                                    sitename=siteInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String address="";
+                                try {
+                                    address=siteInfo.getString("address");
+                                }catch (Exception e){
+
+                                }
+                                JSONArray positions=null;
+                                String latlng=null;
+                                try {
+                                    StringBuilder stringBuilder=new StringBuilder();
+                                    positions=siteInfo.getJSONArray("positions");
+                                    for (int b=0;b<positions.length();b++){
+                                        Double pos=positions.getDouble(b);
+
+                                        if (b==positions.length()){
+                                            stringBuilder.append(pos);
+                                        }else {
+                                            stringBuilder.append(pos+"  ");
+                                        }
+                                    }
+                                    latlng=stringBuilder.toString();
+                                }catch (Exception e){
+
+                                }
+
+                                CommonJobs commonJobs = new CommonJobs();
+                                commonJobs.setNormallevelid(normallevelid);
+                                commonJobs.setEquipname(equipname);
+                                commonJobs.setCustomername(cusname);
+                                commonJobs.setMyId(myId);
+                                commonJobs.setSchedulingdate(schedullingPreferredDate);
+                                commonJobs.setComplementAddress(complementAddress);
+                                commonJobs.setJobTypeName(jobtypename);
+                                commonJobs.setScheduledBeginDate(startdate);
+                                commonJobs.setScheduleenddate(enddate);
+                                commonJobs.setStatus(status);
+                                commonJobs.setSitename(sitename);
+                                commonJobs.setFirstname(contactFirstName);
+                                commonJobs.setLastname(contactLastName);
+                                commonJobs.setPriority(priority);
+                                commonJobs.setAddress(address);
+                                commonJobs.setLatlng(latlng);
+                                commonJobs.setContactname(contactName);
+                                commonJobs.setMobilenum(contactMobile);
+                                commonJobs.setPhone(contactPhone);
+                                commonJobs.setEmail(contactEmail);
+                                commonJobs.setTaginfo(tagInfo);
+                                commonJobs.setDescription(description);
+                                commonJobs.setWeekClosedJobs(techclosedjobs);
+                                commonJobs.setCounts(techcounts);
+                                commonJobs.setTechnicianname(username);
+                                thisWeekClosedArrayList.add(commonJobs);
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                     }
 
                     if (thisWeekArrayList.size()!=0){
@@ -549,21 +1290,394 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                         this_week_tech_recycler.setLayoutManager(layoutManager);
                         //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                         this_week_tech_recycler.setItemAnimator(new DefaultItemAnimator());
-                        TechnicianProgressAdapter technicianweeekProgressAdapter=new TechnicianProgressAdapter(getContext(), thisWeekArrayList);
-                        this_week_tech_recycler.setAdapter(technicianweeekProgressAdapter);
-                        technicianweeekProgressAdapter.notifyDataSetChanged();
+                        TechnicianWeekAdapter technicianweeekAllAdapter=new TechnicianWeekAdapter(getContext(), thisWeekArrayList);
+                        Toast.makeText(getContext(),"Week Adapter",Toast.LENGTH_SHORT).show();
+                        this_week_tech_recycler.setAdapter(technicianweeekAllAdapter);
+                        technicianweeekAllAdapter.notifyDataSetChanged();
                     }
+
+//                    if (thisWeekClosedArrayList.size()!=0){
+//                        this_week_tech_recycler=chart.findViewById(R.id.this_week_tech_recycler);
+//                        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+//                        this_week_tech_recycler.setLayoutManager(layoutManager);
+//                        //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+//                        this_week_tech_recycler.setItemAnimator(new DefaultItemAnimator());
+//                        TechnicianWeekAdapter technicianweeekClosedAdapter=new TechnicianWeekAdapter(getContext(), thisWeekClosedArrayList);
+//                        this_week_tech_recycler.setAdapter(technicianweeekClosedAdapter);
+//                        technicianweeekClosedAdapter.notifyDataSetChanged();
+//                    }
 
                     JSONArray techtoday=technicianAndJobsLayer.getJSONArray("today");
                     for (int i=0;i<techtoday.length();i++){
                         JSONObject first = techtoday.getJSONObject(i);
                         String username=first.getString("username");
                         JSONArray techcounts=first.getJSONArray("counts");
+                        JSONArray techtodayallJobs=first.getJSONArray("allJobs");
+                        for (int a=0;a<techtodayallJobs.length();a++){
+                            JSONObject second = techtodayallJobs.getJSONObject(a);
+                            String normallevelid=second.getString("id");
+                            // String normallevelidJob=second.getString("idJob");
+                            String startdate=second.getString("scheduledBeginDateString");
+                            String enddate=second.getString("scheduledEndDateString");
+                            String status=second.getString("status");
+                            JSONObject jobInfo=null;
+                            try {
+                                jobInfo=second.getJSONObject("jobInfo");
+                            }catch (Exception e){
+                            }
+                            String myId="";
+                            try {
+                                myId=jobInfo.getString("myId");
+                            }catch (Exception e){
+                            }
+                            String priority="";
+                            try {
+                                priority=jobInfo.getString("priority");
 
-                        CommonJobs commonJobs=new CommonJobs();
-                        commonJobs.setCounts(techcounts);
-                        commonJobs.setTechnicianname(username);
-                        todayArrayList.add(commonJobs);
+                            }catch (Exception e){
+
+                            }
+                            String contactName="";
+                            try {
+                                contactName=jobInfo.getString("contactName");
+                            }catch (Exception e){
+
+                            }
+                            String contactFirstName="";
+                            try {
+                                contactFirstName=jobInfo.getString("contactFirstName");
+                            }catch (Exception e){
+                            }
+                            String contactLastName="";
+                            try {
+                                contactLastName=jobInfo.getString("contactLastName");
+                            }catch (Exception e){
+                            }
+                            String contactMobile="";
+                            try {
+                                contactMobile=jobInfo.getString("contactMobile");
+                            }catch (Exception e){
+
+                            }
+                            String contactPhone="";
+                            try {
+                                contactPhone=jobInfo.getString("contactPhone");
+                            }catch (Exception e){
+
+                            }
+                            String contactEmail="";
+                            try {
+                                contactEmail=jobInfo.getString("contactEmail");
+                            }catch (Exception e){
+
+                            }
+                            String description="";
+                            try {
+                                description=jobInfo.getString("description");
+                            }catch (Exception e){
+                            }
+                            String schedullingPreferredDate="";
+                            try {
+                                schedullingPreferredDate=jobInfo.getString("schedullingPreferredDate");
+                            }catch (Exception e){
+                            }
+                            String complementAddress="";
+                            try {
+                                complementAddress=jobInfo.getString("complementAddress");
+                            }catch (Exception e){
+
+                            }
+                            JSONObject jobTypeInfo =null;
+                            try {
+                                jobTypeInfo = jobInfo.getJSONObject("jobTypeInfo");
+                            }catch (Exception e){
+                            }
+                            String jobtypename="";
+                            try {
+                                jobtypename=jobTypeInfo.getString("job_type_name");
+                            }catch (Exception e){
+                            }
+                            JSONObject customerInfo =null;
+                            try {
+                                customerInfo = jobInfo.getJSONObject("customerInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String cusname="";
+                            try {
+                                cusname=customerInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            JSONArray tagInfo=null;
+                            try {
+                                tagInfo=jobInfo.getJSONArray("tagInfo");
+                            }catch (Exception e){
+                            }
+                            JSONObject equipmentInfo =null;
+                            try {
+                                equipmentInfo = jobInfo.getJSONObject("equipmentInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String equipname="";
+                            try {
+                                equipname=equipmentInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            JSONObject siteInfo =null;
+                            try {
+                                siteInfo = jobInfo.getJSONObject("siteInfo");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String sitename="";
+                            try {
+                                sitename=siteInfo.getString("name");
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                            String address="";
+                            try {
+                                address=siteInfo.getString("address");
+                            }catch (Exception e){
+
+                            }
+                            JSONArray positions=null;
+                            String latlng=null;
+                            try {
+                                StringBuilder stringBuilder=new StringBuilder();
+                                positions=siteInfo.getJSONArray("positions");
+                                for (int b=0;b<positions.length();b++){
+                                    Double pos=positions.getDouble(b);
+
+                                    if (b==positions.length()){
+                                        stringBuilder.append(pos);
+                                    }else {
+                                        stringBuilder.append(pos+"  ");
+                                    }
+                                }
+                                latlng=stringBuilder.toString();
+                            }catch (Exception e){
+
+                            }
+
+                            CommonJobs commonJobs = new CommonJobs();
+                            commonJobs.setNormallevelid(normallevelid);
+                            commonJobs.setEquipname(equipname);
+                            commonJobs.setCustomername(cusname);
+                            commonJobs.setMyId(myId);
+                            commonJobs.setSchedulingdate(schedullingPreferredDate);
+                            commonJobs.setComplementAddress(complementAddress);
+                            commonJobs.setJobTypeName(jobtypename);
+                            commonJobs.setScheduledBeginDate(startdate);
+                            commonJobs.setScheduleenddate(enddate);
+                            commonJobs.setStatus(status);
+                            commonJobs.setSitename(sitename);
+                            commonJobs.setFirstname(contactFirstName);
+                            commonJobs.setLastname(contactLastName);
+                            commonJobs.setPriority(priority);
+                            commonJobs.setAddress(address);
+                            commonJobs.setLatlng(latlng);
+                            commonJobs.setContactname(contactName);
+                            commonJobs.setMobilenum(contactMobile);
+                            commonJobs.setPhone(contactPhone);
+                            commonJobs.setEmail(contactEmail);
+                            commonJobs.setTaginfo(tagInfo);
+                            commonJobs.setDescription(description);
+                            commonJobs.setDayAllJobs(techtodayallJobs);
+                            commonJobs.setCounts(techcounts);
+                            commonJobs.setTechnicianname(username);
+                            commonJobs.setCounts(techcounts);
+                            commonJobs.setTechnicianname(username);
+                            todayArrayList.add(commonJobs);
+                        }
+
+                        try {
+                            JSONArray techclosedjobs=first.getJSONArray("closedJobs");
+                            for (int a=0;a<techclosedjobs.length();a++){
+                                JSONObject second = techclosedjobs.getJSONObject(a);
+                                String normallevelid=second.getString("id");
+                                // String normallevelidJob=second.getString("idJob");
+                                String startdate=second.getString("scheduledBeginDateString");
+                                String enddate=second.getString("scheduledEndDateString");
+                                String status=second.getString("status");
+                                JSONObject jobInfo=null;
+                                try {
+                                    jobInfo=second.getJSONObject("jobInfo");
+                                }catch (Exception e){
+                                }
+                                String myId="";
+                                try {
+                                    myId=jobInfo.getString("myId");
+                                }catch (Exception e){
+                                }
+                                String priority="";
+                                try {
+                                    priority=jobInfo.getString("priority");
+
+                                }catch (Exception e){
+
+                                }
+                                String contactName="";
+                                try {
+                                    contactName=jobInfo.getString("contactName");
+                                }catch (Exception e){
+
+                                }
+                                String contactFirstName="";
+                                try {
+                                    contactFirstName=jobInfo.getString("contactFirstName");
+                                }catch (Exception e){
+                                }
+                                String contactLastName="";
+                                try {
+                                    contactLastName=jobInfo.getString("contactLastName");
+                                }catch (Exception e){
+                                }
+                                String contactMobile="";
+                                try {
+                                    contactMobile=jobInfo.getString("contactMobile");
+                                }catch (Exception e){
+
+                                }
+                                String contactPhone="";
+                                try {
+                                    contactPhone=jobInfo.getString("contactPhone");
+                                }catch (Exception e){
+
+                                }
+                                String contactEmail="";
+                                try {
+                                    contactEmail=jobInfo.getString("contactEmail");
+                                }catch (Exception e){
+
+                                }
+                                String description="";
+                                try {
+                                    description=jobInfo.getString("description");
+                                }catch (Exception e){
+                                }
+                                String schedullingPreferredDate="";
+                                try {
+                                    schedullingPreferredDate=jobInfo.getString("schedullingPreferredDate");
+                                }catch (Exception e){
+                                }
+                                String complementAddress="";
+                                try {
+                                    complementAddress=jobInfo.getString("complementAddress");
+                                }catch (Exception e){
+
+                                }
+                                JSONObject jobTypeInfo =null;
+                                try {
+                                    jobTypeInfo = jobInfo.getJSONObject("jobTypeInfo");
+                                }catch (Exception e){
+                                }
+                                String jobtypename="";
+                                try {
+                                    jobtypename=jobTypeInfo.getString("job_type_name");
+                                }catch (Exception e){
+                                }
+                                JSONObject customerInfo =null;
+                                try {
+                                    customerInfo = jobInfo.getJSONObject("customerInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String cusname="";
+                                try {
+                                    cusname=customerInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                JSONArray tagInfo=null;
+                                try {
+                                    tagInfo=jobInfo.getJSONArray("tagInfo");
+                                }catch (Exception e){
+                                }
+                                JSONObject equipmentInfo =null;
+                                try {
+                                    equipmentInfo = jobInfo.getJSONObject("equipmentInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String equipname="";
+                                try {
+                                    equipname=equipmentInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                JSONObject siteInfo =null;
+                                try {
+                                    siteInfo = jobInfo.getJSONObject("siteInfo");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String sitename="";
+                                try {
+                                    sitename=siteInfo.getString("name");
+                                }catch (Exception e){
+                                    e.printStackTrace();
+                                }
+                                String address="";
+                                try {
+                                    address=siteInfo.getString("address");
+                                }catch (Exception e){
+
+                                }
+                                JSONArray positions=null;
+                                String latlng=null;
+                                try {
+                                    StringBuilder stringBuilder=new StringBuilder();
+                                    positions=siteInfo.getJSONArray("positions");
+                                    for (int b=0;b<positions.length();b++){
+                                        Double pos=positions.getDouble(b);
+
+                                        if (b==positions.length()){
+                                            stringBuilder.append(pos);
+                                        }else {
+                                            stringBuilder.append(pos+"  ");
+                                        }
+                                    }
+                                    latlng=stringBuilder.toString();
+                                }catch (Exception e){
+
+                                }
+
+                                CommonJobs commonJobs = new CommonJobs();
+                                commonJobs.setNormallevelid(normallevelid);
+                                commonJobs.setEquipname(equipname);
+                                commonJobs.setCustomername(cusname);
+                                commonJobs.setMyId(myId);
+                                commonJobs.setSchedulingdate(schedullingPreferredDate);
+                                commonJobs.setComplementAddress(complementAddress);
+                                commonJobs.setJobTypeName(jobtypename);
+                                commonJobs.setScheduledBeginDate(startdate);
+                                commonJobs.setScheduleenddate(enddate);
+                                commonJobs.setStatus(status);
+                                commonJobs.setSitename(sitename);
+                                commonJobs.setFirstname(contactFirstName);
+                                commonJobs.setLastname(contactLastName);
+                                commonJobs.setPriority(priority);
+                                commonJobs.setAddress(address);
+                                commonJobs.setLatlng(latlng);
+                                commonJobs.setContactname(contactName);
+                                commonJobs.setMobilenum(contactMobile);
+                                commonJobs.setPhone(contactPhone);
+                                commonJobs.setEmail(contactEmail);
+                                commonJobs.setTaginfo(tagInfo);
+                                commonJobs.setDescription(description);
+                                commonJobs.setDayClosedJobs(techclosedjobs);
+                                commonJobs.setCounts(techcounts);
+                                commonJobs.setTechnicianname(username);
+                                todayClosedArrayList.add(commonJobs);
+                            }
+                        }catch (Exception e){
+                            e.printStackTrace();
+                        }
+
                     }
 
                     if (todayArrayList.size()!=0){
@@ -572,10 +1686,22 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                         today_tech_recycler.setLayoutManager(layoutManager);
                         //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                         today_tech_recycler.setItemAnimator(new DefaultItemAnimator());
-                        TechnicianProgressAdapter techniciantodayProgressAdapter=new TechnicianProgressAdapter(getContext(), todayArrayList);
-                        today_tech_recycler.setAdapter(techniciantodayProgressAdapter);
-                        techniciantodayProgressAdapter.notifyDataSetChanged();
+                        TechnicianDayAdapter techniciantodayallAdapter=new TechnicianDayAdapter(getContext(), todayArrayList);
+                        Toast.makeText(getContext(),"Day Adapter",Toast.LENGTH_SHORT).show();
+                        today_tech_recycler.setAdapter(techniciantodayallAdapter);
+                        techniciantodayallAdapter.notifyDataSetChanged();
                     }
+
+//                    if (todayClosedArrayList.size()!=0){
+//                        today_tech_recycler=chart.findViewById(R.id.today_tech_recycler);
+//                        LinearLayoutManager layoutManager=new LinearLayoutManager(getActivity().getApplicationContext());
+//                        today_tech_recycler.setLayoutManager(layoutManager);
+//                        //activity_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+//                        today_tech_recycler.setItemAnimator(new DefaultItemAnimator());
+//                        TechnicianDayAdapter techniciantodayclosedAdapter=new TechnicianDayAdapter(getContext(), todayClosedArrayList);
+//                        today_tech_recycler.setAdapter(techniciantodayclosedAdapter);
+//                        techniciantodayclosedAdapter.notifyDataSetChanged();
+//                    }
 
                 }catch (Exception e){
                     e.printStackTrace();

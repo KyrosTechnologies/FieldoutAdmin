@@ -6,7 +6,6 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:fillViewport="true"
         android:layout_height="match_parent">
 
         <LinearLayout
@@ -32,7 +31,7 @@
                         android:layout_height="wrap_content"
                         android:text="Customer"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <View
                         android:layout_width="match_parent"
@@ -125,7 +124,7 @@
                         android:layout_height="wrap_content"
                         android:text="Contact"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <View
                         android:layout_width="match_parent"
@@ -240,7 +239,7 @@
                         android:layout_height="wrap_content"
                         android:text="Additional Fields"
                         android:textColor="@color/button"
-                        android:textSize="24sp" />
+                        android:textSize="@dimen/privacy_policy_statement" />
 
                     <View
                         android:layout_width="match_parent"
@@ -263,12 +262,12 @@
 
                     </TableLayout>
                     <android.support.v7.widget.RecyclerView
+                        android:visibility="gone"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginTop="10dp"
-                      android:layout_weight="1"
                         android:layout_marginBottom="10dp"
-                        android:id="@+id/recycler_customer_fields"></android.support.v7.widget.RecyclerView>
+                        android:id="@+id/recycler_customer_fields"/>
 
 
                 </LinearLayout>

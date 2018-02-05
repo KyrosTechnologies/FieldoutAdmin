@@ -2,8 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/FieldoutAdmin.iml" filepath="$PROJECT_DIR$/FieldoutAdmin.iml" />
-      <module fileurl="file://C:\Users\kyros\workspace_android\FieldoutAdmin\.idea\FieldoutAdmin.iml" filepath="C:\Users\kyros\workspace_android\FieldoutAdmin\.idea\FieldoutAdmin.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/FieldoutAdmin.iml" filepath="$PROJECT_DIR$/.idea/FieldoutAdmin.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
     </modules>
   </component>

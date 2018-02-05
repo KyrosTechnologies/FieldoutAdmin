@@ -98,6 +98,12 @@ public class CommonJobs {
     private String startdate;
     private String enddate;
     private JSONArray counts;
+    private JSONArray techmonthallJobs;
+    private JSONArray techmonthClosedJobs;
+    private JSONArray weekAllJobs;
+    private JSONArray weekClosedJobs;
+    private JSONArray dayAllJobs;
+    private JSONArray dayClosedJobs;
 
     public CommonJobs(){
 
@@ -807,5 +813,53 @@ public class CommonJobs {
 
     public void setCounts(JSONArray counts) {
         this.counts = counts;
+    }
+
+    public JSONArray getTechmonthallJobs() {
+        return techmonthallJobs;
+    }
+
+    public void setTechmonthallJobs(JSONArray techmonthallJobs) {
+        this.techmonthallJobs = techmonthallJobs;
+    }
+
+    public JSONArray getTechmonthClosedJobs() {
+        return techmonthClosedJobs;
+    }
+
+    public void setTechmonthClosedJobs(JSONArray techmonthClosedJobs) {
+        this.techmonthClosedJobs = techmonthClosedJobs;
+    }
+
+    public JSONArray getWeekAllJobs() {
+        return weekAllJobs;
+    }
+
+    public void setWeekAllJobs(JSONArray weekAllJobs) {
+        this.weekAllJobs = weekAllJobs;
+    }
+
+    public JSONArray getWeekClosedJobs() {
+        return weekClosedJobs;
+    }
+
+    public void setWeekClosedJobs(JSONArray weekClosedJobs) {
+        this.weekClosedJobs = weekClosedJobs;
+    }
+
+    public JSONArray getDayAllJobs() {
+        return dayAllJobs;
+    }
+
+    public void setDayAllJobs(JSONArray dayAllJobs) {
+        this.dayAllJobs = dayAllJobs;
+    }
+
+    public JSONArray getDayClosedJobs() {
+        return dayClosedJobs;
+    }
+
+    public void setDayClosedJobs(JSONArray dayClosedJobs) {
+        this.dayClosedJobs = dayClosedJobs;
     }
 }
