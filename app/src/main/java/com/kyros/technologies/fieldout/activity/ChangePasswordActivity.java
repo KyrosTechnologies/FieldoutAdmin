@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
 import com.kyros.technologies.fieldout.databinding.ActivityChangePasswordBinding;
+import com.kyros.technologies.fieldout.models.ChangePasswordResponse;
 import com.kyros.technologies.fieldout.models.User;
 import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 import com.kyros.technologies.fieldout.viewmodel.ChangePasswordActivityViewModel;
@@ -65,7 +66,8 @@ public class ChangePasswordActivity extends AppCompatActivity {
                 }
                 if(oldPassword.equals(password) && newPassword.equals(confirmPassword)){
                     User user=new User();
-                    user.setPassword(newPassword);
+                    user.setOldPassword(oldPassword);
+                    user.setNewPassword(newPassword);
                     showProgressDialog();
                     initiateChangePasswordAPICall(user);
                 }
@@ -82,7 +84,6 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     private void initiateChangePasswordAPICall(User user) {
         if(userId!=null){
-
                 subscription.add(viewModel.changePassword(store.getToken(),userId,user)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
@@ -103,16 +104,26 @@ public class ChangePasswordActivity extends AppCompatActivity {
         showToast(""+throwable.getMessage());
     }
 
-    private void changePasswordResponse(User user) {
+    private void changePasswordResponse(ChangePasswordResponse changePasswordResponse) {
         dismissProgressDialog();
-        if(user!=null){
-            Log.d("ChPassRes : ",TAG+" / / "+user);
-            String password=user.getPassword();
-            if(password!=null && ! password.isEmpty()){
-                store.putPassword(password);
+        if(changePasswordResponse!=null){
+            Log.d("ChPassRes : ",TAG+" / / "+changePasswordResponse);
+            boolean isSuccess=changePasswordResponse.isSuccess();
+            String result=changePasswordResponse.getResult();
+            if(isSuccess){
+                User user=changePasswordResponse.getUserDetails();
+                if(user != null){
+                    String password=user.getPassword();
+                    if(password != null){
+                        store.putPassword(password);
+                    }
+                }
                 showToast("password updated successfully!");
                 this.finish();
+            }else{
+                showToast(""+result);
             }
+
         }else{
             showToast("user response is null!");
         }

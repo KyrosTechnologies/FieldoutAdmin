@@ -15,6 +15,7 @@ import com.kyros.technologies.fieldout.models.AddToolsResourceResponse;
 import com.kyros.technologies.fieldout.models.AddUserResponse;
 import com.kyros.technologies.fieldout.models.BussinessHoursModel;
 import com.kyros.technologies.fieldout.models.BussinessHoursResponse;
+import com.kyros.technologies.fieldout.models.ChangePasswordResponse;
 import com.kyros.technologies.fieldout.models.CustomField;
 import com.kyros.technologies.fieldout.models.CustomFieldResponse;
 import com.kyros.technologies.fieldout.models.DeleteCustomFieldResponse;
@@ -191,7 +192,7 @@ public interface POJOInterface {
     @DELETE("/tags/delete/{tagId}")
     Observable<DeleteTagResponse>deleteTag(@Header("Authorization")String authKey, @Path("tagId")String tagId);
     @PUT("/users/changePassword/{userId}")
-    Observable<User>changePassword(@Header("Authorization")String authKey,@Path("userId")String userId,@Body User user);
+    Observable<ChangePasswordResponse>changePassword(@Header("Authorization")String authKey, @Path("userId")String userId, @Body User user);
     @GET("/invoices/getById/{invoiceId}")
     Observable<InvoiceCustomerResponse>getCustomerInvoice(@Header("Authorization")String authKey, @Path("invoiceId")String invoiceId);
     @Multipart

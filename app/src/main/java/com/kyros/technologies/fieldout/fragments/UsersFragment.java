@@ -84,19 +84,14 @@ public class UsersFragment extends Fragment {
         store=PreferenceManager.getInstance(getContext());
         String domainId=store.getIdDomain();
         String authKey=store.getToken();
-
-        //initBinding();
             loadUsers(domainId,authKey);
-
-        Log.d("onStart","view Initialized");
     }
 
     private void loadUsers(String domainId, String authKey) {
-        Log.d("loadUsers","view Initialized");
         subscription.add(viewModel.getUsersResponse(domainId,authKey)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
-                    .doOnError(throwable -> Log.e("Error : ",TAG+" / / / "+throwable.getMessage()))
+                    .doOnError(throwable -> Log.e("Error : ",TAG+" / / / "+throwable.toString()))
                     .subscribe(this::usersGetResponse,this::usersGetErrorResponse,this::completedUsersResponse));
     }
 
@@ -105,7 +100,7 @@ public class UsersFragment extends Fragment {
     }
 
     private void usersGetErrorResponse(Throwable throwable) {
-        Log.e("Error : ",TAG+" / / / "+throwable.getMessage());
+        Log.e("Error : ",TAG+" / / / "+throwable.toString());
         showToast(""+throwable.getMessage());
 
     }
@@ -118,9 +113,9 @@ public class UsersFragment extends Fragment {
         if(usersResponse!=null){
             Log.d("TeamsResponse : ",TAG+ " / / "+usersResponse.toString());
            usersItemList=usersResponse.getUsers();
-            Log.d("old response size : ",""+usersItemList.size());
             binding.usersTableLayout.removeAllViews();
             binding.usersTableLayout.addView(binding.rowAddUserTable);
+
             if(usersItemList.size()!=0){
                 for(int i=0;i<usersItemList.size();i++){
                     TableRow tableRow=new TableRow(getContext());
@@ -186,18 +181,23 @@ public class UsersFragment extends Fragment {
 
                     TextView skilledTradesTextView=new TextView(getContext());
 
-                    try {
+
                         SkilledTradesModel skTrades=usersItemList.get(i).getSkilledTrades();
-                        String sValue=skTrades.getName().get(0);
-                        if(sValue!=null){
-                            skilledTradesTextView.setText(sValue);
+                        if(skTrades != null ){
+                            List<String>sList=skTrades.getName();
+                            if(sList !=null && sList.size() != 0){
+                                String sValue=skTrades.getName().get(0);
+                                if(sValue!=null){
+                                    skilledTradesTextView.setText(sValue);
 
-                        }else{
-                            skilledTradesTextView.setText("");
+                                }else{
+                                    skilledTradesTextView.setText("");
+                                }
+                            }
+
+
                         }
-                    }catch (Exception e){
 
-                    }
 
                     skilledTradesTextView.setTextSize(24);
                     TableRow.LayoutParams tableRowskilledTradesParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
@@ -211,8 +211,9 @@ public class UsersFragment extends Fragment {
 
 
                     TextView teamsTextView=new TextView(getContext());
-                    try {
+
                         TeamAdd teamObject=usersItemList.get(i).getTeams();
+                    if (teamObject != null) {
                         List<String>teamIdList=teamObject.getId();
                         if(teamIdList!=null  && teamIdList.size()!=0){
                             String[]value= getTeamNameAPI(teamIdList.get(0));
@@ -224,9 +225,8 @@ public class UsersFragment extends Fragment {
                         }else {
                             teamsTextView.setText("");
                         }
-                    }catch (Exception e){
-
                     }
+
 
                     teamsTextView.setTextSize(24);
                     TableRow.LayoutParams tableRowParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
@@ -297,35 +297,7 @@ public class UsersFragment extends Fragment {
         return teamNameFirst;
     }
 
-    private String skillObjectToString(Object skTrades) {
-        StringBuilder stringBuilder=new StringBuilder();
-        try {
-            JSONObject object=new JSONObject(skTrades.toString());
-            JSONArray array=object.getJSONArray("name");
-            for(int i=0;i<array.length();i++){
-                stringBuilder.append(array.getString(i)+" / ");
-            }
-        }catch (Exception e){
-            e.printStackTrace();
-        }
-        return stringBuilder.toString();
-    }
 
-    private StringBuilder objectToString(Object object){
-        StringBuilder stringBuilder=new StringBuilder();
-        try {
-            JSONObject jsonObject=new JSONObject(object.toString());
-            JSONArray array=jsonObject.getJSONArray("id");
-            for(int j=0;j<array.length();j++){
-                String value=array.getString(j);
-                stringBuilder.append(value+ " / ");
-            }
-
-        } catch (JSONException e) {
-            e.printStackTrace();
-        }
-        return stringBuilder;
-    }
     private void showToast(String message){
         Toast.makeText(getContext(),message,Toast.LENGTH_SHORT).show();
     }
@@ -333,7 +305,6 @@ public class UsersFragment extends Fragment {
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        Log.d("onDestroyView","view Initialized");
 
     }
 
@@ -341,34 +312,7 @@ public class UsersFragment extends Fragment {
     public void onDestroy() {
         super.onDestroy();
         subscription.clear();
-        Log.d("onDestroy","view Initialized");
     }
-
-    private void initBinding() {
-        Log.d("onInitBinding","view Initialized");
-        viewModel.getUsersResponseObservable()
-                .subscribeOn(Schedulers.computation())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(checkUsersResponse);
-    }
-    private Subscriber<UsersResponse>checkUsersResponse=new Subscriber<UsersResponse>() {
-        @Override
-        public void onCompleted() {
-
-        }
-
-        @Override
-        public void onError(Throwable e) {
-            showToast(""+e.getMessage());
-
-            Log.e("Error : ",TAG+" / / "+e.getMessage());
-        }
-
-        @Override
-        public void onNext(UsersResponse usersResponse) {
-            usersItemList=usersResponse.getUsers();
-        }
-    };
 
 
 }

@@ -81,6 +81,9 @@ public class AddTeamActivity extends AppCompatActivity {
     private String managersNameListString=null;
     @Inject
     TagFragmentViewModel viewModelTag;
+    private AlertDialog multipleSelectTagDialog;
+    private List<String>selectedTagArrayList=new ArrayList<>();
+    private SkilledTradersAdapter tagNameListAdapter;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,13 +95,13 @@ public class AddTeamActivity extends AppCompatActivity {
         ((ServiceHandler)getApplication()).getApplicationComponent().injectAddTeamActivity(this);
         subscription=new CompositeSubscription();
         store=PreferenceManager.getInstance(getApplicationContext());
-        //binding.tagsAddTeamEditText.setOnClickListener(view -> skilledTradesDialog(new ArrayList<>(),binding.tagsAddTeamEditText));
+      //  binding.tagsAddTeamEditText.setOnClickListener(view -> skilledTradesDialog(new ArrayList<>(),binding.tagsAddTeamEditText));
         binding.saveAddTeamButton.setOnClickListener(view -> validateFields());
 
     }
 
     private void validateFields() {
-        showDialog();
+
         /* Commented for adding tags name list
         * and enabled the initiate add team api **/
 
@@ -136,8 +139,21 @@ public class AddTeamActivity extends AppCompatActivity {
     private void initiateTeamAPI() {
         String teamName=binding.addTeamNameEditText.getText().toString();
         String description=binding.descriptionEditText.getText().toString();
-        List<String>tagFinalList=adapterTag.getSkilledTradersList();
-        List<String>technicianFinalList=technicianListAdapter.getSkilledTradersList();
+        List<String>tagFinalList=new ArrayList<>();
+        if(adapterTag != null){
+            tagFinalList=adapterTag.getSkilledTradersList();
+        }
+        if(tagFinalList == null){
+            tagFinalList=new ArrayList<>();
+        }
+        List<String>technicianFinalList=new ArrayList<>();
+        if(technicianListAdapter != null){
+            technicianFinalList=technicianListAdapter.getSkilledTradersList();
+        }
+        if(technicianFinalList == null){
+            technicianFinalList=new ArrayList<>();
+        }
+
         List<String>technicianFinalIdList=new ArrayList<>();
         List<String>tagId=new ArrayList<>();
         for(String tagName:tagFinalList){
@@ -155,7 +171,13 @@ public class AddTeamActivity extends AppCompatActivity {
                 }
             }
         }
-        List<String>managerFinalList=managerListAdapter.getSkilledTradersList();
+        List<String>managerFinalList=new ArrayList<>();
+        if(managerListAdapter != null){
+            managerFinalList=managerListAdapter.getSkilledTradersList();
+        }
+        if(managerFinalList == null){
+            managerFinalList=new ArrayList<>();
+        }
         List<String>managerFinalIdList=new ArrayList<>();
         for(String managerName:managerFinalList){
                for(Manager manager:managers){
@@ -186,6 +208,7 @@ public class AddTeamActivity extends AppCompatActivity {
     }
 
     private void callAddTeamAPI(String authKey, TeamsItem teamsItem) {
+        showDialog();
         subscription.add(viewModel.addTeamResponseObservable(authKey,teamsItem)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
@@ -319,16 +342,22 @@ public class AddTeamActivity extends AppCompatActivity {
             Log.d("Tag Response : ",TAG+" / / "+tagResponse);
             tagResponpseList =tagResponse.getTags();
             if(tagResponpseList!=null && tagResponpseList.size()!=0){
-                    binding.tagsSelectedRecycler.setVisibility(View.VISIBLE);
-                     List<String>tagNameList=new ArrayList<>();
-                     for(Tag tag:tagResponpseList){
-                         tagNameList.add(tag.getName());
-                     }
-                binding.tagsSelectedRecycler.setLayoutManager(new LinearLayoutManager(this));
-                binding.tagsSelectedRecycler.setItemAnimator(new DefaultItemAnimator());
-                adapterTag=new SkilledTradersAdapter(this,tagNameList);
-                binding.tagsSelectedRecycler.setAdapter(adapterTag);
-                adapterTag.notifyDataSetChanged();
+                String arrayTags[] = new String[tagResponpseList.size()];
+                boolean boolTags[]=new boolean[tagResponpseList.size()];
+                for(int j =0;j<tagResponpseList.size();j++){
+                    arrayTags[j] = tagResponpseList.get(j).getName();
+                }
+                binding.tagsAddTeamEditText.setOnClickListener(view -> multipleSelectTagDialogBox("Select Tags",arrayTags,boolTags));
+//                    binding.tagsSelectedRecycler.setVisibility(View.VISIBLE);
+//                     List<String>tagNameList=new ArrayList<>();
+//                     for(Tag tag:tagResponpseList){
+//                         tagNameList.add(tag.getName());
+//                     }
+//                binding.tagsSelectedRecycler.setLayoutManager(new LinearLayoutManager(this));
+//                binding.tagsSelectedRecycler.setItemAnimator(new DefaultItemAnimator());
+//                adapterTag=new SkilledTradersAdapter(this,tagNameList);
+//                binding.tagsSelectedRecycler.setAdapter(adapterTag);
+//                adapterTag.notifyDataSetChanged();
 
             }else{
                 binding.tagsSelectedRecycler.setVisibility(View.GONE);
@@ -497,7 +526,28 @@ public class AddTeamActivity extends AppCompatActivity {
         dismissDialog();
         dismissMultipleSelectDialogBox();
         dismissTagsDialog();
+        dismissMultipleSelectTagDialogBox();
 
+    }
+
+    private void dismissMultipleSelectTagDialogBox() {
+        if(multipleSelectTagDialog != null && multipleSelectTagDialog.isShowing()){
+            multipleSelectTagDialog.dismiss();
+        }
+    }
+
+    private void multipleSelectTagDialogBox(String title,String[] values,boolean[] checkedItems){
+        AlertDialog.Builder builder=new AlertDialog.Builder(this);
+        builder.setTitle(title);
+        builder.setMultiChoiceItems(values,checkedItems,(dialog,which,isChecked)-> selectedTagArrayList.add(values[which]));
+        builder.setPositiveButton("OK",(dialog,which)->{
+           binding.tagsSelectedRecycler.setVisibility(View.VISIBLE);
+           binding.tagsSelectedRecycler.setLayoutManager(new LinearLayoutManager(this));
+           binding.recyclerManagersAdd.setItemAnimator(new DefaultItemAnimator());
+            tagNameListAdapter=new SkilledTradersAdapter(this,new HashSet<>(selectedTagArrayList));
+            binding.recyclerManagersAdd.setAdapter(tagNameListAdapter);
+            tagNameListAdapter.notifyDataSetChanged();
+        });
     }
     private void multipleSelectDialogBox(String title,String[] values,boolean[] checkedItems,TextView view,String whichone){
         AlertDialog.Builder builder = new AlertDialog.Builder(AddTeamActivity.this);

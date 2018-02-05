@@ -61,6 +61,12 @@ public class User{
     @SerializedName("userinfo")
     private UserInfo userinfo;
 
+	@SerializedName("oldPassword")
+	private String oldPassword;
+
+	@SerializedName("newPassword")
+	private String newPassword;
+
     public void setLastName(String lastName){
 		this.lastName = lastName;
 	}
@@ -214,6 +220,22 @@ public class User{
         this.userinfo = userinfo;
     }
 
+	public String getOldPassword() {
+		return oldPassword;
+	}
+
+	public void setOldPassword(String oldPassword) {
+		this.oldPassword = oldPassword;
+	}
+
+	public String getNewPassword() {
+		return newPassword;
+	}
+
+	public void setNewPassword(String newPassword) {
+		this.newPassword = newPassword;
+	}
+
     @Override
     public String toString() {
         return "User{" +
@@ -236,6 +258,8 @@ public class User{
                 ", site='" + site + '\'' +
                 ", idUser='" + idUser + '\'' +
                 ", userinfo=" + userinfo +
+                ", oldPassword='" + oldPassword + '\'' +
+                ", newPassword='" + newPassword + '\'' +
                 '}';
     }
 }

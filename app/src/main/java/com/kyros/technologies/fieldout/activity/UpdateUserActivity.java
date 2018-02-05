@@ -29,6 +29,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.adapters.SkilledTradersAdapter;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
@@ -78,13 +79,14 @@ public class UpdateUserActivity extends AppCompatActivity {
     private List<TeamsItem> teamsList=new ArrayList<>();
     private AlertDialog generalDialog=null;
     private String[] subContractListString={"Yes","No"};
-    private String[] profiles = {"Administrator", "Manager", "Technician"};
+    private String[] profiles = {"Admin", "Manager", "Technician"};
     private String[] languages = {"English", "Deutsch", "Portuges", "Polski"};
     private AlertDialog multipleSelectDialog=null;
     private AlertDialog skilledTradersDialog=null;
     private SkilledTradersAdapter adapter;
     private List<String>newNameList=new ArrayList<>();
     private android.support.v7.app.AlertDialog alertDialogDelete;
+    private String userName="";
     @Inject
     CustomFieldsFragmentViewModel customFieldsFragmentViewModel;
     private List<CustomField>usersCustomFieldList=new ArrayList<>();
@@ -437,25 +439,28 @@ public class UpdateUserActivity extends AppCompatActivity {
 
 
     private void validateFields() {
-        showDialog();
+
         String firstName=binding.firstNameAddUserEtext.getText().toString();
         String lastName=binding.lastNameAddUserEtext.getText().toString();
         String mobileNumber=binding.mobileAddUserEtext.getText().toString();
         String email=binding.emailAddUserEtext.getText().toString();
         String profile=binding.textViewProfileAddUser.getText().toString();
         String language=binding.textViewLanguageAddUser.getText().toString();
-        String userName=binding.userNameAddUserEtext.getText().toString();
-        String password=binding.passwordAddUserEtext.getText().toString();
+       // String userName=binding.userNameAddUserEtext.getText().toString();
+       // String password=binding.passwordAddUserEtext.getText().toString();
         String subContractor=binding.textViewSubcontractorAddUser.getText().toString();
         String timeZone=binding.textViewTimeZoneAddUser.getText().toString();
         String startLocation=binding.startLocationAddUserEtext.getText().toString();
 
         if(lastName!=null && !lastName.isEmpty() && firstName!=null && !firstName.isEmpty() && mobileNumber!=null && !mobileNumber.isEmpty() &&
-                email!=null && !email.isEmpty() && userName!=null && !userName.isEmpty() && password!=null && !password.isEmpty()){
+                email!=null && !email.isEmpty() ){
             SkilledTradesModel skilledTradesModel=new SkilledTradesModel();
             List<String>skilledTraders=new ArrayList<>();
             if(adapter!=null){
                 skilledTraders=adapter.getSkilledTradersList();
+            }
+            if(skilledTraders == null){
+                skilledTraders=new ArrayList<>();
             }
             skilledTradesModel.setName(skilledTraders);
             TeamAdd teamAdd=new TeamAdd();
@@ -471,9 +476,11 @@ public class UpdateUserActivity extends AppCompatActivity {
             result.setPhone(mobileNumber);
             result.setEmail(email);
             result.setProfile(profile);
-            result.setLanguage(language);
-            result.setCustomFieldValues(customFieldList);
             result.setUsername(userName);
+            result.setLanguage(language);
+            result.setIdDomain(store.getIdDomain());
+            result.setCustomFieldValues(customFieldList);
+            //result.setUsername(userName);
             result.setSkilledTrades(skilledTradesModel);
             result.setTeams(teamAdd);
             result.setId(userId);
@@ -600,18 +607,19 @@ public class UpdateUserActivity extends AppCompatActivity {
     }
 
     private void callAPI(Result result, String token, String userId) {
-        Log.d("Result : ",""+result.toString());
-        if(newNameList.size()!=0){
+        showDialog();
+        Log.d("INPUT : ",""+new Gson().toJson(result));
+       // if(newNameList.size()!=0){
                 subscription.add(viewModel.updateUserObservable(userId,token,result)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> {Log.e("Error :",TAG+" / / "+throwable.getMessage());
                     dismissDialog();})
                 .subscribe(updateUserResponse));
-        }else{
-            showToast("Please select teams!");
-            dismissDialog();
-        }
+//        }else{
+//            showToast("Please select teams!");
+//            dismissDialog();
+//        }
 
     }
     private Subscriber<UserUpdateResponse>updateUserResponse=new Subscriber<UserUpdateResponse>() {
@@ -741,6 +749,9 @@ private Subscriber<GetSingleUserResponse>checkGetOneUserResponse=new Subscriber<
         }
         String profile=getSingleUserResponse.getUser().getProfile();
         if(profile!=null){
+            if(profile.equals("admin")){
+                binding.textViewProfileAddUser.setText("Admin");
+            }
             store.putProfile(profile);
             binding.textViewProfileAddUser.setText(profile);
         }
@@ -750,6 +761,7 @@ private Subscriber<GetSingleUserResponse>checkGetOneUserResponse=new Subscriber<
             binding.textViewLanguageAddUser.setText(language);
         }
         String userName=getSingleUserResponse.getUser().getUsername();
+       this.userName=userName;
         if(userName!=null){
             binding.userNameAddUserEtext.setText(userName);
         }
@@ -1137,11 +1149,11 @@ private Subscriber<GetSingleUserResponse>checkGetOneUserResponse=new Subscriber<
         return result;
 
     }
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_delete, menu);
-        return true;
-    }
+//    @Override
+//    public boolean onCreateOptionsMenu(Menu menu) {
+//        getMenuInflater().inflate(R.menu.actionbar_delete, menu);
+//        return true;
+//    }
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 

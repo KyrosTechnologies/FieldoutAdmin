@@ -113,9 +113,9 @@ public class AddUserActivity extends AppCompatActivity {
         ((ServiceHandler)getApplication()).getApplicationComponent().injectAddUsersActivity(this);
         subscription=new CompositeSubscription();
         store=PreferenceManager.getInstance(getApplicationContext());
-        profileList.add("admin");
-        profileList.add("manager");
-        profileList.add("technician");
+        profileList.add("Admin");
+        profileList.add("Manager");
+        profileList.add("Technician");
         languageList.add("English");
         languageList.add("Deutsch");
         languageList.add("Portuges");
@@ -650,8 +650,15 @@ public class AddUserActivity extends AppCompatActivity {
             }
 
         }
-        List<String>skilledList=adapter.getSkilledTradersList();
-                SkilledTradesModel skilledTradesMode=new SkilledTradesModel();
+        List<String>skilledList=new ArrayList<>();
+        if(adapter != null){
+           skilledList=adapter.getSkilledTradersList();
+        }
+        if(skilledList == null){
+            skilledList=new ArrayList<>();
+        }
+
+        SkilledTradesModel skilledTradesMode=new SkilledTradesModel();
         skilledTradesMode.setName(skilledList);
         TeamAdd teamAdd=new TeamAdd();
         teamAdd.setId(teamId);
@@ -659,11 +666,8 @@ public class AddUserActivity extends AppCompatActivity {
         userInfo.setSkilledTrades(skilledTradesMode);
         userInfo.setCustomFieldValues(customFieldList);
         userInfo.setProfile(selectedProfile);
-        if(adapter.getSkilledTradersList().size()!=0){
-            callPOSTAPI(authKey,userInfo);
-        }else{
-            showToast("Please add skilled Traders!");
-        }
+        callPOSTAPI(authKey,userInfo);
+
     }
 
     private void callPOSTAPI(String authKey, UserInfo userInfo) {

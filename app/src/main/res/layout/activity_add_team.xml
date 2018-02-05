@@ -124,7 +124,7 @@
                             android:text="@string/tags"
                             android:textColor="@color/light_black"
                             android:textSize="@dimen/privacy_policy_statement"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
 
                         <android.support.v7.widget.RecyclerView
                             android:id="@+id/tags_selected_recycler"
@@ -226,9 +226,9 @@
                             android:layout_width="match_parent"
                             android:layout_height="60dp"
                             android:layout_marginBottom="10dp"
-                            android:background="@drawable/button_bg"
                             android:drawableEnd="@drawable/down_arrow_black_15"
                             android:gravity="start|center"
+                            android:background="@drawable/button_red"
                             android:paddingLeft="10dp"
                             android:paddingRight="10dp"
                             android:text="@string/managers"

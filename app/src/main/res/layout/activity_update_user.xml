@@ -147,6 +147,7 @@
                                     android:background="@drawable/button_red"
                                     android:hint="@string/enter_user_name"
                                     android:paddingLeft="10dp"
+                                    android:visibility="gone"
                                     android:textColor="@color/light_black"
                                     android:textColorHint="@color/text_light"
                                     android:textSize="@dimen/privacy_policy_statement" />
@@ -265,6 +266,7 @@
                                     android:hint="@string/enter_password"
                                     android:inputType="textPassword"
                                     android:paddingLeft="10dp"
+                                    android:visibility="gone"
                                     android:textColor="@color/light_black"
                                     android:textColorHint="@color/text_light"
                                     android:textSize="@dimen/privacy_policy_statement" />
