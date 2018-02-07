@@ -1323,6 +1323,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         }else {
                             Intent i=new Intent(AddJobsActivity.this,ActivityJobsSchedule.class);
                             i.putExtra("jobtypename",job_type_name);
+                            i.putExtra("jobid",jobid);
                             startActivity(i);
                         }
 

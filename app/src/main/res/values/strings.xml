@@ -319,4 +319,6 @@
     <string name="input_goes_here">Input goes here</string>
     <string name="date">Date</string>
     <string name="select_here">Select here</string>
+    <string name="jobs_by_customers">Jobs by Customers</string>
+    <string name="jobs_by_site">Jobs by Site</string>
 </resources>

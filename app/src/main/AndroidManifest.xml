@@ -339,6 +339,11 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
+            android:name=".activity.StatusJobsList"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
             android:name=".activity.AddCustomFieldsActivity"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"

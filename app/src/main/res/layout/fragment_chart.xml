@@ -558,17 +558,11 @@
 
                         </LinearLayout>
 
-                        <LinearLayout
-                            android:visibility="gone"
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:layout_marginTop="15dp"
-                                android:orientation="horizontal">
-
                                 <LinearLayout
-                                    android:layout_width="wrap_content"
+                                    android:layout_width="match_parent"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
+                                    android:layout_marginTop="15dp"
                                     android:orientation="vertical">
 
                                     <TextView
@@ -577,7 +571,7 @@
                                         android:layout_gravity="center"
                                         android:layout_marginBottom="10dp"
                                         android:layout_marginTop="10dp"
-                                        android:text="@string/completed_jobs"
+                                        android:text="@string/jobs_by_customers"
                                         android:textColor="@color/light_black"
                                         android:textSize="@dimen/title_text_size" />
 
@@ -593,13 +587,84 @@
                                         android:textSize="@dimen/sub_text_size"
                                         android:visibility="gone" />
 
-                                    <com.github.mikephil.charting.charts.BubbleChart
+                                    <lecho.lib.hellocharts.view.BubbleChartView
                                         android:id="@+id/jobs_by_status"
                                         android:layout_width="match_parent"
-                                        android:layout_height="match_parent"
-                                        android:layout_margin="15dp"/>
+                                        android:layout_height="400dp" />
 
                                 </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="15dp"
+                                android:orientation="vertical"
+                                android:layout_marginBottom="80dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/jobs_by_site"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/title_text_size" />
+
+                                <TextView
+                                    android:id="@+id/status_one_site"
+                                    android:layout_width="250dp"
+                                    android:layout_height="250dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="15dp"
+                                    android:gravity="center"
+                                    android:text="@string/no_chart_data_available"
+                                    android:textColor="@color/text_light"
+                                    android:textSize="@dimen/sub_text_size"
+                                    android:visibility="gone" />
+
+                                <lecho.lib.hellocharts.view.BubbleChartView
+                                    android:id="@+id/jobs_by_site"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="400dp" />
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:layout_marginTop="15dp"
+                                android:orientation="vertical"
+                                android:layout_marginBottom="80dp">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_gravity="center"
+                                    android:layout_marginBottom="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:text="@string/jobs_by_site"
+                                    android:textColor="@color/light_black"
+                                    android:textSize="@dimen/title_text_size" />
+
+                                <TextView
+                                    android:id="@+id/status_jobs"
+                                    android:layout_width="250dp"
+                                    android:layout_height="250dp"
+                                    android:layout_gravity="center"
+                                    android:layout_margin="15dp"
+                                    android:gravity="center"
+                                    android:text="@string/no_chart_data_available"
+                                    android:textColor="@color/text_light"
+                                    android:textSize="@dimen/sub_text_size"
+                                    android:visibility="gone" />
+
+                                <com.github.mikephil.charting.charts.BarChart
+                                    android:id="@+id/bar_by_status"
+                                    android:layout_width="match_parent"
+                                    android:layout_height="400dp" />
 
                             </LinearLayout>
 
@@ -720,6 +785,18 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:layout_margin="10dp"/>
+
+                        <TextView
+                            android:id="@+id/no_jobs_found"
+                            android:layout_width="250dp"
+                            android:layout_height="250dp"
+                            android:layout_gravity="center"
+                            android:layout_margin="15dp"
+                            android:gravity="center"
+                            android:text="No Jobs Found"
+                            android:textColor="@color/blue"
+                            android:textSize="@dimen/sub_text_size"
+                            android:visibility="gone" />
 
                     </LinearLayout>
 
