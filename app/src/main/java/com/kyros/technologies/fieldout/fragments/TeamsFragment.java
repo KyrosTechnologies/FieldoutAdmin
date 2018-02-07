@@ -70,6 +70,8 @@ public class TeamsFragment extends Fragment {
         store=PreferenceManager.getInstance(getContext());
         String domainId=store.getIdDomain();
         String authKey=store.getToken();
+        Log.d("Token : ",store.getToken());
+        Log.d("DomainId : ",store.getIdDomain());
         loadTeamsAPI(domainId,authKey);
 
     }
