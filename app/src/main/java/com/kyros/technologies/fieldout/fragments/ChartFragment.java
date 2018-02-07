@@ -1855,7 +1855,7 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                     }
 
                     BarDataSet set1 = new BarDataSet(yVals1, "");
-                    set1.setColors(ColorTemplate.VORDIPLOM_COLORS);
+                    set1.setColors(ColorTemplate.COLORFUL_COLORS);
                     set1.setDrawValues(false);
 
                     ArrayList<IBarDataSet> dataSets = new ArrayList<IBarDataSet>();
