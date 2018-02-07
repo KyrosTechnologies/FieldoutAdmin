@@ -107,6 +107,7 @@ public class TeamsFragment extends Fragment {
             binding.teamsTableLayout.removeAllViews();
             binding.teamsTableLayout.addView(binding.rowTeamTable);
             if(teamsItemList!=null && teamsItemList.size()!=0){
+                binding.linearLayoutNoJobs.setVisibility(View.GONE);
                 for (TeamsItem teamsItem:teamsItemList){
                     String teamName=teamsItem.getName();
                     String description=teamsItem.getDescriptions();

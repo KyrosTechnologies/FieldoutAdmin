@@ -344,9 +344,14 @@ public class AddTeamActivity extends AppCompatActivity {
             if(tagResponpseList!=null && tagResponpseList.size()!=0){
                 String arrayTags[] = new String[tagResponpseList.size()];
                 boolean boolTags[]=new boolean[tagResponpseList.size()];
+                for(int k=0; k<tagResponpseList.size();k++){
+                    boolTags[k]=false;
+                }
                 for(int j =0;j<tagResponpseList.size();j++){
                     arrayTags[j] = tagResponpseList.get(j).getName();
                 }
+
+
                 binding.tagsAddTeamEditText.setOnClickListener(view -> multipleSelectTagDialogBox("Select Tags",arrayTags,boolTags));
 //                    binding.tagsSelectedRecycler.setVisibility(View.VISIBLE);
 //                     List<String>tagNameList=new ArrayList<>();
@@ -537,17 +542,25 @@ public class AddTeamActivity extends AppCompatActivity {
     }
 
     private void multipleSelectTagDialogBox(String title,String[] values,boolean[] checkedItems){
+        selectedTagArrayList.clear();
         AlertDialog.Builder builder=new AlertDialog.Builder(this);
         builder.setTitle(title);
-        builder.setMultiChoiceItems(values,checkedItems,(dialog,which,isChecked)-> selectedTagArrayList.add(values[which]));
+        builder.setMultiChoiceItems(values,checkedItems,(dialog,which,isChecked)-> {
+            if(isChecked){
+                selectedTagArrayList.add(values[which]);
+            }
+        });
         builder.setPositiveButton("OK",(dialog,which)->{
            binding.tagsSelectedRecycler.setVisibility(View.VISIBLE);
            binding.tagsSelectedRecycler.setLayoutManager(new LinearLayoutManager(this));
-           binding.recyclerManagersAdd.setItemAnimator(new DefaultItemAnimator());
+           binding.tagsSelectedRecycler.setItemAnimator(new DefaultItemAnimator());
             tagNameListAdapter=new SkilledTradersAdapter(this,new HashSet<>(selectedTagArrayList));
-            binding.recyclerManagersAdd.setAdapter(tagNameListAdapter);
+            binding.tagsSelectedRecycler.setAdapter(tagNameListAdapter);
             tagNameListAdapter.notifyDataSetChanged();
         });
+        builder.setNegativeButton("Cancel",(dialog,which)-> dialog.dismiss());
+        multipleSelectTagDialog=builder.create();
+        multipleSelectTagDialog.show();
     }
     private void multipleSelectDialogBox(String title,String[] values,boolean[] checkedItems,TextView view,String whichone){
         AlertDialog.Builder builder = new AlertDialog.Builder(AddTeamActivity.this);

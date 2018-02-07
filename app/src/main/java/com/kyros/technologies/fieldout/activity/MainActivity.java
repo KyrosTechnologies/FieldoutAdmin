@@ -368,7 +368,7 @@ public class MainActivity extends AppCompatActivity {
             e.printStackTrace();
         }
         Log.d("inputJsonuser",inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url, inputLogin, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onResponse(JSONObject response) {

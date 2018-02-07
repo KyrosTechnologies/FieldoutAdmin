@@ -105,6 +105,7 @@ public class UpdateTeamActivity extends AppCompatActivity {
         showTimber("TagResponse : ","TAG",tagResponse.toString());
         if(tagResponse!=null){
             totalTagList=tagResponse.getTags();
+            //binding.tagsUpdateTeamEditText.setOnClickListener(view -> );
         }else {
             showToast("tag response is null!");
         }
@@ -279,7 +280,6 @@ dismissDialog();
                 binding.tagsSelectedRecyclerUpdate.setItemAnimator(new DefaultItemAnimator());
                 binding.tagsSelectedRecyclerUpdate.setAdapter(tagListAdapter);
                 tagListAdapter.notifyDataSetChanged();
-
             }
 
 

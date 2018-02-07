@@ -117,6 +117,7 @@ public class UsersFragment extends Fragment {
             binding.usersTableLayout.addView(binding.rowAddUserTable);
 
             if(usersItemList.size()!=0){
+                binding.linearLayoutNoJobs.setVisibility(View.GONE);
                 for(int i=0;i<usersItemList.size();i++){
                     TableRow tableRow=new TableRow(getContext());
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));

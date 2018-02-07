@@ -25,8 +25,10 @@ import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 import com.kyros.technologies.fieldout.viewmodel.AddSchedulingWindowsViewModel;
 import com.google.gson.Gson;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -163,18 +165,41 @@ public class AddSchedulingWindowsActivity extends AppCompatActivity {
         String timeEnd=binding.addScheduleEndTextView.getText().toString();
         String authKey=store.getToken();
         String domainId=store.getIdDomain();
-        if(labelName!=null && !labelName.isEmpty() && timeStart!=null && !timeStart.isEmpty() && timeEnd!=null && !timeEnd.isEmpty() && domainId!=null &&!domainId.isEmpty()){
-            SchedulingWindow schedulingWindow=new SchedulingWindow();
-            schedulingWindow.setIdDomain(domainId);
-            schedulingWindow.setIsPublic(selectedPublic);
-            schedulingWindow.setName(labelName);
-            schedulingWindow.setTimeStart(timeStart);
-            schedulingWindow.setTimeEnd(timeEnd);
-            callScheduleAPI(schedulingWindow,authKey);
+        boolean timeValidation=validateTime(timeStart,timeEnd);
+        if(!timeValidation){
+            showToast("Please select end time after the start time!");
         }else{
-            showToast("Please enter all details!");
+            if(labelName!=null && !labelName.isEmpty() && timeStart!=null && !timeStart.isEmpty() && timeEnd!=null && !timeEnd.isEmpty() && domainId!=null &&!domainId.isEmpty()){
+                SchedulingWindow schedulingWindow=new SchedulingWindow();
+                schedulingWindow.setIdDomain(domainId);
+                schedulingWindow.setIsPublic(selectedPublic);
+                schedulingWindow.setName(labelName);
+                schedulingWindow.setTimeStart(timeStart);
+                schedulingWindow.setTimeEnd(timeEnd);
+                callScheduleAPI(schedulingWindow,authKey);
+            }else{
+                showToast("Please enter all details!");
+            }
         }
 
+    }
+    private boolean validateTime(String startTime,String endTime){
+        SimpleDateFormat parser = new SimpleDateFormat("HH:mm aa");
+        try{
+            Date start = parser.parse(startTime);
+            Date end=parser.parse(endTime);
+            if(start.before(end)){
+                return true;
+            }else{
+                return false;
+            }
+
+        }catch (Exception e){
+            e.printStackTrace();
+        }
+
+
+        return false;
     }
 
     private void callScheduleAPI(SchedulingWindow schedulingWindow, String authKey) {

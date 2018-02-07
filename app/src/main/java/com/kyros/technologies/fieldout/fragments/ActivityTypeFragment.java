@@ -130,9 +130,9 @@ public class ActivityTypeFragment extends Fragment {
 
                 //Activity color
                 TextView activityColorTextView=new TextView(getContext());
-                if(activityName!=null){
-                    activityColorTextView.setText(activityName);
-                }
+//                if(activityName!=null){
+//                    activityColorTextView.setText(activityName);
+//                }
                 activityColorTextView.setTextSize(24);
                 TableRow.LayoutParams tableRowActivityColorParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
                 tableRowActivityColorParams.setMargins(15,15,15,15);
@@ -276,6 +276,9 @@ public class ActivityTypeFragment extends Fragment {
             if(success){
                 showToast("Activity Type added successfully!");
                 dismissAddActivityTypeDialog();
+                String authKey=store.getToken();
+                String domainId=store.getIdDomain();
+                initiateActivityTypeAPI(domainId,authKey);
             }
         }else {
             showToast("Activity type add is null!");

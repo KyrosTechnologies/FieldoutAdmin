@@ -131,9 +131,9 @@ public class ToolsAndResourcesFragment extends Fragment {
                     //resource color
 
                     TextView resourceColorTextView=new TextView(getContext());
-                    if(resourceName!=null){
-                        resourceColorTextView.setText(resourceName);
-                    }
+//                    if(resourceName!=null){
+//                        resourceColorTextView.setText(resourceName);
+//                    }
                     resourceColorTextView.setTextSize(24);
                     TableRow.LayoutParams tableRowResourceColorParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
                     tableRowResourceColorParams.setMargins(15,15,15,15);
