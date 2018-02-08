@@ -20,9 +20,9 @@ public class JobsTypesFragmentViewModel {
     public JobsTypesFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<JobsTypeResponse>jobsTypeResponseObservable(String domainId,String authKey){
+    public Observable<JobsTypeResponse>jobsTypeResponseObservable(String authKey,String idDomain){
         return pojoInterface
-                .getJobsType(authKey,domainId)
+                .getJobsType(authKey,idDomain)
                 .doOnNext(jobsTypeResponse -> jobsTypeResponseBehaviorSubject.onNext(jobsTypeResponse));
 
     }

@@ -74,7 +74,7 @@ public class TaxesFragment extends Fragment {
 
     private void initiateApiCall(String authKey, String domainId) {
         showProgressDialog();
-        subscription.add(viewModel.getTaxResponseObservable(authKey,domainId)
+        subscription.add(viewModel.getTaxResponseObservable(authKey,domainId,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

@@ -24,25 +24,25 @@ public class TagFragmentViewModel {
     public TagFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<TagResponse> getTags(String authKey, String domainId){
+    public Observable<TagResponse> getTags(String authKey, String domainId,String idDomain){
         return pojoInterface
-                .getTags(domainId,authKey)
+                .getTags(domainId,authKey,idDomain)
                 .doOnNext(tagResponse -> tagResponseBehaviorSubject.onNext(tagResponse));
     }
     public Observable<TagResponse> getTags(){
         return tagResponseBehaviorSubject.asObservable();
     }
-    public Observable<TagResponse> updateTags(String authKey, String tagid,Tag tag){
+    public Observable<TagResponse> updateTags(String authKey, String tagid,Tag tag,String idDomain){
         return pojoInterface
-                .updateTag(authKey,tagid,tag)
+                .updateTag(authKey,tagid,tag,idDomain)
                 .doOnNext(tagResponse -> updateTagResponseBehaviorSubject.onNext(tagResponse));
     }
     public Observable<TagResponse> updateTags(){
         return updateTagResponseBehaviorSubject.asObservable();
     }
-    public Observable<DeleteTagResponse> deleteTags(String authKey, String tagid){
+    public Observable<DeleteTagResponse> deleteTags(String authKey, String tagid,String idDomain){
         return pojoInterface
-                .deleteTag(authKey,tagid)
+                .deleteTag(authKey,tagid,idDomain)
                 .doOnNext(tagResponse -> deleteTagResponseBehaviorSubject.onNext(tagResponse));
     }
     public Observable<DeleteTagResponse> delteTags(){

@@ -158,7 +158,7 @@ public class AddCustomFieldsActivity extends AppCompatActivity {
 
     private void initiateUpdateAPICall(String authKey, CustomField customField, String customFieleId) {
         showProgressDialog();
-        subscription.add(viewModel.updatecustomFieldResponseObservable(authKey,customField,customFieleId)
+        subscription.add(viewModel.updatecustomFieldResponseObservable(authKey,customField,customFieleId,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -227,7 +227,7 @@ public class AddCustomFieldsActivity extends AppCompatActivity {
     private void initiateAddAPICall(String authKey, CustomField customField) {
         showProgressDialog();
         Log.d("Input : ",TAG+" / / "+authKey+" / / "+customField);
-        subscription.add(viewModel.addcustomFieldResponseObservable(authKey,customField)
+        subscription.add(viewModel.addcustomFieldResponseObservable(authKey,customField,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -402,7 +402,7 @@ public class AddCustomFieldsActivity extends AppCompatActivity {
 
     private void initiateDeleteCustomFieldAPI() {
         showProgressDialog();
-        subscription.add(viewModel.deleteCustomFieldResponseObservable(store.getToken(),customFieleId)
+        subscription.add(viewModel.deleteCustomFieldResponseObservable(store.getToken(),customFieleId,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

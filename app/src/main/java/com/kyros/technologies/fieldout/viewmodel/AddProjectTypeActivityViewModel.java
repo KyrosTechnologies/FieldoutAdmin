@@ -24,18 +24,18 @@ public class AddProjectTypeActivityViewModel {
     public AddProjectTypeActivityViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<AddProjectTypeResponse>addProjectTypeResponseObservable(String authKey, ProjectType projectType){
+    public Observable<AddProjectTypeResponse>addProjectTypeResponseObservable(String authKey, ProjectType projectType,String idDomain){
         return pojoInterface
-                .addProjecType(authKey,projectType)
+                .addProjecType(authKey,projectType,idDomain)
                 .doOnNext(addProjectTypeResponse -> addProjectTypeResponseBehaviorSubject.onNext(addProjectTypeResponse));
     }
     public Observable<AddProjectTypeResponse>addProjectTypeResponseObservable(){
         return addProjectTypeResponseBehaviorSubject.asObservable();
     }
 
-    public Observable<DeleteProjectTypeResponse>deleteProjectTypeResponseObservable(String authKey, String projectTypeId){
+    public Observable<DeleteProjectTypeResponse>deleteProjectTypeResponseObservable(String authKey, String projectTypeId,String idDomain){
         return pojoInterface
-                .deleteProjectType(authKey,projectTypeId)
+                .deleteProjectType(authKey,projectTypeId,idDomain)
                 .doOnNext(deleteProjectTypeResponse  -> deleteProjectTypeResponseBehaviorSubject.onNext(deleteProjectTypeResponse));
     }
     public Observable<DeleteProjectTypeResponse>deleteProjectTypeResponseObservable(){
@@ -43,9 +43,9 @@ public class AddProjectTypeActivityViewModel {
     }
 
 
-    public Observable<AddProjectTypeResponse>updateProjectTypeResponseObservable(String authKey,String projectTypeId, ProjectType projectType){
+    public Observable<AddProjectTypeResponse>updateProjectTypeResponseObservable(String authKey,String projectTypeId, ProjectType projectType,String idDomain){
         return pojoInterface
-                .updateProjectType(authKey,projectTypeId,projectType)
+                .updateProjectType(authKey,projectTypeId,projectType,idDomain)
                 .doOnNext(addProjectTypeResponse -> updateProjectTypeResponseBehaviorSubject.onNext(addProjectTypeResponse));
     }
     public Observable<AddProjectTypeResponse>updateProjectTypeResponseObservable(){

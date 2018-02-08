@@ -280,7 +280,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
 
     private void callCustomFieldsAPI(String domainId, String authKey) {
         if(domainId!= null && authKey !=null){
-            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId)
+            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

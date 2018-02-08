@@ -84,7 +84,7 @@ public class ChangePasswordActivity extends AppCompatActivity {
 
     private void initiateChangePasswordAPICall(User user) {
         if(userId!=null){
-                subscription.add(viewModel.changePassword(store.getToken(),userId,user)
+                subscription.add(viewModel.changePassword(store.getToken(),userId,user,store.getIdDomain())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

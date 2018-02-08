@@ -136,7 +136,7 @@ public class AddTaxesActivity extends AppCompatActivity {
 
     private void addAPI(String authKey, Tax tax) {
         showProgressDialog();
-        subscription.add(viewModel.addTaxResponseObservable(authKey,tax)
+        subscription.add(viewModel.addTaxResponseObservable(authKey,tax,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -171,7 +171,7 @@ public class AddTaxesActivity extends AppCompatActivity {
 
     private void updateAPI(String authKey, String taxId, Tax tax) {
         showProgressDialog();
-    subscription.add(viewModel.updateTaxResponseObservable(authKey,taxId,tax)
+    subscription.add(viewModel.updateTaxResponseObservable(authKey,taxId,tax,store.getIdDomain())
     .subscribeOn(Schedulers.computation())
     .observeOn(AndroidSchedulers.mainThread())
     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -259,7 +259,7 @@ public class AddTaxesActivity extends AppCompatActivity {
     private void deleteTaxAPI() {
         if(taxId!=null){
             showProgressDialog();
-            subscription.add(viewModel.deleteTaxResponseObservable(store.getToken(),taxId)
+            subscription.add(viewModel.deleteTaxResponseObservable(store.getToken(),taxId,store.getIdDomain())
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

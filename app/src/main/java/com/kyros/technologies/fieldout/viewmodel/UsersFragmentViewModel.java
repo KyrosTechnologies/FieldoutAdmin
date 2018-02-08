@@ -20,13 +20,13 @@ public class UsersFragmentViewModel {
     private BehaviorSubject<Boolean>isLoading=BehaviorSubject.create(false);
     @Inject
     public UsersFragmentViewModel(POJOInterface pojoInterface){this.pojoInterface=pojoInterface;}
-    public Observable<UsersResponse>getUsersResponse(String domainId,String authKey){
+    public Observable<UsersResponse>getUsersResponse(String domainId,String authKey,String idDomain){
         if(isLoading.getValue()){
             return Observable.empty();
         }
         isLoading.onNext(true);
         return pojoInterface
-                .getUsers(domainId,authKey)
+                .getUsers(domainId,authKey,idDomain)
                 .doOnError(throwable -> Log.e("Error : ","getUsersError"+throwable.getMessage()))
                 .doOnNext(usersResponse -> usersResponseBehaviorSubject.onNext(usersResponse))
                 .doOnTerminate(()->isLoading.onNext(false));

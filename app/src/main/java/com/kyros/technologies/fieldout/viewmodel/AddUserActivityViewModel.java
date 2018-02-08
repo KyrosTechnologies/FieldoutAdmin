@@ -23,13 +23,13 @@ public class AddUserActivityViewModel {
     public AddUserActivityViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<TeamsResponse>getTeamResponse(String domainId,String authKey){
+    public Observable<TeamsResponse>getTeamResponse(String domainId,String authKey,String idDomain){
         if(isLoading.getValue()){
             return Observable.empty();
         }
         isLoading.onNext(true);
         return pojoInterface
-                .getTeams(domainId,authKey)
+                .getTeams(domainId,authKey,idDomain)
                 .doOnNext(teamsResponse -> teamsResponseBehaviorSubject.onNext(teamsResponse))
                 .doOnTerminate(()->isLoading.onNext(false));
     }
@@ -37,13 +37,13 @@ public class AddUserActivityViewModel {
         return teamsResponseBehaviorSubject.asObservable();
     }
     public BehaviorSubject<Boolean>getIsLoading(){return isLoading;}
-    public Observable<AddUserResponse>addUserResponseObservable(UserInfo userInfo, String authKey){
+    public Observable<AddUserResponse>addUserResponseObservable(UserInfo userInfo, String authKey,String idDomain){
         if(isLoading.getValue()){
             return Observable.empty();
         }
         isLoading.onNext(true);
         return pojoInterface
-                .addUser(userInfo,authKey)
+                .addUser(userInfo,authKey,idDomain)
                 .doOnNext(addUserResponse -> addUserResponseBehaviorSubject.onNext(addUserResponse))
                 .doOnTerminate(()->isLoading.onNext(false));
     }

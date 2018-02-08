@@ -26,33 +26,33 @@ public class UpdateTeamViewModel {
     public UpdateTeamViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<SingleTeamResponse>getSingleTeamObservable(String authKey,String teamId){
+    public Observable<SingleTeamResponse>getSingleTeamObservable(String authKey,String teamId,String idDomain){
         return pojoInterface
-                .getSingleTeam(teamId,authKey)
+                .getSingleTeam(teamId,authKey,idDomain)
                 .doOnNext(teamsResponse -> teamsResponseBehaviorSubject.onNext(teamsResponse));
     }
     public Observable<SingleTeamResponse>getSingleTeamObservable(){
         return teamsResponseBehaviorSubject.asObservable();
     }
-    public Observable<UpdateTeamResponse>updateTeamResponseObservable(String authKey,String teamId, TeamsItem teamsItem){
+    public Observable<UpdateTeamResponse>updateTeamResponseObservable(String authKey,String teamId, TeamsItem teamsItem,String idDomain){
         return pojoInterface
-                .updateTeam(teamId,authKey,teamsItem)
+                .updateTeam(teamId,authKey,teamsItem,idDomain)
                 .doOnNext(updateTeamResponse -> updateTeamResponseBehaviorSubject.onNext(updateTeamResponse));
     }
     public Observable<UpdateTeamResponse>updateTeamResponseObservable(){
         return updateTeamResponseBehaviorSubject.asObservable();
     }
-    public Observable<TagResponse>getTags(String authKey,String domainId){
+    public Observable<TagResponse>getTags(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getTags(domainId,authKey)
+                .getTags(domainId,authKey,idDomain)
                 .doOnNext(tagResponse -> tagResponseBehaviorSubject.onNext(tagResponse));
     }
     public Observable<TagResponse>upTagResponseObservable(){
         return tagResponseBehaviorSubject.asObservable();
     }
-    public Observable<TeamDeleteResponse>teamDeleteResponseObservable(String teamId,String authKey){
+    public Observable<TeamDeleteResponse>teamDeleteResponseObservable(String teamId,String authKey,String idDomain){
         return pojoInterface
-                .deleteTeam(teamId,authKey)
+                .deleteTeam(teamId,authKey,idDomain)
                 .doOnNext(teamDeleteResponse -> teamDeleteResponseBehaviorSubject.onNext(teamDeleteResponse));
     }
     public Observable<TeamDeleteResponse>teamDeleteResponseObservable(){

@@ -95,7 +95,7 @@ public class UpdateTeamActivity extends AppCompatActivity {
     }
 
     private void initiateTAGAPICall(String domainId, String authKey) {
-        subscription.add(viewModel.getTags(authKey,domainId)
+        subscription.add(viewModel.getTags(authKey,domainId,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> showTimber("Error : ","TAG",throwable.getMessage()))
@@ -169,7 +169,7 @@ public class UpdateTeamActivity extends AppCompatActivity {
     }
 
     private void callUpdateTeamAPI(String authKey, TeamsItem teamsItem) {
-        subscription.add(viewModel.updateTeamResponseObservable(authKey,teamId,teamsItem)
+        subscription.add(viewModel.updateTeamResponseObservable(authKey,teamId,teamsItem,store.getIdDomain())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable ->Log.e("Error : ",TAG+" /  / "+throwable.getMessage()))
@@ -200,7 +200,7 @@ dismissDialog();
   }
 
     private void initiateAPICall(String authKey, String teamId) {
-        subscription.add(viewModel.getSingleTeamObservable(authKey,teamId)
+        subscription.add(viewModel.getSingleTeamObservable(authKey,teamId,store.getIdDomain())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -298,7 +298,7 @@ dismissDialog();
     }
 
     private void initiateManagersAPI(String domainId, String authKey) {
-        subscription.add(addTeamViewModel.managersResponseObservable(domainId,authKey)
+        subscription.add(addTeamViewModel.managersResponseObservable(domainId,authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -361,7 +361,7 @@ dismissDialog();
     }
 
     private void initiateTechniciansAPI(String domainId, String authKey) {
-        subscription.add(addTeamViewModel.techniciansResponseObservable(domainId,authKey)
+        subscription.add(addTeamViewModel.techniciansResponseObservable(domainId,authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -485,7 +485,7 @@ dismissDialog();
         }
     }
     private void initiateDeleteTeamApi() {
-        subscription.add(viewModel.teamDeleteResponseObservable(teamId,store.getToken())
+        subscription.add(viewModel.teamDeleteResponseObservable(teamId,store.getToken(),store.getIdDomain())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

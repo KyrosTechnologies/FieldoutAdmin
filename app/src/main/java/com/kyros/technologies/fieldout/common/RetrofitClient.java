@@ -2,9 +2,12 @@ package com.kyros.technologies.fieldout.common;
 
 import android.util.Log;
 
+import com.google.android.gms.ads.internal.gmsg.HttpClient;
 import com.kyros.technologies.fieldout.interfaceclass.POJOInterface;
+import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 
 import java.io.File;
+import java.io.IOException;
 import java.util.concurrent.TimeUnit;
 
 import javax.inject.Singleton;
@@ -14,6 +17,7 @@ import dagger.Provides;
 import okhttp3.Cache;
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
+import okhttp3.OkHttpClient;
 import okhttp3.Request;
 import okhttp3.Response;
 import retrofit2.Retrofit;
@@ -76,5 +80,18 @@ public class RetrofitClient {
         };
 
     }
+    private OkHttpClient getHttpClient(){
+        OkHttpClient.Builder httpClient = new OkHttpClient.Builder();
+        httpClient.addInterceptor(chain -> {
+            Request original = chain.request();
+            Request.Builder requestBuilder = original.newBuilder()
+                    .header("Authorization", "auth-value")
+                    .header("idDomain", "");
 
+            Request request = requestBuilder.build();
+            return chain.proceed(request);
+        });
+
+        return httpClient.build();
+    }
 }

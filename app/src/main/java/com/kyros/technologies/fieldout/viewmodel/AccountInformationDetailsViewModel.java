@@ -22,14 +22,14 @@ public class AccountInformationDetailsViewModel {
 
     @Inject
     public AccountInformationDetailsViewModel(POJOInterface pojoInterface){this.pojoInterface=pojoInterface;}
-    public Observable<UserUpdateResponse>updateUserInformation(Result result, String authKey, String userId){
+    public Observable<UserUpdateResponse>updateUserInformation(Result result, String authKey, String userId,String idDomain){
         if(isLoading.getValue()){
             return Observable.empty();
         }
         isLoading.onNext(true);
 
         return pojoInterface
-                .updateUserProfile(authKey,userId, result)
+                .updateUserProfile(authKey,userId, result,idDomain)
                 .doOnError(throwable -> Log.e("Error : ","updateUserInformation : "+throwable.getMessage()))
                 .doOnNext(userInfoResponse->userInfoBehaviorSubject.onNext(userInfoResponse))
                 .doOnTerminate(()->isLoading.onNext(false));

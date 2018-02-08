@@ -21,9 +21,9 @@ public class PDF_CSV_ActivityViewModel {
     public PDF_CSV_ActivityViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<InvoiceCustomerResponse> invoiceCustomerResponseObservable(String authKey,String invoiceId){
+    public Observable<InvoiceCustomerResponse> invoiceCustomerResponseObservable(String authKey,String invoiceId,String idDomain){
         return pojoInterface
-                .getCustomerInvoice(authKey,invoiceId)
+                .getCustomerInvoice(authKey,invoiceId,idDomain)
                 .doOnNext(invoiceCustomerResponse ->  invoiceCustomerResponseBehaviorSubject.onNext(invoiceCustomerResponse));
     }
     public Observable<InvoiceCustomerResponse>partsAndServicesResponseObservable(){

@@ -226,7 +226,7 @@ public class AddUserActivity extends AppCompatActivity {
 
     private void callCustomFieldsAPI(String domainId, String authKey) {
         if(domainId!=null && authKey!=null){
-            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId)
+            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId,domainId)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -673,7 +673,7 @@ public class AddUserActivity extends AppCompatActivity {
     private void callPOSTAPI(String authKey, UserInfo userInfo) {
         showDialog();
         Log.d("Add User Input : ",userInfo.toString());
-        subscription.add(viewModel.addUserResponseObservable(userInfo,authKey)
+        subscription.add(viewModel.addUserResponseObservable(userInfo,authKey,store.getIdDomain())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -719,7 +719,7 @@ dismissDialog();
     }
 
     private void callTeamsAPI(String domainId, String authKey) {
-        subscription.add(viewModel.getTeamResponse(domainId,authKey)
+        subscription.add(viewModel.getTeamResponse(domainId,authKey,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

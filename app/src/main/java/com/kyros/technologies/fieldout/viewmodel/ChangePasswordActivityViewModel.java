@@ -20,9 +20,9 @@ public class ChangePasswordActivityViewModel {
     public ChangePasswordActivityViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<ChangePasswordResponse>changePassword(String authKey,String userId,User user){
+    public Observable<ChangePasswordResponse>changePassword(String authKey,String userId,User user,String idDomain){
         return pojoInterface
-                .changePassword(authKey,userId,user)
+                .changePassword(authKey,userId,user,idDomain)
                 .doOnNext(users -> changePasswordBehaviorSubject.onNext(users));
     }
     public Observable<ChangePasswordResponse>changePassword(){

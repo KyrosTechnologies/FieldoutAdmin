@@ -19,9 +19,9 @@ public class SchedulingWindowsFragmentViewModel {
     public SchedulingWindowsFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<ScheduleResponse>scheduleResponseObservable(String authKey,String domainId){
+    public Observable<ScheduleResponse>scheduleResponseObservable(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getSchedule(authKey,domainId)
+                .getSchedule(authKey,domainId,idDomain)
                 .doOnNext(scheduleResponse -> scheduleResponseBehaviorSubject.onNext(scheduleResponse));
     }
 }

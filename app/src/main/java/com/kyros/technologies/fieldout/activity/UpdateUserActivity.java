@@ -146,7 +146,7 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     private void callCustomFieldsAPI(String domainId, String authKey) {
         if(domainId!= null && authKey !=null){
-            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId)
+            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -610,7 +610,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         showDialog();
         Log.d("INPUT : ",""+new Gson().toJson(result));
        // if(newNameList.size()!=0){
-                subscription.add(viewModel.updateUserObservable(userId,token,result)
+                subscription.add(viewModel.updateUserObservable(userId,token,result,store.getIdDomain())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> {Log.e("Error :",TAG+" / / "+throwable.getMessage());
@@ -660,7 +660,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         }
     }
     private void getTeamsAPI(String authKey, String domainId) {
-        addUserActivityViewModel.getTeamResponse(domainId,authKey)
+        addUserActivityViewModel.getTeamResponse(domainId,authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -702,7 +702,7 @@ public class UpdateUserActivity extends AppCompatActivity {
     }
 
     private void getAPI(String authKey, String userId) {
-        subscription.add(viewModel.getSingleUserResponseObservable(userId,authKey)
+        subscription.add(viewModel.getSingleUserResponseObservable(userId,authKey,store.getIdDomain())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

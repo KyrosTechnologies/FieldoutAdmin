@@ -74,7 +74,7 @@ public class TagFragment extends Fragment {
     }
 
     private void initiateTagsAPI(String authKey, String domainId) {
-        subscription.add(viewModel.getTags(authKey,domainId)
+        subscription.add(viewModel.getTags(authKey,domainId,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -194,7 +194,7 @@ public class TagFragment extends Fragment {
     }
 
     private void updateTagApi(String id, String authKey, Tag tags) {
-        subscription.add(viewModel.updateTags(authKey,id,tags)
+        subscription.add(viewModel.updateTags(authKey,id,tags,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -241,7 +241,7 @@ public class TagFragment extends Fragment {
     }
 
     private void initiateDeleteTagAPI(String id) {
-        subscription.add(viewModel.deleteTags(store.getToken(),id)
+        subscription.add(viewModel.deleteTags(store.getToken(),id,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -303,7 +303,7 @@ public class TagFragment extends Fragment {
     }
 
     private void addTagAPI(String authKey,Tag tag) {
-        subscription.add(addTeamViewModel.addTagResponseObservable(authKey,tag)
+        subscription.add(addTeamViewModel.addTagResponseObservable(authKey,tag,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

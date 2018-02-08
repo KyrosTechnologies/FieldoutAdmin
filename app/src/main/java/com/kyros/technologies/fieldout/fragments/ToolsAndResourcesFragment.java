@@ -77,7 +77,7 @@ public class ToolsAndResourcesFragment extends Fragment {
 
     private void initiateGetToolsAndResourcesApi(String authKey, String domainId) {
         if(domainId!=null && !domainId.isEmpty() && authKey!=null && !authKey.isEmpty()){
-            subscription.add(viewModel.getToolsAndResourcesResponseObservable(authKey,domainId)
+            subscription.add(viewModel.getToolsAndResourcesResponseObservable(authKey,domainId,domainId)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -234,7 +234,7 @@ public class ToolsAndResourcesFragment extends Fragment {
     }
 
     private void initiateDeleteToolsResourceApi(String resourceId) {
-        subscription.add(viewModel.deleteToolsAndResourcesResponseObservable(store.getToken(),resourceId)
+        subscription.add(viewModel.deleteToolsAndResourcesResponseObservable(store.getToken(),resourceId,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" /  / "+throwable.getMessage()))
@@ -288,7 +288,7 @@ public class ToolsAndResourcesFragment extends Fragment {
     }
 
     private void callUpdateToolsResourcesAPI(Resource resource, String resourceId, String authKey) {
-        subscription.add(viewModel.updateToolsAndResourceResponseObservable(authKey,resourceId,resource)
+        subscription.add(viewModel.updateToolsAndResourceResponseObservable(authKey,resourceId,resource,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -372,7 +372,7 @@ public class ToolsAndResourcesFragment extends Fragment {
     }
 
     private void callAddToolsResourcesAPI(String authKey, Resource resource) {
-        subscription.add(viewModel.addToolsResourceResponseObservable(authKey,resource)
+        subscription.add(viewModel.addToolsResourceResponseObservable(authKey,resource,store.getIdDomain())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ", TAG+" / /  "+throwable.getMessage()))

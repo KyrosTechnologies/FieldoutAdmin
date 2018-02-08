@@ -24,36 +24,36 @@ public class TaxesFragmentViewModel {
     public TaxesFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<TaxResponse>getTaxResponseObservable(String authKey,String domainId){
+    public Observable<TaxResponse>getTaxResponseObservable(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getTax(authKey,domainId)
+                .getTax(authKey,domainId,idDomain)
                 .doOnNext(taxResponse -> getTaxResponseBehaviorSubject.onNext(taxResponse));
     }
     public Observable<TaxResponse>getTaxResponseObservable(){
         return getTaxResponseBehaviorSubject.asObservable();
     }
 
-    public Observable<TaxResponse>addTaxResponseObservable(String authKey,Tax tax){
+    public Observable<TaxResponse>addTaxResponseObservable(String authKey,Tax tax,String idDomain){
         return pojoInterface
-                .addTax(authKey,tax)
+                .addTax(authKey,tax,idDomain)
                 .doOnNext(taxResponse -> addTaxResponseBehaviorSubject.onNext(taxResponse));
     }
     public Observable<TaxResponse>addTaxResponseObservable(){
         return addTaxResponseBehaviorSubject.asObservable();
     }
 
-    public Observable<TaxResponse>updateTaxResponseObservable(String authKey,String taxId,Tax tax){
+    public Observable<TaxResponse>updateTaxResponseObservable(String authKey,String taxId,Tax tax,String idDomain){
         return pojoInterface
-                .updateTax(authKey,taxId,tax)
+                .updateTax(authKey,taxId,tax,idDomain)
                 .doOnNext(taxResponse -> updateTaxResponseBehaviorSubject.onNext(taxResponse));
     }
     public Observable<TaxResponse>updateTaxResponseObservable(){
         return updateTaxResponseBehaviorSubject.asObservable();
     }
 
-    public Observable<TaxDeleteResponse>deleteTaxResponseObservable(String authKey,String taxId){
+    public Observable<TaxDeleteResponse>deleteTaxResponseObservable(String authKey,String taxId,String idDomain){
         return pojoInterface
-                .deleteTaxResponse(authKey,taxId)
+                .deleteTaxResponse(authKey,taxId,idDomain)
                 .doOnNext(taxResponse -> deleteTaxResponseBehaviorSubject.onNext(taxResponse));
     }
     public Observable<TaxDeleteResponse>deleteTaxResponseObservable(){

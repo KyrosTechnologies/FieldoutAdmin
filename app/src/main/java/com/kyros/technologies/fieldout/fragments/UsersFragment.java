@@ -88,7 +88,7 @@ public class UsersFragment extends Fragment {
     }
 
     private void loadUsers(String domainId, String authKey) {
-        subscription.add(viewModel.getUsersResponse(domainId,authKey)
+        subscription.add(viewModel.getUsersResponse(domainId,authKey,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / / "+throwable.toString()))
@@ -270,7 +270,7 @@ public class UsersFragment extends Fragment {
 
     private String[] getTeamNameAPI(String teamId) {
         final String[] value = {null};
-        subscription.add(teamViewModel.getSingleTeamObservable(store.getToken(),teamId)
+        subscription.add(teamViewModel.getSingleTeamObservable(store.getToken(),teamId,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" /  /"+throwable.getMessage()))

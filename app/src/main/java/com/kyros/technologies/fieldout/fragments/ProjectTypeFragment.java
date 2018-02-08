@@ -68,7 +68,7 @@ public class ProjectTypeFragment extends Fragment {
     }
 
     private void initiateAPICall(String authKey, String domainId) {
-        subscription.add(viewModel.projectTypeResponseObservable(authKey,domainId)
+        subscription.add(viewModel.projectTypeResponseObservable(authKey,domainId,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

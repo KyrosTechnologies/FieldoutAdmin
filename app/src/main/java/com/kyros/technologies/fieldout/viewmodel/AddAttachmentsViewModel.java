@@ -28,18 +28,18 @@ public class AddAttachmentsViewModel {
     public AddAttachmentsViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<ResponseBody>addResponseBodyObservable(String authKey, Map<String, RequestBody> partMap, MultipartBody.Part file){
+    public Observable<ResponseBody>addResponseBodyObservable(String authKey, Map<String, RequestBody> partMap, MultipartBody.Part file,String idDomain){
         return pojoInterface
-                .addAttachments(authKey,partMap,file)
+                .addAttachments(authKey,partMap,file,idDomain)
                 .doOnNext(addToolsResourceResponse -> addResponseBodyBehaviorSubject.onNext(addToolsResourceResponse));
     }
     public Observable<ResponseBody>addResponseBodyObservable(){
         return addResponseBodyBehaviorSubject.asObservable();
     }
 
-    public Observable<ResponseBody>addResponseBodyObservableByteStream(String authKey, AddAttachments addAttachments){
+    public Observable<ResponseBody>addResponseBodyObservableByteStream(String authKey, AddAttachments addAttachments,String idDomain){
         return pojoInterface
-                .addAttachmentsByteStream(authKey,addAttachments)
+                .addAttachmentsByteStream(authKey,addAttachments,idDomain)
                 .doOnNext(addToolsResourceResponse -> addResponseBodyBehaviorSubjectByteStream.onNext(addToolsResourceResponse));
     }
     public Observable<ResponseBody>addResponseBodyObservableByteStream(){

@@ -88,117 +88,117 @@ public interface POJOInterface {
     @POST("/domain/register")
     Observable<SignUpModel>getSignUpResponse(@Body SignUpModel model);
     @POST("/business_hours/save")
-    Observable<BussinessHoursResponse>postBussinessHours(@Header("Authorization")String authKey,@Body BussinessHoursModel bussinessHoursModel);
+    Observable<BussinessHoursResponse>postBussinessHours(@Header("Authorization")String authKey,@Body BussinessHoursModel bussinessHoursModel,@Header("idDomain")String idDomain);
     @PUT("/users/update/{userId}")
-    Observable<UserUpdateResponse>updateUserProfile(@Header("Authorization")String authKey, @Path("userId")String userId, @Body Result result);
+    Observable<UserUpdateResponse>updateUserProfile(@Header("Authorization")String authKey, @Path("userId")String userId, @Body Result result,@Header("idDomain")String idDomain);
     @GET("/domain/getById/{domainId}")
-    Observable<DomainResponse>getDomain(@Path("domainId")String domainId,@Header("Authorization")String authKey);
+    Observable<DomainResponse>getDomain(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/business_hours/getByDomainId/{domainId}")
-    Observable<BussinessHoursResponse>getBussinessHours(@Path("domainId")String domainId, @Header("Authorization")String authKey);
+    Observable<BussinessHoursResponse>getBussinessHours(@Path("domainId")String domainId, @Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/users/getByDomainId/{domainId}")
-    Observable<UsersResponse>getUsers(@Path("domainId")String domainId,@Header("Authorization")String authKey);
+    Observable<UsersResponse>getUsers(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/teams/getByDomainId/{domainId}")
-    Observable<TeamsResponse>getTeams(@Path("domainId")String domainId, @Header("Authorization")String authKey);
+    Observable<TeamsResponse>getTeams(@Path("domainId")String domainId, @Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/users/add")
-    Observable<AddUserResponse>addUser(@Body UserInfo userInfo,@Header("Authorization")String authKey);
+    Observable<AddUserResponse>addUser(@Body UserInfo userInfo,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/users/getById/{userId}")
-    Observable<GetSingleUserResponse>getOneUserResponse(@Path("userId")String userId,@Header("Authorization")String authKey);
+    Observable<GetSingleUserResponse>getOneUserResponse(@Path("userId")String userId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/users/getTechnicians/{domainId}")
-    Observable<TechniciansResponse>getTechniciansResponse(@Path("domainId")String domainId,@Header("Authorization")String authKey);
+    Observable<TechniciansResponse>getTechniciansResponse(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/users/getManagers/{domainId}")
-    Observable<ManagersResponse>getManagersResponse(@Path("domainId")String domainId,@Header("Authorization")String authKey);
+    Observable<ManagersResponse>getManagersResponse(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/tags/add")
-    Observable<AddTagResponse>addTag(@Header("Authorization")String authKey, @Body Tag tag);
+    Observable<AddTagResponse>addTag(@Header("Authorization")String authKey, @Body Tag tag,@Header("idDomain")String idDomain);
     @POST("/teams/add")
-    Observable<AddTeamResponse>addTeam(@Body TeamsItem teamsItem,@Header("Authorization")String authKey);
+    Observable<AddTeamResponse>addTeam(@Body TeamsItem teamsItem,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/teams/getById/{teamId}")
-    Observable<SingleTeamResponse>getSingleTeam(@Path("teamId")String teamId, @Header("Authorization")String authKey);
+    Observable<SingleTeamResponse>getSingleTeam(@Path("teamId")String teamId, @Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @PUT("/teams/update/{teamId}")
-    Observable<UpdateTeamResponse>updateTeam(@Path("teamId")String teamId, @Header("Authorization")String authKey,@Body TeamsItem teamsItem);
+    Observable<UpdateTeamResponse>updateTeam(@Path("teamId")String teamId, @Header("Authorization")String authKey,@Body TeamsItem teamsItem,@Header("idDomain")String idDomain);
     @GET("/tags/getByDomainId/{domainId}")
-    Observable<TagResponse>getTags(@Path("domainId")String domainId,@Header("Authorization")String authKey);
+    Observable<TagResponse>getTags(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @DELETE("/teams/delete/{teamId}")
-    Observable<TeamDeleteResponse>deleteTeam(@Path("teamId")String teamId,@Header("Authorization")String authKey);
+    Observable<TeamDeleteResponse>deleteTeam(@Path("teamId")String teamId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/activity_types/getByDomainId/{domainId}")
-    Observable<ActivityTypeResponse>getActivityType(@Path("domainId")String domainId,@Header("Authorization")String authKey);
+    Observable<ActivityTypeResponse>getActivityType(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/activity_types/send")
-    Observable<ActivityTypeAddResponse>addActivityType(@Header("Authorization")String authKey, @Body ActivityType activityType);
+    Observable<ActivityTypeAddResponse>addActivityType(@Header("Authorization")String authKey, @Body ActivityType activityType,@Header("idDomain")String idDomain);
     @PUT("/activity_types/update/{activityTypeId}")
-    Observable<ActivityTypeUpdateResponse>updateActivityType(@Header("Authorization")String authKey, @Body ActivityType activityType,@Path("activityTypeId")String activityTypeId);
+    Observable<ActivityTypeUpdateResponse>updateActivityType(@Header("Authorization")String authKey, @Body ActivityType activityType,@Path("activityTypeId")String activityTypeId,@Header("idDomain")String idDomain);
     @DELETE("/activity_types/delete/{activityTypeId}")
-    Observable<ActivityTypeDeleteResponse>deleteActivityType(@Header("Authorization")String authKey,@Path("activityTypeId")String activityTypeId);
+    Observable<ActivityTypeDeleteResponse>deleteActivityType(@Header("Authorization")String authKey,@Path("activityTypeId")String activityTypeId,@Header("idDomain")String idDomain);
     @POST("/tools_and_resources/add")
-    Observable<AddToolsResourceResponse>addToolsResource(@Header("Authorization")String authKey, @Body Resource resource);
+    Observable<AddToolsResourceResponse>addToolsResource(@Header("Authorization")String authKey, @Body Resource resource,@Header("idDomain")String idDomain);
     @GET("/tools_and_resources/getByDomainId/{domainId}")
-    Observable<GetToolsAndResourcesResponse>getToolsResources(@Header("Authorization")String authKey,@Path("domainId")String domainId);
+    Observable<GetToolsAndResourcesResponse>getToolsResources(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
     @PUT("/tools_and_resources/update/{resourceId}")
-    Observable<UpdateToolsAndResourceResponse>updateToolsResource(@Header("Authorization")String authKey, @Body Resource resource,@Path("resourceId")String resourceId);
+    Observable<UpdateToolsAndResourceResponse>updateToolsResource(@Header("Authorization")String authKey, @Body Resource resource,@Path("resourceId")String resourceId,@Header("idDomain")String idDomain);
     @DELETE("/tools_and_resources/delete/{resourceId}")
-    Observable<DeleteToolsAndResourcesResponse>deleteToolsResource(@Header("Authorization")String authKey,@Path("resourceId")String resourceId);
+    Observable<DeleteToolsAndResourcesResponse>deleteToolsResource(@Header("Authorization")String authKey,@Path("resourceId")String resourceId,@Header("idDomain")String idDomain);
     @POST("/job_types/add")
-    Observable<AddJobsTypeResponse>addJobsType(@Header("Authorization")String authKey, @Body JobType jobType);
-    @GET("/job_types/getByDomainId/{domainId}")
-    Observable<JobsTypeResponse>getJobsType(@Header("Authorization")String authKey,@Path("domainId")String domainId);
+    Observable<AddJobsTypeResponse>addJobsType(@Header("Authorization")String authKey, @Body JobType jobType,@Header("idDomain")String idDomain);
+    @GET("/job_types/getAll")
+    Observable<JobsTypeResponse>getJobsType(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @PUT("/job_types/update/{jobTypeId}")
-    Observable<AddJobsTypeResponse>updateJobsType(@Header("Authorization")String authKey,@Path("jobTypeId")String jobTypeId,@Body JobType jobType);
+    Observable<AddJobsTypeResponse>updateJobsType(@Header("Authorization")String authKey,@Path("jobTypeId")String jobTypeId,@Body JobType jobType,@Header("idDomain")String idDomain);
     @DELETE("/job_types/delete/{jobTypeId}")
-    Observable<DeleteJobsTypeResponse>deleteJobType(@Header("Authorization")String authKey,@Path("jobTypeId")String jobTypeId);
+    Observable<DeleteJobsTypeResponse>deleteJobType(@Header("Authorization")String authKey,@Path("jobTypeId")String jobTypeId,@Header("idDomain")String idDomain);
     @POST("/scheduling_window/add")
-    Observable<AddSchedulingResponse>addSchedule(@Header("Authorization")String authKey, @Body SchedulingWindow schedulingWindow);
+    Observable<AddSchedulingResponse>addSchedule(@Header("Authorization")String authKey, @Body SchedulingWindow schedulingWindow,@Header("idDomain")String idDomain);
     @GET("/scheduling_window/getByDomainId/{domainId}")
-    Observable<ScheduleResponse>getSchedule(@Header("Authorization")String authKey,@Path("domainId")String domainId);
+    Observable<ScheduleResponse>getSchedule(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
     @DELETE("/scheduling_window/delete/{schedulingId}")
-    Observable<DeleteScheduleWindowsResponse>deleteSchedule(@Header("Authorization")String authKey,@Path("schedulingId")String schedulingId);
+    Observable<DeleteScheduleWindowsResponse>deleteSchedule(@Header("Authorization")String authKey,@Path("schedulingId")String schedulingId,@Header("idDomain")String idDomain);
     @POST("/project_types/add")
-    Observable<AddProjectTypeResponse>addProjecType(@Header("Authorization")String authKey, @Body ProjectType projectType);
+    Observable<AddProjectTypeResponse>addProjecType(@Header("Authorization")String authKey, @Body ProjectType projectType,@Header("idDomain")String idDomain);
     @GET("/project_types/getByDomainId/{domainId}")
-    Observable<ProjectTypeResponse>getProjectType(@Header("Authorization")String authKey,@Path("domainId")String domainId);
+    Observable<ProjectTypeResponse>getProjectType(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
     @DELETE("/project_types/delete/{projectTypeId}")
-    Observable<DeleteProjectTypeResponse>deleteProjectType(@Header("Authorization")String authKey,@Path("projectTypeId")String projectTypeId);
+    Observable<DeleteProjectTypeResponse>deleteProjectType(@Header("Authorization")String authKey,@Path("projectTypeId")String projectTypeId,@Header("idDomain")String idDomain);
     @PUT("/project_types/update/{projectTypeId}")
-    Observable<AddProjectTypeResponse>updateProjectType(@Header("Authorization")String authKey,@Path("projectTypeId")String projectTypeId,@Body ProjectType projectType);
+    Observable<AddProjectTypeResponse>updateProjectType(@Header("Authorization")String authKey,@Path("projectTypeId")String projectTypeId,@Body ProjectType projectType,@Header("idDomain")String idDomain);
     @PUT("/scheduling_window/update/{schedulingId}")
-    Observable<AddSchedulingResponse>updateScheduling(@Header("Authorization")String authKey,@Path("schedulingId")String schedulingId,@Body SchedulingWindow schedulingWindow);
+    Observable<AddSchedulingResponse>updateScheduling(@Header("Authorization")String authKey,@Path("schedulingId")String schedulingId,@Body SchedulingWindow schedulingWindow,@Header("idDomain")String idDomain);
     @GET("/regional_settings/getByDomainId/{domainId}")
-    Observable<RegionalSettingsResponse>getRegionalSettings(@Header("Authorization")String authKey,@Path("domainId")String domainId);
+    Observable<RegionalSettingsResponse>getRegionalSettings(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
     @POST("/regional_settings/add")
-    Observable<RegionalSettingsResponse>addRegionalSettings(@Header("Authorization")String authKey, @Body RegionalSettings regionalSettings);
+    Observable<RegionalSettingsResponse>addRegionalSettings(@Header("Authorization")String authKey, @Body RegionalSettings regionalSettings,@Header("idDomain")String idDomain);
     @GET("/taxes/getByDomainId/{domainId}")
-    Observable<TaxResponse>getTax(@Header("Authorization")String authKey,@Path("domainId")String domainId);
+    Observable<TaxResponse>getTax(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
     @POST("/taxes/add")
-    Observable<TaxResponse>addTax(@Header("Authorization")String authKey, @Body Tax tax);
+    Observable<TaxResponse>addTax(@Header("Authorization")String authKey, @Body Tax tax,@Header("idDomain")String idDomain);
     @PUT("/taxes/update/{taxId}")
-    Observable<TaxResponse>updateTax(@Header("Authorization")String authKey,@Path("taxId")String taxId, @Body Tax tax);
+    Observable<TaxResponse>updateTax(@Header("Authorization")String authKey,@Path("taxId")String taxId, @Body Tax tax,@Header("idDomain")String idDomain);
     @DELETE("/taxes/delete/{taxId}")
-    Observable<TaxDeleteResponse>deleteTaxResponse(@Header("Authorization")String authKey,@Path("taxId")String taxId);
+    Observable<TaxDeleteResponse>deleteTaxResponse(@Header("Authorization")String authKey,@Path("taxId")String taxId,@Header("idDomain")String idDomain);
     @GET("/stock_parts/getByDomainId/{domainId}")
-    Observable<PartsAndServicesResponse>getPartsAndServices(@Header("Authorization")String authKey,@Path("domainId")String domainId);
+    Observable<PartsAndServicesResponse>getPartsAndServices(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
     @POST("/stock_parts/send")
-    Observable<PartsAndServicesResponse>addPartsAndServices(@Header("Authorization")String authKey, @Body StockPart stockPart);
+    Observable<PartsAndServicesResponse>addPartsAndServices(@Header("Authorization")String authKey, @Body StockPart stockPart,@Header("idDomain")String idDomain);
     @PUT("/stock_parts/update/{stockId}")
-    Observable<PartsAndServicesResponse>updatePartsAndServices(@Header("Authorization")String authKey,@Path("stockId")String stockId,@Body StockPart stockPart);
+    Observable<PartsAndServicesResponse>updatePartsAndServices(@Header("Authorization")String authKey,@Path("stockId")String stockId,@Body StockPart stockPart,@Header("idDomain")String idDomain);
     @DELETE("/stock_parts/delete/{stockId}")
-    Observable<DeletePartsAndServicesResponse>deleteParsAndServices(@Header("Authorization")String authKey,@Path("stockId")String stockId);
+    Observable<DeletePartsAndServicesResponse>deleteParsAndServices(@Header("Authorization")String authKey,@Path("stockId")String stockId,@Header("idDomain")String idDomain);
     @GET("/custom_fields/getByDomainId/{domainId}")
-    Observable<CustomFieldResponse>getCustomFields(@Header("Authorization")String authKey,@Path("domainId")String domainId);
+    Observable<CustomFieldResponse>getCustomFields(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
     @POST("/custom_fields/add")
-    Observable<CustomFieldResponse>addCustomFields(@Header("Authorization")String authKey, @Body CustomField customField);
+    Observable<CustomFieldResponse>addCustomFields(@Header("Authorization")String authKey, @Body CustomField customField,@Header("idDomain")String idDomain);
     @PUT("/custom_fields/update/{customFieldId}")
-    Observable<CustomFieldResponse>updateCustomFields(@Header("Authorization")String authKey, @Body CustomField customField, @Path("customFieldId")String customFieldId);
+    Observable<CustomFieldResponse>updateCustomFields(@Header("Authorization")String authKey, @Body CustomField customField, @Path("customFieldId")String customFieldId,@Header("idDomain")String idDomain);
     @DELETE("/custom_fields/delete/{customFieldId}")
-    Observable<DeleteCustomFieldResponse>deleteCustomFields(@Header("Authorization")String authKey,@Path("customFieldId")String customFieldId);
+    Observable<DeleteCustomFieldResponse>deleteCustomFields(@Header("Authorization")String authKey,@Path("customFieldId")String customFieldId,@Header("idDomain")String idDomain);
     @PUT("/tags/update/{tagId}")
-    Observable<TagResponse>updateTag(@Header("Authorization")String authKey,@Path("tagId")String tagId,@Body Tag tag);
+    Observable<TagResponse>updateTag(@Header("Authorization")String authKey,@Path("tagId")String tagId,@Body Tag tag,@Header("idDomain")String idDomain);
     @DELETE("/tags/delete/{tagId}")
-    Observable<DeleteTagResponse>deleteTag(@Header("Authorization")String authKey, @Path("tagId")String tagId);
+    Observable<DeleteTagResponse>deleteTag(@Header("Authorization")String authKey, @Path("tagId")String tagId,@Header("idDomain")String idDomain);
     @PUT("/users/changePassword/{userId}")
-    Observable<ChangePasswordResponse>changePassword(@Header("Authorization")String authKey, @Path("userId")String userId, @Body User user);
+    Observable<ChangePasswordResponse>changePassword(@Header("Authorization")String authKey, @Path("userId")String userId, @Body User user,@Header("idDomain")String idDomain);
     @GET("/invoices/getById/{invoiceId}")
-    Observable<InvoiceCustomerResponse>getCustomerInvoice(@Header("Authorization")String authKey, @Path("invoiceId")String invoiceId);
+    Observable<InvoiceCustomerResponse>getCustomerInvoice(@Header("Authorization")String authKey, @Path("invoiceId")String invoiceId,@Header("idDomain")String idDomain);
     @Multipart
     @POST("/attachments/add")
-    Observable<ResponseBody>addAttachments(@Header("Authorization")String authKey, @PartMap()Map<String, RequestBody> partMap, @Part MultipartBody.Part file);
+    Observable<ResponseBody>addAttachments(@Header("Authorization")String authKey, @PartMap()Map<String, RequestBody> partMap, @Part MultipartBody.Part file,@Header("idDomain")String idDomain);
     @POST("/attachments/add")
-    Observable<ResponseBody>addAttachmentsByteStream(@Header("Authorization")String authKey, @Body AddAttachments addAttachments);
+    Observable<ResponseBody>addAttachmentsByteStream(@Header("Authorization")String authKey, @Body AddAttachments addAttachments,@Header("idDomain")String idDomain);
 
 }

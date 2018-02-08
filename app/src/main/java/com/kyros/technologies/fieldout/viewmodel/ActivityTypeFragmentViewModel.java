@@ -26,34 +26,34 @@ public class ActivityTypeFragmentViewModel {
     public ActivityTypeFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<ActivityTypeResponse>activityTypeResponseObservable(String domainId,String authKey){
+    public Observable<ActivityTypeResponse>activityTypeResponseObservable(String domainId,String authKey,String idDomain){
         return pojoInterface
-                .getActivityType(domainId,authKey)
+                .getActivityType(domainId,authKey,idDomain)
                 .doOnNext(activityTypeResponse -> activityTypeResponseBehaviorSubject.onNext(activityTypeResponse));
     }
     public Observable<ActivityTypeResponse>activityTypeResponseObservable(){
         return activityTypeResponseBehaviorSubject.asObservable();
     }
-    public Observable<ActivityTypeAddResponse>activityTypeAddResponseObservable(String authKey, ActivityType activityType){
+    public Observable<ActivityTypeAddResponse>activityTypeAddResponseObservable(String authKey, ActivityType activityType,String idDomain){
         return pojoInterface
-                .addActivityType(authKey,activityType)
+                .addActivityType(authKey,activityType,idDomain)
                 .doOnNext(activityTypeAddResponse -> activityTypeAddResponseBehaviorSubject.onNext(activityTypeAddResponse));
     }
     public Observable<ActivityTypeAddResponse>activityTypeAddResponseObservable(){
         return activityTypeAddResponseBehaviorSubject.asObservable();
     }
-    public Observable<ActivityTypeUpdateResponse>activityTypeUpdateResponseObservable(String authKey,String activityTypeId,ActivityType activityType){
+    public Observable<ActivityTypeUpdateResponse>activityTypeUpdateResponseObservable(String authKey,String activityTypeId,ActivityType activityType,String idDomain){
         return pojoInterface
-                .updateActivityType(authKey,activityType,activityTypeId)
+                .updateActivityType(authKey,activityType,activityTypeId,idDomain)
                 .doOnNext(activityTypeUpdateResponse -> activityTypeUpdateResponseBehaviorSubject.onNext(activityTypeUpdateResponse));
 
     }
     public Observable<ActivityTypeUpdateResponse>activityTypeUpdateResponseObservable(){
         return activityTypeUpdateResponseBehaviorSubject.asObservable();
     }
-    public Observable<ActivityTypeDeleteResponse>activityTypeDeleteResponseObservable(String authKey,String activityTypeId){
+    public Observable<ActivityTypeDeleteResponse>activityTypeDeleteResponseObservable(String authKey,String activityTypeId,String idDomain){
         return pojoInterface
-                .deleteActivityType(authKey,activityTypeId)
+                .deleteActivityType(authKey,activityTypeId,idDomain)
                 .doOnNext(activityTypeDeleteResponse -> activityTypeDeleteResponseBehaviorSubject.onNext(activityTypeDeleteResponse));
     }
     public Observable<ActivityTypeDeleteResponse>activityTypeDeleteResponseObservable(){

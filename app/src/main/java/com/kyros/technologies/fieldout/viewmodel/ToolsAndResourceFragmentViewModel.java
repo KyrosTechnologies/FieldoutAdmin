@@ -26,33 +26,33 @@ public class ToolsAndResourceFragmentViewModel {
     public ToolsAndResourceFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<AddToolsResourceResponse>addToolsResourceResponseObservable(String authKey, Resource resource){
+    public Observable<AddToolsResourceResponse>addToolsResourceResponseObservable(String authKey, Resource resource,String idDomain){
         return pojoInterface
-                .addToolsResource(authKey,resource)
+                .addToolsResource(authKey,resource,idDomain)
                 .doOnNext(addToolsResourceResponse -> addToolsResourceResponseBehaviorSubject.onNext(addToolsResourceResponse));
     }
     public Observable<AddToolsResourceResponse>addToolsResourceResponseObservable(){
         return addToolsResourceResponseBehaviorSubject.asObservable();
     }
-    public Observable<GetToolsAndResourcesResponse>getToolsAndResourcesResponseObservable(String authKey,String domainId){
+    public Observable<GetToolsAndResourcesResponse>getToolsAndResourcesResponseObservable(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getToolsResources(authKey,domainId)
+                .getToolsResources(authKey,domainId,idDomain)
                 .doOnNext(getToolsAndResourcesResponse -> getToolsAndResourcesResponseBehaviorSubject.onNext(getToolsAndResourcesResponse));
     }
     public Observable<GetToolsAndResourcesResponse>getToolsAndResourcesResponseObservable(){
         return getToolsAndResourcesResponseBehaviorSubject.asObservable();
     }
-    public Observable<UpdateToolsAndResourceResponse>updateToolsAndResourceResponseObservable(String authKey,String resourceId,Resource resource){
+    public Observable<UpdateToolsAndResourceResponse>updateToolsAndResourceResponseObservable(String authKey,String resourceId,Resource resource,String idDomain){
         return pojoInterface
-                .updateToolsResource(authKey,resource,resourceId)
+                .updateToolsResource(authKey,resource,resourceId,idDomain)
                 .doOnNext(updateToolsAndResourceResponse -> updateToolsAndResourceResponseBehaviorSubject.onNext(updateToolsAndResourceResponse));
     }
     public Observable<UpdateToolsAndResourceResponse>updateToolsAndResourceResponseObservable(){
         return updateToolsAndResourceResponseBehaviorSubject.asObservable();
     }
-    public Observable<DeleteToolsAndResourcesResponse>deleteToolsAndResourcesResponseObservable(String authKey,String resourceId){
+    public Observable<DeleteToolsAndResourcesResponse>deleteToolsAndResourcesResponseObservable(String authKey,String resourceId,String idDomain){
         return pojoInterface
-                .deleteToolsResource(authKey,resourceId)
+                .deleteToolsResource(authKey,resourceId,idDomain)
                 .doOnNext(deleteToolsAndResourcesResponse -> deleteToolsAndResourcesResponseBehaviorSubject.onNext(deleteToolsAndResourcesResponse ));
     }
     public Observable<DeleteToolsAndResourcesResponse>deleteToolsAndResourcesResponseObservable(){

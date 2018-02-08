@@ -70,7 +70,7 @@ public class JobTypesFragment extends Fragment {
 
     private void callJobsTypeAPI(String domainId, String authKey) {
         if(domainId!=null && !domainId.isEmpty() && authKey!=null && !authKey.isEmpty()){
-            subscription.add(viewModel.jobsTypeResponseObservable(domainId, authKey)
+            subscription.add(viewModel.jobsTypeResponseObservable(authKey,domainId)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -89,7 +89,7 @@ public class JobTypesFragment extends Fragment {
 
     private void responseJobType(JobsTypeResponse jobsTypeResponse) {
         if(jobsTypeResponse!=null){
-        Log.d("Response : ",TAG+" / / "+jobsTypeResponse.toString());
+        Log.d("Response : ",TAG+" / / "+new Gson().toJson(jobsTypeResponse));
               int child=  binding.teamsTableLayout.getChildCount();
               Log.d("child count : ",""+child);
             binding.teamsTableLayout.removeAllViews();

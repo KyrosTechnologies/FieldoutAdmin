@@ -127,7 +127,7 @@ public class AccountInformationFragment extends Fragment {
     }
 
     private void callBussinessHoursAPI(String domainId, String authKey) {
-        subscription.add(viewModel.getBusinessHourByDomainId(authKey,domainId)
+        subscription.add(viewModel.getBusinessHourByDomainId(authKey,domainId,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -250,7 +250,7 @@ public class AccountInformationFragment extends Fragment {
     }
 
     private void callDomainAPI(String domainId, String authKey) {
-            subscription.add(viewModel.domainResponseObservable(authKey,domainId)
+            subscription.add(viewModel.domainResponseObservable(authKey,domainId,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.d("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -375,7 +375,7 @@ public class AccountInformationFragment extends Fragment {
 
     private void initBindings(BussinessHoursModel model,String token) {
                 Log.d("InitBindings ","Binding initialization");
-            subscription.add(viewModel.bussinessHoursResponseObservable(token,model)
+            subscription.add(viewModel.bussinessHoursResponseObservable(token,model,store.getIdDomain())
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnError(throwable ->{Log.e("Error : ",TAG+" / "+throwable.getMessage());

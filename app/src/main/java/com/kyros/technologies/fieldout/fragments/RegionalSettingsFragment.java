@@ -393,7 +393,7 @@ public class RegionalSettingsFragment extends Fragment{
     }
 
     private void initiateAPI(String authKey, RegionalSettings regionalSettings) {
-        subscription.add(viewModel.addRegionalSettingsResponseObservable(authKey,regionalSettings)
+        subscription.add(viewModel.addRegionalSettingsResponseObservable(authKey,regionalSettings,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

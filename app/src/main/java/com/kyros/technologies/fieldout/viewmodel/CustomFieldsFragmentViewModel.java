@@ -25,33 +25,33 @@ public class CustomFieldsFragmentViewModel {
     public CustomFieldsFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<CustomFieldResponse>getcustomFieldResponseObservable(String authKey,String domainId){
+    public Observable<CustomFieldResponse>getcustomFieldResponseObservable(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getCustomFields(authKey,domainId)
+                .getCustomFields(authKey,domainId,idDomain)
                 .doOnNext(customFieldResponse -> getcustomFieldResponseBehaviorSubject.onNext(customFieldResponse));
     }
     public Observable<CustomFieldResponse>getcustomFieldResponseObservable(){
         return getcustomFieldResponseBehaviorSubject.asObservable();
     }
-    public Observable<CustomFieldResponse>addcustomFieldResponseObservable(String authKey,CustomField customField){
+    public Observable<CustomFieldResponse>addcustomFieldResponseObservable(String authKey,CustomField customField,String idDomain){
         return pojoInterface
-                .addCustomFields(authKey,customField)
+                .addCustomFields(authKey,customField,idDomain)
                 .doOnNext(customFieldResponse -> addcustomFieldResponseBehaviorSubject.onNext(customFieldResponse));
     }
     public Observable<CustomFieldResponse>addcustomFieldResponseObservable(){
         return addcustomFieldResponseBehaviorSubject.asObservable();
     }
-    public Observable<CustomFieldResponse>updatecustomFieldResponseObservable(String authKey,CustomField customField,String customFieldId){
+    public Observable<CustomFieldResponse>updatecustomFieldResponseObservable(String authKey,CustomField customField,String customFieldId,String idDomain){
         return pojoInterface
-                .updateCustomFields(authKey,customField,customFieldId)
+                .updateCustomFields(authKey,customField,customFieldId,idDomain)
                 .doOnNext(customFieldResponse -> updatecustomFieldResponseBehaviorSubject.onNext(customFieldResponse));
     }
     public Observable<CustomFieldResponse>updatecustomFieldResponseObservable(){
         return updatecustomFieldResponseBehaviorSubject.asObservable();
     }
-    public Observable<DeleteCustomFieldResponse>deleteCustomFieldResponseObservable(String authKey,String customFieldId){
+    public Observable<DeleteCustomFieldResponse>deleteCustomFieldResponseObservable(String authKey,String customFieldId,String idDomain){
         return pojoInterface
-                .deleteCustomFields(authKey,customFieldId)
+                .deleteCustomFields(authKey,customFieldId,idDomain)
                 .doOnNext(customFieldResponse -> deleteCustomFieldResponseBehaviorSubject.onNext(customFieldResponse));
     }
     public Observable<DeleteCustomFieldResponse>deleteCustomFieldResponseObservable(){

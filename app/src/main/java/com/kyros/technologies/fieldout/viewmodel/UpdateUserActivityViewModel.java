@@ -24,9 +24,9 @@ public class UpdateUserActivityViewModel {
     public UpdateUserActivityViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<GetSingleUserResponse>getSingleUserResponseObservable(String userId,String authKey){
+    public Observable<GetSingleUserResponse>getSingleUserResponseObservable(String userId,String authKey,String idDomain){
         return pojoInterface
-                .getOneUserResponse(userId,authKey)
+                .getOneUserResponse(userId,authKey,idDomain)
                 .doOnNext(getSingleUserResponse -> singleUserResponseBehaviorSubject.onNext(getSingleUserResponse))
                 .doOnError(throwable -> Log.e("Error : ",""+throwable.getMessage()));
 
@@ -37,8 +37,8 @@ public class UpdateUserActivityViewModel {
     public Observable<UserUpdateResponse>getUpdateUserResponse(){
         return updateUserResponeBehaviourSubject.asObservable();
     }
-    public Observable<UserUpdateResponse>updateUserObservable(String userId,String authKey,Result result){
-        return pojoInterface.updateUserProfile(authKey,userId,result)
+    public Observable<UserUpdateResponse>updateUserObservable(String userId,String authKey,Result result,String idDomain){
+        return pojoInterface.updateUserProfile(authKey,userId,result,idDomain)
                 .doOnNext(userUpdateResponse -> updateUserResponeBehaviourSubject.onNext(userUpdateResponse))
                 .doOnError(throwable -> Log.e("Error : ",""+throwable.getMessage()));
     }

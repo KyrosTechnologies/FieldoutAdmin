@@ -168,7 +168,7 @@ public class AddAttachmentActivity extends AppCompatActivity {
         AddAttachments addAttachments=new AddAttachments();
         addAttachments.setFileData(fileByte);
         addAttachments.setFileName(fileName);
-        subscription.add(viewModel.addResponseBodyObservableByteStream(store.getToken(),addAttachments)
+        subscription.add(viewModel.addResponseBodyObservableByteStream(store.getToken(),addAttachments,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -204,7 +204,7 @@ public class AddAttachmentActivity extends AppCompatActivity {
         RequestBody fileNameInput=createPartFromString(fileName);
         HashMap<String,RequestBody>map=new HashMap<>();
         map.put("fileName",fileNameInput);
-        subscription.add(viewModel.addResponseBodyObservable(store.getToken(),map,fileData)
+        subscription.add(viewModel.addResponseBodyObservable(store.getToken(),map,fileData,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

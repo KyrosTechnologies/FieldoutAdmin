@@ -135,7 +135,7 @@ public class PartsAndServicesActivity extends AppCompatActivity {
 
     private void initiateUpdatePartsServicesAPI(String authKey, StockPart stockPart, String stockPartId) {
         showProgressDialog();
-        subscription.add(viewModel.updatePartsAndServicesResponseObservable(authKey,stockPartId,stockPart)
+        subscription.add(viewModel.updatePartsAndServicesResponseObservable(authKey,stockPartId,stockPart,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -195,7 +195,7 @@ public class PartsAndServicesActivity extends AppCompatActivity {
 
     private void initiateAddPartsServicesAPI(String authKey, StockPart stockPart) {
         showProgressDialog();
-        subscription.add(viewModel.addPartsAndServicesResponseObservable(authKey,stockPart)
+        subscription.add(viewModel.addPartsAndServicesResponseObservable(authKey,stockPart,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -249,7 +249,7 @@ public class PartsAndServicesActivity extends AppCompatActivity {
     }
 
     private void initiateGetTaxAPI(String authKey, String domainId) {
-        subscription.add(taxesFragmentViewModel.getTaxResponseObservable(authKey,domainId)
+        subscription.add(taxesFragmentViewModel.getTaxResponseObservable(authKey,domainId,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -353,7 +353,7 @@ public class PartsAndServicesActivity extends AppCompatActivity {
     private void deletePartsServices() {
         if(stockPartId!=null){
             showProgressDialog();
-            subscription.add(viewModel.deletePartsAndServicesResponseObservable(store.getToken(),stockPartId)
+            subscription.add(viewModel.deletePartsAndServicesResponseObservable(store.getToken(),stockPartId,store.getIdDomain())
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

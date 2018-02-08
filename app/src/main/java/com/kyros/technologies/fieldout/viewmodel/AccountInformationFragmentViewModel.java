@@ -22,9 +22,9 @@ public class AccountInformationFragmentViewModel {
     public AccountInformationFragmentViewModel(POJOInterface pojoInterface){
         this.pojoInterface=pojoInterface;
     }
-    public Observable<BussinessHoursResponse>bussinessHoursResponseObservable(String authKey,BussinessHoursModel bussinessHoursModel){
+    public Observable<BussinessHoursResponse>bussinessHoursResponseObservable(String authKey,BussinessHoursModel bussinessHoursModel,String idDomain){
         return pojoInterface
-                .postBussinessHours(authKey,bussinessHoursModel)
+                .postBussinessHours(authKey,bussinessHoursModel,idDomain)
                 .doOnNext(bussinessHoursResponse->{
                     bussinessHoursResponseBehaviorSubject.onNext(bussinessHoursResponse);
                 });
@@ -32,17 +32,17 @@ public class AccountInformationFragmentViewModel {
     public Observable<BussinessHoursResponse>getBusinnessHoursResponse(){
         return bussinessHoursResponseBehaviorSubject.asObservable();
     }
-    public Observable<DomainResponse>domainResponseObservable(String authKey,String domainId){
+    public Observable<DomainResponse>domainResponseObservable(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getDomain(domainId,authKey)
+                .getDomain(domainId,authKey,idDomain)
                 .doOnNext(domainResponse -> domainResponseBehaviorSubject.onNext(domainResponse));
     }
     public Observable<DomainResponse>getDomainResponse(){
         return domainResponseBehaviorSubject.asObservable();
     }
-    public Observable<BussinessHoursResponse>getBusinessHourByDomainId(String authKey,String domainId){
+    public Observable<BussinessHoursResponse>getBusinessHourByDomainId(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getBussinessHours(domainId,authKey)
+                .getBussinessHours(domainId,authKey,idDomain)
                 .doOnNext(bussinessHoursResponse -> bussinessHoursResponseBehaviorSubject.onNext(bussinessHoursResponse));
     }
 }

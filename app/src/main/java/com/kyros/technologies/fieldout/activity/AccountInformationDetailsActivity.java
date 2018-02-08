@@ -156,7 +156,7 @@ public class AccountInformationDetailsActivity extends AppCompatActivity {
     }
 
     private void updateUserApi(Result result, String userId, String token) {
-        subscription.add(viewModel.updateUserInformation(result,token,userId)
+        subscription.add(viewModel.updateUserInformation(result,token,userId,store.getIdDomain())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable ->{

@@ -19,9 +19,9 @@ public class ProjectTypeFragmentViewModel {
     public ProjectTypeFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<ProjectTypeResponse>projectTypeResponseObservable(String authKey,String domainId){
+    public Observable<ProjectTypeResponse>projectTypeResponseObservable(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getProjectType(authKey,domainId)
+                .getProjectType(authKey,domainId,idDomain)
                 .doOnNext(projectTypeResponse -> projectTypeResponseBehaviorSubject.onNext(projectTypeResponse));
     }
     public Observable<ProjectTypeResponse>projectTypeResponseObservable(){

@@ -96,7 +96,7 @@ public class PDF_CSV_Activity extends AppCompatActivity {
         ((ServiceHandler)getApplication()).getApplicationComponent().injectPDF_CSV_Activity(this);
         subscription=new CompositeSubscription();
 
-        subscription.add(viewModel.invoiceCustomerResponseObservable(store.getToken(),invoiceId)
+        subscription.add(viewModel.invoiceCustomerResponseObservable(store.getToken(),invoiceId,store.getIdDomain())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

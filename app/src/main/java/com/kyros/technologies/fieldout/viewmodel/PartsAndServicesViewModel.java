@@ -25,33 +25,33 @@ public class PartsAndServicesViewModel {
     public PartsAndServicesViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<PartsAndServicesResponse>getPartsAndServicesResponseObservable(String authKey,String domainId){
+    public Observable<PartsAndServicesResponse>getPartsAndServicesResponseObservable(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getPartsAndServices(authKey,domainId)
+                .getPartsAndServices(authKey,domainId,idDomain)
                 .doOnNext(partsAndServicesResponse -> getpartsAndServicesResponseBehaviorSubject.onNext(partsAndServicesResponse));
     }
     public Observable<PartsAndServicesResponse>getPartsAndServicesResponseObservable(){
         return  getpartsAndServicesResponseBehaviorSubject.asObservable();
     }
-    public Observable<PartsAndServicesResponse>addPartsAndServicesResponseObservable(String authKey, StockPart stockPart){
+    public Observable<PartsAndServicesResponse>addPartsAndServicesResponseObservable(String authKey, StockPart stockPart,String idDomain){
         return pojoInterface
-                .addPartsAndServices(authKey,stockPart)
+                .addPartsAndServices(authKey,stockPart,idDomain)
                 .doOnNext(partsAndServicesResponse -> addpartsAndServicesResponseBehaviorSubject.onNext(partsAndServicesResponse));
     }
     public Observable<PartsAndServicesResponse>addPartsAndServicesResponseObservable(){
         return  addpartsAndServicesResponseBehaviorSubject.asObservable();
     }
-    public Observable<PartsAndServicesResponse>updatePartsAndServicesResponseObservable(String authKey,String stockId, StockPart stockPart){
+    public Observable<PartsAndServicesResponse>updatePartsAndServicesResponseObservable(String authKey,String stockId, StockPart stockPart,String idDomain){
         return pojoInterface
-                .updatePartsAndServices(authKey,stockId,stockPart)
+                .updatePartsAndServices(authKey,stockId,stockPart,idDomain)
                 .doOnNext(partsAndServicesResponse -> updatepartsAndServicesResponseBehaviorSubject.onNext(partsAndServicesResponse));
     }
     public Observable<PartsAndServicesResponse>updatePartsAndServicesResponseObservable(){
         return  updatepartsAndServicesResponseBehaviorSubject.asObservable();
     }
-    public Observable<DeletePartsAndServicesResponse>deletePartsAndServicesResponseObservable(String authKey,String stockId){
+    public Observable<DeletePartsAndServicesResponse>deletePartsAndServicesResponseObservable(String authKey,String stockId,String idDomain){
         return pojoInterface
-                .deleteParsAndServices(authKey,stockId)
+                .deleteParsAndServices(authKey,stockId,idDomain)
                 .doOnNext(partsAndServicesResponse -> deletepartsAndServicesResponseBehaviorSubject.onNext(partsAndServicesResponse));
     }
     public Observable<DeletePartsAndServicesResponse>deletePartsAndServicesResponseObservable(){

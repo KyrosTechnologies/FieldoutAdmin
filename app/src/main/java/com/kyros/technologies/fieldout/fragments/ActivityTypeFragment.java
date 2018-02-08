@@ -82,7 +82,7 @@ public class ActivityTypeFragment extends Fragment {
     }
 
     private void initiateActivityTypeAPI(String domainId, String authKey) {
-        subscription.add(viewModel.activityTypeResponseObservable(domainId,authKey)
+        subscription.add(viewModel.activityTypeResponseObservable(domainId,authKey,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ", TAG+" / / "+throwable.getMessage()))
@@ -252,7 +252,7 @@ public class ActivityTypeFragment extends Fragment {
     }
 
     private void callAddActivityAPI(String authKey, ActivityType activityType) {
-        subscription.add(viewModel.activityTypeAddResponseObservable(authKey,activityType)
+        subscription.add(viewModel.activityTypeAddResponseObservable(authKey,activityType,store.getIdDomain())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -374,7 +374,7 @@ public class ActivityTypeFragment extends Fragment {
     }
 
     private void callUpdateActivityTypeAPI(String activityTypeId, String authKey, ActivityType activityType) {
-            subscription.add(viewModel.activityTypeUpdateResponseObservable(authKey,activityTypeId,activityType)
+            subscription.add(viewModel.activityTypeUpdateResponseObservable(authKey,activityTypeId,activityType,store.getIdDomain())
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -455,7 +455,7 @@ public class ActivityTypeFragment extends Fragment {
 
     private void initiateDeleteActivityTypeApi(String activityTypeId) {
         if(activityTypeId!=null && !activityTypeId.isEmpty()){
-            subscription.add(viewModel.activityTypeDeleteResponseObservable(store.getToken(),activityTypeId)
+            subscription.add(viewModel.activityTypeDeleteResponseObservable(store.getToken(),activityTypeId,store.getIdDomain())
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

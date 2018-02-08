@@ -24,17 +24,17 @@ public class AddSchedulingWindowsViewModel {
     public AddSchedulingWindowsViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<AddSchedulingResponse>addSchedulingResponseObservable(String authKey, SchedulingWindow schedulingWindow){
+    public Observable<AddSchedulingResponse>addSchedulingResponseObservable(String authKey, SchedulingWindow schedulingWindow,String idDomain){
         return pojoInterface
-                .addSchedule(authKey,schedulingWindow)
+                .addSchedule(authKey,schedulingWindow,idDomain)
                 .doOnNext(addSchedulingResponse -> addSchedulingResponseBehaviorSubject.onNext(addSchedulingResponse));
     }
     public Observable<AddSchedulingResponse>addSchedulingResponseObservable(){
         return  addSchedulingResponseBehaviorSubject.asObservable();
     }
-    public Observable<DeleteScheduleWindowsResponse>deleteScheduleWindowsResponseObservable(String authKey,String scheduleId){
+    public Observable<DeleteScheduleWindowsResponse>deleteScheduleWindowsResponseObservable(String authKey,String scheduleId,String idDomain){
         return pojoInterface
-                .deleteSchedule(authKey,scheduleId)
+                .deleteSchedule(authKey,scheduleId,idDomain)
                 .doOnNext(deleteScheduleWindowsResponse -> deleteScheduleWindowsResponseBehaviorSubject.onNext(deleteScheduleWindowsResponse));
     }
     public Observable<DeleteScheduleWindowsResponse>deleteScheduleWindowsResponseObservable(){
@@ -42,9 +42,9 @@ public class AddSchedulingWindowsViewModel {
     }
 
 
-    public Observable<AddSchedulingResponse>updateSchedulingResponseObservable(String authKey,String schedulingId, SchedulingWindow schedulingWindow){
+    public Observable<AddSchedulingResponse>updateSchedulingResponseObservable(String authKey,String schedulingId, SchedulingWindow schedulingWindow,String idDomain){
         return pojoInterface
-                .updateScheduling(authKey,schedulingId,schedulingWindow)
+                .updateScheduling(authKey,schedulingId,schedulingWindow,idDomain)
                 .doOnNext(addSchedulingResponse -> updateSchedulingResponseBehaviorSubject.onNext(addSchedulingResponse));
     }
     public Observable<AddSchedulingResponse>updateSchedulingResponseObservable(){

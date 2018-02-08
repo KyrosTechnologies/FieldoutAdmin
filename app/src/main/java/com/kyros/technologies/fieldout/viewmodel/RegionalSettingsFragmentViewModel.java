@@ -22,18 +22,18 @@ public class RegionalSettingsFragmentViewModel {
     public RegionalSettingsFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<RegionalSettingsResponse>getRegionalSettingsResponseObservable(String authKey,String domainId){
+    public Observable<RegionalSettingsResponse>getRegionalSettingsResponseObservable(String authKey,String domainId,String idDomain){
         return pojoInterface
-                .getRegionalSettings(authKey,domainId)
+                .getRegionalSettings(authKey,domainId,idDomain)
                 .doOnNext(regionalSettingsResponse -> getRegionalSettingsResponseBehaviorSubject.onNext(regionalSettingsResponse));
     }
     public Observable<RegionalSettingsResponse>getRegionalSettingsResponseObservable(){
         return getRegionalSettingsResponseBehaviorSubject.asObservable();
     }
 
-    public Observable<RegionalSettingsResponse>addRegionalSettingsResponseObservable(String authKey, RegionalSettings regionalSettings){
+    public Observable<RegionalSettingsResponse>addRegionalSettingsResponseObservable(String authKey, RegionalSettings regionalSettings,String idDomain){
         return pojoInterface
-                .addRegionalSettings(authKey,regionalSettings)
+                .addRegionalSettings(authKey,regionalSettings,idDomain)
                 .doOnNext(regionalSettingsResponse -> addRegionalSettingsResponseBehaviorSubject.onNext(regionalSettingsResponse));
     }
     public Observable<RegionalSettingsResponse>addRegionalSettingsResponseObservable(){

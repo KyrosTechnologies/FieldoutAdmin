@@ -27,32 +27,32 @@ public class AddTeamViewModel {
     public AddTeamViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<TechniciansResponse>techniciansResponseObservable(String domainId,String authKey){
-        return pojoInterface.getTechniciansResponse(domainId,authKey)
+    public Observable<TechniciansResponse>techniciansResponseObservable(String domainId,String authKey,String idDomain){
+        return pojoInterface.getTechniciansResponse(domainId,authKey,idDomain)
                 .doOnNext(techniciansResponse -> techniciansResponseBehaviorSubject.onNext(techniciansResponse));
     }
     public Observable<TechniciansResponse>getTechniciansResponse(){
         return techniciansResponseBehaviorSubject.asObservable();
     }
-    public Observable<ManagersResponse>managersResponseObservable(String domainId,String authKey){
+    public Observable<ManagersResponse>managersResponseObservable(String domainId,String authKey,String idDomain){
         return pojoInterface
-                .getManagersResponse(domainId,authKey)
+                .getManagersResponse(domainId,authKey,idDomain)
                 .doOnNext(managersResponse -> managersResponseBehaviorSubject.onNext(managersResponse));
     }
     public Observable<ManagersResponse>getManagersResponse(){
         return managersResponseBehaviorSubject.asObservable();
     }
-    public Observable<AddTagResponse>addTagResponseObservable(String authKey, Tag tag){
+    public Observable<AddTagResponse>addTagResponseObservable(String authKey, Tag tag,String idDomain){
         return pojoInterface
-                .addTag(authKey,tag)
+                .addTag(authKey,tag,idDomain)
                 .doOnNext(addTagResponse -> addTagResponseBehaviorSubject.onNext(addTagResponse));
     }
     public Observable<AddTagResponse>addTagResponse(){
         return addTagResponseBehaviorSubject.asObservable();
     }
-    public Observable<AddTeamResponse>addTeamResponseObservable(String authKey, TeamsItem teamsItem){
+    public Observable<AddTeamResponse>addTeamResponseObservable(String authKey, TeamsItem teamsItem,String idDomain){
         return pojoInterface
-                .addTeam(teamsItem,authKey)
+                .addTeam(teamsItem,authKey,idDomain)
                 .doOnNext(addTeamResponse -> addTeamResponseBehaviorSubject.onNext(addTeamResponse));
     }
     public Observable<AddTeamResponse>addTeamResponseObservable(){

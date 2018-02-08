@@ -72,7 +72,7 @@ public class SchedulingWindowsFragment extends Fragment {
     }
 
     private void callGetScheduleAPI(String domainId, String authKey) {
-        subscription.add(viewModel.scheduleResponseObservable(authKey,domainId)
+        subscription.add(viewModel.scheduleResponseObservable(authKey,domainId,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

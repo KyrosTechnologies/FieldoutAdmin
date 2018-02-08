@@ -213,7 +213,7 @@ public class AddJobsTypeActivity extends AppCompatActivity {
     }
 
     private void callUpdateAPI(String authKey, JobType jobType, String jobTypeId) {
-    subscription.add(viewModel.updateJobsTypeResponseObservable(authKey,jobTypeId,jobType)
+    subscription.add(viewModel.updateJobsTypeResponseObservable(authKey,jobTypeId,jobType,store.getIdDomain())
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -245,7 +245,7 @@ public class AddJobsTypeActivity extends AppCompatActivity {
 
     private void callAPI(String authKey, JobType jobType) {
         showProgressDialog();
-        subscription.add(viewModel.addJobsTypeResponseObservable(authKey,jobType)
+        subscription.add(viewModel.addJobsTypeResponseObservable(authKey,jobType,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -360,7 +360,7 @@ public class AddJobsTypeActivity extends AppCompatActivity {
 
     private void deleteJobTypes() {
 
-    subscription.add(viewModel.deleteJobsTypeResponseObservable(store.getToken(),jobTypeId)
+    subscription.add(viewModel.deleteJobsTypeResponseObservable(store.getToken(),jobTypeId,store.getIdDomain())
     .subscribeOn(Schedulers.computation())
     .observeOn(AndroidSchedulers.mainThread())
     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

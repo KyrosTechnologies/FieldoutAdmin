@@ -24,17 +24,17 @@ public class AddJobsTypeActivityViewModel {
     public AddJobsTypeActivityViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<AddJobsTypeResponse>addJobsTypeResponseObservable(String authKey, JobType jobType){
+    public Observable<AddJobsTypeResponse>addJobsTypeResponseObservable(String authKey, JobType jobType,String idDomain){
         return pojoInterface
-                .addJobsType(authKey,jobType)
+                .addJobsType(authKey,jobType,idDomain)
                 .doOnNext(addJobsTypeResponse -> addJobsTypeResponseBehaviorSubject.onNext(addJobsTypeResponse));
     }
     public Observable<AddJobsTypeResponse>addJobsTypeResponseObservable(){
         return addJobsTypeResponseBehaviorSubject.asObservable();
     }
-    public Observable<AddJobsTypeResponse>updateJobsTypeResponseObservable(String authKey,String jobTypeId, JobType jobType){
+    public Observable<AddJobsTypeResponse>updateJobsTypeResponseObservable(String authKey,String jobTypeId, JobType jobType,String idDomain){
         return pojoInterface
-                .updateJobsType(authKey,jobTypeId,jobType)
+                .updateJobsType(authKey,jobTypeId,jobType,idDomain)
                 .doOnNext(addJobsTypeResponse -> updateJobsTypeResponseBehaviorSubject.onNext(addJobsTypeResponse));
     }
     public Observable<AddJobsTypeResponse>updateJobsTypeResponseObservable(){
@@ -43,9 +43,9 @@ public class AddJobsTypeActivityViewModel {
     public Observable<DeleteJobsTypeResponse>deleteJobsTypeResponseObservable(){
         return deleteJobsTypeResponseBehaviorSubject.asObservable();
     }
-    public Observable<DeleteJobsTypeResponse>deleteJobsTypeResponseObservable(String authKey,String jobTypeId){
+    public Observable<DeleteJobsTypeResponse>deleteJobsTypeResponseObservable(String authKey,String jobTypeId,String idDomain){
         return pojoInterface
-                .deleteJobType(authKey,jobTypeId)
+                .deleteJobType(authKey,jobTypeId,idDomain)
                 .doOnNext(deleteJobsTypeResponse -> deleteJobsTypeResponseBehaviorSubject.onNext(deleteJobsTypeResponse));
     }
 

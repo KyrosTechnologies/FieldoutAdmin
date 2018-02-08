@@ -144,7 +144,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
     }
 
     private void initiateUpdateAPICall(String authKey, ProjectType projectType) {
-        subscription.add(viewModel.updateProjectTypeResponseObservable(authKey,projectTypeId,projectType)
+        subscription.add(viewModel.updateProjectTypeResponseObservable(authKey,projectTypeId,projectType,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -217,7 +217,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
     }
 
     private void initiateAPICall(String authKey, ProjectType projectType) {
-        subscription.add(viewModel.addProjectTypeResponseObservable(authKey,projectType)
+        subscription.add(viewModel.addProjectTypeResponseObservable(authKey,projectType,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -298,7 +298,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
     }
 
     private void callJobTypeAPI(String domainId, String authKey) {
-        subscription.add(viewModelJobType.jobsTypeResponseObservable(domainId,authKey)
+        subscription.add(viewModelJobType.jobsTypeResponseObservable(authKey,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+ " / / "+throwable.getMessage()))
@@ -384,7 +384,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
 
     private void deleteProjectType() {
         if(projectTypeId!=null){
-            subscription.add(viewModel.deleteProjectTypeResponseObservable(store.getToken(),projectTypeId)
+            subscription.add(viewModel.deleteProjectTypeResponseObservable(store.getToken(),projectTypeId,store.getIdDomain())
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

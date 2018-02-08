@@ -109,7 +109,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30dp"
-                android:orientation="horizontal"
                 android:weightSum="100">
 
                 <LinearLayout
@@ -171,7 +170,7 @@
                         android:layout_weight="1"
                         android:background="@android:color/transparent"
                         android:hint="@string/enter_telephone_name"
-                        android:inputType="text"
+                        android:inputType="number"
                         android:paddingLeft="10dp"
                         android:textColor="@color/text_light"
                         android:textColorHint="@color/text_light"

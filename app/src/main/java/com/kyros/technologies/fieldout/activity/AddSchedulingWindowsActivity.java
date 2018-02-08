@@ -130,7 +130,7 @@ public class AddSchedulingWindowsActivity extends AppCompatActivity {
     }
 
     private void callUpdateScheduleAPI(SchedulingWindow schedulingWindow, String authKey, String schedulingId) {
-        subscription.add(viewModel.updateSchedulingResponseObservable(authKey,schedulingId,schedulingWindow)
+        subscription.add(viewModel.updateSchedulingResponseObservable(authKey,schedulingId,schedulingWindow,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -203,7 +203,7 @@ public class AddSchedulingWindowsActivity extends AppCompatActivity {
     }
 
     private void callScheduleAPI(SchedulingWindow schedulingWindow, String authKey) {
-        subscription.add(viewModel.addSchedulingResponseObservable(authKey,schedulingWindow)
+        subscription.add(viewModel.addSchedulingResponseObservable(authKey,schedulingWindow,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ", TAG+" / / "+throwable.getMessage()))
@@ -324,7 +324,7 @@ public class AddSchedulingWindowsActivity extends AppCompatActivity {
 
     private void deleteSchedule() {
         if(schedulingId!=null){
-            subscription.add(viewModel.deleteScheduleWindowsResponseObservable(store.getToken(),schedulingId)
+            subscription.add(viewModel.deleteScheduleWindowsResponseObservable(store.getToken(),schedulingId,store.getIdDomain())
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
