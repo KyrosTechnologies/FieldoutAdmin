@@ -30,6 +30,8 @@ import com.kyros.technologies.fieldout.viewmodel.JobsTypesFragmentViewModel;
 import com.google.gson.Gson;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.HashSet;
 import java.util.List;
 
 import javax.inject.Inject;
@@ -166,7 +168,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
                 this.finish();
                 showToast("updated Successfully");
             }else{
-                showToast("Update not successfull!");
+                showToast("Update not successful!");
             }
         }else {
             showToast("update response is null");
@@ -263,7 +265,7 @@ public class AddProjectTypeActivity extends AppCompatActivity {
                 binding.recyclerJobSequence.setVisibility(View.VISIBLE);
                 binding.recyclerJobSequence.setLayoutManager(new LinearLayoutManager(this));
                 binding.recyclerJobSequence.setItemAnimator(new DefaultItemAnimator());
-                adapter=new ManagerListAdapter(this,selectedJobTypesList);
+                adapter=new ManagerListAdapter(this,new HashSet<>(selectedJobTypesList));
                 binding.recyclerJobSequence.setAdapter(adapter);
                 adapter.notifyDataSetChanged();
 

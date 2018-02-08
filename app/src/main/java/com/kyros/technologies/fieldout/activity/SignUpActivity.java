@@ -12,6 +12,7 @@ import android.widget.Toast;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
 import com.kyros.technologies.fieldout.models.SignUpModel;
+import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 import com.kyros.technologies.fieldout.viewmodel.SignUpViewModel;
 
 import java.util.regex.Matcher;
@@ -33,6 +34,8 @@ public class SignUpActivity extends AppCompatActivity {
     private CompositeSubscription subscription;
     private ProgressDialog progressDialog=null;
     private String TAG=SignUpActivity.class.getSimpleName();
+    private PreferenceManager store;
+    private String domainName=null;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -43,6 +46,7 @@ public class SignUpActivity extends AppCompatActivity {
         subscription=new CompositeSubscription();
         //Button
         sign_up_button= findViewById(R.id.sign_up_button);
+        store=PreferenceManager.getInstance(getApplicationContext());
         //Edit text
         first_name_editText= findViewById(R.id.first_name_editText);
         last_name_editText=findViewById(R.id.last_name_editText);
@@ -84,6 +88,7 @@ public class SignUpActivity extends AppCompatActivity {
         signUpModel.setPhone(mobileNumber);
         signUpModel.setEmail(emailUser);
         signUpModel.setDomain(domainName);
+        this.domainName=domainName;
         showDialog();
         initBindings(signUpModel);
 
@@ -118,9 +123,10 @@ public class SignUpActivity extends AppCompatActivity {
                 dismissDialog();
                 Log.d("SignUp : ",TAG+" / /"+model.toString());
                 boolean isSuccess=model.getIsSuccess();
-                String result=model.getResult();
-                sendToast(result);
+                String message=model.getMessage();
+                sendToast(message);
                 if(isSuccess){
+                    store.putDomainName(domainName);
                     startActivity(new Intent(SignUpActivity.this,MainActivity.class));
                 }
             }

@@ -32,6 +32,10 @@ public class SignUpModel {
     @SerializedName("domain")
     @Expose
     private String domain;
+
+    @SerializedName("message")
+    @Expose
+    private String message;
     public SignUpModel(){
 
     }
@@ -99,6 +103,14 @@ public class SignUpModel {
         this.domain = domain;
     }
 
+    public String getMessage() {
+        return message;
+    }
+
+    public void setMessage(String message) {
+        this.message = message;
+    }
+
     @Override
     public String toString() {
         return "SignUpModel{" +
@@ -110,6 +122,7 @@ public class SignUpModel {
                 ", email='" + email + '\'' +
                 ", phone='" + phone + '\'' +
                 ", domain='" + domain + '\'' +
+                ", message='" + message + '\'' +
                 '}';
     }
 }

@@ -39,15 +39,16 @@
                 <LinearLayout
                     android:id="@+id/linear_2_teams"
                     android:layout_width="match_parent"
+                    android:weightSum="100"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <LinearLayout
                         android:id="@+id/linear_3_teams"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginRight="5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="50"
                         android:orientation="vertical">
 
                         <TextView
@@ -78,10 +79,10 @@
 
                     <LinearLayout
                         android:id="@+id/linear_4_teams"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_marginLeft="5dp"
-                        android:layout_weight="1"
+                        android:layout_weight="50"
                         android:orientation="vertical">
 
                         <TextView
@@ -111,7 +112,7 @@
                             android:layout_height="wrap_content"
                             android:layout_marginBottom="10dp"
                             android:layout_marginTop="10dp"
-                            android:visibility="gone" />
+                            android:visibility="visible" />
 
                     </LinearLayout>
 

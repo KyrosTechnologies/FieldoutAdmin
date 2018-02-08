@@ -52,8 +52,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="50"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:text="@string/category"
+                            android:layout_marginLeft="3dp"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sub_header_size" />
 
@@ -62,7 +63,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="50"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:text="@string/parts_and_services"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sub_header_size" />
@@ -72,7 +73,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="50"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:text="@string/reference"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sub_header_size" />
@@ -82,7 +83,7 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="50"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:text="@string/price"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sub_header_size" />
@@ -92,8 +93,9 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_weight="50"
-                            android:gravity="center"
+                            android:gravity="left"
                             android:text="@string/tax"
+                            android:layout_marginRight="3dp"
                             android:textColor="@color/white"
                             android:textSize="@dimen/sub_header_size" />
 

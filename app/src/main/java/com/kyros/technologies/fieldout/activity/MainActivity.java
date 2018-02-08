@@ -131,7 +131,8 @@ public class MainActivity extends AppCompatActivity {
         JSONObject inputLogin=new JSONObject();
         try{
             inputLogin.put("password",password);
-            inputLogin.put("username",username);
+            inputLogin.put("email",username);
+            inputLogin.put("domain",store.getDomainName());
 
 
         }catch (Exception e){
@@ -154,7 +155,7 @@ public class MainActivity extends AppCompatActivity {
                             String id=first.getString("id");
                             store.putUserid(String.valueOf(id));
                             userid=id;
-                            String createdat = first.getString("created_at");
+                            String createdat = first.getString("createdAt");
                             store.putCreatedat(String.valueOf(createdat));
                             String hash = first.getString("hash");
                             store.putHash(String.valueOf(hash));
@@ -169,8 +170,8 @@ public class MainActivity extends AppCompatActivity {
                             store.putPassword(String.valueOf(password));
                             String token = first.getString("token");
                             store.putToken(String.valueOf(token));
-                            String username = first.getString("username");
-                            store.putUsername(String.valueOf(username));
+//                            String username = first.getString("username");
+//                            store.putUsername(String.valueOf(username));
                             String profile=first.getString("profile");
                             store.putProfile(String.valueOf(profile));
                             String teams=null;
@@ -260,12 +261,11 @@ public class MainActivity extends AppCompatActivity {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    JSONObject first=obj.getJSONObject("user");
+                    JSONObject first=obj.getJSONObject("domain");
                         String domainidid=first.getString("id");
                         store.putIdDomain(String.valueOf(domainidid));
                         String company=first.getString("company");
                         store.putCompanyName(String.valueOf(company));
-
 
                     Intent i = new Intent(MainActivity.this, LandingActivity.class);
                     i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -289,6 +289,7 @@ public class MainActivity extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -362,6 +363,7 @@ public class MainActivity extends AppCompatActivity {
         JSONObject inputLogin=new JSONObject();
         try{
             inputLogin.put("email",mails);
+            inputLogin.put("domain",store.getDomainName());
 
 
         }catch (Exception e){

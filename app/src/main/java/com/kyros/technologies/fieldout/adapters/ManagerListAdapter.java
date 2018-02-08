@@ -9,7 +9,9 @@ import android.view.ViewGroup;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.databinding.AdapterManagerListItemBinding;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Set;
 
 /**
  * Created by kyros on 21-12-2017.
@@ -22,6 +24,10 @@ public class ManagerListAdapter extends RecyclerView.Adapter<ManagerListAdapter.
     public ManagerListAdapter(Context mContext, List<String> managersList) {
         this.mContext = mContext;
         this.managersList = managersList;
+    }
+    public ManagerListAdapter(Context mContext,Set<String > skillList){
+        this.mContext=mContext;
+        this.managersList=new ArrayList<>(skillList);
     }
 
     public class MyManagerViewHolder extends RecyclerView.ViewHolder{
