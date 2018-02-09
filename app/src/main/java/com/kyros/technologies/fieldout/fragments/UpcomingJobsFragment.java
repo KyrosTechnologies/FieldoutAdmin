@@ -200,7 +200,7 @@ public class UpcomingJobsFragment extends Fragment {
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }

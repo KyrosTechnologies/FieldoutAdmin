@@ -70,7 +70,7 @@ public class ResourcesFragment extends Fragment {
 
     private void GetResourcesList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"resources/getByDomainId/"+domainid;
+        String url = EndURL.URL+"resources/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -109,19 +109,17 @@ public class ResourcesFragment extends Fragment {
                             e.printStackTrace();
                         }
 
-                        String username="";
+                        String firstName="";
                         try {
-                            username=userInfo.getString("username");
+                            firstName=userInfo.getString("firstName");
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-                        String createdat="";
+                        String lastName="";
                         try {
-                            createdat=userInfo.getString("created_at");
+                            lastName=userInfo.getString("lastName");
                         }catch (Exception e){
-                            e.printStackTrace();
                         }
-
                         JSONObject toolsAndResourcesInfo=null;
                         try {
                             toolsAndResourcesInfo=first.getJSONObject("toolsAndResourcesInfo");
@@ -143,8 +141,8 @@ public class ResourcesFragment extends Fragment {
                         commonJobs.setNoteactivity(noteactivity);
                         //commonJobs.setDtreturned(dtreturned);
                         commonJobs.setResourcename(resource_name);
-                        commonJobs.setResourceusername(username);
-                        commonJobs.setCreatedat(createdat);
+                        commonJobs.setFirstname(firstName);
+                        commonJobs.setLastname(lastName);
                         commonJobsArrayList.add(commonJobs);
 
                     }
@@ -184,6 +182,7 @@ public class ResourcesFragment extends Fragment {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

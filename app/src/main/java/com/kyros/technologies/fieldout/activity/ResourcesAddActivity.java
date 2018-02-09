@@ -1,14 +1,17 @@
 package com.kyros.technologies.fieldout.activity;
 
 import android.annotation.TargetApi;
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -16,6 +19,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -52,6 +56,8 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
     private List<String> spinnerlist=new ArrayList<String>();
     private List<String> activitylist=new ArrayList<String>();
     private Spinner resource_activity_spinner,resource_type_spinner;
+    private LinearLayout type_linear;
+    private TextView type_text;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
     ArrayList<CommonJobs> activityJobsArrayList = new ArrayList<CommonJobs>();
     private String techid=null;
@@ -71,6 +77,8 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
     private String date_start;
     private String date_end;
     private ProgressDialog pDialog;
+    private AlertDialog prioritydialog;
+    private String selectedpriority=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -91,6 +99,8 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
         resource_start_date=findViewById(R.id.resource_start_date);
         resource_end_time=findViewById(R.id.resource_end_time);
         resource_note_edit=findViewById(R.id.resource_note_edit);
+        type_text=findViewById(R.id.type_text);
+        type_linear=findViewById(R.id.type_linear);
         resource_activity_spinner.setOnItemSelectedListener(this);
         GetTechnicianList();
         resource_type_spinner.setOnItemSelectedListener(this);
@@ -139,6 +149,10 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
 
         });
 
+        type_linear.setOnClickListener(view -> {
+            showPriorityDialog();
+        });
+
         resource_start_time.setOnClickListener(view -> {
             starttimePicker();
         });
@@ -158,8 +172,9 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
-
-                    String currentdate=String.valueOf(selectedyear+"-"+month+"-"+selectedday+" ");
+                    String days=String.format("%02d",selectedday);
+                    String monts=String.format("%02d",month);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     resource_start_date.setText(currentdate);
                     startdate=currentdate;
 
@@ -182,8 +197,9 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
-
-                    String currentdate=String.valueOf(selectedyear+"-"+month+"-"+selectedday+" ");
+                    String days=String.format("%02d",selectedday);
+                    String monts=String.format("%02d",month);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     boolean enddates=CheckDates(resource_start_date.getText().toString(),currentdate);
                     if (enddates){
                         resource_end_date.setText(currentdate);
@@ -222,6 +238,40 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
             e.printStackTrace();
         }
         return b;
+    }
+
+    private void showPriorityDialog(){
+        if(prioritydialog==null){
+            AlertDialog.Builder builder=new AlertDialog.Builder(ResourcesAddActivity.this);
+            LayoutInflater inflater=getLayoutInflater();
+            View view=inflater.inflate(R.layout.resource_type_value,null);
+            builder.setView(view);
+            TextView consumable=view.findViewById(R.id.consumable);
+            TextView returnable=view.findViewById(R.id.returnable);
+
+            consumable.setOnClickListener(view1 -> {
+                selectedpriority="Consumable";
+                prioritydialog.dismiss();
+                if (selectedpriority!=null){
+                    type_text.setText(selectedpriority);
+                }
+            });
+
+            returnable.setOnClickListener(view1 -> {
+                selectedpriority="Returnable";
+                prioritydialog.dismiss();
+                if (selectedpriority!=null){
+                    type_text.setText(selectedpriority);
+                }
+            });
+
+            prioritydialog=builder.create();
+            prioritydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            prioritydialog.setCancelable(false);
+            prioritydialog.setCanceledOnTouchOutside(false);
+        }
+        prioritydialog.show();
+
     }
 
     private void starttimePicker(){
@@ -306,9 +356,10 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
         String etime=enddate+endtime;
         String technicianid=null;
         for (int i=0;i<commonJobsArrayList.size();i++){
-            String techName=commonJobsArrayList.get(i).getTechnicianname();
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
+                if (techniciantext.equals(techName+" "+techlastname)) {
                     technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
@@ -328,8 +379,8 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
             inputLogin.put("note", noteactivity);
             inputLogin.put("dtStart",stime);
             inputLogin.put("dtEnd",etime);
+            inputLogin.put("type",selectedpriority);
             inputLogin.put("idUser",technicianid);
-            inputLogin.put("idDomain",domainid);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -352,7 +403,6 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
                         String dtStart = first.getString("dtStart");
                         String resourcesid = first.getString("id");
                         store.putResourceId(String.valueOf(resourcesid));
-                        String domainid = first.getString("idDomain");
                         String idToolsAndResurces = first.getString("idToolsAndResurces");
                         store.putIdToolsResources(String.valueOf(idToolsAndResurces));
                         String idUser=first.getString("idUser");
@@ -386,6 +436,7 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -396,7 +447,7 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
 
     private void GetTechnicianList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
+        String url = EndURL.URL+"users/getTechnicians";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -412,13 +463,15 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
                         JSONObject first=array.getJSONObject(i);
                         String technicianid=first.getString("id");
                         store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
+                        String techfirstName=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
                         commonJobsArrayList.add(commonJobs);
-                        spinnerlist.add(techusername);
+                        spinnerlist.add(techfirstName+" "+techlastName);
 
                     }
 
@@ -457,8 +510,6 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
 
             @Override
             public void onErrorResponse(VolleyError error) {
-                Log.e("ERror : ",""+error.toString());
-
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
             }
@@ -468,6 +519,7 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -479,7 +531,7 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
 
     private void GetToolsResourcesList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"tools_and_resources/getByDomainId/"+domainid;
+        String url = EndURL.URL+"tools_and_resources/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -552,6 +604,7 @@ public class ResourcesAddActivity extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

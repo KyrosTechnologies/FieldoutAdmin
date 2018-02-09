@@ -573,7 +573,7 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
 
     private void GetSpinnersList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"consolidatedResult/addJob/"+domainid;
+        String url = EndURL.URL+"consolidatedResult/addJob/";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -907,6 +907,7 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1003,6 +1004,7 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1099,6 +1101,7 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1117,7 +1120,6 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
 
         try {
             inputLogin.put("name",name);
-            inputLogin.put("idDomain",domainid);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -1165,6 +1167,7 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1338,7 +1341,6 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
             jobInfo.put("idSite",sitid);
             jobInfo.put("idEquipment",equipid);
             jobInfo.put("idCreator",userid);
-            jobInfo.put("idDomain",domainid);
             jobInfo.put("description",description);
             jobInfo.put("priority",selectedpriority);
             jobInfo.put("globalAddress",globalAddress);
@@ -1362,7 +1364,6 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
         try {
             inputLogin.put("jobInfo",jobInfo);
             inputLogin.put("idUser",technicianid);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("idSchedulingWindow",schedulingid);
             inputLogin.put("startDate",startdate);
             inputLogin.put("endDate",enddate);

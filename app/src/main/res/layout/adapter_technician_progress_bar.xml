@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:text="Technician Name"
         android:textSize="@dimen/privacy_policy_statement"
-        android:textColor="@color/button"/>
+        android:textColor="@color/blue"/>
 
     <ProgressBar
         android:id="@+id/progressBar_tech"

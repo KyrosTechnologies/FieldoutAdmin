@@ -263,6 +263,7 @@ public class QuotationCustomerSite extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -351,6 +352,7 @@ public class QuotationCustomerSite extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -395,7 +397,6 @@ public class QuotationCustomerSite extends AppCompatActivity {
             inputLogin.put("idCustomer",cusid);
             inputLogin.put("idSite",siteid);
             inputLogin.put("status","draft");
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("dateString",dtformat);
 
         }catch (Exception e){
@@ -445,6 +446,7 @@ public class QuotationCustomerSite extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
         };

@@ -477,6 +477,7 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -534,7 +535,6 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             inputLogin.put("idJob", jobid);
             inputLogin.put("scheduledBeginDateString",stime);
             inputLogin.put("scheduledEndDateString",etime);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("status","created");
 
         } catch (Exception e) {
@@ -586,6 +586,7 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -641,6 +642,7 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -749,7 +751,7 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
         Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
     }
 
-    private void DeleteActivitiesList() {
+    private void UnScheduleJobsApi() {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"userjobs/unschedule/"+userjobid;
         Log.d("waggonurl", url);
@@ -790,7 +792,7 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -808,7 +810,7 @@ public class ScheduleMonthDetails extends AppCompatActivity implements AdapterVi
             builder.setPositiveButton(
                     "Yes",
                     (dialog, id) ->{
-                        DeleteActivitiesList();
+                        UnScheduleJobsApi();
                         Log.d("Dialog Yes ","dialog initialization");
                         dialog.cancel();
                     });

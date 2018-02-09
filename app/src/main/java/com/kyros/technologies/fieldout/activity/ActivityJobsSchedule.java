@@ -175,8 +175,9 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     schedule_start_date.setText(currentdate);
                     startdate=currentdate;
 
@@ -199,8 +200,9 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
-                    String monts2=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts2+"-"+selectedday+" ");
+                    String days=String.format("%02d",selectedday);
+                    String monts=String.format("%02d",month);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     boolean enddates=CheckDates(schedule_start_date.getText().toString(),currentdate);
                     if (enddates){
                         schedule_end_date.setText(currentdate);
@@ -294,7 +296,7 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
 
     private void GetTechnicianList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
+        String url = EndURL.URL+"users/getTechnicians";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -310,14 +312,15 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
                         JSONObject first=array.getJSONObject(i);
                         String technicianid=first.getString("id");
                         store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
+                        String techfirstName=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
                         commonJobsArrayList.add(commonJobs);
-                        spinnerlist.add(techusername);
-                        technicianArrayList.add(commonJobs);
+                        spinnerlist.add(techfirstName+" "+techlastName);
 
                     }
 
@@ -365,6 +368,7 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -408,11 +412,12 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
         String stime=startdate+starttime;
         String etime=enddate+endtime;
         String technicianid=null;
-        for (int i=0;i<technicianArrayList.size();i++){
-            String techName=technicianArrayList.get(i).getTechnicianname();
+        for (int i=0;i<commonJobsArrayList.size();i++){
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
-                    technicianid=technicianArrayList.get(i).getTechnicianid();
+                if (techniciantext.equals(techName+" "+techlastname)) {
+                    technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
         }
@@ -422,7 +427,6 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
             inputLogin.put("idJob", jobid);
             inputLogin.put("scheduledBeginDateString",stime);
             inputLogin.put("scheduledEndDateString",etime);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("status","created");
 
         } catch (Exception e) {
@@ -474,6 +478,7 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -533,7 +538,7 @@ public class ActivityJobsSchedule extends AppCompatActivity implements AdapterVi
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }

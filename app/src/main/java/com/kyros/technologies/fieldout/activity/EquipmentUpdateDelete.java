@@ -244,8 +244,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
                         siteid=siteDetailsArrayList.get(i).getSiteid();
                     }
                 }
-                //UpdateEquipmentApi(equipmentname,myid,cusid,siteid);
-                Log.d("update custom fields : ",""+new Gson().toJson(customFieldsAdapter.getCustomFieldListOutput()));
+                UpdateEquipmentApi(equipmentname,myid,cusid,siteid);
             }else{
                 Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
             }
@@ -384,9 +383,6 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
 
                 }
 
-
-
-
                 showToast("validate customfield else is executing");
             }
         }else{
@@ -402,10 +398,6 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
             customFieldsAdapter.setCustomFieldData(updateCustomFieldList,this,"update","equipments",this);
             recycler_custom_equip_update.setAdapter(customFieldsAdapter);
         }
-
-
-
-
 
     }
 
@@ -731,7 +723,6 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
                 tags_selected_customer.setAdapter(selectedAdapter);
                 selectedAdapter.notifyDataSetChanged();
                 for (int i=0;i<tagsList.size();i++){
-                    AddTagsApi(tagsList.get(i));
                 }
             }
 
@@ -809,7 +800,6 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
         try {
             inputLogin.put("name",name);
             inputLogin.put("myId",myid);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("idCustomer",cusid);
             inputLogin.put("idSite",siteid);
             inputLogin.put("tags",jsonArray);
@@ -865,6 +855,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -875,7 +866,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
 
     private void GetCustomerList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"customers/getByDomainId/"+domainid;
+        String url = EndURL.URL+"customers/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -1013,6 +1004,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1099,6 +1091,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1110,7 +1103,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
 
     private void GetTagsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"tags/getByDomainId/"+domainid;
+        String url = EndURL.URL+"tags/getAll";
         Log.d("waggonurl", url);
         //showProgressDialog();
 
@@ -1172,72 +1165,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
-    private void AddTagsApi(String name) {
-
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "tags/add";
-        Log.d("waggonurl", url);
-        JSONObject inputLogin = new JSONObject();
-
-        try {
-            inputLogin.put("name",name);
-            inputLogin.put("idDomain",domainid);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.d("inputJsonuser", inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response", response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
-                    if (success) {
-                        JSONObject first = obj.getJSONObject("tag");
-                        String tagid=first.getString("id");
-                        store.putTagId(String.valueOf(tagid));
-
-                        tagsArrayList.add(tagid);
-
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null) {
-                    Log.e("Error", "" + error.toString());
-                }
-//                texts.setText(error.toString());
-            }
-        }) {
-
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -1294,7 +1222,7 @@ public class EquipmentUpdateDelete extends AppCompatActivity implements CustomFi
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }

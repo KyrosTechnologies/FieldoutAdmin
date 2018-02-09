@@ -80,7 +80,7 @@ public class ActivitiesFragment extends Fragment {
                 try {
 
                     JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("Activity");
+                    JSONArray array=obj.getJSONArray("Activities");
                     for (int i=0;i<array.length();i++){
                         JSONObject first=array.getJSONObject(i);
                         String dtend=first.getString("dtEnd");
@@ -89,15 +89,15 @@ public class ActivitiesFragment extends Fragment {
                         String iduser=first.getString("idUser");
                         String nmactivity=first.getString("nmActivity");
                         String noteactivity=first.getString("noteActivity");
-                        JSONObject AvtivityTypeInfo=null;
+                        JSONObject ActivityTypeInfo=null;
                         try {
-                            AvtivityTypeInfo=first.getJSONObject("AvtivityTypeInfo");
+                            ActivityTypeInfo=first.getJSONObject("ActivityTypeInfo");
                         }catch (Exception e){
                             e.printStackTrace();
                         }
                         String activitytypename="";
                         try {
-                            activitytypename=AvtivityTypeInfo.getString("name");
+                            activitytypename=ActivityTypeInfo.getString("name");
                         }catch (Exception e){
                             e.printStackTrace();
                         }
@@ -107,11 +107,16 @@ public class ActivitiesFragment extends Fragment {
                         }catch (Exception e){
                             e.printStackTrace();
                         }
-                        String username="";
+                        String firstName="";
                         try {
-                            username=userInfo.getString("username");
+                            firstName=userInfo.getString("firstName");
                         }catch (Exception e){
                             e.printStackTrace();
+                        }
+                        String lastName="";
+                        try {
+                            lastName=userInfo.getString("lastName");
+                        }catch (Exception e){
                         }
 
                         CommonJobs commonJobs=new CommonJobs();
@@ -121,7 +126,8 @@ public class ActivitiesFragment extends Fragment {
                         commonJobs.setNoteactivity(noteactivity);
                         commonJobs.setActivitytypename(activitytypename);
                         commonJobs.setNmactivity(nmactivity);
-                        commonJobs.setTechnicianname(username);
+                        commonJobs.setFirstname(firstName);
+                        commonJobs.setLastname(lastName);
                         commonJobsArrayList.add(commonJobs);
 
                     }
@@ -161,6 +167,7 @@ public class ActivitiesFragment extends Fragment {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

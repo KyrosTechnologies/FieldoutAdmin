@@ -212,7 +212,7 @@ public class AddQuotationsListActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -241,60 +241,6 @@ public class AddQuotationsListActivity extends AppCompatActivity {
         }catch (Exception e){
             e.printStackTrace();
         }
-
-    }
-
-    private void QuotationsSaveApi(){
-
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "quotations/save/"+quotationid;
-        Log.d("waggonurl", url);
-        showProgressDialog();
-        JSONObject inputLogin = new JSONObject();
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                dismissProgressDialog();
-                Log.d("List Response", response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
-                    if (success) {
-                        String first = obj.getString("result");
-
-                    }
-                    AddQuotationsListActivity.this.finish();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null) {
-                    Log.e("Error", "" + error.toString());
-                }
-                dismissProgressDialog();
-//                texts.setText(error.toString());
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
@@ -344,6 +290,7 @@ public class AddQuotationsListActivity extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -398,6 +345,7 @@ public class AddQuotationsListActivity extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -442,7 +390,7 @@ public class AddQuotationsListActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -482,21 +430,12 @@ public class AddQuotationsListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_save, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
             case android.R.id.home:
                 AddQuotationsListActivity.this.finish();
                 return true;
-            case R.id.action_save:
-                QuotationsSaveApi();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

@@ -93,7 +93,11 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
             i.putExtra("fax",fax);
             i.putExtra("email",email);
             i.putExtra("latlng",latlng);
-            i.putExtra("tags",tags.toString());
+            try {
+                i.putExtra("tags",tags.toString());
+            }catch (Exception e){
+                e.printStackTrace();
+            }
             i.putExtra("customFields",customFields);
             mContext.startActivity(i);
         });
@@ -102,19 +106,23 @@ public class CustomerAdapter extends RecyclerView.Adapter<CustomerAdapter.MyView
         holder.contact_name.setText(firstname+" "+lastname);
         holder.customer_phone.setText(mobile+" / "+phone);
         String tag=null;
-        for (int i=0;i<tags.length();i++){
-            JSONObject first= null;
-            try {
-                first = tags.getJSONObject(i);
-                String tagid=first.getString("id");
-                tag=first.getString("name");
+        try {
+            for (int i=0;i<tags.length();i++){
+                JSONObject first= null;
+                try {
+                    first = tags.getJSONObject(i);
+                    String tagid=first.getString("id");
+                    tag=first.getString("name");
 
-            } catch (JSONException e) {
+                } catch (JSONException e) {
+                }
+
             }
-
-        }
-        if (tag!=null){
-            holder.customer_tags.setText(tag);
+            if (tag!=null){
+                holder.customer_tags.setText(tag);
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
 
     }

@@ -702,7 +702,7 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
 
     private void GetTagsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"tags/getByDomainId/"+domainid;
+        String url = EndURL.URL+"tags/getAll";
         Log.d("waggonurl", url);
         //showProgressDialog();
 
@@ -764,7 +764,7 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -783,7 +783,6 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
 
         try {
             inputLogin.put("name",name);
-            inputLogin.put("idDomain",domainid);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -831,6 +830,7 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -956,7 +956,6 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
             inputLogin.put("name",myid);
             inputLogin.put("myId",name);
             inputLogin.put("address",globalAddress);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("addressComplement",complementaddress);
             inputLogin.put("contactFirstName",firstname);
             inputLogin.put("contactLastName",lastname);
@@ -1014,6 +1013,7 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1133,7 +1133,7 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
     }
     private void GetCustomerList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"customers/getByDomainId/"+domainid;
+        String url = EndURL.URL+"customers/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -1271,6 +1271,7 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1327,7 +1328,7 @@ public class CustomerUpdateDelete extends AppCompatActivity implements CustomFie
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }

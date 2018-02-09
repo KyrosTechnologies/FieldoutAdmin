@@ -25,6 +25,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -53,7 +54,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
 
     private PreferenceManager store;
     private List<String> activitylist=new ArrayList<String>();
-    private Spinner project_type_spinner;
+    private Spinner project_type_spinner,site_auto_complete,equipment_auto_complete;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
     ArrayList<CommonJobs> activityJobsArrayList = new ArrayList<CommonJobs>();
     ArrayList<CommonJobs> cusDetailsArrayList = new ArrayList<CommonJobs>();
@@ -67,7 +68,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
     private String techid=null;
     private String domainid=null;
     private Button save_projects;
-    private AutoCompleteTextView customer_auto_complete,site_auto_complete,equipment_auto_complete;
+    private AutoCompleteTextView customer_auto_complete;
     private EditText project_number_edit,description_edit;
     private TextView tags_add_projects_text;
     private RecyclerView tags_selected_jobs;
@@ -94,6 +95,9 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
     private  JSONArray tagarray=null;
     private android.support.v7.app.AlertDialog.Builder builder;
     private ProgressDialog pDialog;
+    private String customertext=null;
+    private String sitetext=null;
+    private String equiptext=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -118,8 +122,6 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
         project_type_spinner.setOnItemSelectedListener(this);
         GetProjectTypeList();
         GetCustomerList();
-        GetSiteList();
-        GetEquipmentList();
         GetTagsList();
 
         try {
@@ -156,12 +158,6 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
         if (cusname!=null){
             customer_auto_complete.setText(cusname);
         }
-        if (sitename!=null){
-            site_auto_complete.setText(sitename);
-        }
-        if (equipmentname!=null){
-            equipment_auto_complete.setText(equipmentname);
-        }
         if (desc!=null){
             description_edit.setText(desc);
         }
@@ -177,15 +173,25 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
                 Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
                 return ;
             }
-            site=site_auto_complete.getText() .toString();
-            if (site==null && site.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Site Name!", Toast.LENGTH_SHORT).show();
-                return ;
+            String sitename = null;
+            try {
+                sitename=site_auto_complete.getSelectedItem().toString();
+            }catch (Exception e){
+                e.printStackTrace();
             }
-            equipment=equipment_auto_complete.getText() .toString();
-            if (equipment==null && equipment.isEmpty()){
-                Toast.makeText(getApplicationContext(), "Please Enter Equipment Name!", Toast.LENGTH_SHORT).show();
-                return ;
+            if(sitename==null){
+                Toast.makeText(getApplicationContext(), "Please Select Site Name!", Toast.LENGTH_SHORT).show();
+                return;
+            }
+            String equipmentname = null;
+            try {
+                equipmentname=equipment_auto_complete.getSelectedItem().toString();
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            if(equipmentname==null){
+                Toast.makeText(getApplicationContext(), "Please Select Equipment Name!", Toast.LENGTH_SHORT).show();
+                return;
             }
             projectnumber=project_number_edit.getText().toString();
             if (projectnumber==null && projectnumber.isEmpty()){
@@ -203,7 +209,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
                 return;
             }
 
-            if(customer!=null &&!customer.isEmpty()&&site!=null &&!site.isEmpty()&&equipment!=null &&!equipment.isEmpty()
+            if(customer!=null &&!customer.isEmpty()&&sitename!=null&&equipmentname!=null
                     &&projectnumber!=null &&!projectnumber.isEmpty()&&projecttypespinner!=null){
                 description=description_edit.getText().toString();
                 UpdateProjectsApi(projecttypetext,projectnumber,description);
@@ -246,7 +252,6 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
                 tags_selected_jobs.setAdapter(selectedAdapter);
                 selectedAdapter.notifyDataSetChanged();
                 for (int i=0;i<tagsList.size();i++){
-                    AddTagsApi(tagsList.get(i));
                 }
             }
 
@@ -325,7 +330,6 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
         try {
             inputLogin.put("idCustomer", customerid);
             inputLogin.put("idSite",siteid);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("idEquipment",equipmentid);
             inputLogin.put("tags",jsonArray);
             inputLogin.put("custom_project_no",projectno);
@@ -336,7 +340,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             e.printStackTrace();
         }
         Log.d("inputJsonuser", inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url, inputLogin, new Response.Listener<JSONObject>() {
             @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
             @Override
             public void onResponse(JSONObject response) {
@@ -377,6 +381,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -387,7 +392,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
 
     private void GetProjectTypeList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"project_types/getByDomainId/"+domainid;
+        String url = EndURL.URL+"project_types/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -459,18 +464,23 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
     private void GetCustomerList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"customers/getByDomainId/"+domainid;
+        String url = EndURL.URL+"customers/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -535,26 +545,26 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
                         }catch (Exception e){
 
                         }
-                        JSONObject tagInfo =null;
-                        try {
-                            tagInfo = first.getJSONObject("tagInfo");
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-
-                        String tagid=null;
-                        try {
-                            tagid=tagInfo.getString("id");
-                            store.putTagId(String.valueOf(tagid));
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
-                        String tagname="";
-                        try {
-                            tagname=tagInfo.getString("name");
-                        }catch (Exception e){
-                            e.printStackTrace();
-                        }
+//                        JSONObject tagInfo =null;
+//                        try {
+//                            tagInfo = first.getJSONObject("tagInfo");
+//                        }catch (Exception e){
+//                            e.printStackTrace();
+//                        }
+//
+//                        String tagid=null;
+//                        try {
+//                            tagid=tagInfo.getString("id");
+//                            store.putTagId(String.valueOf(tagid));
+//                        }catch (Exception e){
+//                            e.printStackTrace();
+//                        }
+//                        String tagname="";
+//                        try {
+//                            tagname=tagInfo.getString("name");
+//                        }catch (Exception e){
+//                            e.printStackTrace();
+//                        }
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setCustomername(name);
@@ -565,7 +575,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
                         commonJobs.setMobilenum(contactmobile);
                         commonJobs.setPhone(contactphone);
                         commonJobs.setAddress(address);
-                        commonJobs.setTagname(tagname);
+                        //commonJobs.setTagname(tagname);
                         commonJobs.setComplementAddress(addressComplement);
                         commonJobs.setEmail(contactEmail);
                         cusDetailsArrayList.add(commonJobs);
@@ -585,9 +595,12 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
                         public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
                             String customername=customer[i];
                             bindViews(customername);
+                            customertext=customername;
+                            GetSiteList(customertext);
                         }
                     });
-
+                    GetSiteList(cusname);
+                    GetEquipmentList(equipmentname);
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -608,18 +621,29 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
-    private void GetSiteList() {
+    private void GetSiteList(String customername) {
+        String customid="";
+        for (int i=0;i<cusDetailsArrayList.size();i++){
+            if (customername.equals(cusDetailsArrayList.get(i).getCustomername())){
+                customid=cusDetailsArrayList.get(i).getCustomerid();
+            }
+        }
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"sites/getByDomainId/"+domainid;
+        String url = EndURL.URL+"sites/getByCustomerId/"+customid;
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -644,27 +668,38 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
                         }
 
                         CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setSitename(sitename);
                         commonJobs.setSiteid(siteid);
                         ProjectsUpdateDelete.this.siteid=siteid;
-                        commonJobs.setSitename(sitename);
                         siteDetailsArrayList.add(commonJobs);
                         sitenamestring.add(sitename);
 
                     }
 
-                    String[]site=sitenamestring.stream().toArray(String[]::new);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                            (ProjectsUpdateDelete.this,android.R.layout.select_dialog_item,site);
-                    site_auto_complete= findViewById(R.id.site_auto_complete);
-                    site_auto_complete.setThreshold(1);//will start working from first character
-                    site_auto_complete.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-                    site_auto_complete.setTextColor(R.color.text_light);
+                    for (String s:sitenamestring) {
 
-                    site_auto_complete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    }
+                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(ProjectsUpdateDelete.this,android.R.layout.simple_spinner_item,
+                            sitenamestring);
+                    adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                    site_auto_complete.setPrompt("Site");
+                    site_auto_complete.setAdapter(adapter);
+                    site_auto_complete.setAdapter(new SpinnerDetails(adapter,R.layout.site_spinner,ProjectsUpdateDelete.this));
+                    site_auto_complete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            String sitename=site[i];
-                            bindSites(sitename);
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            try {
+                                String text = site_auto_complete.getSelectedItem().toString();
+                                sitetext=text;
+                                GetEquipmentList(sitetext);
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
                         }
                     });
 
@@ -687,18 +722,30 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
-    private void GetEquipmentList() {
+    private void GetEquipmentList(String sitename) {
+
+        String siteid="";
+        for (int i=0;i<siteDetailsArrayList.size();i++){
+            if (sitename.equals(siteDetailsArrayList.get(i).getSitename())){
+                siteid=siteDetailsArrayList.get(i).getSiteid();
+            }
+        }
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"equipments/getByDomainId/"+domainid;
+        String url = EndURL.URL+"equipments/getBySiteId/"+siteid;
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -731,19 +778,29 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
 
                     }
 
-                    String[]equipment=equipnamestring.stream().toArray(String[]::new);
-                    ArrayAdapter<String> adapter = new ArrayAdapter<String>
-                            (ProjectsUpdateDelete.this,android.R.layout.select_dialog_item,equipment);
-                    equipment_auto_complete= findViewById(R.id.equipment_auto_complete);
-                    equipment_auto_complete.setThreshold(1);//will start working from first character
-                    equipment_auto_complete.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-                    equipment_auto_complete.setTextColor(R.color.text_light);
+                    for (String s:equipnamestring) {
 
-                    equipment_auto_complete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    }
+                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(ProjectsUpdateDelete.this,android.R.layout.simple_spinner_item,
+                            equipnamestring);
+                    adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                    equipment_auto_complete.setPrompt("Equipment");
+                    equipment_auto_complete.setAdapter(adapter);
+                    equipment_auto_complete.setAdapter(new SpinnerDetails(adapter,R.layout.equipment_spinner,ProjectsUpdateDelete.this));
+                    equipment_auto_complete.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
-                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                            String sitename=equipment[i];
-                            bindEquipments(equipname);
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            try {
+                                String text = equipment_auto_complete.getSelectedItem().toString();
+                                equiptext=text;
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
                         }
                     });
 
@@ -766,18 +823,23 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
     private void GetTagsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"tags/getByDomainId/"+domainid;
+        String url = EndURL.URL+"tags/getAll";
         Log.d("waggonurl", url);
         //showProgressDialog();
 
@@ -794,6 +856,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
 
                     JSONObject obj=new JSONObject(response.toString());
                     JSONArray array=obj.getJSONArray("tags");
+                    tagarray=new JSONArray(array.toString());
                     for (int i=0;i<array.length();i++){
                         JSONObject first=array.getJSONObject(i);
                         String tagid=first.getString("id");
@@ -821,7 +884,6 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
                     }else {
                         tags_selected_jobs.setVisibility(View.GONE);
                     }
-
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -839,7 +901,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -873,71 +935,6 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
         }
     }
 
-    private void AddTagsApi(String name) {
-
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "tags/add";
-        Log.d("waggonurl", url);
-        JSONObject inputLogin = new JSONObject();
-
-        try {
-            inputLogin.put("name",name);
-            inputLogin.put("idDomain",domainid);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.d("inputJsonuser", inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response", response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
-                    if (success) {
-                        JSONObject first = obj.getJSONObject("tag");
-                        String tagid=first.getString("id");
-                        store.putTagId(String.valueOf(tagid));
-
-                        tagsArrayList.add(tagid);
-
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null) {
-                    Log.e("Error", "" + error.toString());
-                }
-//                texts.setText(error.toString());
-            }
-        }) {
-
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
     private void DeleteProjectsList() {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"projects/delete/"+projectid;
@@ -956,6 +953,8 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
 
                     JSONObject obj=new JSONObject(response.toString());
                     String array=obj.getString("result");
+                    String message=obj.getString("message");
+                    Toast.makeText(getApplicationContext(),""+message,Toast.LENGTH_SHORT).show();
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -974,7 +973,7 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }

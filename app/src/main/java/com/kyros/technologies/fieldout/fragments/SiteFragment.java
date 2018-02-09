@@ -67,7 +67,7 @@ public class SiteFragment extends Fragment {
 
     private void GetSiteList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"sites/getByDomainId/"+domainid;
+        String url = EndURL.URL+"sites/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -244,6 +244,7 @@ public class SiteFragment extends Fragment {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

@@ -19,7 +19,7 @@ public class AddToolsResourceResponse {
     @SerializedName("isSuccess")
     @Expose
     private Boolean isSuccess;
-    @SerializedName("resource")
+    @SerializedName("resource_type_value")
     @Expose
     private Resource resource;
 

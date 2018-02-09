@@ -3,7 +3,6 @@ package com.kyros.technologies.fieldout.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -64,6 +63,8 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.My
         String nmactivity=commonJobs.getActivitytypename();
         String noteactivity=commonJobs.getNoteactivity();
         String dtstart=commonJobs.getDtstart();
+        String firstname=commonJobs.getFirstname();
+        String lastname=commonJobs.getLastname();
         String dtend=commonJobs.getDtend();
         String username=commonJobs.getTechnicianname();
         String activitiesid=commonJobs.getActivitiesid();
@@ -72,7 +73,6 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.My
             Intent i=new Intent(mContext,ActivitiesUpdateDelete.class);
             store.putTechSpinner(username);
             i.putExtra("activitiesid",activitiesid);
-            Log.e("Activities Id"," : "+activitiesid);
             store.putActivityTypeSpinner(nmactivity);
             i.putExtra("dtstart",dtstart);
             i.putExtra("dtend",dtend);
@@ -80,7 +80,7 @@ public class ActivitiesAdapter extends RecyclerView.Adapter<ActivitiesAdapter.My
             mContext.startActivity(i);
         });
 
-        holder.technician_activity.setText(username);
+        holder.technician_activity.setText(firstname+" "+lastname);
         holder.activity_name.setText(nmactivity);
         holder.activity_from.setText(dtstart);
         holder.activity_to.setText(dtend);

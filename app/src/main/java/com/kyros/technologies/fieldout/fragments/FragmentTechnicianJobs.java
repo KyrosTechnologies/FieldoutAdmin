@@ -20,6 +20,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -74,7 +75,7 @@ public class FragmentTechnicianJobs extends Fragment implements AdapterView.OnIt
 
     private void GetTechnicianList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
+        String url = EndURL.URL+"users/getTechnicians";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -90,13 +91,15 @@ public class FragmentTechnicianJobs extends Fragment implements AdapterView.OnIt
                     for (int i=0;i<array.length();i++){
                         JSONObject first=array.getJSONObject(i);
                         String technicianid=first.getString("id");
-                        String techusername=first.getString("username");
+                        String techfirstName=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
                         commonJobsArrayList.add(commonJobs);
-                        spinnerlist.add(techusername);
+                        spinnerlist.add(techfirstName+" "+techlastName);
 
                     }
 
@@ -142,11 +145,16 @@ public class FragmentTechnicianJobs extends Fragment implements AdapterView.OnIt
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -154,9 +162,10 @@ public class FragmentTechnicianJobs extends Fragment implements AdapterView.OnIt
     private void GetReportsTechJobsApi(String techniciantext) {
         String technicianid=null;
         for (int i=0;i<commonJobsArrayList.size();i++){
-            String techName=commonJobsArrayList.get(i).getTechnicianname();
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
+                if (techniciantext.equals(techName+" "+techlastname)) {
                     technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
@@ -297,12 +306,16 @@ public class FragmentTechnicianJobs extends Fragment implements AdapterView.OnIt
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
     }
 

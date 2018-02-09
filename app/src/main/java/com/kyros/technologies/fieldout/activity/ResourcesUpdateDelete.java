@@ -4,12 +4,14 @@ import android.annotation.TargetApi;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -18,6 +20,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -60,6 +63,8 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
     private String techid=null;
     private Button save_resources_update;
     private EditText resource_note_edit_update;
+    private LinearLayout type_linear;
+    private TextView type_text;
     private TimePickerDialog timePickerDialog,endtimePickerDialog;
     private TextView resource_start_time_update,resource_end_time_update,resource_start_date_update,resource_end_date_update;
     private String monthString;
@@ -78,6 +83,8 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
     private String date_start;
     private String date_end;
     private ProgressDialog pDialog;
+    private android.app.AlertDialog prioritydialog;
+    private String selectedpriority=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -98,10 +105,12 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
         resource_start_time_update=findViewById(R.id.resource_start_time_update);
         resource_end_time_update=findViewById(R.id.resource_end_time_update);
         resource_note_edit_update=findViewById(R.id.resource_note_edit_update);
+        type_text=findViewById(R.id.type_text);
+        type_linear=findViewById(R.id.type_linear);
         resource_activity_spinner_update.setOnItemSelectedListener(this);
         GetTechnicianList();
         resource_type_spinner_update.setOnItemSelectedListener(this);
-        GetResourcesList();
+        GetToolsResourcesList();
 
         try {
 
@@ -167,7 +176,9 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
 
             if(date_start!=null &&!date_start.isEmpty()&&date_end!=null &&!date_end.isEmpty()&& activityspinner!=null&&techspinner!=null){
                 noteactivity=resource_note_edit_update.getText().toString();
-                UpdateResourcesApi(techniciantext,activitytext,startdate,enddate,noteactivity);
+                String stime=date_start+resource_start_time_update.getText().toString();
+                String etime=date_end+resource_end_time_update.getText().toString();
+                UpdateResourcesApi(techniciantext,activitytext,stime,etime,noteactivity);
             }else{
                 Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
 
@@ -182,6 +193,11 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
         resource_end_time_update.setOnClickListener(view -> {
             endtimePicker();
         });
+
+        type_linear.setOnClickListener(view -> {
+            showPriorityDialog();
+        });
+
 
         resource_start_date_update.setOnClickListener(view -> {
             Calendar mcurrentDate=Calendar.getInstance();
@@ -257,6 +273,40 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
             e.printStackTrace();
         }
         return b;
+    }
+
+    private void showPriorityDialog(){
+        if(prioritydialog==null){
+            android.app.AlertDialog.Builder builder=new android.app.AlertDialog.Builder(ResourcesUpdateDelete.this);
+            LayoutInflater inflater=getLayoutInflater();
+            View view=inflater.inflate(R.layout.resource_type_value,null);
+            builder.setView(view);
+            TextView consumable=view.findViewById(R.id.consumable);
+            TextView returnable=view.findViewById(R.id.returnable);
+
+            consumable.setOnClickListener(view1 -> {
+                selectedpriority="Consumable";
+                prioritydialog.dismiss();
+                if (selectedpriority!=null){
+                    type_text.setText(selectedpriority);
+                }
+            });
+
+            returnable.setOnClickListener(view1 -> {
+                selectedpriority="Returnable";
+                prioritydialog.dismiss();
+                if (selectedpriority!=null){
+                    type_text.setText(selectedpriority);
+                }
+            });
+
+            prioritydialog=builder.create();
+            prioritydialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+            prioritydialog.setCancelable(false);
+            prioritydialog.setCanceledOnTouchOutside(false);
+        }
+        prioritydialog.show();
+
     }
 
     private void starttimePicker(){
@@ -348,21 +398,22 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
                 }
             }
         }
-        String activityid=null;
-        for (int i=0;i<activityJobsArrayList.size();i++){
-            String activityName=activityJobsArrayList.get(i).getResourcename();
-            if (activitytext!=null){
-                if (activitytext.equals(activityName)) {
-                    activityid=activityJobsArrayList.get(i).getActivitytypeid();
+        String technicianid=null;
+        for (int i=0;i<commonJobsArrayList.size();i++){
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
+            if (techniciantext!=null){
+                if (techniciantext.equals(techName+" "+techlastname)) {
+                    technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
-
         }
         try {
-            inputLogin.put("nmActivity", activityid);
+            inputLogin.put("nmActivity", technicianid);
             inputLogin.put("noteActivity", noteactivity);
-            inputLogin.put("dtStart",stime);
-            inputLogin.put("dtEnd",etime);
+            inputLogin.put("dtStart",startdate);
+            inputLogin.put("dtEnd",enddate);
+            inputLogin.put("type",selectedpriority);
             inputLogin.put("idUser",idToolsAndResurces);
 
         } catch (Exception e) {
@@ -416,6 +467,7 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -426,7 +478,7 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
 
     private void GetTechnicianList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
+        String url = EndURL.URL+"users/getTechnicians";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -442,13 +494,15 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
                         JSONObject first=array.getJSONObject(i);
                         String technicianid=first.getString("id");
                         store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
+                        String techfirstName=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
                         commonJobsArrayList.add(commonJobs);
-                        spinnerlist.add(techusername);
+                        spinnerlist.add(techfirstName+" "+techlastName);
 
                     }
 
@@ -460,7 +514,7 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
                     adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     resource_activity_spinner_update.setPrompt("Technician");
                     resource_activity_spinner_update.setAdapter(adapter);
-                    resource_activity_spinner_update.setAdapter(new ResourcesSelectedSpinner(adapter,R.layout.nothing_selected_list,ResourcesUpdateDelete.this));
+                    resource_activity_spinner_update.setAdapter(new SpinnerDetails(adapter,R.layout.technician,ResourcesUpdateDelete.this));
                     resource_activity_spinner_update.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -496,6 +550,7 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -505,9 +560,9 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
 
     }
 
-    private void GetResourcesList() {
+    private void GetToolsResourcesList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"tools_and_resources/getByDomainId/"+domainid;
+        String url = EndURL.URL+"tools_and_resources/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -531,8 +586,6 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
                         activityJobsArrayList.add(commonJobs);
                         activitylist.add(resourceusername);
 
-
-
                     }
 
                     for (String s:activitylist) {
@@ -544,7 +597,7 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
                     adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     resource_type_spinner_update.setPrompt("Tool / Resource");
                     resource_type_spinner_update.setAdapter(adapter);
-                    resource_type_spinner_update.setAdapter(new ResourcesSelectedSpinner(adapter,R.layout.tools_resources,ResourcesUpdateDelete.this));
+                    resource_type_spinner_update.setAdapter(new SpinnerDetails(adapter,R.layout.tools_resources,ResourcesUpdateDelete.this));
                     resource_type_spinner_update.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -572,6 +625,7 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
 
             @Override
             public void onErrorResponse(VolleyError error) {
+                Log.e("ERror : ",""+error.toString());
                 Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
 
             }
@@ -581,6 +635,7 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -636,7 +691,7 @@ public class ResourcesUpdateDelete extends AppCompatActivity implements AdapterV
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }

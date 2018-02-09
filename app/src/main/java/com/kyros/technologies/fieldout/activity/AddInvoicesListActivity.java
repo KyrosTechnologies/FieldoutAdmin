@@ -17,7 +17,6 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -144,7 +143,7 @@ public class AddInvoicesListActivity extends AppCompatActivity {
             Log.d("Path : ",textFile.toString());
             Uri path= Uri.parse(textFile.toString());
             Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-            intent.setDataAndType(path, "resource/folder");
+            intent.setDataAndType(path, "resource_type_value/folder");
             startActivity(Intent.createChooser(intent, "Open folder"));
         });
         builder.setNegativeButton("Cancel",((dialogInterface, i) -> dialogInterface.cancel()));
@@ -369,7 +368,7 @@ public class AddInvoicesListActivity extends AppCompatActivity {
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -400,66 +399,6 @@ public class AddInvoicesListActivity extends AppCompatActivity {
         }
 
     }
-
-    private void InvoicesSaveApi(){
-
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "invoices/save/"+adapinvoice;
-        Log.d("waggonurl", url);
-        showProgressDialog();
-        JSONObject inputLogin = new JSONObject();
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.PUT, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                dismissProgressDialog();
-                Log.d("List Response", response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
-                    if (success) {
-                        String first = obj.getString("result");
-
-                    }
-                    AddInvoicesListActivity.this.finish();
-//                    InvoicesFragment h= new InvoicesFragment();
-//                    android.support.v4.app.FragmentTransaction k=
-//                            getSupportFragmentManager().beginTransaction();
-//                    k.replace(R.id.container_fragments,h);
-//                    k.commit();
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null) {
-                    Log.e("Error", "" + error.toString());
-                }
-                dismissProgressDialog();
-//                texts.setText(error.toString());
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
     private void InvoicesSentApi(){
 
         String tag_json_obj = "json_obj_req";
@@ -506,6 +445,7 @@ public class AddInvoicesListActivity extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -560,6 +500,7 @@ public class AddInvoicesListActivity extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -614,6 +555,7 @@ public class AddInvoicesListActivity extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -668,6 +610,7 @@ public class AddInvoicesListActivity extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -683,21 +626,12 @@ public class AddInvoicesListActivity extends AppCompatActivity {
     }
 
     @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.actionbar_save, menu);
-        return true;
-    }
-
-    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
             case android.R.id.home:
                 AddInvoicesListActivity.this.finish();
                 return true;
-            case R.id.action_save:
-                InvoicesSaveApi();
-                break;
         }
         return super.onOptionsItemSelected(item);
     }

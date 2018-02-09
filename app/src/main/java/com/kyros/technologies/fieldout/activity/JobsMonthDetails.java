@@ -469,6 +469,7 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -526,7 +527,6 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
             inputLogin.put("idJob", jobid);
             inputLogin.put("scheduledBeginDateString",stime);
             inputLogin.put("scheduledEndDateString",etime);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("status","created");
 
         } catch (Exception e) {
@@ -578,6 +578,7 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -633,6 +634,7 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -682,7 +684,7 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }

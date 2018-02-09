@@ -67,7 +67,7 @@ public class EquipmentFragment extends Fragment {
 
     private void GetEquipmentList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"equipments/getByDomainId/"+domainid;
+        String url = EndURL.URL+"equipments/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -210,6 +210,7 @@ public class EquipmentFragment extends Fragment {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

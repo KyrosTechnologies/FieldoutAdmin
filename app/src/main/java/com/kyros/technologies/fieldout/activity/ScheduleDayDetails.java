@@ -470,6 +470,7 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -527,7 +528,6 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
             inputLogin.put("idJob", jobid);
             inputLogin.put("scheduledBeginDateString",stime);
             inputLogin.put("scheduledEndDateString",etime);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("status","created");
 
         } catch (Exception e) {
@@ -579,6 +579,7 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -634,6 +635,7 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -642,7 +644,7 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
 
     }
 
-    private void DeleteActivitiesList() {
+    private void UnScheduleJobsList() {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"userjobs/unschedule/"+userjobid;
         Log.d("waggonurl", url);
@@ -683,7 +685,7 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -701,7 +703,7 @@ public class ScheduleDayDetails extends AppCompatActivity implements AdapterView
             builder.setPositiveButton(
                     "Yes",
                     (dialog, id) ->{
-                        DeleteActivitiesList();
+                        UnScheduleJobsList();
                         Log.d("Dialog Yes ","dialog initialization");
                         dialog.cancel();
                     });

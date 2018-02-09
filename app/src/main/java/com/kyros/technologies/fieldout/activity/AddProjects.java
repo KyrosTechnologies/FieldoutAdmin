@@ -24,6 +24,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -281,7 +282,6 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
         try {
             inputLogin.put("idCustomer", customerid);
             inputLogin.put("idSite",siteid);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("idEquipment",equipmentid);
             inputLogin.put("tags",jsonArray);
             inputLogin.put("custom_project_no",projectno);
@@ -333,17 +333,22 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
     private void GetProjectTypeList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"project_types/getByDomainId/"+domainid;
+        String url = EndURL.URL+"project_types/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -415,18 +420,23 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
     private void GetCustomerList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"customers/getByDomainId/"+domainid;
+        String url = EndURL.URL+"customers/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -566,11 +576,16 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -662,11 +677,16 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -758,18 +778,23 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
 
     private void GetTagsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"tags/getByDomainId/"+domainid;
+        String url = EndURL.URL+"tags/getAll";
         Log.d("waggonurl", url);
         //showProgressDialog();
 
@@ -831,7 +856,7 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -874,7 +899,6 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
 
         try {
             inputLogin.put("name",name);
-            inputLogin.put("idDomain",domainid);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -922,6 +946,7 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

@@ -321,4 +321,5 @@
     <string name="select_here">Select here</string>
     <string name="jobs_by_customers">Jobs by Customers</string>
     <string name="jobs_by_site">Jobs by Site</string>
+    <string name="jobs_by_status">Jobs by Status</string>
 </resources>

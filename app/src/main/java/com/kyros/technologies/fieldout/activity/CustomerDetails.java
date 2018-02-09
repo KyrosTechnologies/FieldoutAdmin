@@ -125,7 +125,11 @@ public class CustomerDetails extends AppCompatActivity {
                 i.putExtra("phone",cusphone);
                 i.putExtra("fax",cusfax);
                 i.putExtra("email",cusemail);
-                i.putExtra("tags",taginfo.toString());
+                try {
+                    i.putExtra("tags",taginfo.toString());
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
                 i.putExtra("customFields",customFields);
                 startActivity(i);
                 break;

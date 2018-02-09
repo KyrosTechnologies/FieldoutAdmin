@@ -17,6 +17,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -66,7 +67,7 @@ public class JobsToScheduleFragment extends Fragment {
 
     private void GetToScheduleJobsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"jobs/getToScheduleJobs/"+domainid;
+        String url = EndURL.URL+"jobs/getToScheduleJobs";
         Log.d("waggonurl", url);
         //showProgressDialog();
 
@@ -252,12 +253,16 @@ public class JobsToScheduleFragment extends Fragment {
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }

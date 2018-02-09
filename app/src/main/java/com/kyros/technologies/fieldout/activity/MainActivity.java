@@ -134,7 +134,6 @@ public class MainActivity extends AppCompatActivity {
             inputLogin.put("email",username);
             inputLogin.put("domain",store.getDomainName());
 
-
         }catch (Exception e){
             e.printStackTrace();
         }

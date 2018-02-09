@@ -286,6 +286,7 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -380,6 +381,7 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

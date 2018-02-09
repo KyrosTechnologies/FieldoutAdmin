@@ -135,11 +135,13 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
 
         save_activity_update.setOnClickListener(view -> {
             date_start=activity_start_date_update.getText() .toString();
+
             if (date_start==null && date_start.isEmpty()){
                 Toast.makeText(getApplicationContext(), "Please Select Start Date!", Toast.LENGTH_SHORT).show();
                 return ;
             }
             date_end=activity_end_date_update.getText() .toString();
+
             if (date_end==null && date_end.isEmpty()){
                 Toast.makeText(getApplicationContext(), "Please Select End Date!", Toast.LENGTH_SHORT).show();
                 return ;
@@ -168,7 +170,9 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
 
             if(date_start!=null &&!date_start.isEmpty()&&date_end!=null &&!date_end.isEmpty()&& activityspinner!=null&&techspinner!=null){
                 noteactivity=activity_note_update.getText().toString();
-                UpdateActivitiesApi(techniciantext,activitytext,startdate,enddate,noteactivity);
+                String stime=date_start+activity_start_time_update.getText().toString();
+                String etime=date_end+activity_end_time_update.getText().toString();
+                UpdateActivitiesApi(techniciantext,activitytext,stime,etime,noteactivity);
             }else{
                 Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
 
@@ -195,8 +199,9 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     activity_start_date_update.setText(currentdate);
                     startdate=currentdate;
 
@@ -218,8 +223,9 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     boolean enddates=CheckDates(activity_start_date_update.getText().toString(),currentdate);
                     if (enddates){
                         activity_end_date_update.setText(currentdate);
@@ -338,13 +344,12 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
         Log.d("waggonurl", url);
         showProgressDialog();
         JSONObject inputLogin = new JSONObject();
-        String stime=startdate+starttime;
-        String etime=enddate+endtime;
         String technicianid=null;
         for (int i=0;i<commonJobsArrayList.size();i++){
-            String techName=commonJobsArrayList.get(i).getTechnicianname();
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
+                if (techniciantext.equals(techName+" "+techlastname)) {
                     technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
@@ -362,8 +367,9 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
         try {
             inputLogin.put("nmActivity", activityid);
             inputLogin.put("noteActivity", noteactivity);
-            inputLogin.put("dtStart",stime);
-            inputLogin.put("dtEnd",etime);
+            inputLogin.put("dtStart",startdate);
+            inputLogin.put("dtEnd",enddate);
+            inputLogin.put("idSender",store.getUserid());
             inputLogin.put("idUser",technicianid);
 
         } catch (Exception e) {
@@ -417,6 +423,7 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -427,7 +434,7 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
 
     private void GetTechnicianList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
+        String url = EndURL.URL+"users/getTechnicians";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -443,13 +450,15 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
                         JSONObject first=array.getJSONObject(i);
                         String technicianid=first.getString("id");
                         store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
+                        String techfirstName=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
                         commonJobsArrayList.add(commonJobs);
-                        spinnerlist.add(techusername);
+                        spinnerlist.add(techfirstName+" "+techlastName);
 
                     }
 
@@ -461,7 +470,7 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
                     adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     users_activity_spinner_update.setPrompt("Technician");
                     users_activity_spinner_update.setAdapter(adapter);
-                    users_activity_spinner_update.setAdapter(new NothingSelectedSpinner(adapter,R.layout.nothing_selected_list,ActivitiesUpdateDelete.this));
+                    users_activity_spinner_update.setAdapter(new SpinnerDetails(adapter,R.layout.technician,ActivitiesUpdateDelete.this));
                     users_activity_spinner_update.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -497,6 +506,7 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -508,7 +518,7 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
 
     private void GetActivityList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"activity_types/getByDomainId/"+domainid;
+        String url = EndURL.URL+"activity_types/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -543,7 +553,7 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
                     adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     activity_type_spinner_update.setPrompt("Activity Type");
                     activity_type_spinner_update.setAdapter(adapter);
-                    activity_type_spinner_update.setAdapter(new NothingSelectedSpinner(adapter,R.layout.nothing_selected_nature,ActivitiesUpdateDelete.this));
+                    activity_type_spinner_update.setAdapter(new SpinnerDetails(adapter,R.layout.nothing_selected_nature,ActivitiesUpdateDelete.this));
                     activity_type_spinner_update.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -580,6 +590,7 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -652,8 +663,8 @@ public class ActivitiesUpdateDelete extends AppCompatActivity implements Adapter
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

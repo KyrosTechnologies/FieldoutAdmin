@@ -158,8 +158,9 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     activity_start_date.setText(currentdate);
                     startdate=currentdate;
 
@@ -182,8 +183,9 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     boolean enddates=CheckDates(activity_start_date.getText().toString(),currentdate);
                     if (enddates){
                         activity_end_date.setText(currentdate);
@@ -306,9 +308,10 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
         String etime=enddate+endtime;
         String technicianid=null;
         for (int i=0;i<commonJobsArrayList.size();i++){
-            String techName=commonJobsArrayList.get(i).getTechnicianname();
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
+                if (techniciantext.equals(techName+" "+techlastname)) {
                     technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
@@ -328,8 +331,8 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
             inputLogin.put("noteActivity", noteactivity);
             inputLogin.put("dtStart",stime);
             inputLogin.put("dtEnd",etime);
+            inputLogin.put("idSender",store.getUserid());
             inputLogin.put("idUser",technicianid);
-            inputLogin.put("idDomain",domainid);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -382,6 +385,7 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -392,7 +396,7 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
 
     private void GetTechnicianList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
+        String url = EndURL.URL+"users/getTechnicians";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -408,13 +412,15 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
                         JSONObject first=array.getJSONObject(i);
                         String technicianid=first.getString("id");
                         store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
+                        String techfirstName=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
                         commonJobsArrayList.add(commonJobs);
-                        spinnerlist.add(techusername);
+                        spinnerlist.add(techfirstName+" "+techlastName);
 
                     }
 
@@ -462,6 +468,7 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -473,7 +480,7 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
 
     private void GetActivityTypeList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"activity_types/getByDomainId/"+domainid;
+        String url = EndURL.URL+"activity_types/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -545,6 +552,7 @@ public class ActivityAdd extends AppCompatActivity implements AdapterView.OnItem
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

@@ -128,7 +128,7 @@ public class ToolsAndResourcesFragment extends Fragment {
                     toolsNameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
                     tableRow.addView(toolsNameTextView);
 
-                    //resource color
+                    //resource_type_value color
 
                     TextView resourceColorTextView=new TextView(getContext());
 //                    if(resourceName!=null){
@@ -402,7 +402,7 @@ public class ToolsAndResourcesFragment extends Fragment {
             showToast("not successfully added");
         }
     }else {
-        showToast("add tools resource response is null!");
+        showToast("add tools resource_type_value response is null!");
     }
     }
 

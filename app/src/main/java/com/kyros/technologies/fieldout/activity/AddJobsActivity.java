@@ -30,6 +30,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -324,8 +325,9 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday+" ");
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     scheduling_date.setText(currentdate);
 
                 }
@@ -372,7 +374,6 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                 tags_selected_jobs.setAdapter(selectedAdapter);
                 selectedAdapter.notifyDataSetChanged();
                 for (int i=0;i<tagsList.size();i++){
-                    AddTagsApi(tagsList.get(i));
                 }
             }
 
@@ -509,7 +510,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
     private void GetSpinnersList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"consolidatedResult/addJob/"+domainid;
+        String url = EndURL.URL+"consolidatedResult/addJob";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -676,13 +677,15 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         JSONObject first=technicians.getJSONObject(i);
                         String technicianid=first.getString("id");
                         store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
+                        String techfirstname=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstname);
+                        commonJobs.setLastname(techlastName);
                         technicianArrayList.add(commonJobs);
-                        technicianlist.add(techusername);
+                        technicianlist.add(techfirstname+" "+techlastName);
 
                     }
 
@@ -843,11 +846,16 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -920,23 +928,6 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         }
                     });
 
-//                    String[]site=sitenamestring.stream().toArray(String[]::new);
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>
-//                            (AddJobsActivity.this,android.R.layout.select_dialog_item,site);
-//                    site_auto_complete= findViewById(R.id.site_auto_complete);
-//                    site_auto_complete.setThreshold(1);//will start working from first character
-//                    site_auto_complete.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-//                    site_auto_complete.setTextColor(R.color.text_light);
-//
-//                    site_auto_complete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                            String sitename=site[i];
-//                            bindSites(sitename);
-//                            GetEquipmentList(sitename);
-//                        }
-//                    });
-
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -956,6 +947,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
@@ -1033,22 +1025,6 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
                         }
                     });
 
-//                    String[]equipment=equipnamestring.stream().toArray(String[]::new);
-//                    ArrayAdapter<String> adapter = new ArrayAdapter<String>
-//                            (AddJobsActivity.this,android.R.layout.select_dialog_item,equipment);
-//                    equipment_auto_complete= findViewById(R.id.equipment_auto_complete);
-//                    equipment_auto_complete.setThreshold(1);//will start working from first character
-//                    equipment_auto_complete.setAdapter(adapter);//setting the adapter data into the AutoCompleteTextView
-//                    equipment_auto_complete.setTextColor(R.color.text_light);
-//
-//                    equipment_auto_complete.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-//                        @Override
-//                        public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-//                            String equipname=equipment[i];
-//                            bindEquipments(equipname);
-//                        }
-//                    });
-
                 }catch (Exception e){
                     e.printStackTrace();
                 }
@@ -1068,74 +1044,10 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
-    private void AddTagsApi(String name) {
-
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "tags/add";
-        Log.d("waggonurl", url);
-        JSONObject inputLogin = new JSONObject();
-
-        try {
-            inputLogin.put("name",name);
-            inputLogin.put("idDomain",domainid);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.d("inputJsonuser", inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response", response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
-                    if (success) {
-                        JSONObject first = obj.getJSONObject("tag");
-                        String tagid=first.getString("id");
-                        store.putTagId(String.valueOf(tagid));
-
-                        tagsArrayList.add(tagid);
-
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null) {
-                    Log.e("Error", "" + error.toString());
-                }
-//                texts.setText(error.toString());
-            }
-        }) {
-
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
 
         };
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
@@ -1203,11 +1115,12 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
         }
 
         String technicianid=null;
-        for (int i=0;i<technicianArrayList.size();i++){
-            String techName=technicianArrayList.get(i).getTechnicianname();
+        for (int i=0;i<commonJobsArrayList.size();i++){
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
-                    technicianid=technicianArrayList.get(i).getTechnicianid();
+                if (techniciantext.equals(techName+" "+techlastname)) {
+                    technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
         }
@@ -1279,7 +1192,6 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             inputLogin.put("idSite",sitid);
             inputLogin.put("idEquipment",equipid);
             inputLogin.put("idCreator",userid);
-            inputLogin.put("idDomain",domainid);
             inputLogin.put("description",description);
             inputLogin.put("priority",selectedpriority);
             inputLogin.put("globalAddress",globalAddress);
@@ -1354,6 +1266,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 

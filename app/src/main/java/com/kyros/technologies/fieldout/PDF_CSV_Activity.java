@@ -286,7 +286,7 @@ public class PDF_CSV_Activity extends AppCompatActivity {
            Log.d("Path : ",textFile.toString());
            Uri path= Uri.parse(textFile.toString());
            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
-           intent.setDataAndType(path, "resource/folder");
+           intent.setDataAndType(path, "resource_type_value/folder");
            startActivity(Intent.createChooser(intent, "Open folder"));
        });
        builder.setNegativeButton("Cancel",((dialogInterface, i) -> dialogInterface.cancel()));

@@ -16,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.DefaultRetryPolicy;
@@ -46,6 +45,8 @@ import com.kyros.technologies.fieldout.activity.ChartAllJJobs;
 import com.kyros.technologies.fieldout.activity.ChartCompletedJobs;
 import com.kyros.technologies.fieldout.activity.ChartIncompletedJobs;
 import com.kyros.technologies.fieldout.activity.ChartLateJobs;
+import com.kyros.technologies.fieldout.activity.CustomerJobsList;
+import com.kyros.technologies.fieldout.activity.SiteJobsList;
 import com.kyros.technologies.fieldout.activity.StatusJobsList;
 import com.kyros.technologies.fieldout.adapters.TechnicianDayAdapter;
 import com.kyros.technologies.fieldout.adapters.TechnicianProgressAdapter;
@@ -126,6 +127,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
     private JSONArray techclosedjobsWeek;
     private JSONArray techtodayallJobs;
     private JSONArray techclosedjobsToday;
+    private JSONArray customer;
+    private JSONArray site;
 
     private BubbleChartView bubbleChartView,sitejobs;
     private BubbleChartData bubbleChartData,siteChartData;
@@ -1762,7 +1765,7 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                     }
 
                     JSONObject thirdLayer=object.getJSONObject("thirdLayer");
-                    JSONArray customer=thirdLayer.getJSONArray("customer");
+                    customer=thirdLayer.getJSONArray("customer");
                     for (int i=0;i<customer.length();i++){
                         JSONObject last = customer.getJSONObject(i);
                         String customerName=last.getString("customerName");
@@ -1798,7 +1801,9 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
 
                     bubbleChartView.setBubbleChartData(bubbleChartData);
 
-                    JSONArray site=thirdLayer.getJSONArray("site");
+                    bubbleChartView.setOnValueTouchListener(new ValueTouchListener());
+
+                    site=thirdLayer.getJSONArray("site");
                     for (int i=0;i<site.length();i++){
                         JSONObject last = site.getJSONObject(i);
                         String siteName=last.getString("siteName");
@@ -1833,6 +1838,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                     }
 
                     sitejobs.setBubbleChartData(siteChartData);
+
+                    sitejobs.setOnValueTouchListener(new ValueTouchListenerSite());
 
                     JSONObject status=thirdLayer.getJSONObject("status");
                     JSONArray createdJobs=status.getJSONArray("createdJobs");
@@ -1913,7 +1920,7 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
-
+                params.put("idDomain",store.getIdDomain());
                 params.put("Authorization", store.getToken());
                 return params;
             }
@@ -1931,7 +1938,25 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
 
         @Override
         public void onValueSelected(int bubbleIndex, BubbleValue value) {
-            Toast.makeText(getActivity(), "Selected: " + value, Toast.LENGTH_SHORT).show();
+            Intent i=new Intent(getContext(), CustomerJobsList.class);
+            i.putExtra("customerjobs",customer.toString());
+            startActivity(i);
+        }
+
+        @Override
+        public void onValueDeselected() {
+            // TODO Auto-generated method stub
+
+        }
+    }
+
+    private class ValueTouchListenerSite implements BubbleChartOnValueSelectListener {
+
+        @Override
+        public void onValueSelected(int bubbleIndex, BubbleValue value) {
+            Intent i=new Intent(getContext(), SiteJobsList.class);
+            i.putExtra("sitejobs",site.toString());
+            startActivity(i);
         }
 
         @Override

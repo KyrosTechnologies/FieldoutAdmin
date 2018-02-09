@@ -3,7 +3,6 @@ package com.kyros.technologies.fieldout.adapters;
 import android.content.Context;
 import android.content.Intent;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -63,17 +62,18 @@ public class ResourcesAdapter extends RecyclerView.Adapter<ResourcesAdapter.MyVi
         String dtstart=commonJobs.getDtstart();
         String dtend=commonJobs.getDtend();
         String username=commonJobs.getResourceusername();
-        String resourcename=commonJobs.getResourcename();
+        String firstname=commonJobs.getFirstname();
+        String lastName=commonJobs.getLastname();
         //String dtreturned=commonJobs.getNoteactivity();
         String noteactivity=commonJobs.getNoteactivity();
+        String resourcename=commonJobs.getResourcename();
         String resourceid=commonJobs.getResourceid();
         String idToolsAndResurces=commonJobs.getIdtoolsresources();
 
         holder.resources_linear.setOnClickListener(view -> {
             Intent i=new Intent(mContext, ResourcesUpdateDelete.class);
             store.putTechSpinner(username);
-            store.putResourceNameSpinner(resourcename);
-            Log.e("Delete Id Adapter"," "+resourceid);
+            store.putResourceNameSpinner(firstname+lastName);
             i.putExtra("resourcesid",resourceid);
             i.putExtra("dtstart",dtstart);
             i.putExtra("dtend",dtend);
@@ -81,7 +81,7 @@ public class ResourcesAdapter extends RecyclerView.Adapter<ResourcesAdapter.MyVi
             mContext.startActivity(i);
         });
 
-        holder.technician_resources.setText(username);
+        holder.technician_resources.setText(firstname+" "+lastName);
         holder.resource_name.setText(resourcename);
         holder.resource_from.setText(dtstart);
         holder.resource_to.setText(dtend);

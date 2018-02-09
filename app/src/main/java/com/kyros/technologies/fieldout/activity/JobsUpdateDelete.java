@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -112,7 +113,7 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
     private String complementaddress=null;
     private double latitude=0;
     private double longitude=0;
-    private String customer;
+    private String custome;
     private String site;
     private String equipment;
     private String latlng=null;
@@ -166,22 +167,12 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
         tags_selected_jobs=findViewById(R.id.tags_selected_jobs);
         domainid=store.getIdDomain();
         userid=store.getUserid();
-        job_type_spinner.setOnItemSelectedListener(this);
-        GetJobTypeList();
-        user_spinner.setOnItemSelectedListener(this);
-        GetTechnicianList();
-        team_spinner.setOnItemSelectedListener(this);
-        GetTeamsList();
-        window_spinner.setOnItemSelectedListener(this);
-        GetSchedulingList();
-        GetCustomerList();
-        GetTagsList();
-
+        GetSpinnersList();
         try {
 
             Bundle bundle = getIntent().getExtras();
             jobid=bundle.getString("jobid");
-            customer=bundle.getString("cusname");
+            custome=bundle.getString("cusname");
             sitename=bundle.getString("sitename");
             equipname=bundle.getString("equipname");
             complementaddress=bundle.getString("compaddress");
@@ -202,8 +193,8 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
             e.printStackTrace();
         }
 
-        if (customer!=null){
-            customer_auto_complete.setText(customer);
+        if (custome!=null){
+            customer_auto_complete.setText(custome);
         }
         if (address!=null){
             address_auto_complete.setText(address);
@@ -247,8 +238,8 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
 
         save_button.setOnClickListener(view -> {
             saveclick=1;
-            customer=customer_auto_complete.getText() .toString();
-            if (customer==null && customer.isEmpty()){
+            custome=customer_auto_complete.getText() .toString();
+            if (custome==null && custome.isEmpty()){
                 Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
                 return ;
             }
@@ -308,7 +299,7 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
             phone=phone_jobs_edit.getText().toString();
             mobile=mobile_jobs_edit.getText().toString();
             email=email_jobs_edit.getText().toString();
-            if(customer!=null &&!customer.isEmpty()&&sitename!=null&& jobtype!=null&&equipmentname!=null
+            if(custome!=null &&!custome.isEmpty()&&sitename!=null&& jobtype!=null&&equipmentname!=null
                     &&globalAddress!=null &&!globalAddress.isEmpty()&&myid!=null &&!myid.isEmpty()&&description!=null &&!description.isEmpty()
                     &&priority!=null &&!priority.isEmpty()){
                 GetLatLngList(globalAddress);
@@ -321,8 +312,8 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
 
         save_schedule.setOnClickListener(view -> {
             saveclick=2;
-            customer=customer_auto_complete.getText() .toString();
-            if (customer==null && customer.isEmpty()){
+            custome=customer_auto_complete.getText() .toString();
+            if (custome==null && custome.isEmpty()){
                 Toast.makeText(getApplicationContext(), "Please Enter Customer Name!", Toast.LENGTH_SHORT).show();
                 return ;
             }
@@ -382,7 +373,7 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
             phone=phone_jobs_edit.getText().toString();
             mobile=mobile_jobs_edit.getText().toString();
             email=email_jobs_edit.getText().toString();
-            if(customer!=null &&!customer.isEmpty()&&sitename!=null&& jobtype!=null&&equipmentname!=null
+            if(custome!=null &&!custome.isEmpty()&&sitename!=null&& jobtype!=null&&equipmentname!=null
                     &&globalAddress!=null &&!globalAddress.isEmpty()&&myid!=null &&!myid.isEmpty()&&description!=null &&!description.isEmpty()
                     &&priority!=null &&!priority.isEmpty()){
                 GetLatLngList(globalAddress);
@@ -403,8 +394,9 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
-
-                    String currentdate=String.valueOf(selectedyear+"-"+month+"-"+selectedday+" ");
+                    String days=String.format("%02d",selectedday);
+                    String monts=String.format("%02d",month);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     scheduling_date.setText(currentdate);
 
                 }
@@ -451,7 +443,6 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
                 tags_selected_jobs.setAdapter(selectedAdapter);
                 selectedAdapter.notifyDataSetChanged();
                 for (int i=0;i<tagsList.size();i++){
-                    AddTagsApi(tagsList.get(i));
                 }
             }
 
@@ -542,326 +533,6 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
         scheduling_time.setText(timeValue);
         starttime=timeValue;
     }
-
-    private void GetTagsList() {
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"tags/getByDomainId/"+domainid;
-        Log.d("waggonurl", url);
-        //showProgressDialog();
-
-        JSONObject inputjso=new JSONObject();
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, inputjso, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List TeamsResponse",response.toString());
-                commonJobsArrayList.clear();
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("tags");
-                    tagarray=new JSONArray(array.toString());
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String tagid=first.getString("id");
-                        String tagname=first.getString("name");
-
-                        CommonJobs commonJobs=new CommonJobs();
-                        commonJobs.setTagid(tagid);
-                        commonJobs.setTagname(tagname);
-                        commonJobsArrayList.add(commonJobs);
-                        tagsArrayList.add(tagname);
-
-                    }
-
-                    if (tagsArrayList.size()!=0){
-                        tags_selected_jobs.setVisibility(View.VISIBLE);
-                        tags_selected_jobs = findViewById(R.id.tags_selected_jobs);
-                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
-                        tags_selected_jobs.setLayoutManager(layoutManager);
-                        //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
-                        tags_selected_jobs.setItemAnimator(new DefaultItemAnimator());
-                        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(JobsUpdateDelete.this,tagsArrayList);
-                        tags_selected_jobs.setAdapter(projectsAdapter);
-                        projectsAdapter.notifyDataSetChanged();
-                    }else {
-                        tags_selected_jobs.setVisibility(View.GONE);
-                    }
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                //dismissProgressDialog();
-
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
-    private void GetJobTypeList() {
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"job_types/getByDomainId/"+domainid;
-        Log.d("waggonurl", url);
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response",response.toString());
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("job_types");
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String jobtypeid=first.getString("id");
-                        store.putIdJobType(String.valueOf(jobtypeid));
-                        String typename=first.getString("job_type_name");
-                        job_type_name=typename;
-
-                        CommonJobs commonJobs=new CommonJobs();
-                        commonJobs.setIdjobtype(jobtypeid);
-                        commonJobs.setJobTypeName(job_type_name);
-                        jobTypeArrayList.add(commonJobs);
-                        spinnerlist.add(job_type_name);
-
-                    }
-
-                    for (String s:spinnerlist) {
-
-                    }
-                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(JobsUpdateDelete.this,android.R.layout.simple_spinner_item,
-                            spinnerlist);
-                    adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-                    job_type_spinner.setPrompt("Job Type");
-                    job_type_spinner.setAdapter(adapter);
-                    job_type_spinner.setAdapter(new SpinnerDetails(adapter,R.layout.job_type_spinner,JobsUpdateDelete.this));
-                    job_type_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            try {
-                                String text = job_type_spinner.getSelectedItem().toString();
-                                jobtypetext=text;
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
-
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
-    private void GetTechnicianList() {
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
-        Log.d("waggonurl", url);
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response",response.toString());
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("technicians");
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String technicianid=first.getString("id");
-                        store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
-
-                        CommonJobs commonJobs=new CommonJobs();
-                        commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
-                        technicianArrayList.add(commonJobs);
-                        technicianlist.add(techusername);
-
-                    }
-
-                    for (String s:technicianlist) {
-
-                    }
-                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(JobsUpdateDelete.this,android.R.layout.simple_spinner_item,
-                            technicianlist);
-                    adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-                    user_spinner.setPrompt("Technician");
-                    user_spinner.setAdapter(adapter);
-                    user_spinner.setAdapter(new SpinnerDetails(adapter,R.layout.technician,JobsUpdateDelete.this));
-                    user_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            try {
-                                String text = user_spinner.getSelectedItem().toString();
-                                techniciantext=text;
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
-
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
-    private void GetSchedulingList() {
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"scheduling_window/getByDomainId/"+domainid;
-        Log.d("waggonurl", url);
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response",response.toString());
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("scheduling_windows");
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String schedulingid=first.getString("id");
-                        store.putSchedulingId(String.valueOf(schedulingid));
-                        String schedulingname=first.getString("name");
-
-                        CommonJobs commonJobs=new CommonJobs();
-                        commonJobs.setSchedulingid(schedulingid);
-                        commonJobs.setSchedulingname(schedulingname);
-                        schedulingArrayList.add(commonJobs);
-                        schedulinglist.add(schedulingname);
-
-                    }
-
-                    for (String s:schedulinglist) {
-
-                    }
-                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(JobsUpdateDelete.this,android.R.layout.simple_spinner_item,
-                            schedulinglist);
-                    adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-                    window_spinner.setPrompt("Scheduling");
-                    window_spinner.setAdapter(adapter);
-                    window_spinner.setAdapter(new SpinnerDetails(adapter,R.layout.window_spinner_value,JobsUpdateDelete.this));
-                    window_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            try {
-                                String text = window_spinner.getSelectedItem().toString();
-                                schedulingtext=text;
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
-
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
     private void GetLatLngList(String address) {
         String tag_json_obj = "json_obj_req";
         String url = "https://maps.googleapis.com/maps/api/place/textsearch/json?query="+address+"&key=AIzaSyD917w2chNF_jp_9W5f7s-yZ-jTqcYY3Lg";
@@ -906,90 +577,9 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
 
     }
 
-    private void GetTeamsList() {
+    private void GetSpinnersList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"teams/getByDomainId/"+domainid;
-        Log.d("waggonurl", url);
-
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response",response.toString());
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    JSONArray array=obj.getJSONArray("teams");
-                    for (int i=0;i<array.length();i++){
-                        JSONObject first=array.getJSONObject(i);
-                        String teamid=first.getString("id");
-                        store.putTeamId(String.valueOf(teamid));
-                        String teamusername=first.getString("name");
-
-                        CommonJobs commonJobs=new CommonJobs();
-                        commonJobs.setTeamid(teamid);
-                        commonJobs.setTeamname(teamusername);
-                        teamsArrayList.add(commonJobs);
-                        teamslist.add(teamusername);
-
-                    }
-
-                    for (String s:teamslist) {
-
-                    }
-                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(JobsUpdateDelete.this,android.R.layout.simple_spinner_item,
-                            teamslist);
-                    adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
-                    team_spinner.setPrompt("Technician");
-                    team_spinner.setAdapter(adapter);
-                    team_spinner.setAdapter(new SpinnerDetails(adapter,R.layout.teams_spinner,JobsUpdateDelete.this));
-                    team_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-                        @Override
-                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
-                            try {
-                                String text = team_spinner.getSelectedItem().toString();
-                                teamstext=text;
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
-                        }
-
-                        @Override
-                        public void onNothingSelected(AdapterView<?> adapterView) {
-
-                        }
-                    });
-
-                }catch (Exception e){
-                    e.printStackTrace();
-                }
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
-
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
-    private void GetCustomerList() {
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"customers/getByDomainId/"+domainid;
+        String url = EndURL.URL+"consolidatedResult/addJob";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -1109,6 +699,205 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
                         }
                     });
 
+                    GetSiteList(custome);
+                    GetEquipmentList(custome);
+
+                    JSONArray jobTypes=obj.getJSONArray("jobTypes");
+                    for (int i=0;i<jobTypes.length();i++){
+                        JSONObject first=jobTypes.getJSONObject(i);
+                        String jobtypeid=first.getString("id");
+                        store.putIdJobType(String.valueOf(jobtypeid));
+                        String typename=first.getString("job_type_name");
+                        job_type_name=typename;
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setIdjobtype(jobtypeid);
+                        commonJobs.setJobTypeName(job_type_name);
+                        jobTypeArrayList.add(commonJobs);
+                        spinnerlist.add(job_type_name);
+
+                    }
+
+                    for (String s:spinnerlist) {
+
+                    }
+                    ArrayAdapter<String> adapters=new  ArrayAdapter<String>(JobsUpdateDelete.this,android.R.layout.simple_spinner_item,
+                            spinnerlist);
+                    adapters.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                    job_type_spinner.setPrompt("Job Type");
+                    job_type_spinner.setAdapter(adapters);
+                    job_type_spinner.setAdapter(new SpinnerDetails(adapters,R.layout.job_type_spinner,JobsUpdateDelete.this));
+                    job_type_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            try {
+                                String text = job_type_spinner.getSelectedItem().toString();
+                                jobtypetext=text;
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+                    JSONArray technicians=obj.getJSONArray("technicians");
+                    for (int i=0;i<technicians.length();i++){
+                        JSONObject first=technicians.getJSONObject(i);
+                        String technicianid=first.getString("id");
+                        store.putTechnicianId(String.valueOf(technicianid));
+                        String techfirstname=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setTechnicianid(technicianid);
+                        commonJobs.setFirstname(techfirstname);
+                        commonJobs.setLastname(techlastName);
+                        technicianArrayList.add(commonJobs);
+                        technicianlist.add(techfirstname+" "+techlastName);
+
+                    }
+
+                    for (String s:technicianlist) {
+
+                    }
+                    ArrayAdapter<String> stringArrayAdapter=new  ArrayAdapter<String>(JobsUpdateDelete.this,android.R.layout.simple_spinner_item,
+                            technicianlist);
+                    stringArrayAdapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                    user_spinner.setPrompt("Technician");
+                    user_spinner.setAdapter(stringArrayAdapter);
+                    user_spinner.setAdapter(new SpinnerDetails(stringArrayAdapter,R.layout.technician,JobsUpdateDelete.this));
+                    user_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            try {
+                                String text = user_spinner.getSelectedItem().toString();
+                                techniciantext=text;
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+                    JSONArray schedulingWindows=obj.getJSONArray("schedullingWindows");
+                    for (int i=0;i<schedulingWindows.length();i++){
+                        JSONObject first=schedulingWindows.getJSONObject(i);
+                        String schedulingid=first.getString("id");
+                        store.putSchedulingId(String.valueOf(schedulingid));
+                        String schedulingname=first.getString("name");
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setSchedulingid(schedulingid);
+                        commonJobs.setSchedulingname(schedulingname);
+                        schedulingArrayList.add(commonJobs);
+                        schedulinglist.add(schedulingname);
+
+                    }
+
+                    for (String s:schedulinglist) {
+
+                    }
+                    ArrayAdapter<String> adapter1=new  ArrayAdapter<String>(JobsUpdateDelete.this,android.R.layout.simple_spinner_item,
+                            schedulinglist);
+                    adapter1.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                    window_spinner.setPrompt("Scheduling");
+                    window_spinner.setAdapter(adapter1);
+                    window_spinner.setAdapter(new SpinnerDetails(adapter1,R.layout.window_spinner_value,JobsUpdateDelete.this));
+                    window_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            try {
+                                String text = window_spinner.getSelectedItem().toString();
+                                schedulingtext=text;
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+                    JSONArray teams=obj.getJSONArray("teams");
+                    for (int i=0;i<teams.length();i++){
+                        JSONObject first=teams.getJSONObject(i);
+                        String teamid=first.getString("id");
+                        store.putTeamId(String.valueOf(teamid));
+                        String teamusername=first.getString("name");
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setTeamid(teamid);
+                        commonJobs.setTeamname(teamusername);
+                        teamsArrayList.add(commonJobs);
+                        teamslist.add(teamusername);
+
+                    }
+
+                    for (String s:teamslist) {
+
+                    }
+                    ArrayAdapter<String> teamsadapter=new  ArrayAdapter<String>(JobsUpdateDelete.this,android.R.layout.simple_spinner_item,
+                            teamslist);
+                    teamsadapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
+                    team_spinner.setPrompt("Technician");
+                    team_spinner.setAdapter(teamsadapter);
+                    team_spinner.setAdapter(new SpinnerDetails(teamsadapter,R.layout.teams_spinner,JobsUpdateDelete.this));
+                    team_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                        @Override
+                        public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+                            try {
+                                String text = team_spinner.getSelectedItem().toString();
+                                teamstext=text;
+                            }catch (Exception e){
+                                e.printStackTrace();
+                            }
+                        }
+
+                        @Override
+                        public void onNothingSelected(AdapterView<?> adapterView) {
+
+                        }
+                    });
+
+                    JSONArray tags=obj.getJSONArray("tags");
+                    tagarray=new JSONArray(tags.toString());
+                    for (int i=0;i<tags.length();i++){
+                        JSONObject first=tags.getJSONObject(i);
+                        String tagid=first.getString("id");
+                        String tagname=first.getString("name");
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setTagid(tagid);
+                        commonJobs.setTagname(tagname);
+                        commonJobsArrayList.add(commonJobs);
+                        tagsArrayList.add(tagname);
+
+                    }
+
+                    if (tagsArrayList.size()!=0){
+                        tags_selected_jobs.setVisibility(View.VISIBLE);
+                        tags_selected_jobs = findViewById(R.id.tags_selected_jobs);
+                        LinearLayoutManager layoutManager=new LinearLayoutManager(getApplicationContext());
+                        tags_selected_jobs.setLayoutManager(layoutManager);
+                        //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
+                        tags_selected_jobs.setItemAnimator(new DefaultItemAnimator());
+                        layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
+                        SkilledTradersAdapter projectsAdapter = new SkilledTradersAdapter(JobsUpdateDelete.this,tagsArrayList);
+                        tags_selected_jobs.setAdapter(projectsAdapter);
+                        projectsAdapter.notifyDataSetChanged();
+                    }else {
+                        tags_selected_jobs.setVisibility(View.GONE);
+                    }
 
                 }catch (Exception e){
                     e.printStackTrace();
@@ -1129,11 +918,16 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -1328,71 +1122,6 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
 
     }
 
-
-    private void AddTagsApi(String name) {
-
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "tags/add";
-        Log.d("waggonurl", url);
-        JSONObject inputLogin = new JSONObject();
-
-        try {
-            inputLogin.put("name",name);
-            inputLogin.put("idDomain",domainid);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.d("inputJsonuser", inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response", response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
-                    if (success) {
-                        JSONObject first = obj.getJSONObject("tag");
-                        String tagid=first.getString("id");
-                        store.putTagId(String.valueOf(tagid));
-
-                        tagsArrayList.add(tagid);
-
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null) {
-                    Log.e("Error", "" + error.toString());
-                }
-//                texts.setText(error.toString());
-            }
-        }) {
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
     private void UpdateJobsApi(String myid, String description, String globalAddress, String complementaddress, String firstname,
                             String lastname, String mobile, String phone, String email, String jobtypetext, String teamstext,
                             String schedulingtext, String techniciantext, double latitude, double longitude) {
@@ -1431,11 +1160,12 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
         }
 
         String technicianid=null;
-        for (int i=0;i<technicianArrayList.size();i++){
-            String techName=technicianArrayList.get(i).getTechnicianname();
+        for (int i=0;i<commonJobsArrayList.size();i++){
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
-                    technicianid=technicianArrayList.get(i).getTechnicianid();
+                if (techniciantext.equals(techName+" "+techlastname)) {
+                    technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
         }
