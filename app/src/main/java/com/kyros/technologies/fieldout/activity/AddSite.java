@@ -237,7 +237,7 @@ public class AddSite extends AppCompatActivity {
 
     private void callCustomFieldsAPI(String domainId, String authKey) {
         if(domainId!= null && authKey !=null){
-            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId,store.getIdDomain())
+            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,store.getIdDomain())
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

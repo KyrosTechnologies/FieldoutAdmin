@@ -58,8 +58,10 @@ import com.kyros.technologies.fieldout.models.UpdateToolsAndResourceResponse;
 import com.kyros.technologies.fieldout.models.User;
 import com.kyros.technologies.fieldout.models.UserInfo;
 import com.kyros.technologies.fieldout.models.UserUpdateResponse;
+import com.kyros.technologies.fieldout.models.UsersItem;
 import com.kyros.technologies.fieldout.models.UsersResponse;
 
+import java.util.List;
 import java.util.Map;
 
 import okhttp3.MultipartBody;
@@ -95,10 +97,10 @@ public interface POJOInterface {
     Observable<DomainResponse>getDomain(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/business_hours/getByDomainId/{domainId}")
     Observable<BussinessHoursResponse>getBussinessHours(@Path("domainId")String domainId, @Header("Authorization")String authKey,@Header("idDomain")String idDomain);
-    @GET("/users/getByDomainId/{domainId}")
-    Observable<UsersResponse>getUsers(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
-    @GET("/teams/getByDomainId/{domainId}")
-    Observable<TeamsResponse>getTeams(@Path("domainId")String domainId, @Header("Authorization")String authKey,@Header("idDomain")String idDomain);
+    @GET("/users/getAll")
+    Observable<List<UsersItem>>getUsers(@Header("Authorization")String authKey, @Header("idDomain")String idDomain);
+    @GET("/teams/getAll")
+    Observable<TeamsResponse>getTeams(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/users/add")
     Observable<AddUserResponse>addUser(@Body UserInfo userInfo,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/users/getById/{userId}")
@@ -179,8 +181,8 @@ public interface POJOInterface {
     Observable<PartsAndServicesResponse>updatePartsAndServices(@Header("Authorization")String authKey,@Path("stockId")String stockId,@Body StockPart stockPart,@Header("idDomain")String idDomain);
     @DELETE("/stock_parts/delete/{stockId}")
     Observable<DeletePartsAndServicesResponse>deleteParsAndServices(@Header("Authorization")String authKey,@Path("stockId")String stockId,@Header("idDomain")String idDomain);
-    @GET("/custom_fields/getByDomainId/{domainId}")
-    Observable<CustomFieldResponse>getCustomFields(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
+    @GET("/custom_fields/getAll")
+    Observable<CustomFieldResponse>getCustomFields(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/custom_fields/add")
     Observable<CustomFieldResponse>addCustomFields(@Header("Authorization")String authKey, @Body CustomField customField,@Header("idDomain")String idDomain);
     @PUT("/custom_fields/update/{customFieldId}")

@@ -25,9 +25,9 @@ public class CustomFieldsFragmentViewModel {
     public CustomFieldsFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<CustomFieldResponse>getcustomFieldResponseObservable(String authKey,String domainId,String idDomain){
+    public Observable<CustomFieldResponse>getcustomFieldResponseObservable(String authKey,String idDomain){
         return pojoInterface
-                .getCustomFields(authKey,domainId,idDomain)
+                .getCustomFields(authKey,idDomain)
                 .doOnNext(customFieldResponse -> getcustomFieldResponseBehaviorSubject.onNext(customFieldResponse));
     }
     public Observable<CustomFieldResponse>getcustomFieldResponseObservable(){

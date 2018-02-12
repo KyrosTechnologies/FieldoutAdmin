@@ -31,9 +31,11 @@ import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.apache.commons.io.FileUtils;
 
+import java.io.ByteArrayInputStream;
 import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
+import java.io.InputStream;
 import java.util.HashMap;
 
 import javax.inject.Inject;
@@ -166,7 +168,7 @@ public class AddAttachmentActivity extends AppCompatActivity {
     private void initiateAddAttachmentAPIByteStream(String fileName, byte[] fileByte) {
         showProgressDialog();
         AddAttachments addAttachments=new AddAttachments();
-        addAttachments.setFileData(fileByte);
+        addAttachments.setFileData( new ByteArrayInputStream(fileByte));
         addAttachments.setFileName(fileName);
         subscription.add(viewModel.addResponseBodyObservableByteStream(store.getToken(),addAttachments,store.getIdDomain())
         .subscribeOn(Schedulers.computation())

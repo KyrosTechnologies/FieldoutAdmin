@@ -77,7 +77,7 @@ public class TeamsFragment extends Fragment {
     }
 
     private void loadTeamsAPI(String domainId, String authKey) {
-        subscription.add(viewModel.getTeamResponse(domainId,authKey,domainId)
+        subscription.add(viewModel.getTeamResponse(authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

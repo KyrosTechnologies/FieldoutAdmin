@@ -15,6 +15,7 @@ import android.widget.TableRow;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.activity.AddUserActivity;
 import com.kyros.technologies.fieldout.activity.UpdateUserActivity;
@@ -88,7 +89,7 @@ public class UsersFragment extends Fragment {
     }
 
     private void loadUsers(String domainId, String authKey) {
-        subscription.add(viewModel.getUsersResponse(domainId,authKey,domainId)
+        subscription.add(viewModel.getUsersResponse(authKey,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / / "+throwable.toString()))
@@ -104,15 +105,15 @@ public class UsersFragment extends Fragment {
         showToast(""+throwable.getMessage());
 
     }
-    private void usersGetResponse(UsersResponse usersResponse) {
-        bindViews(usersResponse);
+    private void usersGetResponse(List<UsersItem> usersItemList) {
+        bindViews(usersItemList);
 
     }
 
-    private void bindViews(UsersResponse usersResponse) {
-        if(usersResponse!=null){
-            Log.d("TeamsResponse : ",TAG+ " / / "+usersResponse.toString());
-           usersItemList=usersResponse.getUsers();
+    private void bindViews(List<UsersItem> usersItemListG) {
+        if(usersItemList!=null){
+            Log.d("TeamsResponse : ",TAG+ " / / "+new Gson().toJson(usersItemListG));
+           usersItemList=usersItemListG;
             binding.usersTableLayout.removeAllViews();
             binding.usersTableLayout.addView(binding.rowAddUserTable);
 
@@ -123,7 +124,7 @@ public class UsersFragment extends Fragment {
                     tableRow.setBackground(getResources().getDrawable(R.color.bg));
                     tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
                     TextView userTextView=new TextView(getContext());
-                    userTextView.setText(usersItemList.get(i).getUsername());
+                    userTextView.setText(usersItemList.get(i).getFirstName()+" "+usersItemList.get(i).getLastName());
                     userTextView.setTextSize(24);
                     TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT,120,50);
                     tableRowuserTextParams.setMargins(15,15,15,15);
@@ -133,16 +134,16 @@ public class UsersFragment extends Fragment {
 
                     tableRow.addView(userTextView);
 
-                    TextView userNameTextView=new TextView(getContext());
-                    userNameTextView.setText(usersItemList.get(i).getUsername());
-                    userNameTextView.setTextSize(24);
-                    TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
-                    tableRowuserNameParams.setMargins(15,15,15,15);
-                    userNameTextView.setLayoutParams(tableRowuserNameParams);
-                    userNameTextView.setTextColor(getResources().getColor(R.color.text_light));
-                    userNameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
-
-                    tableRow.addView(userNameTextView);
+//                    TextView userNameTextView=new TextView(getContext());
+//                    userNameTextView.setText(usersItemList.get(i).getUsername());
+//                    userNameTextView.setTextSize(24);
+//                    TableRow.LayoutParams tableRowuserNameParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+//                    tableRowuserNameParams.setMargins(15,15,15,15);
+//                    userNameTextView.setLayoutParams(tableRowuserNameParams);
+//                    userNameTextView.setTextColor(getResources().getColor(R.color.text_light));
+//                    userNameTextView.setGravity(Gravity.LEFT|Gravity.CENTER);
+//
+//                    tableRow.addView(userNameTextView);
 
                     TextView languageTextView=new TextView(getContext());
                     languageTextView.setText(usersItemList.get(i).getLanguage());

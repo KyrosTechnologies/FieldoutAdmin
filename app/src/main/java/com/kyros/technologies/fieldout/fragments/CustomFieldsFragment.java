@@ -82,7 +82,7 @@ public class CustomFieldsFragment extends Fragment {
     }
 
     private void initiateCustomFieldsGetAPI(String authKey, String domainId) {
-        subscription.add(viewModel.getcustomFieldResponseObservable(authKey,domainId,domainId)
+        subscription.add(viewModel.getcustomFieldResponseObservable(authKey,domainId)
        .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

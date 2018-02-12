@@ -3,6 +3,8 @@ package com.kyros.technologies.fieldout.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.io.InputStream;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,7 +23,7 @@ public class AddAttachments {
     private String fileName;
     @SerializedName("fileData")
     @Expose
-    private byte[] fileData;
+    private InputStream fileData;
 
 
     public AddAttachments() {

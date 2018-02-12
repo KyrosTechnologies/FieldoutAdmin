@@ -23,13 +23,13 @@ public class AddUserActivityViewModel {
     public AddUserActivityViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<TeamsResponse>getTeamResponse(String domainId,String authKey,String idDomain){
+    public Observable<TeamsResponse>getTeamResponse(String authKey,String idDomain){
         if(isLoading.getValue()){
             return Observable.empty();
         }
         isLoading.onNext(true);
         return pojoInterface
-                .getTeams(domainId,authKey,idDomain)
+                .getTeams(authKey,idDomain)
                 .doOnNext(teamsResponse -> teamsResponseBehaviorSubject.onNext(teamsResponse))
                 .doOnTerminate(()->isLoading.onNext(false));
     }

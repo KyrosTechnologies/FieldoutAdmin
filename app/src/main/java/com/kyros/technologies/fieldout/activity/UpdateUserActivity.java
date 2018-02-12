@@ -146,7 +146,7 @@ public class UpdateUserActivity extends AppCompatActivity {
 
     private void callCustomFieldsAPI(String domainId, String authKey) {
         if(domainId!= null && authKey !=null){
-            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId,domainId)
+            subscription.add(customFieldsFragmentViewModel.getcustomFieldResponseObservable(authKey,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -660,7 +660,7 @@ public class UpdateUserActivity extends AppCompatActivity {
         }
     }
     private void getTeamsAPI(String authKey, String domainId) {
-        addUserActivityViewModel.getTeamResponse(domainId,authKey,domainId)
+        addUserActivityViewModel.getTeamResponse(authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
