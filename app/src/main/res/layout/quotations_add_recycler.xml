@@ -12,11 +12,12 @@
 
         <TextView
             android:id="@+id/add_quotations_list"
-            android:layout_width="255dp"
+            android:layout_width="150dp"
             android:layout_height="60dp"
             android:background="@drawable/button_bg"
             android:gravity="start|center"
             android:paddingLeft="10dp"
+            android:layout_marginLeft="10dp"
             android:text="Add Items"
             android:textColor="@color/light_black"
             android:textSize="@dimen/privacy_policy_statement" />

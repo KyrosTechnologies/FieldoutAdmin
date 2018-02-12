@@ -66,7 +66,7 @@ public class FragmentRecurringJobs extends Fragment {
 
     private void GetrecurringJobsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "recurring_jobs/getByDomainId/"+domainid;
+        String url = EndURL.URL + "recurring_jobs/get";
         Log.d("waggonurl", url);
         //showProgressDialog();
 
@@ -93,17 +93,18 @@ public class FragmentRecurringJobs extends Fragment {
                         }catch (Exception e){
 
                         }
-                        String created_at=userInfo.getString("created_at");
                         String phone=userInfo.getString("phone");
-                        String username=userInfo.getString("username");
-
+                        String firstName=userInfo.getString("firstName");
+                        String lastName=userInfo.getString("lastName");
+                        String createdAt=userInfo.getString("createdAt");
 
                         CommonJobs commonJobs = new CommonJobs();
                         commonJobs.setStartdate(startDate);
                         commonJobs.setEnddate(endDate);
-                        commonJobs.setCreatedat(created_at);
+                        commonJobs.setCreatedat(createdAt);
                         commonJobs.setPhone(phone);
-                        commonJobs.setTechnicianname(username);
+                        commonJobs.setFirstname(firstName);
+                        commonJobs.setLastname(lastName);
                         commonJobsArrayList.add(commonJobs);
 
                     }

@@ -66,7 +66,7 @@ public class QuotationsFragment extends Fragment {
 
     private void GetQuotationsList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"quotations/getByDomainId/"+domainid;
+        String url = EndURL.URL+"quotations/getAll";
         Log.d("waggonurl", url);
         //showProgressDialog();
 

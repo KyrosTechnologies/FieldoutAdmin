@@ -56,12 +56,13 @@ public class RecurringJobsAdapter extends RecyclerView.Adapter<RecurringJobsAdap
 
         CommonJobs commonJobs=commonJobsArrayList.get(position);
         String phone=commonJobs.getPhone();
-        String techname=commonJobs.getTechnicianname();
+        String firstname=commonJobs.getFirstname();
+        String lastname=commonJobs.getLastname();
         String createdat=commonJobs.getCreatedat();
         String startdate=commonJobs.getStartdate();
         String enddate=commonJobs.getEnddate();
 
-        holder.technician_name.setText(techname);
+        holder.technician_name.setText(firstname+" "+lastname);
         holder.recurring_phone.setText(phone);
         holder.recurring_created_at.setText(createdat);
         holder.recurring_from.setText(startdate);

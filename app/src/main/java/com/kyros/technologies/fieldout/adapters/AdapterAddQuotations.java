@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.kyros.technologies.fieldout.R;
-import com.kyros.technologies.fieldout.activity.QuotationsUpdateDelete;
+import com.kyros.technologies.fieldout.activity.QuotationItemsUpdateDelete;
 import com.kyros.technologies.fieldout.common.CommonJobs;
 import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 
@@ -25,13 +25,6 @@ public class AdapterAddQuotations extends RecyclerView.Adapter<AdapterAddQuotati
     private Context mContext;
     private PreferenceManager store;
     private ArrayList<CommonJobs> commonJobsArrayList;
-    ArrayList<String>descriptionArrayList;
-    ArrayList<String>discountArrayList;
-    ArrayList<String>itemArrayList;
-    ArrayList<String>quantityArrayList;
-    ArrayList<String>taxArrayList;
-    ArrayList<String>totalArrayList;
-    ArrayList<String>unitpriceArrayList;
 
     public class MyViewHolderEleven extends RecyclerView.ViewHolder{
         public TextView desc_invoice,unit_price_invoice,quantity_invoice,discount_invoice,total_invoice,tax_invoice,item_invoice;
@@ -51,19 +44,9 @@ public class AdapterAddQuotations extends RecyclerView.Adapter<AdapterAddQuotati
 
         }
     }
-    public AdapterAddQuotations(Context mContext, ArrayList<CommonJobs>duration, ArrayList<String>descriptionArrayList,ArrayList<String>discountArrayList,
-                              ArrayList<String>itemArrayList,ArrayList<String>quantityArrayList,ArrayList<String>taxArrayList,
-                              ArrayList<String>totalArrayList,ArrayList<String>unitpriceArrayList){
+    public AdapterAddQuotations(Context mContext, ArrayList<CommonJobs>duration){
         this.mContext=mContext;
         this.commonJobsArrayList =duration;
-        this.descriptionArrayList=descriptionArrayList;
-        this.discountArrayList=discountArrayList;
-        this.itemArrayList=itemArrayList;
-        this.quantityArrayList=quantityArrayList;
-        this.taxArrayList=taxArrayList;
-        this.totalArrayList=totalArrayList;
-        this.unitpriceArrayList=unitpriceArrayList;
-
 
     }
     @Override
@@ -76,53 +59,42 @@ public class AdapterAddQuotations extends RecyclerView.Adapter<AdapterAddQuotati
     @Override
     public void onBindViewHolder(AdapterAddQuotations.MyViewHolderEleven holder, int position) {
 
-        String descrip=descriptionArrayList.get(position);
-        if (descrip!=null){
-            holder.desc_invoice.setText(descrip);
-        }
-        String pricein=unitpriceArrayList.get(position);
-        if (pricein!=null){
-            holder.unit_price_invoice.setText(pricein);
-        }
-        String quantityin=quantityArrayList.get(position);
-        if (quantityin!=null){
-            holder.quantity_invoice.setText(quantityin);
-        }
-        String discountin=discountArrayList.get(position);
-        if (discountin!=null){
-            holder.discount_invoice.setText(discountin);
-        }
-        String totalin=totalArrayList.get(position);
-        if (totalin!=null){
-            holder.total_invoice.setText(totalin);
-        }
-        String taxin=taxArrayList.get(position);
-        if (taxin!=null){
-            holder.tax_invoice.setText(taxin);
-        }
-        String itemsin=itemArrayList.get(position);
-        if (itemsin!=null){
-            holder.item_invoice.setText(itemsin);
-        }
+        CommonJobs commonJobs=commonJobsArrayList.get(position);
+        String desc=commonJobs.getDescription();
+        String items=commonJobs.getItemname();
+        String itemid=commonJobs.getItemid();
+        String unitprice=commonJobs.getUnitproice();
+        String quantity=commonJobs.getQuantity();
+        String discount=commonJobs.getDiscount();
+        String total=commonJobs.getTotal();
+        String tax=commonJobs.getTax();
 
         holder.add_invoices_linear.setOnClickListener(view -> {
-            Intent i=new Intent(mContext, QuotationsUpdateDelete.class);
-            i.putExtra("position",position);
-            i.putExtra("amount",totalin);
-            i.putExtra("tax",taxin);
-            i.putExtra("items",itemsin);
-            i.putExtra("description",descrip);
-            i.putExtra("unitprice",pricein);
-            i.putExtra("quantity",quantityin);
-            i.putExtra("discount",discountin);
+            Intent i=new Intent(mContext, QuotationItemsUpdateDelete.class);
+            i.putExtra("itemid",itemid);
+            i.putExtra("amount",total);
+            i.putExtra("tax",tax);
+            i.putExtra("items",items);
+            i.putExtra("description",desc);
+            i.putExtra("unitprice",unitprice);
+            i.putExtra("quantity",quantity);
+            i.putExtra("discount",discount);
             mContext.startActivity(i);
         });
+
+        holder.desc_invoice.setText(desc);
+        holder.discount_invoice.setText(discount);
+        holder.item_invoice.setText(items);
+        holder.unit_price_invoice.setText(unitprice);
+        holder.quantity_invoice.setText(quantity);
+        holder.tax_invoice.setText(tax);
+        holder.total_invoice.setText(total);
 
     }
 
     @Override
     public int getItemCount() {
-        return descriptionArrayList.size();
+        return commonJobsArrayList.size();
     }
 
 }

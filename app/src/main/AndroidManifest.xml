@@ -196,7 +196,7 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.InvoicesUpdateDelete"
+            android:name=".activity.InvoiceItemsUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -216,7 +216,7 @@
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
-            android:name=".activity.QuotationsUpdateDelete"
+            android:name=".activity.QuotationItemsUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />
@@ -350,6 +350,16 @@
             android:windowSoftInputMode="stateHidden|adjustResize" />
         <activity
             android:name=".activity.SiteJobsList"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.InvoicesUpdateDelete"
+            android:screenOrientation="landscape"
+            android:theme="@style/AppTheme"
+            android:windowSoftInputMode="stateHidden|adjustResize" />
+        <activity
+            android:name=".activity.QuotationsUpdateDelete"
             android:screenOrientation="landscape"
             android:theme="@style/AppTheme"
             android:windowSoftInputMode="stateHidden|adjustResize" />

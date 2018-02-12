@@ -2,8 +2,6 @@ package com.kyros.technologies.fieldout.common;
 
 import org.json.JSONArray;
 
-import java.util.List;
-
 /**
  * Created by Rohin on 13-12-2017.
  */
@@ -65,13 +63,6 @@ public class CommonJobs {
     private String latlng;
     private String jobid;
     private String invoiceId;
-    private List<String>descriptionlist;
-    private List<String>discount;
-    private List<String>taxlist;
-    private List<String>item;
-    private List<String>quantity;
-    private List<String>total;
-    private List<String>unitprice;
     private String taxid;
     private String taxrate;
     private String quotationid;
@@ -104,6 +95,12 @@ public class CommonJobs {
     private JSONArray weekClosedJobs;
     private JSONArray dayAllJobs;
     private JSONArray dayClosedJobs;
+    private String itemid;
+    private String itemname;
+    private String unitproice;
+    private String quantity;
+    private String discount;
+    private String total;
 
     public CommonJobs(){
 
@@ -559,62 +556,6 @@ public class CommonJobs {
         this.invoiceId = invoiceId;
     }
 
-    public List<String> getDescriptionlist() {
-        return descriptionlist;
-    }
-
-    public void setDescriptionlist(List<String> descriptionlist) {
-        this.descriptionlist = descriptionlist;
-    }
-
-    public List<String> getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(List<String> discount) {
-        this.discount = discount;
-    }
-
-    public List<String> getTaxlist() {
-        return taxlist;
-    }
-
-    public void setTaxlist(List<String> taxlist) {
-        this.taxlist = taxlist;
-    }
-
-    public List<String> getItem() {
-        return item;
-    }
-
-    public void setItem(List<String> item) {
-        this.item = item;
-    }
-
-    public List<String> getQuantity() {
-        return quantity;
-    }
-
-    public void setQuantity(List<String> quantity) {
-        this.quantity = quantity;
-    }
-
-    public List<String> getTotal() {
-        return total;
-    }
-
-    public void setTotal(List<String> total) {
-        this.total = total;
-    }
-
-    public List<String> getUnitprice() {
-        return unitprice;
-    }
-
-    public void setUnitprice(List<String> unitprice) {
-        this.unitprice = unitprice;
-    }
-
     public String getTaxid() {
         return taxid;
     }
@@ -861,5 +802,53 @@ public class CommonJobs {
 
     public void setDayClosedJobs(JSONArray dayClosedJobs) {
         this.dayClosedJobs = dayClosedJobs;
+    }
+
+    public String getItemid() {
+        return itemid;
+    }
+
+    public void setItemid(String itemid) {
+        this.itemid = itemid;
+    }
+
+    public String getItemname() {
+        return itemname;
+    }
+
+    public void setItemname(String itemname) {
+        this.itemname = itemname;
+    }
+
+    public String getUnitproice() {
+        return unitproice;
+    }
+
+    public void setUnitproice(String unitproice) {
+        this.unitproice = unitproice;
+    }
+
+    public String getQuantity() {
+        return quantity;
+    }
+
+    public void setQuantity(String quantity) {
+        this.quantity = quantity;
+    }
+
+    public String getDiscount() {
+        return discount;
+    }
+
+    public void setDiscount(String discount) {
+        this.discount = discount;
+    }
+
+    public String getTotal() {
+        return total;
+    }
+
+    public void setTotal(String total) {
+        this.total = total;
     }
 }

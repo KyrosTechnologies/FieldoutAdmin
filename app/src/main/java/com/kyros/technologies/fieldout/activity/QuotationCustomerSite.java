@@ -113,7 +113,7 @@ public class QuotationCustomerSite extends AppCompatActivity {
 
     private void GetCustomerList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"customers/getByDomainId/"+domainid;
+        String url = EndURL.URL+"customers/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {

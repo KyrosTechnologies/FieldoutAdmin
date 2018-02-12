@@ -211,33 +211,39 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
 
 
         today_text.setOnClickListener(view -> {
-            if (techtodayallJobs.length()==0&&techclosedjobsToday.length()==0){
-                no_jobs_found.setVisibility(View.VISIBLE);
-                today_tech_recycler.setVisibility(View.GONE);
+            if (techtodayallJobs!=null&&techclosedjobsToday!=null){
+                if (techtodayallJobs.length()==0&&techclosedjobsToday.length()==0){
+                    no_jobs_found.setVisibility(View.VISIBLE);
+                    today_tech_recycler.setVisibility(View.GONE);
+                }
+                today_tech_recycler.setVisibility(View.VISIBLE);
+                this_month_tech_recycler.setVisibility(View.GONE);
+                this_week_tech_recycler.setVisibility(View.GONE);
             }
-            today_tech_recycler.setVisibility(View.VISIBLE);
-            this_month_tech_recycler.setVisibility(View.GONE);
-            this_week_tech_recycler.setVisibility(View.GONE);
         });
 
         this_month_text.setOnClickListener(view -> {
-            if (techallJobs.length()==0&&techclosedjobs.length()==0){
-                no_jobs_found.setVisibility(View.VISIBLE);
-                this_month_tech_recycler.setVisibility(View.GONE);
+            if (techallJobs!=null&&techclosedjobs!=null){
+                if (techallJobs.length()==0&&techclosedjobs.length()==0){
+                    no_jobs_found.setVisibility(View.VISIBLE);
+                    this_month_tech_recycler.setVisibility(View.GONE);
+                }
+                today_tech_recycler.setVisibility(View.GONE);
+                this_month_tech_recycler.setVisibility(View.VISIBLE);
+                this_week_tech_recycler.setVisibility(View.GONE);
             }
-            today_tech_recycler.setVisibility(View.GONE);
-            this_month_tech_recycler.setVisibility(View.VISIBLE);
-            this_week_tech_recycler.setVisibility(View.GONE);
         });
 
         this_week_text.setOnClickListener(view -> {
-            if (techallJobsWeek.length()==0&&techclosedjobsWeek.length()==0){
-                no_jobs_found.setVisibility(View.VISIBLE);
-                this_week_tech_recycler.setVisibility(View.GONE);
+            if (techallJobsWeek!=null&&techclosedjobsWeek!=null){
+                if (techallJobsWeek.length()==0&&techclosedjobsWeek.length()==0){
+                    no_jobs_found.setVisibility(View.VISIBLE);
+                    this_week_tech_recycler.setVisibility(View.GONE);
+                }
+                today_tech_recycler.setVisibility(View.GONE);
+                this_month_tech_recycler.setVisibility(View.GONE);
+                this_week_tech_recycler.setVisibility(View.VISIBLE);
             }
-            today_tech_recycler.setVisibility(View.GONE);
-            this_month_tech_recycler.setVisibility(View.GONE);
-            this_week_tech_recycler.setVisibility(View.VISIBLE);
         });
 
         return chart;
@@ -588,7 +594,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                     JSONArray techthisMonth=technicianAndJobsLayer.getJSONArray("thisMonth");
                     for (int i=0;i<techthisMonth.length();i++){
                         JSONObject first = techthisMonth.getJSONObject(i);
-                        String username=first.getString("username");
+                        String lastName=first.getString("lastName");
+                        String firstName=first.getString("firstName");
                         JSONArray techcounts=first.getJSONArray("counts");
                         techallJobs=first.getJSONArray("allJobs");
                         techclosedjobs=first.getJSONArray("closedJobs");
@@ -769,7 +776,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                             commonJobs.setDescription(description);
                             commonJobs.setTechmonthallJobs(techallJobs);
                             commonJobs.setCounts(techcounts);
-                            commonJobs.setTechnicianname(username);
+                            commonJobs.setLastname(lastName);
+                            commonJobs.setFirstname(firstName);
                             commonJobsArrayList.add(commonJobs);
                         }
 
@@ -949,7 +957,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                                 commonJobs.setDescription(description);
                                 commonJobs.setTechmonthClosedJobs(techclosedjobs);
                                 commonJobs.setCounts(techcounts);
-                                commonJobs.setTechnicianname(username);
+                                commonJobs.setLastname(lastName);
+                                commonJobs.setFirstname(firstName);
                                 thismonthArrayList.add(commonJobs);
                             }
                         }catch (Exception e){
@@ -981,7 +990,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                     JSONArray techthisWeek=technicianAndJobsLayer.getJSONArray("thisWeek");
                     for (int i=0;i<techthisWeek.length();i++){
                         JSONObject first = techthisWeek.getJSONObject(i);
-                        String username=first.getString("username");
+                        String firstName=first.getString("firstName");
+                        String lastName=first.getString("lastName");
                         JSONArray techcounts=first.getJSONArray("counts");
                         techallJobsWeek=first.getJSONArray("allJobs");
                         techclosedjobsWeek=first.getJSONArray("closedJobs");
@@ -1160,7 +1170,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                             commonJobs.setDescription(description);
                             commonJobs.setWeekAllJobs(techallJobsWeek);
                             commonJobs.setCounts(techcounts);
-                            commonJobs.setTechnicianname(username);
+                            commonJobs.setLastname(lastName);
+                            commonJobs.setFirstname(firstName);
                             thisWeekArrayList.add(commonJobs);
                         }
 
@@ -1340,7 +1351,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                                 commonJobs.setDescription(description);
                                 commonJobs.setWeekClosedJobs(techclosedjobsWeek);
                                 commonJobs.setCounts(techcounts);
-                                commonJobs.setTechnicianname(username);
+                                commonJobs.setLastname(lastName);
+                                commonJobs.setFirstname(firstName);
                                 thisWeekClosedArrayList.add(commonJobs);
                             }
                         }catch (Exception e){
@@ -1374,7 +1386,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                     JSONArray techtoday=technicianAndJobsLayer.getJSONArray("today");
                     for (int i=0;i<techtoday.length();i++){
                         JSONObject first = techtoday.getJSONObject(i);
-                        String username=first.getString("username");
+                        String firstName=first.getString("firstName");
+                        String lastName=first.getString("lastName");
                         JSONArray techcounts=first.getJSONArray("counts");
                         techtodayallJobs=first.getJSONArray("allJobs");
                         techclosedjobsToday=first.getJSONArray("closedJobs");
@@ -1553,9 +1566,9 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                             commonJobs.setDescription(description);
                             commonJobs.setDayAllJobs(techtodayallJobs);
                             commonJobs.setCounts(techcounts);
-                            commonJobs.setTechnicianname(username);
                             commonJobs.setCounts(techcounts);
-                            commonJobs.setTechnicianname(username);
+                            commonJobs.setLastname(lastName);
+                            commonJobs.setFirstname(firstName);
                             todayArrayList.add(commonJobs);
                         }
 
@@ -1735,7 +1748,8 @@ public class ChartFragment extends Fragment implements OnChartValueSelectedListe
                                 commonJobs.setDescription(description);
                                 commonJobs.setDayClosedJobs(techclosedjobsToday);
                                 commonJobs.setCounts(techcounts);
-                                commonJobs.setTechnicianname(username);
+                                commonJobs.setLastname(lastName);
+                                commonJobs.setFirstname(firstName);
                                 todayClosedArrayList.add(commonJobs);
                             }
                         }catch (Exception e){

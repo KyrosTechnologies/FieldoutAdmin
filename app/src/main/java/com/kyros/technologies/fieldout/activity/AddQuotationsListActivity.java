@@ -14,7 +14,6 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.volley.AuthFailureError;
@@ -46,16 +45,9 @@ public class AddQuotationsListActivity extends AppCompatActivity {
     private String domainid=null;
     private TextView mark_as_sent,mark_as_delete,mark_as_accept;
     private RecyclerView quotation_item_recycler;
-    private LinearLayout add_quotations_list;
+    private TextView add_quotations_list;
     private String quotationid=null;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
-    ArrayList<String>descriptionArrayList=new ArrayList<String>();
-    ArrayList<String>discountArrayList=new ArrayList<String>();
-    ArrayList<String>itemArrayList=new ArrayList<String>();
-    ArrayList<String>quantityArrayList=new ArrayList<String>();
-    ArrayList<String>taxArrayList=new ArrayList<String>();
-    ArrayList<String>totalArrayList=new ArrayList<String>();
-    ArrayList<String>unitpriceArrayList=new ArrayList<String>();
     private AlertDialog.Builder builder;
     private ProgressDialog pDialog;
 
@@ -118,70 +110,38 @@ public class AddQuotationsListActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Log.d("List TeamsResponse",response.toString());
                 commonJobsArrayList.clear();
-                descriptionArrayList.clear();
-                discountArrayList.clear();
-                itemArrayList.clear();
-                quantityArrayList.clear();
-                taxArrayList.clear();
-                totalArrayList.clear();
-                unitpriceArrayList.clear();
+
                 try {
 
                     JSONObject obj = new JSONObject(response.toString());
                     JSONObject object = obj.getJSONObject("quotation");
 
                     String dateString=object.getString("dateString");
-                    JSONArray descriptionarray = object.getJSONArray("description");
-                    for (int i = 0; i < descriptionarray.length(); i++) {
-                        String description=descriptionarray.getString(i);
-                        descriptionArrayList.add(description);
-                    }
+                    JSONArray items=object.getJSONArray("items");
+                    for (int i=0;i<items.length();i++){
+                        JSONObject itemarray = items.getJSONObject(i);
+                        String id=itemarray.getString("id");
+                        String amount=itemarray.getString("amount");
+                        String description=itemarray.getString("description");
+                        String discount=itemarray.getString("discount");
+                        String item=itemarray.getString("item");
+                        String quantity=itemarray.getString("quantity");
+                        String tax=itemarray.getString("tax");
+                        String total=itemarray.getString("total");
+                        String unit_price=itemarray.getString("unit_price");
 
-                    JSONArray discountarray=object.getJSONArray("discount");
-                    for (int i=0;i<discountarray.length();i++){
-                        String discount=discountarray.getString(i);
-                        discountArrayList.add(discount);
-                    }
+                        CommonJobs commonJobs = new CommonJobs();
+                        commonJobs.setItemid(id);
+                        commonJobs.setDescription(description);
+                        commonJobs.setTax(tax);
+                        commonJobs.setDiscount(discount);
+                        commonJobs.setItemname(item);
+                        commonJobs.setQuantity(quantity);
+                        commonJobs.setTotal(total);
+                        commonJobs.setUnitproice(unit_price);
+                        commonJobsArrayList.add(commonJobs);
 
-                    JSONArray itemarray=object.getJSONArray("item");
-                    for (int i=0;i<itemarray.length();i++){
-                        String item=itemarray.getString(i);
-                        itemArrayList.add(item);
                     }
-
-                    JSONArray quantityarray=object.getJSONArray("quantity");
-                    for (int i=0;i<quantityarray.length();i++){
-                        String quantity=quantityarray.getString(i);
-                        quantityArrayList.add(quantity);
-                    }
-
-                    JSONArray taxarray=object.getJSONArray("tax");
-                    for (int i=0;i<taxarray.length();i++){
-                        String tax=taxarray.getString(i);
-                        taxArrayList.add(tax);
-                    }
-
-                    JSONArray totalarray=object.getJSONArray("total");
-                    for (int i=0;i<totalarray.length();i++){
-                        String total=totalarray.getString(i);
-                        totalArrayList.add(total);
-                    }
-
-                    JSONArray unitpricearray=object.getJSONArray("unit_price");
-                    for (int i=0;i<unitpricearray.length();i++){
-                        String unitprice=unitpricearray.getString(i);
-                        unitpriceArrayList.add(unitprice);
-                    }
-
-                    CommonJobs commonJobs = new CommonJobs();
-                    commonJobs.setDescriptionlist(descriptionArrayList);
-                    commonJobs.setTaxlist(taxArrayList);
-                    commonJobs.setDiscount(discountArrayList);
-                    commonJobs.setItem(itemArrayList);
-                    commonJobs.setQuantity(quantityArrayList);
-                    commonJobs.setTotal(totalArrayList);
-                    commonJobs.setUnitprice(unitpriceArrayList);
-                    commonJobsArrayList.add(commonJobs);
 
 
                     quotation_item_recycler = findViewById(R.id.quotation_item_recycler);
@@ -190,8 +150,7 @@ public class AddQuotationsListActivity extends AppCompatActivity {
                     //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                     quotation_item_recycler.setItemAnimator(new DefaultItemAnimator());
                     layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                    AdapterAddQuotations adapterAddInvoices = new AdapterAddQuotations(getApplicationContext(),commonJobsArrayList,descriptionArrayList,
-                            discountArrayList,itemArrayList,quantityArrayList,taxArrayList,totalArrayList,unitpriceArrayList);
+                    AdapterAddQuotations adapterAddInvoices = new AdapterAddQuotations(getApplicationContext(),commonJobsArrayList);
                     quotation_item_recycler.setAdapter(adapterAddInvoices);
                     adapterAddInvoices.notifyDataSetChanged();
 
@@ -430,12 +389,23 @@ public class AddQuotationsListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_edit, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
             case android.R.id.home:
                 AddQuotationsListActivity.this.finish();
                 return true;
+            case R.id.action_edit:
+                Intent i=new Intent(AddQuotationsListActivity.this,QuotationsUpdateDelete.class);
+                i.putExtra("quotationid",quotationid);
+                startActivity(i);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

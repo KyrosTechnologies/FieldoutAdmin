@@ -17,6 +17,7 @@ import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -26,7 +27,6 @@ import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
-import com.google.gson.Gson;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.adapters.AdapterAddInvoices;
 import com.kyros.technologies.fieldout.common.CommonJobs;
@@ -59,13 +59,6 @@ public class AddInvoicesListActivity extends AppCompatActivity {
     private String invoiceid=null;
     private String adapinvoice=null;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
-    ArrayList<String>descriptionArrayList=new ArrayList<String>();
-    ArrayList<String>discountArrayList=new ArrayList<String>();
-    ArrayList<String>itemArrayList=new ArrayList<String>();
-    ArrayList<String>quantityArrayList=new ArrayList<String>();
-    ArrayList<String>taxArrayList=new ArrayList<String>();
-    ArrayList<String>totalArrayList=new ArrayList<String>();
-    ArrayList<String>unitpriceArrayList=new ArrayList<String>();
     private ProgressDialog pDialog;
     private List<String[]> data = new ArrayList<>();
     private static final int MY_PERMISSIONS_REQUEST_READ_WRITE_STORAGE = 1;
@@ -253,13 +246,6 @@ public class AddInvoicesListActivity extends AppCompatActivity {
             public void onResponse(JSONObject response) {
                 Log.d("List TeamsResponse",response.toString());
                 commonJobsArrayList.clear();
-                descriptionArrayList.clear();
-                discountArrayList.clear();
-                itemArrayList.clear();
-                quantityArrayList.clear();
-                taxArrayList.clear();
-                totalArrayList.clear();
-                unitpriceArrayList.clear();
                 try {
 
                     JSONObject obj = new JSONObject(response.toString());
@@ -269,75 +255,50 @@ public class AddInvoicesListActivity extends AppCompatActivity {
                     if (dateString!=null){
                         invoices_create_date.setText(dateString);
                     }
+                    JSONArray items=object.getJSONArray("items");
+                    for (int i=0;i<items.length();i++){
+                        JSONObject itemarray = items.getJSONObject(i);
+                        String id=itemarray.getString("id");
+                        String amount=itemarray.getString("amount");
+                        String description=itemarray.getString("description");
+                        String discount=itemarray.getString("discount");
+                        String item=itemarray.getString("item");
+                        String quantity=itemarray.getString("quantity");
+                        String tax=itemarray.getString("tax");
+                        String total=itemarray.getString("total");
+                        String unit_price=itemarray.getString("unit_price");
 
-                    JSONArray descriptionarray = object.getJSONArray("description");
-                    for (int i = 0; i < descriptionarray.length(); i++) {
-                        String description=descriptionarray.getString(i);
-                        descriptionArrayList.add(description);
+                        CommonJobs commonJobs = new CommonJobs();
+                        commonJobs.setItemid(id);
+                        commonJobs.setDescription(description);
+                        commonJobs.setTax(tax);
+                        commonJobs.setDiscount(discount);
+                        commonJobs.setItemname(item);
+                        commonJobs.setQuantity(quantity);
+                        commonJobs.setTotal(total);
+                        commonJobs.setUnitproice(unit_price);
+                        commonJobsArrayList.add(commonJobs);
+
                     }
 
-                    JSONArray discountarray=object.getJSONArray("discount");
-                    for (int i=0;i<discountarray.length();i++){
-                        String discount=discountarray.getString(i);
-                        discountArrayList.add(discount);
-                    }
 
-                    JSONArray itemarray=object.getJSONArray("item");
-                    for (int i=0;i<itemarray.length();i++){
-                        String item=itemarray.getString(i);
-                        itemArrayList.add(item);
-                    }
-
-                    JSONArray quantityarray=object.getJSONArray("quantity");
-                    for (int i=0;i<quantityarray.length();i++){
-                        String quantity=quantityarray.getString(i);
-                        quantityArrayList.add(quantity);
-                    }
-
-                    JSONArray taxarray=object.getJSONArray("tax");
-                    for (int i=0;i<taxarray.length();i++){
-                        String tax=taxarray.getString(i);
-                        taxArrayList.add(tax);
-                    }
-
-                    JSONArray totalarray=object.getJSONArray("total");
-                    for (int i=0;i<totalarray.length();i++){
-                        String total=totalarray.getString(i);
-                        totalArrayList.add(total);
-                    }
-
-                    JSONArray unitpricearray=object.getJSONArray("unit_price");
-                    for (int i=0;i<unitpricearray.length();i++){
-                        String unitprice=unitpricearray.getString(i);
-                        unitpriceArrayList.add(unitprice);
-                    }
-
-                    CommonJobs commonJobs = new CommonJobs();
-                    commonJobs.setDescriptionlist(descriptionArrayList);
-                    commonJobs.setTaxlist(taxArrayList);
-                    commonJobs.setDiscount(discountArrayList);
-                    commonJobs.setItem(itemArrayList);
-                    commonJobs.setQuantity(quantityArrayList);
-                    commonJobs.setTotal(totalArrayList);
-                    commonJobs.setUnitprice(unitpriceArrayList);
-                    commonJobsArrayList.add(commonJobs);
-                    if((descriptionArrayList.size() == taxArrayList.size()) && (taxArrayList.size() == discountArrayList.size()) && (discountArrayList.size() == itemArrayList.size()) && (itemArrayList.size() == quantityArrayList.size()) && (quantityArrayList.size() == totalArrayList.size()) && (totalArrayList.size() == unitpriceArrayList.size()) && (unitpriceArrayList.size() == descriptionArrayList.size())){
-                        for(int i=0; i<descriptionArrayList.size(); i++){
-                            PdfTotalList pdfTotalList=new PdfTotalList();
-                            pdfTotalList.setItem(itemArrayList.get(i));
-                            pdfTotalList.setDescription(descriptionArrayList.get(i));
-                            pdfTotalList.setUnitPrice(Integer.parseInt(unitpriceArrayList.get(i)));
-                            pdfTotalList.setQuantity(Integer.parseInt(quantityArrayList.get(i)));
-                            pdfTotalList.setDiscount(Integer.parseInt(discountArrayList.get(i)));
-                            pdfTotalList.setTotal(Integer.parseInt(totalArrayList.get(i)));
-                            pdfTotalList.setTax(Integer.parseInt(taxArrayList.get(i)));
-                            data.add(new String[]{itemArrayList.get(i),descriptionArrayList.get(i),String.valueOf(unitpriceArrayList.get(i)),String.valueOf(quantityArrayList.get(i)),String.valueOf(discountArrayList.get(i)),String.valueOf(totalArrayList.get(i)),String.valueOf(taxArrayList.get(i))});
-                            pdfTotalListList.add(pdfTotalList);
-                        }
-                        Log.d("Pdf Total List : ",TAG+" / / "+new Gson().toJson(pdfTotalListList));
-                    }else{
-                        showToast("list or not same!");
-                    }
+//                    if((descriptionArrayList.size() == taxArrayList.size()) && (taxArrayList.size() == discountArrayList.size()) && (discountArrayList.size() == itemArrayList.size()) && (itemArrayList.size() == quantityArrayList.size()) && (quantityArrayList.size() == totalArrayList.size()) && (totalArrayList.size() == unitpriceArrayList.size()) && (unitpriceArrayList.size() == descriptionArrayList.size())){
+//                        for(int i=0; i<descriptionArrayList.size(); i++){
+//                            PdfTotalList pdfTotalList=new PdfTotalList();
+//                            pdfTotalList.setItem(itemArrayList.get(i));
+//                            pdfTotalList.setDescription(descriptionArrayList.get(i));
+//                            pdfTotalList.setUnitPrice(Integer.parseInt(unitpriceArrayList.get(i)));
+//                            pdfTotalList.setQuantity(Integer.parseInt(quantityArrayList.get(i)));
+//                            pdfTotalList.setDiscount(Integer.parseInt(discountArrayList.get(i)));
+//                            pdfTotalList.setTotal(Integer.parseInt(totalArrayList.get(i)));
+//                            pdfTotalList.setTax(Integer.parseInt(taxArrayList.get(i)));
+//                            data.add(new String[]{itemArrayList.get(i),descriptionArrayList.get(i),String.valueOf(unitpriceArrayList.get(i)),String.valueOf(quantityArrayList.get(i)),String.valueOf(discountArrayList.get(i)),String.valueOf(totalArrayList.get(i)),String.valueOf(taxArrayList.get(i))});
+//                            pdfTotalListList.add(pdfTotalList);
+//                        }
+//                        Log.d("Pdf Total List : ",TAG+" / / "+new Gson().toJson(pdfTotalListList));
+//                    }else{
+//                        showToast("list or not same!");
+//                    }
 
 
                         invoice_item_recycler = findViewById(R.id.invoice_item_recycler);
@@ -346,8 +307,7 @@ public class AddInvoicesListActivity extends AppCompatActivity {
                         //jobs_month_recycler.setLayoutManager(new StaggeredGridLayoutManager(2,StaggeredGridLayoutManager.VERTICAL));
                         invoice_item_recycler.setItemAnimator(new DefaultItemAnimator());
                         layoutManager.setOrientation(LinearLayoutManager.VERTICAL);
-                        AdapterAddInvoices adapterAddInvoices = new AdapterAddInvoices(getApplicationContext(),commonJobsArrayList,descriptionArrayList,
-                                discountArrayList,itemArrayList,quantityArrayList,taxArrayList,totalArrayList,unitpriceArrayList);
+                        AdapterAddInvoices adapterAddInvoices = new AdapterAddInvoices(getApplicationContext(),commonJobsArrayList);
                         invoice_item_recycler.setAdapter(adapterAddInvoices);
                         adapterAddInvoices.notifyDataSetChanged();
 
@@ -626,12 +586,23 @@ public class AddInvoicesListActivity extends AppCompatActivity {
     }
 
     @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_edit, menu);
+        return true;
+    }
+
+    @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
         switch (item.getItemId()){
             case android.R.id.home:
                 AddInvoicesListActivity.this.finish();
                 return true;
+            case R.id.action_edit:
+                Intent i=new Intent(AddInvoicesListActivity.this,InvoicesUpdateDelete.class);
+                i.putExtra("invoiceid",adapinvoice);
+                startActivity(i);
+                break;
         }
         return super.onOptionsItemSelected(item);
     }

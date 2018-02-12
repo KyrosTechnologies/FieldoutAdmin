@@ -1160,12 +1160,12 @@ public class JobsUpdateDelete extends AppCompatActivity implements AdapterView.O
         }
 
         String technicianid=null;
-        for (int i=0;i<commonJobsArrayList.size();i++){
-            String techName=commonJobsArrayList.get(i).getFirstname();
-            String techlastname=commonJobsArrayList.get(i).getLastname();
+        for (int i=0;i<technicianArrayList.size();i++){
+            String techName=technicianArrayList.get(i).getFirstname();
+            String techlastname=technicianArrayList.get(i).getLastname();
             if (techniciantext!=null){
                 if (techniciantext.equals(techName+" "+techlastname)) {
-                    technicianid=commonJobsArrayList.get(i).getTechnicianid();
+                    technicianid=technicianArrayList.get(i).getTechnicianid();
                 }
             }
         }

@@ -5,10 +5,12 @@ import android.app.ProgressDialog;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.Log;
+import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
@@ -42,26 +44,28 @@ import java.util.Map;
  * Created by Rohin on 03-01-2018.
  */
 
-public class AddInvoices extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class InvoiceItemsUpdateDelete extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
 
-    private PreferenceManager store;
     private EditText item_invoice,desc_invoice,unit_price_invoice,quantity_invoice,discount_invoice;
     private TextView total_invoice;
     private Button save_invoice_add;
-    private String domainid=null;
     private Spinner tax_invoice_spinner;
+    private String itemid=null;
+    private String domainid=null;
+    private PreferenceManager store;
     private String invoiceid=null;
-    private String item=null;
+    private String amount=null;
+    private String tax=null;
+    private String items=null;
     private String description=null;
     private String unitprice="0";
     private String quantity="0";
     private String discount="0";
-    private String total=null;
-    private String tax=null;
     private List<String> spinnerlist=new ArrayList<String>();
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
     private String taxrate="0";
     private double price=0;
+    private AlertDialog.Builder builder;
     private ProgressDialog pDialog;
 
     @Override
@@ -82,18 +86,45 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
         tax_invoice_spinner=findViewById(R.id.tax_invoice_spinner);
         save_invoice_add=findViewById(R.id.save_invoice_add);
         store = PreferenceManager.getInstance(getApplicationContext());
+        invoiceid=store.getInvoiceId();
         domainid=store.getIdDomain();
         tax_invoice_spinner.setOnItemSelectedListener(this);
         GetTaxList();
 
         try {
             Bundle bundle = getIntent().getExtras();
-            invoiceid=bundle.getString("invoiceid");
+            itemid=bundle.getString("itemid");
+            amount=bundle.getString("amount");
+            tax=bundle.getString("tax");
+            items=bundle.getString("items");
+            description=bundle.getString("description");
+            unitprice=bundle.getString("unitprice");
+            quantity=bundle.getString("quantity");
+            discount=bundle.getString("discount");
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        item=item_invoice.getText().toString();
+        if (amount!=null){
+            total_invoice.setText(amount);
+        }
+        if (items!=null){
+            item_invoice.setText(items);
+        }
+        if (description!=null){
+            desc_invoice.setText(description);
+        }
+        if (unitprice!=null){
+            unit_price_invoice.setText(unitprice);
+        }
+        if (quantity!=null){
+            quantity_invoice.setText(quantity);
+        }
+        if (discount!=null){
+            discount_invoice.setText(discount);
+        }
+
+        items=item_invoice.getText().toString();
         description=desc_invoice.getText().toString();
         unitprice=unit_price_invoice.getText().toString();
         quantity=quantity_invoice.getText().toString();
@@ -103,8 +134,8 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
         discount_invoice.addTextChangedListener(textWatcher);
 
         save_invoice_add.setOnClickListener(view -> {
-            item=item_invoice.getText().toString();
-            if (item==null && item.isEmpty()){
+            items=item_invoice.getText().toString();
+            if (items==null && items.isEmpty()){
                 Toast.makeText(getApplicationContext(), "Please Enter Item Name!", Toast.LENGTH_SHORT).show();
                 return ;
             }
@@ -139,9 +170,9 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
                 return;
             }
 
-            if(item!=null &&!item.isEmpty()&&description!=null &&!description.isEmpty()&& unitprice!=null&&!unitprice.isEmpty()
+            if(items!=null &&!items.isEmpty()&&description!=null &&!description.isEmpty()&& unitprice!=null&&!unitprice.isEmpty()
                     &&!quantity.isEmpty()&&quantity!=null&&discount!=null &&!discount.isEmpty()&&taxes!=null){
-                InvoicesAddItemsApi();
+                UpdateInvoicesApi();
             }else{
                 Toast.makeText(getApplicationContext(), "Enter All the Required Fields", Toast.LENGTH_SHORT).show();
 
@@ -220,12 +251,12 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
                     for (String s:spinnerlist) {
 
                     }
-                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(AddInvoices.this,android.R.layout.simple_spinner_item,
+                    ArrayAdapter<String> adapter=new  ArrayAdapter<String>(InvoiceItemsUpdateDelete.this,android.R.layout.simple_spinner_item,
                             spinnerlist);
                     adapter.setDropDownViewResource(android.R.layout.simple_list_item_1);
                     tax_invoice_spinner.setPrompt("Tax");
                     tax_invoice_spinner.setAdapter(adapter);
-                    tax_invoice_spinner.setAdapter(new SpinnerDetails(adapter,R.layout.tax,AddInvoices.this));
+                    tax_invoice_spinner.setAdapter(new SpinnerDetails(adapter,R.layout.tax,InvoiceItemsUpdateDelete.this));
                     tax_invoice_spinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                         @Override
                         public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
@@ -298,7 +329,7 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
 
     private void showProgressDialog() {
         if (pDialog == null) {
-            pDialog = new ProgressDialog(AddInvoices.this);
+            pDialog = new ProgressDialog(InvoiceItemsUpdateDelete.this);
             pDialog.setTitle("Please Wait");
             pDialog.setMessage("Synchronization in progress...");
             pDialog.setIndeterminate(false);
@@ -318,10 +349,10 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
-    private void InvoicesAddItemsApi(){
+    private void UpdateInvoicesApi(){
 
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "invoices/addItems/"+invoiceid;
+        String url = EndURL.URL + "invoices/updateItem/"+itemid;
         Log.d("waggonurl", url);
         showProgressDialog();
         JSONObject inputLogin = new JSONObject();
@@ -333,7 +364,7 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
         try {
             inputLogin.put("amount",price);
             inputLogin.put("tax",Integer.parseInt(taxrate));
-            inputLogin.put("item",item);
+            inputLogin.put("item",items);
             inputLogin.put("description",description);
             inputLogin.put("unit_price",Double.parseDouble(unitprice));
             inputLogin.put("quantity",Double.parseDouble(quantity));
@@ -358,7 +389,7 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
                         String first = obj.getString("result");
 
                     }
-                    AddInvoices.this.finish();
+                    InvoiceItemsUpdateDelete.this.finish();
 
                 } catch (Exception e) {
                     e.printStackTrace();
@@ -380,6 +411,59 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
             @Override
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
+                params.put("idDomain",store.getIdDomain());
+                params.put("Authorization", store.getToken());
+                return params;
+            }
+
+        };
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
+    }
+
+    private void DeleteInvoicesApi(){
+
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL + "invoices/deleteItem/"+itemid;
+        Log.d("waggonurl", url);
+        JSONObject inputLogin = new JSONObject();
+
+        Log.d("inputJsonuser", inputLogin.toString());
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.DELETE, url, inputLogin, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response", response.toString());
+
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                        String first = obj.getString("result");
+                        String message=obj.getString("message");
+
+                        Toast.makeText(getApplicationContext()," "+message,Toast.LENGTH_SHORT).show();
+
+                    InvoiceItemsUpdateDelete.this.finish();
+
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                if (error != null) {
+                    Log.e("Error", "" + error.toString());
+                }
+//                texts.setText(error.toString());
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
                 params.put("idDomain",store.getIdDomain());
                 return params;
@@ -390,14 +474,33 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
 
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+    private void showDeleteDialog(){
+        if(builder==null){
+            builder = new AlertDialog.Builder(InvoiceItemsUpdateDelete.this);
+            builder.setMessage("Do you want to Delete it?");
+            builder.setCancelable(true);
 
+            builder.setPositiveButton(
+                    "Yes",
+                    (dialog, id) ->{
+                        DeleteInvoicesApi();
+                        Log.d("Dialog Yes ","dialog initialization");
+                        dialog.cancel();
+                    });
+
+            builder.setNegativeButton(
+                    "No",
+                    (dialog, id) -> dialog.cancel());
+
+        }
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
     }
 
     @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
+    public boolean onCreateOptionsMenu(Menu menu) {
+        getMenuInflater().inflate(R.menu.actionbar_delete, menu);
+        return true;
     }
 
     @Override
@@ -405,12 +508,22 @@ public class AddInvoices extends AppCompatActivity implements AdapterView.OnItem
 
         switch (item.getItemId()){
             case android.R.id.home:
-                AddInvoices.this.finish();
+                InvoiceItemsUpdateDelete.this.finish();
                 return true;
-
+            case R.id.action_delete:
+                showDeleteDialog();
+                break;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
 }

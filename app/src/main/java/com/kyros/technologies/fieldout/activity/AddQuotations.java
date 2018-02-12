@@ -191,7 +191,7 @@ public class AddQuotations extends AppCompatActivity implements AdapterView.OnIt
 
     private void GetTaxList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"taxes/getByDomainId/"+domainid;
+        String url = EndURL.URL+"taxes/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {

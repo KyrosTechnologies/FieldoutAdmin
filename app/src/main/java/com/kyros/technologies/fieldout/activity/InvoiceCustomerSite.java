@@ -17,6 +17,7 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -113,7 +114,7 @@ public class InvoiceCustomerSite extends AppCompatActivity {
 
     private void GetCustomerList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"customers/getByDomainId/"+domainid;
+        String url = EndURL.URL+"customers/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -269,6 +270,10 @@ public class InvoiceCustomerSite extends AppCompatActivity {
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -358,6 +363,10 @@ public class InvoiceCustomerSite extends AppCompatActivity {
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -446,9 +455,14 @@ public class InvoiceCustomerSite extends AppCompatActivity {
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }

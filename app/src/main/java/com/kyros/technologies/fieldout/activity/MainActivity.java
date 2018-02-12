@@ -53,11 +53,11 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         session = new SessionManager(getApplicationContext());
-        login=(Button)findViewById(R.id.login);
-        user_name=(EditText)findViewById(R.id.user_name);
-        pass_word=(EditText)findViewById(R.id.pass_word);
-        sign_up=(TextView)findViewById(R.id.sign_up);
-        forgot_password=(TextView)findViewById(R.id.forgot_password);
+        login=findViewById(R.id.login);
+        user_name=findViewById(R.id.user_name);
+        pass_word=findViewById(R.id.pass_word);
+        sign_up=findViewById(R.id.sign_up);
+        forgot_password=findViewById(R.id.forgot_password);
         store= PreferenceManager.getInstance(getApplicationContext());
 
         login.setOnClickListener(new View.OnClickListener() {

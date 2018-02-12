@@ -66,7 +66,7 @@ public class InvoicesFragment extends Fragment {
 
     private void GetInvoicesList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"invoices/getByDomainId/"+domainid;
+        String url = EndURL.URL+"invoices/getAll";
         Log.d("waggonurl", url);
         //showProgressDialog();
 

@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -281,8 +282,9 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     jobs_start_date.setText(currentdate);
                     startdate=currentdate;
 
@@ -305,8 +307,9 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     boolean enddates=CheckDates(jobs_start_date.getText().toString(),currentdate);
                     if (enddates){
                         jobs_end_date.setText(currentdate);
@@ -333,8 +336,9 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
                     // TODO Auto-generated method stub
                     /*      Your code   to get date and time    */
                     int month=selectedmonth+1;
+                    String days=String.format("%02d",selectedday);
                     String monts=String.format("%02d",month);
-                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+selectedday);
+                    String currentdate=String.valueOf(selectedyear+"-"+monts+"-"+days+" ");
                     scheduling_date.setText(currentdate);
 
                 }
@@ -436,7 +440,6 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
                 tags_selected_jobs.setAdapter(selectedAdapter);
                 selectedAdapter.notifyDataSetChanged();
                 for (int i=0;i<tagsList.size();i++){
-                    AddTagsApi(tagsList.get(i));
                 }
             }
 
@@ -573,7 +576,7 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
 
     private void GetSpinnersList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"consolidatedResult/addJob/";
+        String url = EndURL.URL+"consolidatedResult/addJob";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -740,13 +743,15 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
                         JSONObject first=technicians.getJSONObject(i);
                         String technicianid=first.getString("id");
                         store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
+                        String techfirstname=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstname);
+                        commonJobs.setLastname(techlastName);
                         technicianArrayList.add(commonJobs);
-                        technicianlist.add(techusername);
+                        technicianlist.add(techfirstname+" "+techlastName);
 
                     }
 
@@ -913,6 +918,10 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -1111,71 +1120,6 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
 
     }
 
-    private void AddTagsApi(String name) {
-
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "tags/add";
-        Log.d("waggonurl", url);
-        JSONObject inputLogin = new JSONObject();
-
-        try {
-            inputLogin.put("name",name);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.d("inputJsonuser", inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response", response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
-                    if (success) {
-                        JSONObject first = obj.getJSONObject("tag");
-                        String tagid=first.getString("id");
-                        store.putTagId(String.valueOf(tagid));
-
-                        tagsArrayList.add(tagid);
-
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null) {
-                    Log.e("Error", "" + error.toString());
-                }
-//                texts.setText(error.toString());
-            }
-        }) {
-
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                params.put("idDomain",store.getIdDomain());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
-    }
-
     private void showProgressDialog() {
         if (pDialog == null) {
             pDialog = new ProgressDialog(AddRecurringJobs.this);
@@ -1238,13 +1182,15 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
 
         String technicianid=null;
         for (int i=0;i<technicianArrayList.size();i++){
-            String techName=technicianArrayList.get(i).getTechnicianname();
+            String techName=technicianArrayList.get(i).getFirstname();
+            String techlastname=technicianArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
+                if (techniciantext.equals(techName+" "+techlastname)) {
                     technicianid=technicianArrayList.get(i).getTechnicianid();
                 }
             }
         }
+
         String jobtypeid=null;
         for (int i=0;i<jobTypeArrayList.size();i++){
             String typename=jobTypeArrayList.get(i).getJobTypeName();
@@ -1413,6 +1359,7 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
             public Map<String, String> getHeaders()throws AuthFailureError {
                 Map<String, String> params = new HashMap<String, String>();
                 params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
                 return params;
             }
 
