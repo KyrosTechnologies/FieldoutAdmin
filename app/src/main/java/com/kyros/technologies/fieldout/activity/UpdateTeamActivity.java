@@ -95,7 +95,7 @@ public class UpdateTeamActivity extends AppCompatActivity {
     }
 
     private void initiateTAGAPICall(String domainId, String authKey) {
-        subscription.add(viewModel.getTags(authKey,domainId,domainId)
+        subscription.add(viewModel.getTags(authKey,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> showTimber("Error : ","TAG",throwable.getMessage()))
@@ -298,7 +298,7 @@ dismissDialog();
     }
 
     private void initiateManagersAPI(String domainId, String authKey) {
-        subscription.add(addTeamViewModel.managersResponseObservable(domainId,authKey,domainId)
+        subscription.add(addTeamViewModel.managersResponseObservable(authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -361,7 +361,7 @@ dismissDialog();
     }
 
     private void initiateTechniciansAPI(String domainId, String authKey) {
-        subscription.add(addTeamViewModel.techniciansResponseObservable(domainId,authKey,domainId)
+        subscription.add(addTeamViewModel.techniciansResponseObservable(authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

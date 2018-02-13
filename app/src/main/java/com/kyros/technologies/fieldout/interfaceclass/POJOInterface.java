@@ -95,8 +95,8 @@ public interface POJOInterface {
     Observable<UserUpdateResponse>updateUserProfile(@Header("Authorization")String authKey, @Path("userId")String userId, @Body Result result,@Header("idDomain")String idDomain);
     @GET("/domain/getById/{domainId}")
     Observable<DomainResponse>getDomain(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
-    @GET("/business_hours/getByDomainId/{domainId}")
-    Observable<BussinessHoursResponse>getBussinessHours(@Path("domainId")String domainId, @Header("Authorization")String authKey,@Header("idDomain")String idDomain);
+    @GET("/business_hours/get")
+    Observable<BussinessHoursResponse>getBussinessHours(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/users/getAll")
     Observable<List<UsersItem>>getUsers(@Header("Authorization")String authKey, @Header("idDomain")String idDomain);
     @GET("/teams/getAll")
@@ -105,10 +105,10 @@ public interface POJOInterface {
     Observable<AddUserResponse>addUser(@Body UserInfo userInfo,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @GET("/users/getById/{userId}")
     Observable<GetSingleUserResponse>getOneUserResponse(@Path("userId")String userId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
-    @GET("/users/getTechnicians/{domainId}")
-    Observable<TechniciansResponse>getTechniciansResponse(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
-    @GET("/users/getManagers/{domainId}")
-    Observable<ManagersResponse>getManagersResponse(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
+    @GET("/users/getTechnicians")
+    Observable<TechniciansResponse>getTechniciansResponse(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
+    @GET("/users/getManagers")
+    Observable<ManagersResponse>getManagersResponse(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/tags/add")
     Observable<AddTagResponse>addTag(@Header("Authorization")String authKey, @Body Tag tag,@Header("idDomain")String idDomain);
     @POST("/teams/add")
@@ -117,12 +117,12 @@ public interface POJOInterface {
     Observable<SingleTeamResponse>getSingleTeam(@Path("teamId")String teamId, @Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @PUT("/teams/update/{teamId}")
     Observable<UpdateTeamResponse>updateTeam(@Path("teamId")String teamId, @Header("Authorization")String authKey,@Body TeamsItem teamsItem,@Header("idDomain")String idDomain);
-    @GET("/tags/getByDomainId/{domainId}")
-    Observable<TagResponse>getTags(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
+    @GET("/tags/getAll")
+    Observable<TagResponse>getTags(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @DELETE("/teams/delete/{teamId}")
     Observable<TeamDeleteResponse>deleteTeam(@Path("teamId")String teamId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
-    @GET("/activity_types/getByDomainId/{domainId}")
-    Observable<ActivityTypeResponse>getActivityType(@Path("domainId")String domainId,@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
+    @GET("/activity_types/getAll")
+    Observable<ActivityTypeResponse>getActivityType(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/activity_types/send")
     Observable<ActivityTypeAddResponse>addActivityType(@Header("Authorization")String authKey, @Body ActivityType activityType,@Header("idDomain")String idDomain);
     @PUT("/activity_types/update/{activityTypeId}")
@@ -131,8 +131,8 @@ public interface POJOInterface {
     Observable<ActivityTypeDeleteResponse>deleteActivityType(@Header("Authorization")String authKey,@Path("activityTypeId")String activityTypeId,@Header("idDomain")String idDomain);
     @POST("/tools_and_resources/add")
     Observable<AddToolsResourceResponse>addToolsResource(@Header("Authorization")String authKey, @Body Resource resource,@Header("idDomain")String idDomain);
-    @GET("/tools_and_resources/getByDomainId/{domainId}")
-    Observable<GetToolsAndResourcesResponse>getToolsResources(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
+    @GET("/tools_and_resources/getAll")
+    Observable<GetToolsAndResourcesResponse>getToolsResources(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @PUT("/tools_and_resources/update/{resourceId}")
     Observable<UpdateToolsAndResourceResponse>updateToolsResource(@Header("Authorization")String authKey, @Body Resource resource,@Path("resourceId")String resourceId,@Header("idDomain")String idDomain);
     @DELETE("/tools_and_resources/delete/{resourceId}")
@@ -165,16 +165,16 @@ public interface POJOInterface {
     Observable<RegionalSettingsResponse>getRegionalSettings(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
     @POST("/regional_settings/add")
     Observable<RegionalSettingsResponse>addRegionalSettings(@Header("Authorization")String authKey, @Body RegionalSettings regionalSettings,@Header("idDomain")String idDomain);
-    @GET("/taxes/getByDomainId/{domainId}")
-    Observable<TaxResponse>getTax(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
+    @GET("/taxes/getAll")
+    Observable<TaxResponse>getTax(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/taxes/add")
     Observable<TaxResponse>addTax(@Header("Authorization")String authKey, @Body Tax tax,@Header("idDomain")String idDomain);
     @PUT("/taxes/update/{taxId}")
     Observable<TaxResponse>updateTax(@Header("Authorization")String authKey,@Path("taxId")String taxId, @Body Tax tax,@Header("idDomain")String idDomain);
     @DELETE("/taxes/delete/{taxId}")
     Observable<TaxDeleteResponse>deleteTaxResponse(@Header("Authorization")String authKey,@Path("taxId")String taxId,@Header("idDomain")String idDomain);
-    @GET("/stock_parts/getByDomainId/{domainId}")
-    Observable<PartsAndServicesResponse>getPartsAndServices(@Header("Authorization")String authKey,@Path("domainId")String domainId,@Header("idDomain")String idDomain);
+    @GET("/stock_parts/getAll")
+    Observable<PartsAndServicesResponse>getPartsAndServices(@Header("Authorization")String authKey,@Header("idDomain")String idDomain);
     @POST("/stock_parts/send")
     Observable<PartsAndServicesResponse>addPartsAndServices(@Header("Authorization")String authKey, @Body StockPart stockPart,@Header("idDomain")String idDomain);
     @PUT("/stock_parts/update/{stockId}")

@@ -37,7 +37,7 @@ import java.util.Map;
 public class MainActivity extends AppCompatActivity {
 
     private Button login;
-    private EditText user_name,pass_word;
+    private EditText user_name,pass_word,edit_text_domain;
     private TextView sign_up,forgot_password;
     private PreferenceManager store;
     private String username;
@@ -56,6 +56,7 @@ public class MainActivity extends AppCompatActivity {
         login=findViewById(R.id.login);
         user_name=findViewById(R.id.user_name);
         pass_word=findViewById(R.id.pass_word);
+        edit_text_domain=findViewById(R.id.edit_text_domain);
         sign_up=findViewById(R.id.sign_up);
         forgot_password=findViewById(R.id.forgot_password);
         store= PreferenceManager.getInstance(getApplicationContext());
@@ -73,8 +74,8 @@ public class MainActivity extends AppCompatActivity {
                         Toast.makeText(getApplicationContext(), "Please enter valid Password!", Toast.LENGTH_SHORT).show();
                         return;
                     }
-                    if(username!=null &&!username.isEmpty()&& password!=null && !password.isEmpty()){
-                        LoginApi(username,password);
+                    if(username!=null &&!username.isEmpty()&& password!=null && !password.isEmpty() && edit_text_domain.getText().toString() != null && !edit_text_domain.getText().toString().isEmpty()){
+                        LoginApi(username,password,edit_text_domain.getText().toString());
                     }else{
                         Toast.makeText(getApplicationContext(), "Username or Password is incorrect!", Toast.LENGTH_SHORT).show();
 
@@ -121,7 +122,7 @@ public class MainActivity extends AppCompatActivity {
 
     }
 
-    private void LoginApi(final String username, String password) {
+    private void LoginApi(final String username, String password,String domainName) {
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"users/login";
         store= PreferenceManager.getInstance(getApplicationContext());
@@ -132,7 +133,7 @@ public class MainActivity extends AppCompatActivity {
         try{
             inputLogin.put("password",password);
             inputLogin.put("email",username);
-            inputLogin.put("domain",store.getDomainName());
+            inputLogin.put("domain",domainName);
 
         }catch (Exception e){
             e.printStackTrace();
@@ -305,6 +306,7 @@ public class MainActivity extends AppCompatActivity {
             View view=inflater.inflate(R.layout.forgot_password,null);
             builder.setView(view);
             final EditText email_forget_password=(EditText)view.findViewById(R.id.email_forget_password);
+            final EditText edit_text_domain_forget=(EditText)view.findViewById(R.id.edit_text_domain_forget);
             TextView back_forget=(TextView)view.findViewById(R.id.back_forget);
             TextView reset_forget=(TextView)view.findViewById(R.id.reset_forget);
             back_forget.setOnClickListener(new View.OnClickListener() {
@@ -315,8 +317,9 @@ public class MainActivity extends AppCompatActivity {
             });
             reset_forget.setOnClickListener(v -> {
                 String email=email_forget_password.getText().toString();
-                if(!email.isEmpty()&&email!=null){
-                    ForgotPasswordApi(email);
+                String domain=edit_text_domain_forget.getText().toString();
+                if(!email.isEmpty()&&email!=null && domain != null && !domain.isEmpty()){
+                    ForgotPasswordApi(email,domain);
 
                 }else{
                 }
@@ -353,7 +356,7 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-    private void ForgotPasswordApi(final String mails){
+    private void ForgotPasswordApi(final String mails,String domain){
         String tag_json_obj = "json_obj_req";
         String url = EndURL.URL+"users/forgotPassword";
         Log.d("waggonurl", url);
@@ -362,7 +365,7 @@ public class MainActivity extends AppCompatActivity {
         JSONObject inputLogin=new JSONObject();
         try{
             inputLogin.put("email",mails);
-            inputLogin.put("domain",store.getDomainName());
+            inputLogin.put("domain",domain);
 
 
         }catch (Exception e){

@@ -27,16 +27,16 @@ public class AddTeamViewModel {
     public AddTeamViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<TechniciansResponse>techniciansResponseObservable(String domainId,String authKey,String idDomain){
-        return pojoInterface.getTechniciansResponse(domainId,authKey,idDomain)
+    public Observable<TechniciansResponse>techniciansResponseObservable(String authKey,String idDomain){
+        return pojoInterface.getTechniciansResponse(authKey,idDomain)
                 .doOnNext(techniciansResponse -> techniciansResponseBehaviorSubject.onNext(techniciansResponse));
     }
     public Observable<TechniciansResponse>getTechniciansResponse(){
         return techniciansResponseBehaviorSubject.asObservable();
     }
-    public Observable<ManagersResponse>managersResponseObservable(String domainId,String authKey,String idDomain){
+    public Observable<ManagersResponse>managersResponseObservable(String authKey,String idDomain){
         return pojoInterface
-                .getManagersResponse(domainId,authKey,idDomain)
+                .getManagersResponse(authKey,idDomain)
                 .doOnNext(managersResponse -> managersResponseBehaviorSubject.onNext(managersResponse));
     }
     public Observable<ManagersResponse>getManagersResponse(){

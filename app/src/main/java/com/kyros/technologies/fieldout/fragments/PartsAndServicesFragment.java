@@ -71,7 +71,7 @@ public class PartsAndServicesFragment extends Fragment {
     }
 
     private void loadGetAPI(String domainId, String authKey) {
-        subscription.add(viewModel.getPartsAndServicesResponseObservable(authKey,domainId,domainId)
+        subscription.add(viewModel.getPartsAndServicesResponseObservable(authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

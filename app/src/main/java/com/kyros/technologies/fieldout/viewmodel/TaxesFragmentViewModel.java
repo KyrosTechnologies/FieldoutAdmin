@@ -24,9 +24,9 @@ public class TaxesFragmentViewModel {
     public TaxesFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<TaxResponse>getTaxResponseObservable(String authKey,String domainId,String idDomain){
+    public Observable<TaxResponse>getTaxResponseObservable(String authKey,String idDomain){
         return pojoInterface
-                .getTax(authKey,domainId,idDomain)
+                .getTax(authKey,idDomain)
                 .doOnNext(taxResponse -> getTaxResponseBehaviorSubject.onNext(taxResponse));
     }
     public Observable<TaxResponse>getTaxResponseObservable(){

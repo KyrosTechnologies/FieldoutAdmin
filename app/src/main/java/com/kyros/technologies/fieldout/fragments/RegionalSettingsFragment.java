@@ -15,6 +15,7 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
 import com.kyros.technologies.fieldout.databinding.FragmentRegionalSettingsBinding;
@@ -393,6 +394,7 @@ public class RegionalSettingsFragment extends Fragment{
     }
 
     private void initiateAPI(String authKey, RegionalSettings regionalSettings) {
+        Log.d("Regional Set input: ",""+new Gson().toJson(regionalSettings));
         subscription.add(viewModel.addRegionalSettingsResponseObservable(authKey,regionalSettings,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())

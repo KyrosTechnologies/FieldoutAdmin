@@ -24,9 +24,9 @@ public class TagFragmentViewModel {
     public TagFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<TagResponse> getTags(String authKey, String domainId,String idDomain){
+    public Observable<TagResponse> getTags(String authKey,String idDomain){
         return pojoInterface
-                .getTags(domainId,authKey,idDomain)
+                .getTags(authKey,idDomain)
                 .doOnNext(tagResponse -> tagResponseBehaviorSubject.onNext(tagResponse));
     }
     public Observable<TagResponse> getTags(){

@@ -40,9 +40,9 @@ public class AccountInformationFragmentViewModel {
     public Observable<DomainResponse>getDomainResponse(){
         return domainResponseBehaviorSubject.asObservable();
     }
-    public Observable<BussinessHoursResponse>getBusinessHourByDomainId(String authKey,String domainId,String idDomain){
+    public Observable<BussinessHoursResponse>getBusinessHourByDomainId(String authKey,String idDomain){
         return pojoInterface
-                .getBussinessHours(domainId,authKey,idDomain)
+                .getBussinessHours(authKey,idDomain)
                 .doOnNext(bussinessHoursResponse -> bussinessHoursResponseBehaviorSubject.onNext(bussinessHoursResponse));
     }
 }

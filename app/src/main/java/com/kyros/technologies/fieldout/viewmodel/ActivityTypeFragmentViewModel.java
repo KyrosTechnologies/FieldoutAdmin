@@ -26,9 +26,9 @@ public class ActivityTypeFragmentViewModel {
     public ActivityTypeFragmentViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<ActivityTypeResponse>activityTypeResponseObservable(String domainId,String authKey,String idDomain){
+    public Observable<ActivityTypeResponse>activityTypeResponseObservable(String authKey,String idDomain){
         return pojoInterface
-                .getActivityType(domainId,authKey,idDomain)
+                .getActivityType(authKey,idDomain)
                 .doOnNext(activityTypeResponse -> activityTypeResponseBehaviorSubject.onNext(activityTypeResponse));
     }
     public Observable<ActivityTypeResponse>activityTypeResponseObservable(){

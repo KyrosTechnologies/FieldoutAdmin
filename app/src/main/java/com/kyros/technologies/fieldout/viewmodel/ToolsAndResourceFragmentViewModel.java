@@ -34,9 +34,9 @@ public class ToolsAndResourceFragmentViewModel {
     public Observable<AddToolsResourceResponse>addToolsResourceResponseObservable(){
         return addToolsResourceResponseBehaviorSubject.asObservable();
     }
-    public Observable<GetToolsAndResourcesResponse>getToolsAndResourcesResponseObservable(String authKey,String domainId,String idDomain){
+    public Observable<GetToolsAndResourcesResponse>getToolsAndResourcesResponseObservable(String authKey,String idDomain){
         return pojoInterface
-                .getToolsResources(authKey,domainId,idDomain)
+                .getToolsResources(authKey,idDomain)
                 .doOnNext(getToolsAndResourcesResponse -> getToolsAndResourcesResponseBehaviorSubject.onNext(getToolsAndResourcesResponse));
     }
     public Observable<GetToolsAndResourcesResponse>getToolsAndResourcesResponseObservable(){

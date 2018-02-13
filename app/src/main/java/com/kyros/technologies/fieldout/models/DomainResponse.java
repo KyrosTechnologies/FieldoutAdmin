@@ -4,22 +4,22 @@ import com.google.gson.annotations.SerializedName;
 
 public class DomainResponse{
 
-	@SerializedName("user")
-	private User user;
+	@SerializedName("domain")
+	private User domain;
 
 	public void setUser(User user){
-		this.user = user;
+		this.domain = user;
 	}
 
 	public User getUser(){
-		return user;
+		return domain;
 	}
 
 	@Override
  	public String toString(){
 		return 
 			"DomainResponse{" + 
-			"user = '" + user + '\'' + 
+			"user = '" + domain + '\'' +
 			"}";
 		}
 }

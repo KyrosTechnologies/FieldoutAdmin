@@ -74,7 +74,7 @@ public class TagFragment extends Fragment {
     }
 
     private void initiateTagsAPI(String authKey, String domainId) {
-        subscription.add(viewModel.getTags(authKey,domainId,domainId)
+        subscription.add(viewModel.getTags(authKey,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

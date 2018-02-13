@@ -150,7 +150,7 @@ public class CustomFieldsFragment extends Fragment {
                 //Tables Rows
                 TableRow tableRow=new TableRow(getContext());
                 tableRow.setBackground(getResources().getDrawable(R.color.bg));
-                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120));
+                tableRow.setLayoutParams(new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT));
 
                 //TextView name
                 TextView nameTextView=new TextView(getContext());
@@ -158,7 +158,7 @@ public class CustomFieldsFragment extends Fragment {
                     nameTextView.setText(name);
                 }
                 nameTextView.setTextSize(24);
-                TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                TableRow.LayoutParams tableRowuserTextParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
                 tableRowuserTextParams.setMargins(15,15,15,15);
                 nameTextView.setLayoutParams(tableRowuserTextParams);
                 nameTextView.setGravity(Gravity.CENTER);
@@ -171,7 +171,7 @@ public class CustomFieldsFragment extends Fragment {
                     typeTextView.setText(typeOfField);
                 }
                 typeTextView.setTextSize(24);
-                TableRow.LayoutParams tableRowTypeParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                TableRow.LayoutParams tableRowTypeParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
                 tableRowTypeParams.setMargins(15,15,15,15);
                 typeTextView.setLayoutParams(tableRowTypeParams);
                 typeTextView.setTextColor(getResources().getColor(R.color.text_light));
@@ -186,7 +186,7 @@ public class CustomFieldsFragment extends Fragment {
                     privateTextView.setText("False");
                 }
                 privateTextView.setTextSize(24);
-                TableRow.LayoutParams tableRowPrivateParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, 120,50);
+                TableRow.LayoutParams tableRowPrivateParams=new TableRow.LayoutParams(TableRow.LayoutParams.MATCH_PARENT, TableRow.LayoutParams.WRAP_CONTENT,50);
                 tableRowPrivateParams.setMargins(15,15,15,15);
                 privateTextView.setLayoutParams(tableRowPrivateParams);
                 privateTextView.setTextColor(getResources().getColor(R.color.text_light));

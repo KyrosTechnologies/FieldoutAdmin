@@ -68,10 +68,7 @@ public class AccountInformationFragment extends Fragment {
         subscription=new CompositeSubscription();
        //storage initialization
         store=PreferenceManager.getInstance(getContext());
-        String domainId=store.getIdDomain();
-        String authKey=store.getToken();
-        callDomainAPI(domainId,authKey);
-        callBussinessHoursAPI(domainId,authKey);
+
         //Button
         edit_profile_button=view.findViewById(R.id.edit_profile_button);
         save_bussiness_button=view.findViewById(R.id.save_bussiness_button);
@@ -126,11 +123,21 @@ public class AccountInformationFragment extends Fragment {
        return view;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        store=PreferenceManager.getInstance(getContext());
+        String domainId=store.getIdDomain();
+        String authKey=store.getToken();
+        callDomainAPI(domainId,authKey);
+        callBussinessHoursAPI(domainId,authKey);
+    }
+
     private void callBussinessHoursAPI(String domainId, String authKey) {
-        subscription.add(viewModel.getBusinessHourByDomainId(authKey,domainId,domainId)
+        subscription.add(viewModel.getBusinessHourByDomainId(authKey,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
+                .doOnError(throwable -> Log.e("Error BussinessHours : ",TAG+" / / "+throwable.getMessage()))
                 .subscribe(checkBussinessHoursRes));
     }
     private Subscriber<BussinessHoursResponse>checkBussinessHoursRes=new Subscriber<BussinessHoursResponse>() {
@@ -141,7 +148,7 @@ public class AccountInformationFragment extends Fragment {
 
         @Override
         public void onError(Throwable throwable) {
-            Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+            Log.e("Error Business: ",TAG+" / / "+throwable.getMessage());
             showToast(""+throwable.getMessage());
         }
 
@@ -253,7 +260,7 @@ public class AccountInformationFragment extends Fragment {
             subscription.add(viewModel.domainResponseObservable(authKey,domainId,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
-                .doOnError(throwable -> Log.d("Error : ",TAG+" / / "+throwable.getMessage()))
+                .doOnError(throwable -> Log.d("Error Domain : ",TAG+" / / "+throwable.getMessage()))
                 .subscribe(checkDomainResponse));
     }
     private Subscriber<DomainResponse>checkDomainResponse=new Subscriber<DomainResponse>() {
@@ -264,7 +271,7 @@ public class AccountInformationFragment extends Fragment {
 
         @Override
         public void onError(Throwable throwable) {
-            Log.d("Error : ",TAG+" / / "+throwable.getMessage());
+            Log.d("Error Domain: ",TAG+" / / "+throwable.getMessage());
             showToast(""+throwable.getMessage());
 
         }
@@ -374,7 +381,7 @@ public class AccountInformationFragment extends Fragment {
     }
 
     private void initBindings(BussinessHoursModel model,String token) {
-                Log.d("InitBindings ","Binding initialization");
+                Log.d("Business input : ",""+new Gson().toJson(model));
             subscription.add(viewModel.bussinessHoursResponseObservable(token,model,store.getIdDomain())
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())

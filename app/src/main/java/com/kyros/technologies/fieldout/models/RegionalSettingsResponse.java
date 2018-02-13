@@ -3,6 +3,8 @@ package com.kyros.technologies.fieldout.models;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
+import java.util.List;
+
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,7 +21,7 @@ public class RegionalSettingsResponse {
 
     @SerializedName("regional_settings")
     @Expose
-    private RegionalSettings regionalSettings;
+    private List<RegionalSettings> regionalSettings;
     @SerializedName("isSuccess")
     @Expose
     private boolean isSuccess;

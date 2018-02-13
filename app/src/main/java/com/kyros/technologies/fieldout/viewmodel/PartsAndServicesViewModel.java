@@ -25,9 +25,9 @@ public class PartsAndServicesViewModel {
     public PartsAndServicesViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<PartsAndServicesResponse>getPartsAndServicesResponseObservable(String authKey,String domainId,String idDomain){
+    public Observable<PartsAndServicesResponse>getPartsAndServicesResponseObservable(String authKey,String idDomain){
         return pojoInterface
-                .getPartsAndServices(authKey,domainId,idDomain)
+                .getPartsAndServices(authKey,idDomain)
                 .doOnNext(partsAndServicesResponse -> getpartsAndServicesResponseBehaviorSubject.onNext(partsAndServicesResponse));
     }
     public Observable<PartsAndServicesResponse>getPartsAndServicesResponseObservable(){

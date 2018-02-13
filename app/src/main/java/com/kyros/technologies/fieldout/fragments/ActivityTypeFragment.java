@@ -82,7 +82,7 @@ public class ActivityTypeFragment extends Fragment {
     }
 
     private void initiateActivityTypeAPI(String domainId, String authKey) {
-        subscription.add(viewModel.activityTypeResponseObservable(domainId,authKey,domainId)
+        subscription.add(viewModel.activityTypeResponseObservable(authKey,domainId)
                     .subscribeOn(Schedulers.computation())
                     .observeOn(AndroidSchedulers.mainThread())
                     .doOnError(throwable -> Log.e("Error : ", TAG+" / / "+throwable.getMessage()))

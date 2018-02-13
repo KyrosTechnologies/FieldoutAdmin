@@ -249,7 +249,7 @@ public class PartsAndServicesActivity extends AppCompatActivity {
     }
 
     private void initiateGetTaxAPI(String authKey, String domainId) {
-        subscription.add(taxesFragmentViewModel.getTaxResponseObservable(authKey,domainId,domainId)
+        subscription.add(taxesFragmentViewModel.getTaxResponseObservable(authKey,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

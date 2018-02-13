@@ -77,7 +77,7 @@ public class ToolsAndResourcesFragment extends Fragment {
 
     private void initiateGetToolsAndResourcesApi(String authKey, String domainId) {
         if(domainId!=null && !domainId.isEmpty() && authKey!=null && !authKey.isEmpty()){
-            subscription.add(viewModel.getToolsAndResourcesResponseObservable(authKey,domainId,domainId)
+            subscription.add(viewModel.getToolsAndResourcesResponseObservable(authKey,domainId)
             .subscribeOn(Schedulers.computation())
             .observeOn(AndroidSchedulers.mainThread())
             .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))

@@ -50,14 +50,11 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:orientation="horizontal"
-                        android:visibility="gone">
+                     >
 
-                        <View
-                            android:layout_width="0.2dp"
-                            android:layout_height="5dp"
-                            android:layout_gravity="bottom"
-                            android:background="@color/text_light" />
+
 
                         <EditText
                             android:layout_width="wrap_content"
@@ -70,19 +67,30 @@
                             android:textColorHint="@color/text_light"
                             android:textSize="16sp" />
 
-                        <ImageView
-                            android:layout_width="20dp"
-                            android:layout_height="20dp"
-                            android:layout_gravity="center"
-                            android:layout_marginRight="5dp" />
 
-                        <View
-                            android:layout_width="0.2dp"
-                            android:layout_height="5dp"
-                            android:layout_gravity="bottom"
-                            android:background="@color/text_light" />
 
                     </LinearLayout>
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="20dp"
+                        android:orientation="horizontal">
+
+                        <EditText
+                            android:id="@+id/edit_text_domain"
+                            android:layout_width="wrap_content"
+                            android:layout_height="60dp"
+                            android:layout_weight="1"
+                            android:background="@android:color/transparent"
+                            android:hint="@string/domain"
+                            android:inputType="text"
+                            android:paddingLeft="10dp"
+                            android:textColor="@color/text_light"
+                            android:textColorHint="@color/text_light"
+                            android:textSize="@dimen/privacy_policy_statement" />
+
+                    </LinearLayout>
+
 
                     <View
                         android:layout_width="match_parent"

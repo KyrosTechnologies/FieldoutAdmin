@@ -166,7 +166,7 @@ public class AddTeamActivity extends AppCompatActivity {
 
         for(String technicianName:technicianFinalList){
             for(Technician technician:technicians){
-                if(technicianName.toLowerCase().equals(technician.getUsername().toLowerCase())){
+                if(technicianName.toLowerCase().equals((technician.getFirstName()+" "+technician.getLastName()).toLowerCase())){
                     technicianFinalIdList.add(technician.getId());
                 }
             }
@@ -181,7 +181,7 @@ public class AddTeamActivity extends AppCompatActivity {
         List<String>managerFinalIdList=new ArrayList<>();
         for(String managerName:managerFinalList){
                for(Manager manager:managers){
-                   if(managerName.toLowerCase().equals(manager.getUsername().toLowerCase())){
+                   if(managerName.toLowerCase().equals((manager.getFirstName()+" "+manager.getLastName()).toLowerCase())){
                        managerFinalIdList.add(manager.getId());
                    }
                }
@@ -321,7 +321,7 @@ public class AddTeamActivity extends AppCompatActivity {
     }
 
     private void initiateTagsAPI(String authKey, String domainId) {
-        subscription.add(viewModelTag.getTags(authKey,domainId,domainId)
+        subscription.add(viewModelTag.getTags(authKey,domainId)
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -374,7 +374,7 @@ public class AddTeamActivity extends AppCompatActivity {
 
     private void initiateManagersAPI(String domainId, String authKey) {
         if(domainId != null && authKey != null)
-            subscription.add(viewModel.managersResponseObservable(domainId,authKey,domainId)
+            subscription.add(viewModel.managersResponseObservable(authKey,domainId)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -386,7 +386,7 @@ public class AddTeamActivity extends AppCompatActivity {
             Log.d("Manager Response : ",TAG+" / / "+managersResponse.toString());
             managers=managersResponse.getManagers();
             for(Manager manager:managers){
-                managersNameList.add(manager.getUsername());
+                managersNameList.add(manager.getFirstName()+" "+manager.getLastName());
             }
              managersNameListString=new Gson().toJson(managersNameList);
             managersNameListRecycler=managersNameList;
@@ -462,7 +462,7 @@ public class AddTeamActivity extends AppCompatActivity {
 
     private void initiateTechniciansAPI(String domainId, String authKey) {
         if(domainId != null && authKey != null)
-            subscription.add(viewModel.techniciansResponseObservable(domainId,authKey,domainId)
+            subscription.add(viewModel.techniciansResponseObservable(authKey,domainId)
                         .subscribeOn(Schedulers.computation())
                         .observeOn(AndroidSchedulers.mainThread())
                         .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -491,7 +491,7 @@ public class AddTeamActivity extends AppCompatActivity {
                 Log.d("Technician Response  : ",TAG+" / / "+techniciansResponse.toString());
              technicians=techniciansResponse.getTechnicians();
             for(Technician technician: technicians){
-                technicianNameList.add(technician.getUsername());
+                technicianNameList.add(technician.getFirstName()+" "+technician.getLastName());
             }
              technicianNameListString=new Gson().toJson(technicianNameList);
             binding.technicianListTextView.setOnClickListener(view -> {

@@ -71,7 +71,7 @@ public class AccountInformationDetailsActivity extends AppCompatActivity {
          profile=store.getProfile();
         customFieldValues=store.getCustomFieldValues();
         language=store.getLanguage();
-        String userName=store.getUsername();
+        String userName=store.getFirstName()+" "+store.getLastName();
         if(userName!=null){
             binding.userNameEditText.setText(userName);
         }
@@ -135,7 +135,7 @@ public class AccountInformationDetailsActivity extends AppCompatActivity {
             Result result =new Result();
             result.setFirstName(firstNameEditText);
             result.setLastName(lastNameEditText);
-            result.setUsername(userNameEditText);
+          //  result.setUsername(userNameEditText);
             result.setLanguage(language);
             result.setEmail(emailEditText);
             result.setPhone(phoneEditText);
@@ -229,6 +229,7 @@ public class AccountInformationDetailsActivity extends AppCompatActivity {
                     binding.userNameEditText.setText(userName);
                     store.putUsername(userName);
                 }
+                this.finish();
     }
 
     private void showToast(String message){
