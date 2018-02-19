@@ -953,6 +953,10 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -1050,6 +1054,10 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -1271,6 +1279,10 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }

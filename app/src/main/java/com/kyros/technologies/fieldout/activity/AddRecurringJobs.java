@@ -1019,6 +1019,10 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -1116,6 +1120,10 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -1364,6 +1372,10 @@ public class AddRecurringJobs extends AppCompatActivity implements AdapterView.O
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }

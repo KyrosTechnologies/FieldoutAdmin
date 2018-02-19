@@ -526,6 +526,10 @@ public class InvoicesUpdateDelete extends AppCompatActivity {
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }

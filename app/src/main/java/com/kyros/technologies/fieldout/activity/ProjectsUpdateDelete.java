@@ -386,6 +386,10 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -907,6 +911,10 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -979,6 +987,10 @@ public class ProjectsUpdateDelete extends AppCompatActivity implements AdapterVi
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }

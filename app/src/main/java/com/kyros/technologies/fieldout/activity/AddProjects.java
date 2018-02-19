@@ -202,7 +202,6 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
                 tags_selected_jobs.setAdapter(selectedAdapter);
                 selectedAdapter.notifyDataSetChanged();
                 for (int i=0;i<tagsList.size();i++){
-                    AddTagsApi(tagsList.get(i));
                 }
             }
 
@@ -862,6 +861,10 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -888,71 +891,6 @@ public class AddProjects extends AppCompatActivity implements AdapterView.OnItem
         for (int i=0;i<equipDetailsArrayList.size();i++){
             String ename=equipDetailsArrayList.get(i).getEquipname();
         }
-    }
-
-    private void AddTagsApi(String name) {
-
-        String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL + "tags/add";
-        Log.d("waggonurl", url);
-        JSONObject inputLogin = new JSONObject();
-
-        try {
-            inputLogin.put("name",name);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        Log.d("inputJsonuser", inputLogin.toString());
-        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.POST, url, inputLogin, new Response.Listener<JSONObject>() {
-            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
-            @Override
-            public void onResponse(JSONObject response) {
-                Log.d("List Response", response.toString());
-
-                try {
-
-                    JSONObject obj=new JSONObject(response.toString());
-                    boolean success=obj.getBoolean("isSuccess");
-                    if (success) {
-                        JSONObject first = obj.getJSONObject("tag");
-                        String tagid=first.getString("id");
-                        store.putTagId(String.valueOf(tagid));
-
-                        tagsArrayList.add(tagid);
-
-                    }
-
-
-                } catch (Exception e) {
-                    e.printStackTrace();
-                }
-
-
-            }
-        }, new Response.ErrorListener() {
-
-            @Override
-            public void onErrorResponse(VolleyError error) {
-                if (error != null) {
-                    Log.e("Error", "" + error.toString());
-                }
-//                texts.setText(error.toString());
-            }
-        }) {
-
-
-            @Override
-            public Map<String, String> getHeaders()throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Authorization", store.getToken());
-                params.put("idDomain",store.getIdDomain());
-                return params;
-            }
-
-        };
-        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
-
     }
 
     @Override
