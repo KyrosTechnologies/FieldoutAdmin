@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:touchscreenBlocksFocus="false"
+    android:background="#00ffffff">
+
+    <ImageView
+        android:layout_width="45dp"
+        android:layout_height="50dp"
+        android:id= '@+id/mile_stone'
+        android:src="@drawable/mappointer" />
+
+    <TextView
+        android:id="@id/text"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="18dp"
+        android:layout_marginTop="3dp"
+        android:gravity="center"
+        android:text="1"
+        android:textColor="@color/light_black"
+        android:textSize="16sp"
+        android:textStyle="bold" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/rating_main_activity"
+        android:layout_marginLeft="5dp"
+        android:layout_marginTop="25dp"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/white"
+        android:textSize="8sp"/>
+</RelativeLayout>

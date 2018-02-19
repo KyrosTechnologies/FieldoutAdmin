@@ -33,4 +33,5 @@
     <color name="green_disable">#8D39B327</color>
     <color name="red_disable">#7DD6382F</color>
     <color name="button_disable">#7D6F9418</color>
+    <color name="trans">#00FFFFFF</color>
 </resources>

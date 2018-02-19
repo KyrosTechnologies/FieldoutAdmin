@@ -22,6 +22,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
@@ -47,7 +48,7 @@ import java.util.Map;
 public class AddMessages extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private PreferenceManager store;
-    private String usedid=null;
+    private String userid=null;
     private String domainid=null;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
     private EditText msg_title_edit,msg_body_edit;
@@ -79,7 +80,7 @@ public class AddMessages extends AppCompatActivity implements AdapterView.OnItem
         msg_tech_spinner=findViewById(R.id.msg_tech_spinner);
         save_messages=findViewById(R.id.save_messages);
         store= PreferenceManager.getInstance(getApplicationContext());
-        usedid=store.getUserid();
+        userid=store.getUserid();
         domainid=store.getIdDomain();
         msg_tech_spinner.setOnItemSelectedListener(this);
         GetTechnicianList();
@@ -186,7 +187,7 @@ public class AddMessages extends AppCompatActivity implements AdapterView.OnItem
 
     private void GetTechnicianList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
+        String url = EndURL.URL+"users/getTechnicians";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -201,13 +202,16 @@ public class AddMessages extends AppCompatActivity implements AdapterView.OnItem
                     for (int i=0;i<array.length();i++){
                         JSONObject first=array.getJSONObject(i);
                         String technicianid=first.getString("id");
-                        String techusername=first.getString("username");
+                        store.putTechnicianId(String.valueOf(technicianid));
+                        String techfirstName=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
                         commonJobsArrayList.add(commonJobs);
-                        spinnerlist.add(techusername);
+                        spinnerlist.add(techfirstName+" "+techlastName);
 
                     }
 
@@ -258,6 +262,10 @@ public class AddMessages extends AppCompatActivity implements AdapterView.OnItem
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -271,9 +279,10 @@ public class AddMessages extends AppCompatActivity implements AdapterView.OnItem
 
         String technicianid=null;
         for (int i=0;i<commonJobsArrayList.size();i++){
-            String techName=commonJobsArrayList.get(i).getTechnicianname();
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
+                if (techniciantext.equals(techName+" "+techlastname)) {
                     technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
@@ -284,7 +293,7 @@ public class AddMessages extends AppCompatActivity implements AdapterView.OnItem
             inputLogin.put("msgBody", msgbody);
             inputLogin.put("msgPriority",selectedpriority);
             inputLogin.put("idUser",technicianid);
-            inputLogin.put("idSender",usedid);
+            inputLogin.put("idSender",userid);
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -338,6 +347,10 @@ public class AddMessages extends AppCompatActivity implements AdapterView.OnItem
             }
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }

@@ -134,6 +134,7 @@ public class MainActivity extends AppCompatActivity {
             inputLogin.put("password",password);
             inputLogin.put("email",username);
             inputLogin.put("domain",domainName);
+            inputLogin.put("idDevice",store.getFCMToken());
 
         }catch (Exception e){
             e.printStackTrace();

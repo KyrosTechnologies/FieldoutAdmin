@@ -70,7 +70,7 @@ public class MessageList extends AppCompatActivity {
 
     private void GetMessagesList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"messages/getByUserId/"+usedid;
+        String url = EndURL.URL+"messages/getAll";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {

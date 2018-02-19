@@ -200,17 +200,19 @@ public class QuotationItemsUpdateDelete extends AppCompatActivity implements Ada
                 double tamount=Double.parseDouble(unitprice)*Double.parseDouble(quantity);
                 price=tamount;
 
-                double taxprice=Double.parseDouble(taxrate)/100;
-                double amount1=tamount*taxprice;
-                double taxamount=tamount+amount1;
                 double discountprice=Double.parseDouble(discount)/100;
                 double amount2=tamount*discountprice;
-                double totalamount=taxamount-amount2;
+                double totalamount=tamount-amount2;
+                double taxprice=Double.parseDouble(taxrate)/100;
+                double amount1=totalamount*taxprice;
+                double taxamount=totalamount+amount1;
 
-                String totaltext=String.valueOf(totalamount);
+                String totaltext=String.valueOf(taxamount);
                 if (totaltext!=null){
                     total_invoice.setText(totaltext);
                 }
+            }else {
+                total_invoice.setText("Total");
             }
         }
 
@@ -278,17 +280,19 @@ public class QuotationItemsUpdateDelete extends AppCompatActivity implements Ada
                                 double tamount=Double.parseDouble(unitprice)*Double.parseDouble(quantity);
                                 price=tamount;
 
-                                double taxprice=Double.parseDouble(taxrate)/100;
-                                double amount1=tamount*taxprice;
-                                double taxamount=tamount+amount1;
                                 double discountprice=Double.parseDouble(discount)/100;
                                 double amount2=tamount*discountprice;
-                                double totalamount=taxamount-amount2;
+                                double totalamount=tamount-amount2;
+                                double taxprice=Double.parseDouble(taxrate)/100;
+                                double amount1=totalamount*taxprice;
+                                double taxamount=totalamount+amount1;
 
-                                String totaltext=String.valueOf(totalamount);
+                                String totaltext=String.valueOf(taxamount);
                                 if (totaltext!=null){
                                     total_invoice.setText(totaltext);
                                 }
+                            }else {
+                                total_invoice.setText("Total");
                             }
 
                         }

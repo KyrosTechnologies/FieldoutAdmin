@@ -1157,7 +1157,7 @@ public class AddJobsActivity extends AppCompatActivity implements AdapterView.On
             }
 
         }
-            JSONObject position=new JSONObject();
+        JSONObject position=new JSONObject();
         try {
             position.put("lat",latitude);
             position.put("lng",longitude);

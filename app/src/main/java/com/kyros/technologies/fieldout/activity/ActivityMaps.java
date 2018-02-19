@@ -1,20 +1,39 @@
 package com.kyros.technologies.fieldout.activity;
 
 import android.Manifest;
+import android.annotation.TargetApi;
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.graphics.Bitmap;
+import android.graphics.Canvas;
 import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
 import android.location.Location;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
+import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.MenuItem;
+import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
+import com.android.volley.Request;
+import com.android.volley.Response;
+import com.android.volley.VolleyError;
+import com.android.volley.toolbox.JsonObjectRequest;
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GooglePlayServicesUtil;
 import com.google.android.gms.common.api.GoogleApiClient;
@@ -26,7 +45,26 @@ import com.google.android.gms.maps.GoogleMap;
 import com.google.android.gms.maps.OnMapReadyCallback;
 import com.google.android.gms.maps.SupportMapFragment;
 import com.google.android.gms.maps.model.LatLng;
+import com.google.android.gms.maps.model.MarkerOptions;
+import com.google.maps.android.clustering.Cluster;
+import com.google.maps.android.clustering.ClusterManager;
+import com.google.maps.android.clustering.view.DefaultClusterRenderer;
+import com.google.maps.android.ui.IconGenerator;
 import com.kyros.technologies.fieldout.R;
+import com.kyros.technologies.fieldout.common.CommonJobs;
+import com.kyros.technologies.fieldout.common.EndURL;
+import com.kyros.technologies.fieldout.common.Person;
+import com.kyros.technologies.fieldout.common.ServiceHandler;
+import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
+
+import org.json.JSONArray;
+import org.json.JSONObject;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+
+import static com.google.android.gms.maps.model.BitmapDescriptorFactory.fromBitmap;
 
 /**
  * Created by Rohin on 24-01-2018.
@@ -35,8 +73,13 @@ import com.kyros.technologies.fieldout.R;
 public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallback, GoogleApiClient.ConnectionCallbacks,
         GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
+    private PreferenceManager store;
+    ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
+    private String techfirstName=null;
+    private String techlastName=null;
     private static final int PLAY_SERVICES_RESOLUTION_REQUEST = 1000;
     private GoogleMap mMap;
+    private ClusterManager<com.kyros.technologies.fieldout.common.Person> mClusterManager;
     private ImageView location_pointer;
     private final boolean mRequestingLocationUpdates = false;
     private Location mLastLocation;
@@ -57,6 +100,8 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
         actionBar.setBackgroundDrawable(new ColorDrawable(getResources().getColor(R.color.action_bar)));
         actionBar.setDisplayHomeAsUpEnabled(true);
         setContentView(R.layout.fragment_map);
+        store= PreferenceManager.getInstance(getApplicationContext());
+        GetTechnicianList();
 
         if ((ContextCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_COARSE_LOCATION)
@@ -83,6 +128,11 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
         SupportMapFragment mapFragment = (SupportMapFragment) getSupportFragmentManager()
                 .findFragmentById(R.id.map);
         mapFragment.getMapAsync(this);
+        //mClusterManager.setOnClusterClickListener(this);
+
+//        mClusterManager.setOnClusterInfoWindowClickListener(ActivityMaps.this);
+//        mClusterManager.setOnClusterItemClickListener(ActivityMaps.this);
+//        mClusterManager.setOnClusterItemInfoWindowClickListener(ActivityMaps.this);
         location_pointer = findViewById(R.id.location_pointer);
         buildGoogleApiClient();
 
@@ -120,6 +170,93 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
             }
 
         });
+    }
+
+    private void GetTechnicianList() {
+        String tag_json_obj = "json_obj_req";
+        String url = EndURL.URL+"users/getTechnicians";
+        Log.d("waggonurl", url);
+
+        JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
+            @TargetApi(Build.VERSION_CODES.JELLY_BEAN_MR1)
+            @Override
+            public void onResponse(JSONObject response) {
+                Log.d("List Response",response.toString());
+                try {
+
+                    JSONObject obj=new JSONObject(response.toString());
+                    JSONArray array=obj.getJSONArray("technicians");
+                    for (int i=0;i<array.length();i++){
+                        JSONObject first=array.getJSONObject(i);
+                        String technicianid=first.getString("id");
+                        store.putTechnicianId(String.valueOf(technicianid));
+                        techfirstName=first.getString("firstName");
+                        techlastName=first.getString("lastName");
+                        JSONObject positions=null;
+                        try {
+                            positions=first.getJSONObject("positions");
+                        }catch (Exception e){
+                        }
+                        double lat=0;
+                        try {
+                            lat=positions.getDouble("lat");
+                        }catch (Exception e){
+                        }
+                        double lng=0;
+                        try {
+                            lng=positions.getDouble("lng");
+                        }catch (Exception e){
+                        }
+
+                        LatLng ola = new LatLng(lat, lng);
+                        try {
+
+                            additems(ola, "", techfirstName+" "+techlastName, "");
+                            mClusterManager.cluster();
+
+
+                        } catch (Exception e) {
+                            e.printStackTrace();
+                        }
+
+                        CommonJobs commonJobs=new CommonJobs();
+                        commonJobs.setTechnicianid(technicianid);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
+                        commonJobsArrayList.add(commonJobs);
+
+                    }
+
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+            }
+        }, new Response.ErrorListener() {
+
+            @Override
+            public void onErrorResponse(VolleyError error) {
+                Toast.makeText(getApplicationContext(),"Not Working",Toast.LENGTH_SHORT).show();
+
+            }
+        }) {
+
+            @Override
+            public Map<String, String> getHeaders()throws AuthFailureError {
+                Map<String, String> params = new HashMap<String, String>();
+                params.put("Authorization", store.getToken());
+                params.put("idDomain",store.getIdDomain());
+                return params;
+            }
+
+
+        };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
+        ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
+
     }
 
     @Override
@@ -318,10 +455,11 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
             return;
         }
         mMap.setMyLocationEnabled(true);
-        mMap.getUiSettings().setRotateGesturesEnabled(false);
-        LatLng sydney = new LatLng(20.5937, 78.9629);
-         //mMap.addMarker(new MarkerOptions().position(sydney).title("Marker in Sydney"));
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney));
+        mClusterManager = new ClusterManager<Person>(ActivityMaps.this, mMap);
+        mClusterManager.setRenderer(new PersonRenderer());
+        mMap.setOnCameraChangeListener(mClusterManager);
+        mMap.setOnMarkerClickListener(mClusterManager);
+        mMap.setOnInfoWindowClickListener(mClusterManager);
 
     }
 
@@ -340,5 +478,66 @@ public class ActivityMaps extends AppCompatActivity implements OnMapReadyCallbac
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+    private class PersonRenderer extends DefaultClusterRenderer<com.kyros.technologies.fieldout.common.Person> {
+        private final IconGenerator mClusterIconGenerator = new IconGenerator(getApplicationContext());
+
+        public PersonRenderer() {
+            super(getApplicationContext(), mMap, mClusterManager);
+
+            View multiProfile = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
+            TextView rating_main_activity=multiProfile.findViewById(R.id.rating_main_activity);
+
+            mClusterIconGenerator.setContentView(multiProfile);
+            Drawable d = getResources().getDrawable(R.color.trans);
+            mClusterIconGenerator.setBackground(d);
+
+        }
+
+        public Bitmap createDrawableFromView(Context context, View view) {
+            DisplayMetrics displayMetrics = new DisplayMetrics();
+            ((Activity) context).getWindowManager().getDefaultDisplay().getMetrics(displayMetrics);
+            view.setLayoutParams(new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.WRAP_CONTENT, RelativeLayout.LayoutParams.WRAP_CONTENT));
+            view.measure(displayMetrics.widthPixels, displayMetrics.heightPixels);
+            view.layout(0, 0, displayMetrics.widthPixels, displayMetrics.heightPixels);
+            view.buildDrawingCache();
+            Bitmap bitmap = Bitmap.createBitmap(view.getMeasuredWidth(), view.getMeasuredHeight(), Bitmap.Config.ARGB_8888);
+
+            Canvas canvas = new Canvas(bitmap);
+            view.draw(canvas);
+
+            return bitmap;
+        }
+
+        @Override
+        protected void onBeforeClusterItemRendered(com.kyros.technologies.fieldout.common.Person person, MarkerOptions markerOptions) {
+
+            View ic = ((LayoutInflater) getSystemService(Context.LAYOUT_INFLATER_SERVICE)).inflate(R.layout.custom_marker_layout, null);
+            TextView rating_main_activity=ic.findViewById(R.id.rating_main_activity);
+            if (person.getGoogle()!=null){
+                rating_main_activity.setText(person.getGoogle());
+            }
+            markerOptions.icon(fromBitmap(createDrawableFromView(ActivityMaps.this, ic)));
+        }
+
+        @Override
+        protected void onBeforeClusterRendered(Cluster<com.kyros.technologies.fieldout.common.Person> cluster, MarkerOptions markerOptions) {
+            Bitmap icon = mClusterIconGenerator.makeIcon(String.valueOf(cluster.getSize()));
+            markerOptions.icon(fromBitmap(icon));
+        }
+
+
+        @Override
+        protected boolean shouldRenderAsCluster(Cluster cluster) {
+            return cluster.getSize() > 1;
+        }
+    }
+
+    private void additems(LatLng ola,String placeid,String value,String rating) {
+        com.kyros.technologies.fieldout.common.Person jj=new com.kyros.technologies.fieldout.common.Person();
+        jj.clearData();
+        mClusterManager.addItem(new com.kyros.technologies.fieldout.common.Person(ola, placeid,value,rating));
+
     }
 }

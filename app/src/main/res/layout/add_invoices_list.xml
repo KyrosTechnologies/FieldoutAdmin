@@ -98,7 +98,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
                     android:layout_gravity="center"
-                    android:layout_weight="1"
+                    android:layout_weight="0.9"
                     android:background="@drawable/button_red"
                     android:hint="Discount"
                     android:inputType="number"
@@ -107,38 +107,49 @@
                     android:textColorHint="@color/text_light"
                     android:textSize="@dimen/privacy_policy_statement" />
 
-
-                <TextView
-                    android:id="@+id/total_invoice"
+                <Spinner
+                    android:id="@+id/tax_invoice_spinner"
                     android:layout_width="wrap_content"
                     android:layout_height="60dp"
+                    android:layout_weight="0.95"
                     android:layout_marginLeft="15dp"
-                    android:layout_weight="1"
-                    android:background="@drawable/button_bg"
-                    android:gravity="center|start"
-                    android:paddingLeft="10dp"
-                    android:singleLine="true"
-                    android:text="Total      "
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/privacy_policy_statement" />
+                    android:layout_gravity="center"
+                    style="@style/SpinnerThemeRed"/>
+
 
             </LinearLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="10dp"
-                android:text="@string/tax"
-                android:textColor="@color/light_black"
-                android:textSize="@dimen/title_text_size" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:orientation="horizontal">
 
-            <Spinner
-                android:id="@+id/tax_invoice_spinner"
+            <TextView
+                android:id="@+id/total_invoice"
                 android:layout_width="match_parent"
                 android:layout_height="60dp"
-                android:layout_gravity="center"
-                android:layout_marginTop="15dp"
-                style="@style/SpinnerThemeRed"/>
+                android:layout_weight="1"
+                android:background="@drawable/button_bg"
+                android:gravity="center|start"
+                android:paddingLeft="10dp"
+                android:singleLine="true"
+                android:text="Total"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/privacy_policy_statement" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:layout_weight="1"
+                android:gravity="center|start"
+                android:paddingLeft="10dp"
+                android:layout_marginLeft="15dp"
+                android:singleLine="true"
+                android:textColor="@color/light_black"
+                android:textSize="@dimen/privacy_policy_statement" />
+
+        </LinearLayout>
 
             <Button
                 android:id="@+id/save_invoice_add"

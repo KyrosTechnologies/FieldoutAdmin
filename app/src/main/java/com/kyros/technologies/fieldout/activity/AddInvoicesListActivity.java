@@ -54,7 +54,8 @@ public class AddInvoicesListActivity extends AppCompatActivity {
 
     private PreferenceManager store;
     private String domainid=null;
-    private TextView invoices_create_date,invoices_pay_date,mark_as_sent,mark_as_paid,mark_as_late,mark_as_cancel,add_invoices_list,text_view_export;
+    private TextView invoices_create_date,invoices_pay_date,mark_as_sent,mark_as_paid,mark_as_late,mark_as_cancel,
+            add_invoices_list,text_view_export;
     private RecyclerView invoice_item_recycler;
     private String invoiceid=null;
     private String adapinvoice=null;
@@ -65,6 +66,7 @@ public class AddInvoicesListActivity extends AppCompatActivity {
     private AlertDialog showChooseDialog;
     private List<PdfTotalList>pdfTotalListList=new ArrayList<>();
     private String TAG=AddInvoicesListActivity.class.getSimpleName();
+    private String status=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -92,8 +94,55 @@ public class AddInvoicesListActivity extends AppCompatActivity {
             Bundle bundle = getIntent().getExtras();
             invoiceid=bundle.getString("invoiceid");
             adapinvoice=bundle.getString("invoiceid");
+            status=bundle.getString("status");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (status.equals("draft")){
+            mark_as_sent.setEnabled(true);
+            mark_as_sent.setClickable(true);
+            mark_as_paid.setEnabled(false);
+            mark_as_paid.setClickable(false);
+            mark_as_late.setEnabled(false);
+            mark_as_late.setClickable(false);
+            mark_as_cancel.setEnabled(false);
+            mark_as_cancel.setClickable(false);
+            Toast.makeText(getApplicationContext(),"Invoice need to be Sent",Toast.LENGTH_SHORT).show();
+        }else if (status.equals("sent")){
+            mark_as_sent.setEnabled(false);
+            mark_as_sent.setClickable(false);
+            mark_as_paid.setEnabled(true);
+            mark_as_paid.setClickable(true);
+            mark_as_late.setEnabled(true);
+            mark_as_late.setClickable(true);
+            mark_as_cancel.setEnabled(true);
+            mark_as_cancel.setClickable(true);
+            Toast.makeText(getApplicationContext(),"Already Sent Invoice Cannot Sent again",Toast.LENGTH_SHORT).show();
+        }else if (status.equals("paid")){
+            mark_as_sent.setEnabled(false);
+            mark_as_sent.setClickable(false);
+            mark_as_late.setEnabled(false);
+            mark_as_late.setClickable(false);
+            mark_as_cancel.setEnabled(false);
+            mark_as_cancel.setClickable(false);
+            Toast.makeText(getApplicationContext(),"Paid Invoice cannot resent or Cancel",Toast.LENGTH_SHORT).show();
+        }else if (status.equals("late")){
+            mark_as_sent.setEnabled(false);
+            mark_as_sent.setClickable(false);
+            mark_as_paid.setEnabled(false);
+            mark_as_paid.setClickable(false);
+            mark_as_cancel.setEnabled(false);
+            mark_as_cancel.setClickable(false);
+            Toast.makeText(getApplicationContext(),"Late invoices cannot Cancel",Toast.LENGTH_SHORT).show();
+        }else if (status.equals("canceled")){
+            mark_as_sent.setEnabled(false);
+            mark_as_sent.setClickable(false);
+            mark_as_paid.setEnabled(false);
+            mark_as_paid.setClickable(false);
+            mark_as_late.setEnabled(false);
+            mark_as_late.setClickable(false);
+            Toast.makeText(getApplicationContext(),"Canceled invoice cannot resent or Paid",Toast.LENGTH_SHORT).show();
         }
 
         add_invoices_list.setOnClickListener(view -> {

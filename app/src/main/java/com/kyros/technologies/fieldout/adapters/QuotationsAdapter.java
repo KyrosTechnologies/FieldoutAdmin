@@ -71,11 +71,20 @@ public class QuotationsAdapter extends RecyclerView.Adapter<QuotationsAdapter.My
         holder.invoices_linear.setOnClickListener(view -> {
             Intent i=new Intent(mContext, AddQuotationsListActivity.class);
             i.putExtra("quotationid",quotationid);
+            i.putExtra("status",status);
             mContext.startActivity(i);
         });
 
         holder.invoice_date.setText(date);
-        holder.invoices_status.setText(status);
+        if (status.equals("draft")){
+            holder.invoices_status.setText("Draft");
+        }else if (status.equals("sent")){
+            holder.invoices_status.setText("Sent");
+        }else if (status.equals("canceled")){
+            holder.invoices_status.setText("Canceled");
+        }else if (status.equals("accepted")){
+            holder.invoices_status.setText("Accepted");
+        }
         holder.invoices_customer_name.setText(cusname);
         holder.invoices_amount.setText(amount);
         holder.invoices_tax.setText(tax);

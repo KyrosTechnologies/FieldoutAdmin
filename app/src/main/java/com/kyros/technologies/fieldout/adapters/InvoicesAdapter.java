@@ -71,11 +71,22 @@ public class InvoicesAdapter extends RecyclerView.Adapter<InvoicesAdapter.MyView
         holder.invoices_linear.setOnClickListener(view -> {
             Intent i=new Intent(mContext, AddInvoicesListActivity.class);
             i.putExtra("invoiceid",invoiceid);
+            i.putExtra("status",status);
             mContext.startActivity(i);
         });
 
         holder.invoice_date.setText(date);
-        holder.invoices_status.setText(status);
+        if (status.equals("sent")){
+            holder.invoices_status.setText("Sent");
+        }else if (status.equals("draft")){
+            holder.invoices_status.setText("Draft");
+        }else if (status.equals("paid")){
+            holder.invoices_status.setText("Paid");
+        }else if (status.equals("late")){
+            holder.invoices_status.setText("Late");
+        }if (status.equals("canceled")){
+            holder.invoices_status.setText("Canceled");
+        }
         holder.invoices_customer_name.setText(cusname);
         holder.invoices_amount.setText(amount);
         holder.invoices_tax.setText(tax);

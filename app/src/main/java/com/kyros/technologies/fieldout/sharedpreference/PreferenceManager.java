@@ -89,6 +89,15 @@ public class PreferenceManager {
         editor.commit();
     }
 
+    public String getFCMToken(){
+        return sp.getString("FCMToken",null);
+    }
+    public void putFCMToken(String value){
+        SharedPreferences.Editor editor;
+        editor=sp.edit();
+        editor.putString("FCMToken", value);
+        editor.commit();
+    }
 
     public String getHash(){
         return sp.getString("Hash",null);

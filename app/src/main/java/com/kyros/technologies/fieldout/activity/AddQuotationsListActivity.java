@@ -15,6 +15,7 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
 import com.android.volley.Request;
@@ -50,6 +51,7 @@ public class AddQuotationsListActivity extends AppCompatActivity {
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
     private AlertDialog.Builder builder;
     private ProgressDialog pDialog;
+    private String status=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,8 +73,36 @@ public class AddQuotationsListActivity extends AppCompatActivity {
         try {
             Bundle bundle = getIntent().getExtras();
             quotationid=bundle.getString("quotationid");
+            status=bundle.getString("status");
         } catch (Exception e) {
             e.printStackTrace();
+        }
+
+        if (status.equals("draft")){
+            mark_as_sent.setEnabled(true);
+            mark_as_sent.setClickable(true);
+            mark_as_accept.setClickable(false);
+            mark_as_accept.setEnabled(false);
+            mark_as_delete.setEnabled(false);
+            mark_as_delete.setClickable(false);
+            Toast.makeText(getApplicationContext(),"Quotation need to be Sent",Toast.LENGTH_SHORT).show();
+        }else if (status.equals("sent")){
+            mark_as_accept.setClickable(true);
+            mark_as_accept.setEnabled(true);
+            mark_as_delete.setEnabled(true);
+            mark_as_delete.setClickable(true);
+        }else if (status.equals("accepted")){
+            mark_as_sent.setEnabled(false);
+            mark_as_sent.setClickable(false);
+            mark_as_delete.setEnabled(false);
+            mark_as_delete.setClickable(false);
+            Toast.makeText(getApplicationContext(),"Accepted Quotation can't be Resent or Cancel",Toast.LENGTH_SHORT).show();
+        }else if (status.equals("canceled")){
+            mark_as_sent.setEnabled(false);
+            mark_as_sent.setClickable(false);
+            mark_as_accept.setClickable(false);
+            mark_as_accept.setEnabled(false);
+            Toast.makeText(getApplicationContext(),"Canceled Quotation can't be Resent or Accept",Toast.LENGTH_SHORT).show();
         }
 
         add_quotations_list.setOnClickListener(view -> {
@@ -315,7 +345,7 @@ public class AddQuotationsListActivity extends AppCompatActivity {
 
     private void QuotationsDeleteApi() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"quotations/delete/"+quotationid;
+        String url = EndURL.URL+"quotations/cancelled/"+quotationid;
         Log.d("waggonurl", url);
         //showProgressDialog();
 

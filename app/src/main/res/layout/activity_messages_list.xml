@@ -130,7 +130,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="No Jobs Found"
+            android:text="No Messages Found"
             android:textColor="@color/button"
             android:textSize="@dimen/site_address_text_size" />
 
