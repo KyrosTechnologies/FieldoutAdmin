@@ -23,8 +23,14 @@ public class AddAttachments {
     private String fileName;
     @SerializedName("fileData")
     @Expose
-    private InputStream fileData;
+    private String fileData;
+    @SerializedName("fileType")
+    @Expose
+    private String fileType;
 
+@SerializedName("fileExtension")
+@Expose
+private String fileExtension;
 
     public AddAttachments() {
     }

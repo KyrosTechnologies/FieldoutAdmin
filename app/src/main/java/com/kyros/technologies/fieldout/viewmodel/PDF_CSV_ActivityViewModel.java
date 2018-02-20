@@ -2,6 +2,7 @@ package com.kyros.technologies.fieldout.viewmodel;
 
 import com.kyros.technologies.fieldout.interfaceclass.POJOInterface;
 import com.kyros.technologies.fieldout.models.InvoiceCustomerResponse;
+import com.kyros.technologies.fieldout.models.InvoiceResponse;
 import com.kyros.technologies.fieldout.models.PartsAndServicesResponse;
 
 import javax.inject.Inject;
@@ -15,18 +16,18 @@ import rx.subjects.BehaviorSubject;
 
 public class PDF_CSV_ActivityViewModel {
     private POJOInterface pojoInterface;
-    private BehaviorSubject<InvoiceCustomerResponse> invoiceCustomerResponseBehaviorSubject=BehaviorSubject.create(new InvoiceCustomerResponse());
+    private BehaviorSubject<InvoiceResponse> invoiceCustomerResponseBehaviorSubject=BehaviorSubject.create(new InvoiceResponse());
 
     @Inject
     public PDF_CSV_ActivityViewModel(POJOInterface pojoInterface) {
         this.pojoInterface = pojoInterface;
     }
-    public Observable<InvoiceCustomerResponse> invoiceCustomerResponseObservable(String authKey,String invoiceId,String idDomain){
+    public Observable<InvoiceResponse> invoiceCustomerResponseObservable(String authKey,String invoiceId,String idDomain){
         return pojoInterface
                 .getCustomerInvoice(authKey,invoiceId,idDomain)
                 .doOnNext(invoiceCustomerResponse ->  invoiceCustomerResponseBehaviorSubject.onNext(invoiceCustomerResponse));
     }
-    public Observable<InvoiceCustomerResponse>partsAndServicesResponseObservable(){
+    public Observable<InvoiceResponse>partsAndServicesResponseObservable(){
         return  invoiceCustomerResponseBehaviorSubject.asObservable();
     }
 }

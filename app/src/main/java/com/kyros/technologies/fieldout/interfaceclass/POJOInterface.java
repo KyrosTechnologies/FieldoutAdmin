@@ -28,6 +28,7 @@ import com.kyros.technologies.fieldout.models.DeleteToolsAndResourcesResponse;
 import com.kyros.technologies.fieldout.models.DomainResponse;
 import com.kyros.technologies.fieldout.models.GetToolsAndResourcesResponse;
 import com.kyros.technologies.fieldout.models.InvoiceCustomerResponse;
+import com.kyros.technologies.fieldout.models.InvoiceResponse;
 import com.kyros.technologies.fieldout.models.JobType;
 import com.kyros.technologies.fieldout.models.JobsTypeResponse;
 import com.kyros.technologies.fieldout.models.ManagersResponse;
@@ -196,7 +197,7 @@ public interface POJOInterface {
     @PUT("/users/changePassword/{userId}")
     Observable<ChangePasswordResponse>changePassword(@Header("Authorization")String authKey, @Path("userId")String userId, @Body User user,@Header("idDomain")String idDomain);
     @GET("/invoices/getById/{invoiceId}")
-    Observable<InvoiceCustomerResponse>getCustomerInvoice(@Header("Authorization")String authKey, @Path("invoiceId")String invoiceId,@Header("idDomain")String idDomain);
+    Observable<InvoiceResponse>getCustomerInvoice(@Header("Authorization")String authKey, @Path("invoiceId")String invoiceId, @Header("idDomain")String idDomain);
     @Multipart
     @POST("/attachments/add")
     Observable<ResponseBody>addAttachments(@Header("Authorization")String authKey, @PartMap()Map<String, RequestBody> partMap, @Part MultipartBody.Part file,@Header("idDomain")String idDomain);

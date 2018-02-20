@@ -160,13 +160,13 @@ public class MainActivity extends AppCompatActivity {
                             store.putCreatedat(String.valueOf(createdat));
                             String hash = first.getString("hash");
                             store.putHash(String.valueOf(hash));
-                            String idDomain=null;
-                            try {
-                                idDomain=first.getString("idDomain");
-                                store.putIdDomain(String.valueOf(idDomain));
-                            }catch (Exception e){
-                                e.printStackTrace();
-                            }
+//                            String idDomain=null;
+//                            try {
+//                                idDomain=first.getString("idDomain");
+//                                store.putIdDomain(String.valueOf(idDomain));
+//                            }catch (Exception e){
+//                                e.printStackTrace();
+//                            }
                             String password = first.getString("password");
                             store.putPassword(String.valueOf(password));
                             String token = first.getString("token");

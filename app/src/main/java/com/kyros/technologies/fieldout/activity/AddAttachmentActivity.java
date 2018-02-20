@@ -14,12 +14,14 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.MimeTypeMap;
 import android.widget.Toast;
 
+import com.google.gson.Gson;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.common.FilePath;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
@@ -37,6 +39,7 @@ import java.io.FileInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.HashMap;
+import java.util.StringTokenizer;
 
 import javax.inject.Inject;
 
@@ -168,8 +171,13 @@ public class AddAttachmentActivity extends AppCompatActivity {
     private void initiateAddAttachmentAPIByteStream(String fileName, byte[] fileByte) {
         showProgressDialog();
         AddAttachments addAttachments=new AddAttachments();
-        addAttachments.setFileData( new ByteArrayInputStream(fileByte));
+        addAttachments.setFileData( encodeBase64(fileByte));
         addAttachments.setFileName(fileName);
+        addAttachments.setFileType(fileName);
+        StringTokenizer stringTokenizer=new StringTokenizer(fileName,".");
+        String ext=stringTokenizer.nextToken();
+        addAttachments.setFileExtension(ext);
+        Log.d("InputAddAttach : ",""+new Gson().toJson(addAttachments));
         subscription.add(viewModel.addResponseBodyObservableByteStream(store.getToken(),addAttachments,store.getIdDomain())
         .subscribeOn(Schedulers.computation())
         .observeOn(AndroidSchedulers.mainThread())
@@ -328,4 +336,15 @@ public class AddAttachmentActivity extends AppCompatActivity {
     private RequestBody createPartFromString (String value){
         return RequestBody.create(MultipartBody.FORM,value);
     }
+
+    private String encodeBase64(byte[] bytes){
+        byte[] encodeValue = Base64.encode(bytes, Base64.DEFAULT);
+        return new String(encodeValue);
+    }
+    private String decodeBase64(byte[] bytes){
+        byte[] decodeValue = Base64.decode(bytes, Base64.DEFAULT);
+        return new String(decodeValue);
+
+    }
+
 }

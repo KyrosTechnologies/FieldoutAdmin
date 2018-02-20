@@ -4,12 +4,16 @@ package com.kyros.technologies.fieldout.models;
  * Created by kyros on 30-01-2018.
  */
 
+
 import java.util.List;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
 public class CustomerInfo {
 
+    @SerializedName("CustomFieldValues")
+    @Expose
+    private List<Object> customFieldValues = null;
     @SerializedName("address")
     @Expose
     private String address;
@@ -37,9 +41,6 @@ public class CustomerInfo {
     @SerializedName("id")
     @Expose
     private String id;
-    @SerializedName("idDomain")
-    @Expose
-    private String idDomain;
     @SerializedName("myId")
     @Expose
     private String myId;
@@ -51,7 +52,15 @@ public class CustomerInfo {
     private Positions positions;
     @SerializedName("tags")
     @Expose
-    private List<String> tags = null;
+    private List<Object> tags = null;
+
+    public List<Object> getCustomFieldValues() {
+        return customFieldValues;
+    }
+
+    public void setCustomFieldValues(List<Object> customFieldValues) {
+        this.customFieldValues = customFieldValues;
+    }
 
     public String getAddress() {
         return address;
@@ -125,14 +134,6 @@ public class CustomerInfo {
         this.id = id;
     }
 
-    public String getIdDomain() {
-        return idDomain;
-    }
-
-    public void setIdDomain(String idDomain) {
-        this.idDomain = idDomain;
-    }
-
     public String getMyId() {
         return myId;
     }
@@ -157,11 +158,11 @@ public class CustomerInfo {
         this.positions = positions;
     }
 
-    public List<String> getTags() {
+    public List<Object> getTags() {
         return tags;
     }
 
-    public void setTags(List<String> tags) {
+    public void setTags(List<Object> tags) {
         this.tags = tags;
     }
 

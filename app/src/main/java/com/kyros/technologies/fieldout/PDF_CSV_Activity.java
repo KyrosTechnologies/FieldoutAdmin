@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.databinding.DataBindingUtil;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Environment;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
@@ -18,6 +19,8 @@ import com.google.gson.Gson;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
 import com.kyros.technologies.fieldout.databinding.ActivityPdfCsvBinding;
 import com.kyros.technologies.fieldout.models.InvoiceCustomerResponse;
+import com.kyros.technologies.fieldout.models.InvoiceResponse;
+import com.kyros.technologies.fieldout.models.Item;
 import com.kyros.technologies.fieldout.models.PdfTotalList;
 import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
 import com.kyros.technologies.fieldout.viewmodel.PDF_CSV_ActivityViewModel;
@@ -45,6 +48,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.URL;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -65,7 +69,6 @@ public class PDF_CSV_Activity extends AppCompatActivity {
     PDF_CSV_ActivityViewModel viewModel;
     private ActivityPdfCsvBinding binding;
     private PreferenceManager store;
-    private String invoiceId="5a57650c94d2954827b1ce0c";
     private List<PdfTotalList>pdfTotalListList=new ArrayList<>();
     private List<String[]> data = new ArrayList<>();
     private static final int MY_PERMISSIONS_REQUEST_READ_WRITE_STORAGE = 1;
@@ -87,6 +90,8 @@ public class PDF_CSV_Activity extends AppCompatActivity {
     String description="Description";
     String jobComplete="Job Completed";
     String notes="This is a note from the field out admin rohin.  Thank you";
+    private String domainId="5a7c2a4f599b312e5f634637";
+    private String invoiceId="5a81237f599b3129ed02e4e8";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,7 +101,7 @@ public class PDF_CSV_Activity extends AppCompatActivity {
         ((ServiceHandler)getApplication()).getApplicationComponent().injectPDF_CSV_Activity(this);
         subscription=new CompositeSubscription();
 
-        subscription.add(viewModel.invoiceCustomerResponseObservable(store.getToken(),invoiceId,store.getIdDomain())
+        subscription.add(viewModel.invoiceCustomerResponseObservable(store.getToken(),invoiceId,domainId)
                 .subscribeOn(Schedulers.computation())
                 .observeOn(AndroidSchedulers.mainThread())
                 .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
@@ -147,25 +152,14 @@ public class PDF_CSV_Activity extends AppCompatActivity {
             }
 
         }else{
+            Async async=new Async();
+            async.execute();
 //            try {
 //                fileWriteCSV(store.getIdDomain()+"_csv_");
 //            } catch (Exception e) {
 //                e.printStackTrace();
 //            }
-            try {
-                printPDF();
-                //writePDF(pdfTotalListList,store.getIdDomain()+"_pdf_");
-            } catch (JRException e) {
-                e.printStackTrace();
-            } catch (FileNotFoundException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            } catch (ClassNotFoundException e) {
-                e.printStackTrace();
-            }
+
         }
     }
 
@@ -193,20 +187,8 @@ public class PDF_CSV_Activity extends AppCompatActivity {
 //                    } catch (Exception e) {
 //                        e.printStackTrace();
 //                    }
-                    try {
-                        printPDF();
-                       // writePDF(pdfTotalListList,store.getIdDomain()+"_pdf_");
-                    } catch (JRException e) {
-                        e.printStackTrace();
-                    } catch (FileNotFoundException e) {
-                        e.printStackTrace();
-                    } catch (IOException e) {
-                        e.printStackTrace();
-                    } catch (SQLException e) {
-                        e.printStackTrace();
-                    } catch (ClassNotFoundException e) {
-                        e.printStackTrace();
-                    }
+                    Async async=new Async();
+                    async.execute();
 
                 } else {
 
@@ -220,43 +202,30 @@ public class PDF_CSV_Activity extends AppCompatActivity {
 
         }
     }
-    private void response(InvoiceCustomerResponse invoiceCustomerResponse) {
+    private void response(InvoiceResponse invoiceCustomerResponse) {
+        Log.d("Response : ",""+new Gson().toJson(invoiceCustomerResponse));
         if(invoiceCustomerResponse != null){
-            List<String>itemList=invoiceCustomerResponse.getInvoice().getItem();
-            List<String>descriptionList=invoiceCustomerResponse.getInvoice().getDescription();
-            List<Integer>unitPriceList=invoiceCustomerResponse.getInvoice().getUnitPrice();
-            List<Integer>quantityList=invoiceCustomerResponse.getInvoice().getQuantity();
-            List<Integer>discountList=invoiceCustomerResponse.getInvoice().getDiscount();
-            List<Integer>totalList=invoiceCustomerResponse.getInvoice().getTotal();
-            List<Integer>taxList=invoiceCustomerResponse.getInvoice().getTax();
-            if(itemList.size() != 0 && itemList != null && descriptionList.size() != 0 && descriptionList != null && unitPriceList.size() != 0 &&
-                    unitPriceList != null && quantityList.size() != 0 && quantityList != null && discountList.size() !=0 && discountList != null &&
-                    totalList.size() != 0 && totalList != null && taxList.size() != 0 && taxList != null){
-                if((itemList.size() == descriptionList.size()) && (descriptionList.size() == unitPriceList.size()) && (unitPriceList.size() == quantityList.size()) && (quantityList.size() == discountList.size()) && (discountList.size() == totalList.size()) && (totalList.size() == taxList.size()) && (taxList.size() == itemList.size())){
-                        for(int i=0; i<itemList.size(); i++){
-                            PdfTotalList pdfTotalList=new PdfTotalList();
-                            pdfTotalList.setItem(itemList.get(i));
-                            pdfTotalList.setDescription(descriptionList.get(i));
-                            pdfTotalList.setUnitPrice(unitPriceList.get(i));
-                            pdfTotalList.setQuantity(quantityList.get(i));
-                            pdfTotalList.setDiscount(discountList.get(i));
-                            pdfTotalList.setTotal(totalList.get(i));
-                            pdfTotalList.setTax(taxList.get(i));
-                            data.add(new String[]{itemList.get(i),descriptionList.get(i),String.valueOf(unitPriceList.get(i)),String.valueOf(quantityList.get(i)),String.valueOf(discountList.get(i)),String.valueOf(totalList.get(i)),String.valueOf(taxList.get(i))});
-                            pdfTotalListList.add(pdfTotalList);
-                        }
-                        Log.d("Pdf Total List : ",TAG+" / / "+new Gson().toJson(pdfTotalListList));
+            List<com.kyros.technologies.fieldout.models.Item>itemList=invoiceCustomerResponse.getInvoice().getItems();
+            if(itemList != null && itemList.size() != 0){
+                for(int i=0; i<itemList.size(); i++){
+                    PdfTotalList pdfTotalList=new PdfTotalList();
+                    pdfTotalList.setItem(itemList.get(i).getItem());
+                    pdfTotalList.setDescription(itemList.get(i).getDescription());
+                    pdfTotalList.setUnitPrice(itemList.get(i).getUnitPrice());
+                    pdfTotalList.setQuantity(itemList.get(i).getQuantity());
+                    pdfTotalList.setDiscount(itemList.get(i).getDiscount());
+                    pdfTotalList.setTotal(itemList.get(i).getTotal());
+                    pdfTotalList.setTax(itemList.get(i).getTax());
+                    data.add(new String[]{itemList.get(i).getItem(),itemList.get(i).getDescription(),String.valueOf(itemList.get(i).getUnitPrice()),String.valueOf(itemList.get(i).getQuantity()),String.valueOf(itemList.get(i).getDiscount()),String.valueOf(itemList.get(i).getTotal()),String.valueOf(itemList.get(i).getTax())});
+                    pdfTotalListList.add(pdfTotalList);
+                }
+                Log.d("Pdf Total List : ",TAG+" / / "+new Gson().toJson(pdfTotalListList));
+            }
+
                 }else{
                     showToast("list or not same!");
                 }
-            }else{
-                showToast("some list is null or empty!");
-            }
 
-
-        }else {
-            showToast("response is null!");
-        }
     }
 
     @Override
@@ -328,7 +297,9 @@ public class PDF_CSV_Activity extends AppCompatActivity {
         exportPDF(print,textFile.toString());
     }
 
-    private void writePDF(List<PdfTotalList>pdfTotalListList,String title)throws JRException,FileNotFoundException,IOException{
+    private void writePDF(List<PdfTotalList>pdfTotalListList,String title) throws Exception {
+        Log.d("Write Pdf  : ","Started : ");
+
         File newFolder = new File(Environment.getExternalStorageDirectory(), "FieldOut");
         if (!newFolder.exists()) {
             newFolder.mkdir();
@@ -349,12 +320,27 @@ public class PDF_CSV_Activity extends AppCompatActivity {
             e.printStackTrace();
         }
         InputStream is = getAssets().open("invoice.jrxml");
-        JasperPrint jasperPrint = JasperFillManager.fillReport(is, parameters, new JREmptyDataSource());
+        String path="FieldoutAdmin\\app\\src\\main\\java\\com\\kyros\\technologies\\fieldout\\Tes\\invoice.jrxml";
+        //URL fileURL = getClass().getClassLoader().getResource("invoice.jrxml");
+//        String fileName = fileURL.getFile();
+      //  String filePath = fileURL.getPath();
+      ///  Log.d("Path : "," / filePath: "+filePath);
+        JasperReport jasperReport=JasperCompileManager.compileReport(getAssets().open("invoice.jrxml"));
+        JasperPrint jasperPrint = JasperFillManager.fillReport(jasperReport, parameters, new JREmptyDataSource());
 //        OutputStream outputStream = new FileOutputStream(textFile);
 //            /* Write content to PDF file */
 //        JasperExportManager.exportReportToPdfStream(jasperPrint, outputStream);
-        exportPDF(jasperPrint,textFile.toString());
+        Log.d("Write Pdf : ","Write Pdf Finished : ");
 
+        exportPDFV1(textFile.toString(),jasperPrint);
+
+    }
+    private void exportPDFV1(String path,JasperPrint jasperPrint) throws Exception{
+        Log.d("exportPDFV1 : ","exportPDFV1 Started : ");
+        OutputStream outputStream= new FileOutputStream(new File(path));
+        JasperExportManager.exportReportToPdfStream(jasperPrint,outputStream);
+        System.out.println("Document Exported Successfully!");
+        showToast("Pdf Generated successfully");
     }
     private void exportPDF(JasperPrint print,String path)throws JRException{
         JRPdfExporter exporter = new JRPdfExporter();
@@ -365,5 +351,94 @@ public class PDF_CSV_Activity extends AppCompatActivity {
         exporter.exportReport();
         System.out.println("Document Exported Successfully!");
         showToast("Pdf Generated successfully");
+    }
+    private class Async extends AsyncTask<String,String,String>{
+
+        @Override
+        protected String doInBackground(String... strings) {
+            Log.d("Async Background : ","Async Background : ");
+
+            try {
+                //printPDF();
+//                writePDF(pdfTotalListList,domainId+"_pdf_");
+                jQueryMethod();
+            } catch (JRException e) {
+                e.printStackTrace();
+            } catch (FileNotFoundException e) {
+                e.printStackTrace();
+            } catch (IOException e) {
+                e.printStackTrace();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+            return null;
+        }
+
+        @Override
+        protected void onPreExecute() {
+            super.onPreExecute();
+            Log.d("Async Running : ","Async Running : ");
+        }
+
+        @Override
+        protected void onPostExecute(String s) {
+            super.onPostExecute(s);
+            Log.d("Async Finished : ","Async Finished : ");
+
+        }
+        private  void jQueryMethod() throws Exception {
+            System.out.println("creating file");
+            File newFolder = new File(Environment.getExternalStorageDirectory(), "FieldOut");
+            if (!newFolder.exists()) {
+                newFolder.mkdir();
+            }
+            File outputFile=new File(newFolder,File.separator+"_query_"+".pdf");
+            List<Item> listItems = new ArrayList<>();
+            Item iPhone = new Item("iPhone 6s",65000.00);
+            Item iPad = new Item("iPad Pro",70000.00);
+            Item onePlus = new Item("one plus 3t",29999.00);
+            listItems.add(iPad);
+            listItems.add(iPhone);
+            listItems.add(onePlus);
+            JRBeanCollectionDataSource itemsJrBean= new JRBeanCollectionDataSource(listItems);
+            Map<String,Object> parameters= new HashMap<>();
+            parameters.put("ItemDataSource",itemsJrBean);
+            JasperReport jasperReport=JasperCompileManager.compileReport(getAssets().open("invoice.jrxml"));
+            JasperPrint jasperPrint= JasperFillManager.fillReport(jasperReport,parameters, new JREmptyDataSource());
+            OutputStream outputStream= new FileOutputStream(outputFile);
+            JasperExportManager.exportReportToPdfStream(jasperPrint,outputStream);
+            System.out.println("file is generated");
+
+
+        }
+
+    }
+    public static class Item {
+        private String name;
+        private Double price;
+        public Item(){
+
+        }
+
+        public Item(String name, Double price) {
+            this.name = name;
+            this.price = price;
+        }
+
+        public String getName() {
+            return name;
+        }
+
+        public void setName(String name) {
+            this.name = name;
+        }
+
+        public Double getPrice() {
+            return price;
+        }
+
+        public void setPrice(Double price) {
+            this.price = price;
+        }
     }
 }

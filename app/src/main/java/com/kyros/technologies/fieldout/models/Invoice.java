@@ -11,24 +11,12 @@ import com.google.gson.annotations.SerializedName;
 
 public class Invoice {
 
-    @SerializedName("amount")
-    @Expose
-    private List<Integer> amount = null;
     @SerializedName("customerInfo")
     @Expose
     private CustomerInfo customerInfo;
     @SerializedName("dateString")
     @Expose
     private String dateString;
-    @SerializedName("description")
-    @Expose
-    private List<String> description = null;
-    @SerializedName("discount")
-    @Expose
-    private List<Integer> discount = null;
-    @SerializedName("discount_c")
-    @Expose
-    private List<Integer> discountC = null;
     @SerializedName("grand_amount")
     @Expose
     private Integer grandAmount;
@@ -47,44 +35,21 @@ public class Invoice {
     @SerializedName("idCustomer")
     @Expose
     private String idCustomer;
-    @SerializedName("idDomain")
-    @Expose
-    private String idDomain;
     @SerializedName("idSite")
     @Expose
     private String idSite;
-    @SerializedName("item")
+    @SerializedName("items")
     @Expose
-    private List<String> item = null;
-    @SerializedName("quantity")
+    private List<Item> items = null;
+    @SerializedName("paymentDateString")
     @Expose
-    private List<Integer> quantity = null;
+    private String paymentDateString;
     @SerializedName("siteInfo")
     @Expose
     private SiteInfo siteInfo;
     @SerializedName("status")
     @Expose
     private String status;
-    @SerializedName("tax")
-    @Expose
-    private List<Integer> tax = null;
-    @SerializedName("tax_c")
-    @Expose
-    private List<Integer> taxC = null;
-    @SerializedName("total")
-    @Expose
-    private List<Integer> total = null;
-    @SerializedName("unit_price")
-    @Expose
-    private List<Integer> unitPrice = null;
-
-    public List<Integer> getAmount() {
-        return amount;
-    }
-
-    public void setAmount(List<Integer> amount) {
-        this.amount = amount;
-    }
 
     public CustomerInfo getCustomerInfo() {
         return customerInfo;
@@ -100,30 +65,6 @@ public class Invoice {
 
     public void setDateString(String dateString) {
         this.dateString = dateString;
-    }
-
-    public List<String> getDescription() {
-        return description;
-    }
-
-    public void setDescription(List<String> description) {
-        this.description = description;
-    }
-
-    public List<Integer> getDiscount() {
-        return discount;
-    }
-
-    public void setDiscount(List<Integer> discount) {
-        this.discount = discount;
-    }
-
-    public List<Integer> getDiscountC() {
-        return discountC;
-    }
-
-    public void setDiscountC(List<Integer> discountC) {
-        this.discountC = discountC;
     }
 
     public Integer getGrandAmount() {
@@ -174,14 +115,6 @@ public class Invoice {
         this.idCustomer = idCustomer;
     }
 
-    public String getIdDomain() {
-        return idDomain;
-    }
-
-    public void setIdDomain(String idDomain) {
-        this.idDomain = idDomain;
-    }
-
     public String getIdSite() {
         return idSite;
     }
@@ -190,20 +123,20 @@ public class Invoice {
         this.idSite = idSite;
     }
 
-    public List<String> getItem() {
-        return item;
+    public List<Item> getItems() {
+        return items;
     }
 
-    public void setItem(List<String> item) {
-        this.item = item;
+    public void setItems(List<Item> items) {
+        this.items = items;
     }
 
-    public List<Integer> getQuantity() {
-        return quantity;
+    public String getPaymentDateString() {
+        return paymentDateString;
     }
 
-    public void setQuantity(List<Integer> quantity) {
-        this.quantity = quantity;
+    public void setPaymentDateString(String paymentDateString) {
+        this.paymentDateString = paymentDateString;
     }
 
     public SiteInfo getSiteInfo() {
@@ -220,38 +153,6 @@ public class Invoice {
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public List<Integer> getTax() {
-        return tax;
-    }
-
-    public void setTax(List<Integer> tax) {
-        this.tax = tax;
-    }
-
-    public List<Integer> getTaxC() {
-        return taxC;
-    }
-
-    public void setTaxC(List<Integer> taxC) {
-        this.taxC = taxC;
-    }
-
-    public List<Integer> getTotal() {
-        return total;
-    }
-
-    public void setTotal(List<Integer> total) {
-        this.total = total;
-    }
-
-    public List<Integer> getUnitPrice() {
-        return unitPrice;
-    }
-
-    public void setUnitPrice(List<Integer> unitPrice) {
-        this.unitPrice = unitPrice;
     }
 
 }

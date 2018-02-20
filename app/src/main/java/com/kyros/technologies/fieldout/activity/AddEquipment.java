@@ -64,7 +64,7 @@ import rx.subscriptions.CompositeSubscription;
  * Created by Rohin on 23-12-2017.
  */
 
-public class AddEquipment extends AppCompatActivity implements CustomFieldsAdapter.OnItemClickListener {
+public class  AddEquipment extends AppCompatActivity implements CustomFieldsAdapter.OnItemClickListener {
 
     private PreferenceManager store;
     private EditText equipment_name_edit_text, job_number_equipment;
