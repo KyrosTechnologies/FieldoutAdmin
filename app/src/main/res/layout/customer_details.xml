@@ -105,6 +105,67 @@
                 android:textColor="@color/blue"
                 android:textSize="@dimen/privacy_policy_statement" />
 
+            <LinearLayout
+                android:id="@+id/add_attachments"
+                android:layout_width="wrap_content"
+                android:layout_height="60dp"
+                android:layout_gravity="center|start"
+                android:layout_marginTop="10dp"
+                android:background="@drawable/button_bg"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:paddingRight="8dp"
+                    android:paddingLeft="8dp"
+                    android:text="Add Attachments"
+                    android:textColor="@color/light_black"
+                    android:textSize="@dimen/title_text_size" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/add_attachments_linear"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:orientation="horizontal"
+                android:visibility="gone">
+
+                <TextView
+                    android:id="@+id/path_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="Path"
+                    android:textColor="@color/text_light"
+                    android:textSize="@dimen/privacy_policy_statement" />
+
+                <ImageView
+                    android:id="@+id/cancel_attachment"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_gravity="center"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginLeft="15dp"
+                    android:src="@drawable/cancel" />
+
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/save_jobs_details"
+                android:layout_width="150dp"
+                android:layout_height="60dp"
+                android:background="@color/blue"
+                android:text="@string/save"
+                android:textAllCaps="false"
+                android:layout_marginTop="20dp"
+                android:layout_marginBottom="20dp"
+                android:layout_gravity="center"
+                android:textColor="@color/white"
+                android:textSize="@dimen/title_text_size" />
+
         </LinearLayout>
 
     </ScrollView>

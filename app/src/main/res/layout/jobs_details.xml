@@ -396,52 +396,26 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="8dp"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:text="Attachments"
-                    android:textColor="@color/light_black"
-                    android:textSize="@dimen/title_text_size" />
-
                 <LinearLayout
                     android:id="@+id/add_attachments"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center|end"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="60dp"
+                    android:layout_gravity="center|start"
+                    android:layout_marginTop="10dp"
                     android:background="@drawable/button_bg"
                     android:orientation="horizontal">
-
-                    <ImageView
-                        android:layout_width="25dp"
-                        android:layout_height="25dp"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="8dp"
-                        android:layout_marginRight="8dp"
-                        android:src="@drawable/add" />
 
                     <TextView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:layout_marginBottom="5dp"
-                        android:layout_marginRight="8dp"
-                        android:layout_marginTop="5dp"
-                        android:text="Add"
+                        android:paddingRight="8dp"
+                        android:paddingLeft="8dp"
+                        android:text="Add Attachments"
                         android:textColor="@color/light_black"
                         android:textSize="@dimen/title_text_size" />
 
                 </LinearLayout>
-
-            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/add_attachments_linear"
@@ -455,7 +429,6 @@
                     android:id="@+id/path_text"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="1"
                     android:text="Path"
                     android:textColor="@color/text_light"
                     android:textSize="@dimen/privacy_policy_statement" />
@@ -466,6 +439,7 @@
                     android:layout_height="25dp"
                     android:layout_gravity="center"
                     android:layout_marginRight="8dp"
+                    android:layout_marginLeft="15dp"
                     android:src="@drawable/cancel" />
 
             </LinearLayout>

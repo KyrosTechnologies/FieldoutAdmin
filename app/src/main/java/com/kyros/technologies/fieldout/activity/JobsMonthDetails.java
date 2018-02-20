@@ -1,42 +1,63 @@
 package com.kyros.technologies.fieldout.activity;
 
+import android.Manifest;
 import android.annotation.TargetApi;
+import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.app.ProgressDialog;
 import android.app.TimePickerDialog;
+import android.content.ContentResolver;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.ColorDrawable;
+import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Base64;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.webkit.MimeTypeMap;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.android.volley.AuthFailureError;
+import com.android.volley.DefaultRetryPolicy;
 import com.android.volley.Request;
 import com.android.volley.Response;
 import com.android.volley.VolleyError;
 import com.android.volley.toolbox.JsonObjectRequest;
+import com.google.gson.Gson;
 import com.kyros.technologies.fieldout.R;
 import com.kyros.technologies.fieldout.common.CommonJobs;
 import com.kyros.technologies.fieldout.common.EndURL;
+import com.kyros.technologies.fieldout.common.FilePath;
 import com.kyros.technologies.fieldout.common.ServiceHandler;
+import com.kyros.technologies.fieldout.databinding.ActivityAddAttachmentBinding;
+import com.kyros.technologies.fieldout.models.AddAttachments;
 import com.kyros.technologies.fieldout.sharedpreference.PreferenceManager;
+import com.kyros.technologies.fieldout.viewmodel.AddAttachmentsViewModel;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 import org.json.JSONArray;
 import org.json.JSONObject;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -44,25 +65,34 @@ import java.util.Calendar;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.StringTokenizer;
+
+import javax.inject.Inject;
+
+import okhttp3.MediaType;
+import okhttp3.MultipartBody;
+import okhttp3.RequestBody;
+import okhttp3.ResponseBody;
+import rx.android.schedulers.AndroidSchedulers;
+import rx.schedulers.Schedulers;
+import rx.subscriptions.CompositeSubscription;
 
 /**
- * Created by Rohin on 27-12-2017.
+ * Created by Rohin on 20-02-2018.
  */
 
-public class JobsMonthDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener{
+public class JobsMonthDetails extends AppCompatActivity implements AdapterView.OnItemSelectedListener {
 
     private TextView status_jobs_details,priority_jobs_details,job_details_my_id,job_details_job_type,job_details_address,
             job_details_lat_lng,job_details_name,job_details_mobile,job_details_phone,job_details_email,job_details_desc,
-            schedule_start_date,schedule_start_time,schedule_end_date,schedule_end_time;
-    private Button validate_jobs_details,unschedule_jobs_details,reschedule_jobs_details;
+            schedule_start_date,schedule_start_time,schedule_end_date,schedule_end_time,path_text;
+    private Button validate_jobs_details,unschedule_jobs_details,reschedule_jobs_details,save_jobs_details;
+    private ImageView cancel_attachment;
     ArrayList<CommonJobs> commonJobsArrayList = new ArrayList<CommonJobs>();
-    ArrayList<CommonJobs> technicianArrayList = new ArrayList<CommonJobs>();
-    private String domainid=null;
     private Spinner technician_spinner;
     private String userid=null;
     private String priority=null;
-    private PreferenceManager store;
-    private LinearLayout add_attachments;
+    private LinearLayout add_attachments,add_attachments_linear;
     private String jobtype=null;
     private String address=null;
     private String myid=null;
@@ -95,6 +125,16 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
     private String time_start;
     private String time_end;
     private ProgressDialog pDialog;
+    private PreferenceManager store;
+    private CompositeSubscription subscription;
+    private String TAG=AddAttachmentActivity.class.getSimpleName();
+    private int FILE_PICKER=3;
+    private RxPermissions rxPermissions;
+    private final int READ_EXTERNAL_STORAGE=4;
+    @Inject
+    AddAttachmentsViewModel viewModel;
+    private byte[] fileByte;
+    private String fileName=null;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -126,15 +166,25 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
         schedule_end_time=findViewById(R.id.schedule_end_time);
         technician_spinner=findViewById(R.id.technician_spinner);
         reschedule_jobs_details=findViewById(R.id.reschedule_jobs_details);
+        save_jobs_details=findViewById(R.id.save_jobs_details);
+        path_text=findViewById(R.id.path_text);
+        cancel_attachment=findViewById(R.id.cancel_attachment);
+        add_attachments_linear=findViewById(R.id.add_attachments_linear);
         userjobid=store.getUserid();
-        domainid = store.getIdDomain();
         technician_spinner.setOnItemSelectedListener(this);
         GetTechnicianList();
+        ((ServiceHandler)getApplication()).getApplicationComponent().injectJobsmonthDetails(this);
+        subscription=new CompositeSubscription();
+        rxPermissions = new RxPermissions(this);
+        add_attachments.setOnClickListener(view -> checkReadPermission()
+        );
+
 
         try {
 
             Bundle bundle = getIntent().getExtras();
             jobid=bundle.getString("jobid");
+            userjobid=bundle.getString("userjobid");
             cusname=bundle.getString("cusname");
             sitename=bundle.getString("sitename");
             equipname=bundle.getString("equipname");
@@ -218,6 +268,11 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
 
         });
 
+        cancel_attachment.setOnClickListener(view -> {
+            add_attachments_linear.setVisibility(View.GONE);
+        });
+
+
         reschedule_jobs_details.setOnClickListener(view -> {
             date_start=schedule_start_date.getText() .toString();
             if (date_start==null && date_start.isEmpty()){
@@ -264,8 +319,8 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
 
         });
 
-        add_attachments.setOnClickListener(view -> {
-
+        save_jobs_details.setOnClickListener(view -> {
+            initiateAddAttachmentAPIByteStream(fileName,fileByte);
         });
 
         schedule_start_date.setOnClickListener(view -> {
@@ -398,7 +453,7 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
 
     private void GetTechnicianList() {
         String tag_json_obj = "json_obj_req";
-        String url = EndURL.URL+"users/getTechnicians/"+domainid;
+        String url = EndURL.URL+"users/getTechnicians";
         Log.d("waggonurl", url);
 
         JsonObjectRequest objectRequest = new JsonObjectRequest(Request.Method.GET, url, (String)null, new Response.Listener<JSONObject>() {
@@ -414,14 +469,15 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
                         JSONObject first=array.getJSONObject(i);
                         String technicianid=first.getString("id");
                         store.putTechnicianId(String.valueOf(technicianid));
-                        String techusername=first.getString("username");
+                        String techfirstName=first.getString("firstName");
+                        String techlastName=first.getString("lastName");
 
                         CommonJobs commonJobs=new CommonJobs();
                         commonJobs.setTechnicianid(technicianid);
-                        commonJobs.setTechnicianname(techusername);
+                        commonJobs.setFirstname(techfirstName);
+                        commonJobs.setLastname(techlastName);
                         commonJobsArrayList.add(commonJobs);
-                        spinnerlist.add(techusername);
-                        technicianArrayList.add(commonJobs);
+                        spinnerlist.add(techfirstName+" "+techlastName);
 
                     }
 
@@ -475,6 +531,10 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
 
 
         };
+        objectRequest.setRetryPolicy(new DefaultRetryPolicy(
+                20*10000,
+                0,
+                DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
         ServiceHandler.getInstance().addToRequestQueue(objectRequest, tag_json_obj);
 
     }
@@ -513,11 +573,12 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
         String stime=startdate+starttime;
         String etime=enddate+endtime;
         String technicianid=null;
-        for (int i=0;i<technicianArrayList.size();i++){
-            String techName=technicianArrayList.get(i).getTechnicianname();
+        for (int i=0;i<commonJobsArrayList.size();i++){
+            String techName=commonJobsArrayList.get(i).getFirstname();
+            String techlastname=commonJobsArrayList.get(i).getLastname();
             if (techniciantext!=null){
-                if (techniciantext.equals(techName)) {
-                    technicianid=technicianArrayList.get(i).getTechnicianid();
+                if (techniciantext.equals(techName+" "+techlastname)) {
+                    technicianid=commonJobsArrayList.get(i).getTechnicianid();
                 }
             }
         }
@@ -761,6 +822,219 @@ public class JobsMonthDetails extends AppCompatActivity implements AdapterView.O
 
     @Override
     public void onNothingSelected(AdapterView<?> adapterView) {
+
+    }
+
+    private void checkReadPermission() {
+        if (ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED) {
+
+            if (ActivityCompat.shouldShowRequestPermissionRationale(this,
+                    Manifest.permission.READ_EXTERNAL_STORAGE)) {
+                showToast("Please allow permission for attachments!");
+
+            } else {
+
+                ActivityCompat.requestPermissions(this,
+                        new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        READ_EXTERNAL_STORAGE);
+
+            }
+        }else{
+            getAttachment();
+        }
+
+
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode,String permissions[], int[] grantResults) {
+        switch (requestCode) {
+            case READ_EXTERNAL_STORAGE: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    getAttachment();
+
+                } else {
+
+                    showToast("Please enable permission for attachment");
+                }
+            }
+
+        }
+    }
+    private void getAttachment() {
+        Intent intent = new Intent();
+        intent.setType("*/*");
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        startActivityForResult(Intent.createChooser(intent,"Choose File to Upload"),FILE_PICKER);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == FILE_PICKER) {
+                if (data != null) {
+                    Uri selectedFileUri = data.getData();
+                    String selectedFilePath = FilePath.getPath(this, selectedFileUri);
+                    Log.i(TAG, "Selected File Path:" + selectedFilePath);
+
+                    if (selectedFilePath != null && !selectedFilePath.equals("")) {
+                        Log.d("File Path : ", TAG + " / / " + selectedFilePath);
+                        File file = new File(selectedFilePath);
+                        fileByte = getBytes(file);
+                        fileName = file.getName();
+                        if (fileName != null) {
+                            add_attachments_linear.setVisibility(View.VISIBLE);
+                            path_text.setText(fileName);
+
+                            try {
+                                Log.d("fileByte : ", TAG + " / / " + fileByte.toString());
+                                Log.d("fileName : ", TAG + " / / " + fileName);
+                                Log.d("fileSize : ", TAG + " / / " + file.length());
+                            } catch (Exception e) {
+                                e.printStackTrace();
+                            }
+                        } else {
+                            showToast("File path is empty!");
+                        }
+                    }
+                }
+            }
+        }
+
+    }
+
+    private void initiateAddAttachmentAPIByteStream(String fileName, byte[] fileByte) {
+        showProgressDialog();
+        AddAttachments addAttachments=new AddAttachments();
+        addAttachments.setFileData( encodeBase64(fileByte));
+        addAttachments.setFileName(fileName);
+        addAttachments.setFileType(fileName);
+        StringTokenizer stringTokenizer=new StringTokenizer(fileName,".");
+        String ext=stringTokenizer.nextToken();
+        addAttachments.setFileExtension(ext);
+        Log.d("InputAddAttach : ",""+new Gson().toJson(addAttachments));
+        subscription.add(viewModel.addResponseBodyObservableByteStream(store.getToken(),addAttachments,store.getIdDomain())
+                .subscribeOn(Schedulers.computation())
+                .observeOn(AndroidSchedulers.mainThread())
+                .doOnError(throwable -> Log.e("Error : ",TAG+" / / "+throwable.getMessage()))
+                .subscribe(this::addByteResponse,this::addByteError,this::addByteCompleted));
+    }
+
+    private void addByteCompleted() {
+        dismissProgressDialog();
+    }
+
+    private void addByteError(Throwable throwable) {
+        dismissProgressDialog();
+        Log.d("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+    }
+
+    private void addByteResponse(ResponseBody responseBody) {
+        dismissProgressDialog();
+        if(responseBody != null){
+            try {
+                Log.d("Response Byte : ",TAG+" / / "+responseBody.string());
+                JobsMonthDetails.this.finish();
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else{
+            showToast("response is null !");
+        }
+    }
+
+    private void addCompleted() {
+        dismissProgressDialog();
+    }
+
+    private void addError(Throwable throwable) {
+        Log.e("Error : ",TAG+" / / "+throwable.getMessage());
+        showToast(""+throwable.getMessage());
+        dismissProgressDialog();
+    }
+
+    private void addResponse(ResponseBody responseBody) {
+        dismissProgressDialog();
+        if(responseBody != null){
+            try {
+                String response=responseBody.string();
+                Log.d("Response : ",TAG+" / / "+response);
+            } catch (IOException e) {
+                e.printStackTrace();
+            }
+        }else {
+            showToast("add response is null!");
+        }
+    }
+
+    private byte[] getBytes (File file){
+        FileInputStream input = null;
+        if (file.exists())
+            try{
+                input = new FileInputStream (file);
+                int len = (int) file.length();
+                byte[] data = new byte[len];
+                int count, total = 0;
+                while ((count = input.read (data, total, len - total)) > 0) total += count;
+                return data;
+            }catch (Exception e){
+                e.printStackTrace();
+            }
+            finally{
+                if (input != null)
+                    try{
+                        input.close();
+                    }catch (Exception e){
+                        e.printStackTrace();
+                    }
+            }
+        return null;
+    }
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        subscription.clear();
+        dismissProgressDialog();
+    }
+
+    private void showToast(String message){
+        Toast.makeText(getApplicationContext(),message,Toast.LENGTH_SHORT).show();
+    }
+    @NonNull
+    private MultipartBody.Part attachmentFilePart(String partName, Uri fileUri, String fileName, File file){
+        String mimeType = null;
+        if (fileUri.getScheme().equals(ContentResolver.SCHEME_CONTENT)) {
+            ContentResolver cr = getContentResolver();
+            mimeType = cr.getType(fileUri);
+        } else {
+            String fileExtension = MimeTypeMap.getFileExtensionFromUrl(fileUri.toString());
+            mimeType = MimeTypeMap.getSingleton().getMimeTypeFromExtension(
+                    fileExtension.toLowerCase());
+        }
+        RequestBody requestFile=RequestBody.create(MediaType.parse(mimeType),file);
+        return MultipartBody.Part.createFormData(partName,fileName,requestFile);
+    }
+    @NonNull
+    private RequestBody createPartFromString (String value){
+        return RequestBody.create(MultipartBody.FORM,value);
+    }
+
+    private String encodeBase64(byte[] bytes){
+        byte[] encodeValue = Base64.encode(bytes, Base64.DEFAULT);
+        return new String(encodeValue);
+    }
+    private String decodeBase64(byte[] bytes){
+        byte[] decodeValue = Base64.decode(bytes, Base64.DEFAULT);
+        return new String(decodeValue);
 
     }
 }
